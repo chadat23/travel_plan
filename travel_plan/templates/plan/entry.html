@@ -1,0 +1,141 @@
+{% extends "shared/_layout.html" %}
+{% block main_content %}
+
+    <div class="hero">
+        <h1>Enter Your Wilderness Travel Plan</h1>
+
+        Note: This tool is designed to work with a variety of sized screens, which were certainly have, at a variety
+        of resolutions, which again, we have. If things are too squished, making the web browser narrower may actually
+        fix the problem.
+    </div>
+
+    <div class="container">
+        <form action="/plans/entry" method="POST">
+            <div class="row entry-section">
+                <div class="row col-lg-5">
+                    <div class="col-xl-2">Entry:</div>
+                    <input type="date" name="entrydate" title="Entry Date" class="col-xl-3 date-input" value="{{ entry_date }}" required/>
+                    <input type="text" name="entrylocation" placeholder="Entry Location" class="col-xl-7" value="{{ entry_location }}" list="destinations" required/>
+                    <datalist id="destinations">
+                        {% for loc in locations %}
+                            <option>{{ loc }}</option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="row col-lg-5">
+                    <div class="col-xl-2">Exit:</div>
+                    <input type="date" name="exitdate" title="Exit Date" class="col-xl-3 date-input" value="{{ exit_date }}" required/>
+                    <input type="text" name="exitlocation" placeholder="Exit Location" class="col-xl-7" value="{{ exit_location }}" list="destinations" required/>
+{#                    <datalist id="destinations">#}
+{#                        {% for loc in locations %}#}
+{#                            <option>{{ loc }}</option>#}
+{#                        {% endfor %}#}
+{#                    </datalist>#}
+                </div>
+                <div class="row col-lg-2" >
+                    <div class="col-xl-7" title="Will you be tracked by dispatch?">
+                        <label class="radio-inline">
+                            <input type="radio" name="tracked" id="tracked1" value="yes" {{ tracked }} required>
+                            Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="tracked" id="tracked2" value="no" {{ nottracked }} required>
+                            No
+                        </label>
+                    </div>
+                    <input type="text" name="plb" placeholder="PLB #" class="col-xl-5" value="{{ plb }}" required/>
+                </div>
+            </div>
+            <div class="entry-section">
+{#            <div class="entry-section patrollers-section">#}
+                <div class="row">
+                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ name0 }}" list="users" required/>
+                    <datalist id="users">
+                        {% for u in users %}
+                            <option>{{ u }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign0 }}" required/>
+                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color0 }}" required/>
+                </div>
+                <div class="row">
+                    <input type="text" name="name1" placeholder="Name" class="col-xl-4" value="{{ name1 }}" list="users" required/>
+{#                    <datalist id="users">#}
+{#                        {% for u in users %}#}
+{#                            <option>{{ u }}</option>#}
+{#                        {% endfor %}#}
+{#                    </datalist>#}
+                    <input type="text" name="callsign1" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign1 }}" required/>
+                    <input type="text" name="packcolor1" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color1 }}" required/>
+                </div>
+                <div class="row">
+                    <input type="text" name="name2" placeholder="Name" class="col-xl-4" value="{{ name0 }}" list="users" required/>
+{#                    <datalist id="users">#}
+{#                        {% for u in users %}#}
+{#                            <option>{{ u }}</option>#}
+{#                        {% endfor %}#}
+{#                    </datalist>#}
+                    <input type="text" name="callsig2" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign2 }}" required/>
+                    <input type="text" name="packcolor2" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color2 }}" required/>
+                </div>
+                <div class="row">
+                    <input type="text" name="name3" placeholder="Name" class="col-xl-4" value="{{ name1 }}" list="users" required/>
+{#                    <datalist id="users">#}
+{#                        {% for u in users %}#}
+{#                            <option>{{ u }}</option>#}
+{#                        {% endfor %}#}
+{#                    </datalist>#}
+                    <input type="text" name="callsign3" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign3 }}" required/>
+                    <input type="text" name="packcolor3" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color3 }}" required/>
+                </div>
+            </div>
+            <div class="entry-section">
+                <datalist id="mode">
+                    <option>Foot</option>
+                    <option>Stock</option>
+                    <option>Boat</option>
+                </datalist>
+                {% for names, vals in zip(patrol_names, patrol_values) %}
+                    <div class="row">
+                        <input type="date" name="{{ names[0] }}" title="Date:" class="col-xl-1 date-input" value="{{ vals[0] }}"/>
+                        <input type="text" name="{{ names[1] }}" placeholder="Starting Point:" class="col-xl-3" value="{{ names[1] }}" list="destinations"/>
+                        <input type="text" name="{{ names[2] }}" placeholder="Ending Point:" class="col-xl-3" value="{{ names[2] }}" list="destinations"/>
+                        <input type="text" name="{{ names[3] }}" placeholder="Route:" class="col-xl-4" value="{{ names[3] }}"/>
+                        <input type="text" name="{{ names[4] }}" placeholder="Mode:" class="col-xl-1" value="{{ names[4] }}" list="mode"/>
+                    </div>
+                {% endfor %}
+{#                <div class="row">#}
+{#                    <input type="date" name="date0" title="Date:" class="col-xl-1 date-input" value="{{ date0 }}"/>#}
+{#                    <input type="text" name="start0" placeholder="Starting Point:" class="col-xl-3" value="{{ start0 }}" list="destinations"/>#}
+{#                    <input type="text" name="end0" placeholder="Ending Point:" class="col-xl-3" value="{{ end0 }}" list="destinations"/>#}
+{#                    <input type="text" name="route0" placeholder="Route:" class="col-xl-4" value="{{ route0 }}"/>#}
+{#                    <input type="text" name="mode0" placeholder="Mode:" class="col-xl-1" value="{{ mode0 }}" list="mode"/>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <input type="date" name="date1" title="Date:" class="col-xl-1 date-input" value="{{ date1 }}"/>#}
+{#                    <input type="text" name="start1" placeholder="Starting Point:" class="col-xl-3" value="{{ start1 }}" list="destinations"/>#}
+{#                    <input type="text" name="end1" placeholder="Ending Point:" class="col-xl-3" value="{{ end1 }}" list="destinations"/>#}
+{#                    <input type="text" name="route1" placeholder="Route:" class="col-xl-4" value="{{ route1 }}"/>#}
+{#                    <input type="text" name="mode1" placeholder="Mode:" class="col-xl-1" value="{{ mode1 }}" list="mode"/>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <input type="date" name="date2" title="Date:" class="col-xl-1 date-input" value="{{ date1 }}"/>#}
+{#                    <input type="text" name="start2" placeholder="Starting Point:" class="col-xl-3" value="{{ start1 }}" list="destinations"/>#}
+{#                    <input type="text" name="end2" placeholder="Ending Point:" class="col-xl-3" value="{{ end1 }}" list="destinations"/>#}
+{#                    <input type="text" name="route2" placeholder="Route:" class="col-xl-4" value="{{ route1 }}"/>#}
+{#                    <input type="text" name="mode2" placeholder="Mode:" class="col-xl-1" value="{{ mode1 }}" list="mode"/>#}
+{#                </div>#}
+            </div>
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/plan_entry.css">
+{% endblock %}
+
+{% block additional_js %}
+    <script src="/static/js/plan_entry.js"></script>
+{% endblock %}
