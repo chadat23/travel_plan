@@ -9,6 +9,8 @@ verify_ssl = true
 flask = "*"
 sqlalchemy = "*"
 mongoengine = "*"
+pyfpdf = "*"
+fpdf = "*"
 
 [requires]
 python_version = "3.7"

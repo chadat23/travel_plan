@@ -1,3 +1,8 @@
+body {
+    font-size: 14px;
+    /*padding: 1px 2px;*/
+}
+
 .row {
     margin: 3px 0px;
 }
@@ -18,4 +23,81 @@
 
 .patrollers-section input {
     margin: 2px 0px;
+}
+
+input[type=”text”] {
+    padding: 1px 1px;
+}
+
+.col-xl-1 {
+    padding: 1px 1px;
+}
+.col-xl-2 {
+    padding: 1px 1px;
+}
+.col-xl-3 {
+    padding: 1px 1px;
+}
+.col-xl-4 {
+    padding: 1px 1px;
+}
+.col-xl-5 {
+    padding: 1px 1px;
+}
+.col-xl-6 {
+    padding: 1px 1px;
+}
+.col-xl-7 {
+    padding: 1px 1px;
+}
+.col-xl-8 {
+    padding: 1px 1px;
+}
+.col-xl-9 {
+    padding: 1px 1px;
+}
+.col-xl-10 {
+    padding: 1px 1px;
+}
+.col-xl-11 {
+    padding: 1px 1px;
+}
+.col-xl-12 {
+    padding: 1px 1px;
+}
+.col-lg-1 {
+    padding: 1px 1px;
+}
+.col-lg-2 {
+    padding: 1px 1px;
+}
+.col-lg-3 {
+    padding: 1px 1px;
+}
+.col-lg-4 {
+    padding: 1px 1px;
+}
+.col-lg-5 {
+    padding: 1px 1px;
+}
+.col-lg-6 {
+    padding: 1px 1px;
+}
+.col-lg-7 {
+    padding: 1px 1px;
+}
+.col-lg-8 {
+    padding: 1px 1px;
+}
+.col-lg-9 {
+    padding: 1px 1px;
+}
+.col-lg-10 {
+    padding: 1px 1px;
+}
+.col-lg-11 {
+    padding: 1px 1px;
+}
+.col-lg-12 {
+    padding: 1px 1px;
 }
