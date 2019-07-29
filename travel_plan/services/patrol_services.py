@@ -1,7 +1,10 @@
 from datetime import datetime
 from typing import Optional
 
-from travel_plan.nosql_models.patrol import Patrol
+from sqlalchemy.orm import Session
+
+from travel_plan.sql_models import db_session
+from travel_plan.sql_models.patrol import Patrol
 
 
 def get_plans():
@@ -64,6 +67,11 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.contact0 = contact0
     patrol.contact1 = contact1
 
-    # patrol.save()
+    session: Session = db_session.create_session_patrol()
+    try:
+        session.add(patrol)
+        session.commit()
+    finally:
+        session.close()
 
     return patrol

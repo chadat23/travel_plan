@@ -5,7 +5,7 @@ from travel_plan.sql_models.locations import Location
 
 
 def all_locations():
-    session: Session = db_session.create_session()
+    session: Session = db_session.create_session_existing()
     try:
         return sorted(list(session.query(Location)))
     finally:

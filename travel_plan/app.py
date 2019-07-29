@@ -3,7 +3,7 @@ import os
 import flask
 
 from travel_plan.sql_models import db_session
-from travel_plan.nosql_models import mongo_setup
+# from travel_plan.nosql_models import mongo_setup
 
 app = flask.Flask(__name__)
 
@@ -25,15 +25,21 @@ def configure():
 
 
 def setup_db():
-    mongo_setup.global_init()
+    # mongo_setup.global_init()
 
-    db_file = os.path.join(
+    db_existing = os.path.join(
         os.path.dirname(__file__),
         'db',
         'existing.sqlite'
     )
+    db_patrol = os.path.join(
+        os.path.dirname(__file__),
+        'db',
+        'patrol.sqlite'
+    )
 
-    db_session.global_init(db_file)
+    db_session.global_init_existing(db_existing)
+    db_session.global_init_patrol(db_patrol)
 
 
 def register_blueprints():

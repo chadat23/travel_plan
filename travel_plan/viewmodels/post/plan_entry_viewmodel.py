@@ -4,7 +4,7 @@ from typing import List
 import flask
 
 from travel_plan.nosql_models.patroller import Patroller
-from travel_plan.services import location_services, patroller_services
+from travel_plan.services import location_services, user_services
 from travel_plan.sql_models.user import User
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 
@@ -28,7 +28,7 @@ class PlanEntryViewModel(ViewModelBase):
 
         self.plb: str = self.request_dict.plb
 
-        self.users: List[User] = patroller_services.all_patrollers()
+        self.users: List[User] = user_services.all_patrollers()
 
         self.name0 = self.request_dict.name0
         self.call_sign0 = self.request_dict.callsign0

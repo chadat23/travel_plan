@@ -7,7 +7,7 @@ from travel_plan.sql_models.user import User
 
 
 def all_patrollers() -> List[User]:
-    session: Session = db_session.create_session()
+    session: Session = db_session.create_session_existing()
     try:
         users = list(session.query(User))
     except:
