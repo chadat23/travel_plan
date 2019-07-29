@@ -2,10 +2,10 @@ import datetime
 
 import sqlalchemy as sa
 
-from travel_plan.sql_models.modelbase import SqlAlchemyBase
+from travel_plan.sql_models.modelbase_patrol import SqlAlchemyBasePatrol
 
 
-class Patrol(SqlAlchemyBase):
+class Patrol(SqlAlchemyBasePatrol):
     __tablename__ = 'patrols'
 
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)

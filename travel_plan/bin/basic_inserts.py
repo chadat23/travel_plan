@@ -1,6 +1,6 @@
 import os
 import travel_plan
-import travel_plan.sql_models.db_session as db_session
+from travel_plan.sql_models import db_session
 from travel_plan.sql_models.locations import Location
 from travel_plan.sql_models.user import User
 
@@ -19,35 +19,35 @@ def main():
 
 
 def insert_users():
-    session = db_session.create_session()
+    session = db_session.create_session_existing()
 
     u = User()
     u.name = 'Jane Dow'
-    u.email = 'jane_dow@nps.gov'
+    u.email = 'chad.derosier+a@gmail.com'
 
     session.add(u)
 
     u = User()
     u.name = 'John Dow'
-    u.email = 'john_dow@nps.gov'
+    u.email = 'chad.derosier+s@gmail.com'
 
     session.add(u)
 
     u = User()
     u.name = 'Darth Vader'
-    u.email = 'darth_vader@nps.gov'
+    u.email = 'chad.derosier+d@gmail.com'
 
     session.add(u)
 
     u = User()
     u.name = 'Roger Rabbit'
-    u.email = 'roger_rabbit@nps.gov'
+    u.email = 'chad.derosier+f@gmail.com'
 
     session.add(u)
 
     u = User()
     u.name = 'Rocky Balboa'
-    u.email = 'rocky_balboa@nps.gov'
+    u.email = 'chad.derosier+g@gmail.com'
 
     session.add(u)
     session.commit()
@@ -55,7 +55,7 @@ def insert_users():
 
 def insert_locations():
     # https://www.latlong.net/
-    session = db_session.create_session()
+    session = db_session.create_session_existing()
 
     loc = Location()
     loc.name = "Ten Lakes TH"

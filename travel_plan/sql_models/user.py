@@ -2,10 +2,10 @@ import datetime
 
 import sqlalchemy as sa
 
-from travel_plan.sql_models.modelbase import SqlAlchemyBase
+from travel_plan.sql_models.modelbase_existing import SqlAlchemyBaseExisting
 
 
-class User(SqlAlchemyBase):
+class User(SqlAlchemyBaseExisting):
     __tablename__ = 'user'
 
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)

@@ -1,9 +1,9 @@
 import datetime
 import sqlalchemy as sa
-from travel_plan.sql_models.modelbase import SqlAlchemyBase
+from travel_plan.sql_models.modelbase_existing import SqlAlchemyBaseExisting
 
 
-class Location(SqlAlchemyBase):
+class Location(SqlAlchemyBaseExisting):
     __tablename__ = 'locations'
 
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.now)

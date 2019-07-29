@@ -3,6 +3,7 @@ import os
 import flask
 
 from travel_plan.sql_models import db_session
+
 # from travel_plan.nosql_models import mongo_setup
 
 app = flask.Flask(__name__)
@@ -38,8 +39,7 @@ def setup_db():
         'patrol.sqlite'
     )
 
-    db_session.global_init_existing(db_existing)
-    db_session.global_init_patrol(db_patrol)
+    db_session.global_init(db_existing, db_patrol)
 
 
 def register_blueprints():
