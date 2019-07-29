@@ -64,6 +64,6 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.contact0 = contact0
     patrol.contact1 = contact1
 
-    patrol.save()
+    # patrol.save()
 
     return patrol

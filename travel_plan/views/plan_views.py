@@ -1,6 +1,6 @@
 import flask
 
-from travel_plan.email import emailer
+from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.services import plan_services
 from travel_plan.viewmodels.post.plan_entry_viewmodel import PlanEntryViewModel

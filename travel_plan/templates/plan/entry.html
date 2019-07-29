@@ -47,14 +47,13 @@
                 </div>
             </div>
             <div class="entry-section">
-{#            <div class="entry-section patrollers-section">#}
                 <div class="row">
-                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ name0 }}" list="users" required/>
                     <datalist id="users">
                         {% for u in users %}
                             <option>{{ u.name }}</option>
                         {% endfor %}
                     </datalist>
+                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ name0 }}" list="users" required/>
                     <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign0 }}" required/>
                     <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color0 }}" required/>
                 </div>
@@ -64,12 +63,12 @@
                     <input type="text" name="packcolor1" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color1 }}"/>
                 </div>
                 <div class="row">
-                    <input type="text" name="name2" placeholder="Name" class="col-xl-4" value="{{ name0 }}" list="users"/>
+                    <input type="text" name="name2" placeholder="Name" class="col-xl-4" value="{{ name2 }}" list="users"/>
                     <input type="text" name="callsig2" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign2 }}"/>
                     <input type="text" name="packcolor2" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color2 }}"/>
                 </div>
                 <div class="row">
-                    <input type="text" name="name3" placeholder="Name" class="col-xl-4" value="{{ name1 }}" list="users"/>
+                    <input type="text" name="name3" placeholder="Name" class="col-xl-4" value="{{ name3 }}" list="users"/>
                     <input type="text" name="callsign3" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign3 }}"/>
                     <input type="text" name="packcolor3" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color3 }}"/>
                 </div>

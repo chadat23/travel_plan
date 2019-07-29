@@ -42,9 +42,9 @@ class PlanEntryViewModel(ViewModelBase):
         self.call_sign2 = self.request_dict.callsign2
         self.pack_color2 = self.request_dict.packcolor2
 
-        self.name3 = self.request_dict.name2
-        self.call_sign3 = self.request_dict.callsign2
-        self.pack_color3 = self.request_dict.packcolor2
+        self.name3 = self.request_dict.name3
+        self.call_sign3 = self.request_dict.callsign3
+        self.pack_color3 = self.request_dict.packcolor3
 
         self.date0 = self.request_dict.date0
         self.start0 = self.request_dict.start0
