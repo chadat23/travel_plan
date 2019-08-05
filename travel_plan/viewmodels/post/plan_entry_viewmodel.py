@@ -1,9 +1,5 @@
-import datetime
 from typing import List
 
-import flask
-
-from travel_plan.nosql_models.patroller import Patroller
 from travel_plan.services import location_services, user_services
 from travel_plan.sql_models.user import User
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase

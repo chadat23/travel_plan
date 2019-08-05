@@ -1,4 +1,8 @@
 import os
+import sys
+
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.insert(0, folder)
 import travel_plan
 from travel_plan.sql_models import db_session
 from travel_plan.sql_models.locations import Location

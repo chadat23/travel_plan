@@ -1,7 +1,9 @@
 import os
+import sys
 
 import flask
-
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, folder)
 from travel_plan.sql_models import db_session
 
 # from travel_plan.nosql_models import mongo_setup
