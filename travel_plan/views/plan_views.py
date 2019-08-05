@@ -52,7 +52,7 @@ def entry_post():
 @blueprint.route('/plans/sent')
 @response(template_file='plan/sent.html')
 def email_sent():
-    return dict()
+    return {}
 
 
 @blueprint.route('/plans/add-patroller')
@@ -66,4 +66,4 @@ def add_patroler():
 @blueprint.route('/plans/search', methods=['GET'])
 @response(template_file='plan/search.html')
 def search():
-    return dict()
+    return {}
