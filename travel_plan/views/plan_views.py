@@ -46,6 +46,13 @@ def entry_post():
                       )
 
     return vm.to_dict()
+    # return flask.redirect('/plans/sent')
+
+
+@blueprint.route('/plans/sent')
+@response(template_file='plan/sent.html')
+def email_sent():
+    return dict()
 
 
 @blueprint.route('/plans/add-patroller')
@@ -59,4 +66,4 @@ def add_patroler():
 @blueprint.route('/plans/search', methods=['GET'])
 @response(template_file='plan/search.html')
 def search():
-    return {}
+    return dict()

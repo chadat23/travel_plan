@@ -17,7 +17,7 @@ from travel_plan.disseminate.email_config import email
 
 def save_file(pdf: FPDF, name0: str, start_date: str) -> str:
     name = name0.strip().replace(' ', '_') + '_' + start_date.replace('-', '') + '.pdf'
-    pdf.output(name)
+    # pdf.output(name)
     save_path = tempfile.mkdtemp()
     working_directory = os.getcwd()
     try:
@@ -103,11 +103,13 @@ def email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
                        date2, start2, end2, route2, mode2,
                        contact0, contact1, )
 
-    file = save_file(pdf, name0, start_date)
-
-    # send_mail([contact0, contact1], file)
-
-    delete_file(file)
+    try:
+        file = save_file(pdf, name0, start_date)
+        print('here')
+        print('file', file)
+        send_mail([contact0, contact1], file)
+    except:
+        delete_file(file)
 
 
 def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
