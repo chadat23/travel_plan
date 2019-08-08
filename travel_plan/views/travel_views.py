@@ -2,26 +2,26 @@ import flask
 
 from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
-from travel_plan.services import patrol_services
-from travel_plan.viewmodels.post.plan_entry_viewmodel import PlanEntryViewModel
+from travel_plan.services import travel_services
+from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
 blueprint = flask.Blueprint('plan', __name__, template_folder='templates')
 
 
-@blueprint.route('/plans/entry', methods=['GET'])
-@response(template_file='plan/entry.html')
+@blueprint.route('/travel/entry', methods=['GET'])
+@response(template_file='travel/entry.html')
 def entry_get():
-    vm = PlanEntryViewModel()
+    vm = TravelEntryViewModel()
 
     return vm.to_dict()
 
 
-@blueprint.route('/plans/entry', methods=['POST'])
-@response(template_file='plan/entry.html')
+@blueprint.route('/travel/entry', methods=['POST'])
+# @response(template_file='travel/entry.html')
 def entry_post():
-    vm = PlanEntryViewModel()
+    vm = TravelEntryViewModel()
 
-    entry = patrol_services.create_plan(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
+    entry = travel_services.create_plan(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
                                         vm.tracked, vm.plb,
                                         vm.name0, vm.call_sign0, vm.pack_color0,
                                         vm.name1, vm.call_sign1, vm.pack_color1,
@@ -45,25 +45,25 @@ def entry_post():
                       vm.contact0, vm.contact1
                       )
 
-    return vm.to_dict()
-    # return flask.redirect('/plans/sent')
+    # return vm.to_dict()
+    return flask.redirect('/travel/sent')
 
 
-@blueprint.route('/plans/sent')
-@response(template_file='plan/sent.html')
+@blueprint.route('/travel/sent', methods=['GET'])
+@response(template_file='travel/sent.html')
 def email_sent():
     return {}
 
 
-@blueprint.route('/plans/add-patroller')
-@response(template_file='plan/entry.html')
+@blueprint.route('/travel/add-patroller')
+@response(template_file='travel/entry.html')
 def add_patroler():
-    vm = PlanEntryViewModel()
+    vm = TravelEntryViewModel()
 
     return vm.to_dict()
 
 
-@blueprint.route('/plans/search', methods=['GET'])
-@response(template_file='plan/search.html')
+@blueprint.route('/travel/search', methods=['GET'])
+@response(template_file='travel/search.html')
 def search():
     return {}

@@ -5,7 +5,7 @@ from travel_plan.sql_models.user import User
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 
 
-class PlanEntryViewModel(ViewModelBase):
+class TravelEntryViewModel(ViewModelBase):
     def __init__(self):
         super().__init__()
 
