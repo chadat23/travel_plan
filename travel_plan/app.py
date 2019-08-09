@@ -14,8 +14,8 @@ app = flask.Flask(__name__)
 def main():
     configure()
     # app.run()
-    # app.run(debug=True)
-    app.run(host='10.145.196.133')
+    app.run(debug=True)
+    # app.run(host='10.145.196.133')
 
 
 def configure():
