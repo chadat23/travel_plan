@@ -1,4 +1,9 @@
 {% extends "shared/_layout.html" %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/plan_entry.css">
+{% endblock %}
+
 {% block main_content %}
 
     <div class="hero">
@@ -36,11 +41,6 @@
                     <div class="col-xl-2">Exit:</div>
                     <input type="date" name="exitdate" title="Exit Date" class="col-xl-3 date-input" value="{{ exit_date }}" required/>
                     <input type="text" name="exitlocation" placeholder="Exit Location" class="col-xl-7" value="{{ exit_point }}" list="destinations" required/>
-{#                    <datalist id="destinations">#}
-{#                        {% for loc in locations %}#}
-{#                            <option>{{ loc }}</option>#}
-{#                        {% endfor %}#}
-{#                    </datalist>#}
                 </div>
                 <div class="row col-lg-2" >
                     <div class="col-xl-7" title="Will you be tracked by dispatch?">
@@ -127,11 +127,6 @@
             <button type="submit" class="btn btn-danger">Submit</button>
         </form>
     </div>
-
-{% endblock %}
-
-{% block additional_css %}
-    <link rel="stylesheet" href="/static/css/plan_entry.css">
 {% endblock %}
 
 {% block additional_js %}

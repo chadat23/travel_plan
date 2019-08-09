@@ -1,6 +1,7 @@
 import flask
 from flask import Markup
 import folium
+from bs4 import BeautifulSoup as bs
 
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.services import travel_services
@@ -26,8 +27,28 @@ def heat_map():
         ).add_to(m)
 
     m.save('./templates/map/map.html')
-    m = m.get_root().render()
-    return {'map_html': m}
+    html_doc = m.get_root().render()
+    soup = bs(html_doc, 'html.parser')
+    head = soup.head
+    index1 = str(head).index('<script>')
+    head = str(head)[index1: -7]  
+    body = soup.body.findChildren()[0]
+    # scripts = ''.join(str(soup.script.findChildren()))
+    index1 = str(soup).index('</body>')
+    scripts = str(soup)[index1+7:]
+    # scripts = 'hello'
+    print('#'*20)
+    print(scripts)
+    print('#'*20) 
+
+    # print('#$'*20)
+    # print(soup)
+    # print('#$'*20)
+    # print(soup.head)
+    return {'head': head,
+            'body': body,
+            'scripts': scripts,
+            }
 
 
 @blueprint.route('/map/map')
