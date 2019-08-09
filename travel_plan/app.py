@@ -49,11 +49,11 @@ def setup_db():
 def register_blueprints():
     from travel_plan.views import index_views
     from travel_plan.views import map_views
-    from travel_plan.views import plan_views
+    from travel_plan.views import travel_views
 
     app.register_blueprint(index_views.blueprint)
     app.register_blueprint(map_views.blueprint)
-    app.register_blueprint(plan_views.blueprint)
+    app.register_blueprint(travel_views.blueprint)
 
 
 if __name__ == '__main__':

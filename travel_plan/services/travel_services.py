@@ -1,8 +1,9 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Dict
 
 from sqlalchemy.orm import Session
 
+from travel_plan.services import location_services
 from travel_plan.sql_models import db_session
 from travel_plan.sql_models.patrol import Patrol
 
@@ -75,3 +76,38 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
         session.close()
 
     return patrol
+
+
+def get_lat_long_frequencies():
+    session: Session = db_session.create_session_patrol()
+
+    patrols: List[Patrol] = list(session.query(Patrol))
+
+    names = {}
+
+    for patrol in patrols:
+        names = __add_point(patrol.entry_point, names)
+        names = __add_point(patrol.exit_point, names)
+        names = __add_point(patrol.start0, names)
+        names = __add_point(patrol.start1, names)
+        names = __add_point(patrol.start2, names)
+        names = __add_point(patrol.end0, names)
+        names = __add_point(patrol.end1, names)
+        names = __add_point(patrol.end2, names)
+
+    locations = []
+    loc = {lo.name: lo for lo in location_services.all_locations()}
+    for k, v in names.items():
+        if k in loc:
+            locations.append([loc[k].latitude, loc[k].longitude, names[k]])
+
+    return locations
+
+
+# def __add_point(patrol: Patrol, points) -> Dict[str: List[float, float]]:
+def __add_point(point: str, points):
+    if point in points:
+        points[point] = points[point] + 1
+        return points
+    points[point] = 1
+    return points
