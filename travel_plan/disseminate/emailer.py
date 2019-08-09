@@ -105,8 +105,6 @@ def email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
 
     try:
         file = save_file(pdf, name0, start_date)
-        print('here')
-        print('file', file)
         send_mail([contact0, contact1], file)
     except:
         delete_file(file)
