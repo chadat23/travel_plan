@@ -8,7 +8,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 
-    <link rel="stylesheet" href="/static/css/site.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}"/>
 
     {% block additional_css %}{% endblock %}
 </head>
@@ -16,9 +16,11 @@
 
 <nav>
     <a href="/">Plan Entry</a>
-    <a href="/plan-search">Plan Search</a>
-    <a href="/map/entry-exit-points">Heat Map</a>
-    <a href="/map/entry-exit-points">Time Map</a>
+    <!--<a href="/plan-search">Plan Search</a>-->
+    <!--<a href="/map/all-locations">All Locations</a>-->
+    <a href="/map/all-locations">All Locations</a>
+    <a href="/map/patrolled-locations">Patrolled Locations</a>
+    <a href="/location/propose-location">Propose Location</a>
 </nav>
 
 <div class="main_content">

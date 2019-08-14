@@ -1,0 +1,64 @@
+{% extends "shared/_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block additional_css %}
+    <!--<link rel="stylesheet" href="/static/css/propose_location.css">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/propose_location.css') }}">
+    {{ head | safe }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="hero">
+        <hi>Park Location Proposal</hi>
+        
+        Notes:
+        <ol>
+            <li>
+                Go to the <a href="/map/all-locations">All Locations</a> page to make sure that the location doesn't already exist, perhaps with a different from expected name.
+            </li>
+            <li>
+                Use a site such as <a href="https://www.latlong.net/">latlong.net</a> to get the latitude and longitude of the proposed location.
+                    <ul>
+                        <li>
+                            For landmarks that cover an appreciable area such as meadows, basins, and lakes, use the geographic center.
+                        </li>
+                        <li>
+                            For landmarks that are points such as peaks, trail heads, and intersections, be as accurate as possible.
+                        </li>
+                        <li>
+                            For landmarks that cover sprawling or imprecise areas of the park such as Hetch Hetchy, Tuolumne Meadows, or the Merced River, consider a more precise name and location.
+                        </li>
+                    </ul>
+            </li>
+            <li>
+                Use at least 6 decimal places when entering locations.
+            </li>
+            <li>
+                Add a note justifying why the location should be added. Please note that not all locations in the park can be added so a proposed location may be rejected if it isn't deemed sufficiently important or relevant.
+            </li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <form action="" method="post">
+            <div class="row"></div>
+            <input type="text" class="form-control" name="name" placeholder="Location Name" value="{{ name }}" required>
+            <input type="number" class="form-control" name="latitude" placeholder="Location Latitude" value="{{ latitude }}" step="any" min="-120.038172" max="-118.978458" required>
+            <input type="number" class="form-control" name="longitude" placeholder="Location Longitude" value="{{ longitude }}" step="any" min="37.363172" max="38.298128" required>
+            <input type="text" class="form-control" name="note" placeholder="Note" value="{{ note }}" required>
+            <button type="submit" class="btn btn-danger">Submit</button>
+
+            {% if error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block additional_content %}
+    {{ body | safe}}
+{% endblock %}
+
+{% block additional_footer %}
+    {{ scripts | safe}}
+{% endblock %}

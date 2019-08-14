@@ -1,7 +1,8 @@
 {% extends "shared/_layout.html" %}
 
 {% block additional_css %}
-    <link rel="stylesheet" href="/static/css/plan_entry.css">
+    <!--<link rel="stylesheet" href="/static/css/plan_entry.css">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plan_entry.css') }}">
 {% endblock %}
 
 {% block main_content %}
@@ -113,8 +114,8 @@
             </div>
             <div class="entry-section">
                 <datalist id="emails">
-                    {% for e in users %}
-                        <option>{{ e.email }}</option>
+                    {% for user in users %}
+                        <option>{{ user.email }}</option>
                     {% endfor %}
                 </datalist>
                 <div class="row">
@@ -124,11 +125,12 @@
                     <input type="text" name="contact1" placeholder="Responsible Party 2" class="col-xl-4" value="{{ contact1 }}" list="emails" required/>
                 </div>
 
-            <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
         </form>
     </div>
 {% endblock %}
 
 {% block additional_js %}
-    <script src="/static/js/plan_entry.js"></script>
+    <script src="{{ url_for('static', filename='js/plan_entry.js') }}"></script>
 {% endblock %}

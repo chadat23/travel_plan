@@ -1,0 +1,14 @@
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+form {
+    margin-bottom: 20px;
+    /*margin: 5px;*/
+}
+
+.form-control {
+    margin: 5px 0px;
+}

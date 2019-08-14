@@ -53,5 +53,9 @@ nav > a {
     max-width: 1000px;
 }
 
+.error-msg {
+    color: #bf0000;
+    padding: 10px;
+}
 
 

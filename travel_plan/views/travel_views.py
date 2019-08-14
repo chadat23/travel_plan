@@ -1,11 +1,11 @@
-import flask
+from flask import Blueprint, redirect, url_for
 
 from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
-blueprint = flask.Blueprint('plan', __name__, template_folder='templates')
+blueprint = Blueprint('travel', __name__, template_folder='templates')
 
 
 @blueprint.route('/travel/entry', methods=['GET'])
@@ -46,7 +46,7 @@ def entry_post():
                       )
 
     # return vm.to_dict()
-    return flask.redirect('/travel/sent')
+    return redirect(url_for('travel.email_sent'))
 
 
 @blueprint.route('/travel/sent', methods=['GET'])

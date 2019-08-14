@@ -1,16 +1,16 @@
 import datetime
-import sqlalchemy as sa
+from sqlalchemy import Column, DateTime, Float, String
 from travel_plan.sql_models.modelbase_existing import SqlAlchemyBaseExisting
 
 
 class Location(SqlAlchemyBaseExisting):
     __tablename__ = 'locations'
 
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.now)
+    created_date = Column(DateTime, default=datetime.datetime.now)
 
-    name: str = sa.Column(sa.String, primary_key=True, index=True)
-    latitude: float = sa.Column(sa.Float)
-    longitude: float = sa.Column(sa.Float)
+    name: str = Column(String, primary_key=True, index=True)
+    latitude: float = Column(Float)
+    longitude: float = Column(Float)
 
     def __lt__(self, other):
         return self.name < other.name
