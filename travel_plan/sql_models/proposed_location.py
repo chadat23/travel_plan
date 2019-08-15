@@ -11,7 +11,7 @@ class StatusEnum(enum.Enum):
     rejected = 2
 
 
-class ProposedLocations(SqlAlchemyBasePatrol):
+class ProposedLocation(SqlAlchemyBasePatrol):
     __tablename__ = 'proposed_locations'
 
     created_date = Column(DateTime, default=datetime.datetime.now)
@@ -21,3 +21,6 @@ class ProposedLocations(SqlAlchemyBasePatrol):
     longitude: float = Column(Float)
     note: str = Column(String)
     status: Enum = Column(Enum(StatusEnum), default=StatusEnum.pending)
+
+    def __lt__(self, other):
+        return self.name < other.name

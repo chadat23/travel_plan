@@ -5,16 +5,15 @@ import folium
 from travel_plan.services import location_services, travel_services
 from travel_plan.sql_models.locations import Location
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
-from travel_plan.views import _util
+from travel_plan.views import view_utils
 
 
 class PatrolledLocationsViewModel(ViewModelBase):
     def __init__(self):
         super().__init__()
 
+        park_map = view_utils.get_map(view_utils.park_center)
         locations: List[Location] = travel_services.get_lat_long_frequencies()
-
-        park_map = _util.get_map(_util.park_center)
 
         for loc, freq in locations.items():
             folium.CircleMarker(
@@ -25,7 +24,7 @@ class PatrolledLocationsViewModel(ViewModelBase):
                 fill_color='#428bca'
             ).add_to(park_map)
 
-        html = _util.parse_map_html(park_map)
+        html = view_utils.parse_map_html(park_map)
 
         self.head: str = html.head
         self.body: str = html.body

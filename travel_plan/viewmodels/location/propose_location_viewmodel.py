@@ -1,10 +1,10 @@
-from typing import Dict
+from typing import List
 
-import folium
-
-from travel_plan.services import travel_services
+from travel_plan.services import location_services, proposed_location_services
+from travel_plan.sql_models.locations import Location
+from travel_plan.sql_models.proposed_location import StatusEnum
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
-from travel_plan.views import _util
+from travel_plan.views import view_utils
 
 
 class ProposeLocationViewModel(ViewModelBase):
@@ -16,21 +16,28 @@ class ProposeLocationViewModel(ViewModelBase):
         self.longitude: str = self.request_dict.longitude
         self.note: str = self.request_dict.note
 
-        park_map = _util.get_map(_util.park_center)
+        park_map = view_utils.get_map(view_utils.park_center)
 
-        locations: Dict[tuple, int] = travel_services.get_lat_long_frequencies()
+        locations: List[Location] = location_services.all_locations()
+        park_map = view_utils.add_locations_to_map(park_map, locations,
+                                                   lambda loc: f'<strong>{loc.latitude}, {loc.longitude}<strong>',
+                                                   lambda loc: f'Existing: {loc.name}')
 
-        for loc, freq in locations.items():
-            folium.CircleMarker(
-                location=loc,
-                radius=freq * 5,
-                color='#428bca',
-                fill=True,
-                fill_color='#428bca',
-            ).add_to(park_map)
+        for location in proposed_location_services.all_locations():
+            if location.status == StatusEnum.pending:
+                park_map = view_utils.add_location_to_map(park_map, location,
+                                                          lambda loc: f'<strong>{loc.latitude}, {loc.longitude}<strong>',
+                                                          lambda loc: f'Pending: {loc.name}',
+                                                          color='orange')
+            else:
+                park_map = view_utils.add_location_to_map(park_map, location,
+                                                          lambda loc: f'<strong>{loc.latitude}, {loc.longitude}<strong>',
+                                                          lambda loc: f'Rejected: {loc.name}',
+                                                          color='red')
 
-        html = _util.parse_map_html(park_map)
+        html = view_utils.parse_map_html(park_map)
 
+        # self.head: str = html.head + ''' <script src="{{ url_for('static', filename='css/map.css') }}"></script>'''
         self.head: str = html.head
         self.body: str = html.body
         self.scripts: str = html.scripts

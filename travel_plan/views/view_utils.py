@@ -1,9 +1,11 @@
 from collections import namedtuple
 import os
+from typing import List, Callable
 
 from bs4 import BeautifulSoup as bs
 import folium
 
+from travel_plan.sql_models.locations import Location
 
 park_center = [37.844617, -119.491018]
 
@@ -37,5 +39,35 @@ def get_map(center) -> folium.folium.Map:
     style = {'fillColor': '#00000000', 'color': '#244f23FF'}
 
     folium.GeoJson(yosemite_overlay, name='Yosemite Boundary', style_function=lambda x: style).add_to(park_map)
+
+    return park_map
+
+
+def add_locations_to_map(park_map: folium.folium.Map,
+                         locations: List[Location],
+                         popup: Callable[[Location], str],
+                         tooltip: Callable[[Location], str],
+                         color: str = 'darkblue') -> folium.folium.Map:
+
+    for loc in locations:
+        park_map = add_location_to_map(park_map, loc, popup, tooltip, color)
+
+    return park_map
+
+
+def add_location_to_map(park_map: folium.folium.Map,
+                        location: Location,
+                        popup: Callable[[Location], str],
+                        tooltip: Callable[[Location], str],
+                        color: str = 'darkblue') -> folium.folium.Map:
+
+    icon = folium.Icon(color=color, icon='')
+
+    folium.Marker(
+        location=[location.latitude, location.longitude],
+        popup=popup(location),
+        tooltip=tooltip(location),
+        icon=icon,
+    ).add_to(park_map)
 
     return park_map

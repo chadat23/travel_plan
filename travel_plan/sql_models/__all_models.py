@@ -8,4 +8,4 @@ from travel_plan.sql_models.user import User
 from travel_plan.sql_models.patrol import Patrol
 
 # noinspection PyUnresolvedReferences
-from travel_plan.sql_models.proposed_location import ProposedLocations
+from travel_plan.sql_models.proposed_location import ProposedLocation

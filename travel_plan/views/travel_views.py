@@ -45,7 +45,6 @@ def entry_post():
                       vm.contact0, vm.contact1
                       )
 
-    # return vm.to_dict()
     return redirect(url_for('travel.email_sent'))
 
 
