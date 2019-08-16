@@ -1,16 +1,23 @@
 import datetime
-from sqlalchemy import Column, DateTime, Float, String
-from travel_plan.sql_models.modelbase_existing import SqlAlchemyBaseExisting
+import sqlalchemy as sa
+from sqlalchemy.orm import relationship
+
+from travel_plan.sql_models.modelbase import SqlAlchemyBasePatrol
 
 
-class Location(SqlAlchemyBaseExisting):
+class Location(SqlAlchemyBasePatrol):
     __tablename__ = 'locations'
 
-    created_date = Column(DateTime, default=datetime.datetime.now)
+    created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow)
 
-    name: str = Column(String, primary_key=True, index=True)
-    latitude: float = Column(Float)
-    longitude: float = Column(Float)
+    name: str = sa.Column(sa.String, primary_key=True, index=True)
+    latitude: float = sa.Column(sa.Float)
+    longitude: float = sa.Column(sa.Float)
+
+    # patrols = relationship('Location', backref='visited', lazy=True)
 
     def __lt__(self, other):
         return self.name < other.name
+
+    def __repr__(self):
+        return self.name

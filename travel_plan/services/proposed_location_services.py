@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from travel_plan.sql_models import db_session
-from travel_plan.sql_models.proposed_location import ProposedLocation
+from travel_plan.sql_models.proposed_locations import ProposedLocation
 
 
 def submit_location(name: str, latitude: str, longitude: str, note: str):

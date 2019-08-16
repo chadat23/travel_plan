@@ -1,7 +1,7 @@
 from typing import List
 
 from travel_plan.services import location_services, user_services
-from travel_plan.sql_models.user import User
+from travel_plan.sql_models.users import User
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 
 

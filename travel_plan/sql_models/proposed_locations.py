@@ -3,7 +3,7 @@ import enum
 
 from sqlalchemy import Column, DateTime, Enum, Float, String
 
-from travel_plan.sql_models.modelbase_patrol import SqlAlchemyBasePatrol
+from travel_plan.sql_models.modelbase import SqlAlchemyBasePatrol
 
 
 class StatusEnum(enum.Enum):

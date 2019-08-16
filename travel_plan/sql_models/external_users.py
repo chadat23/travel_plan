@@ -2,10 +2,10 @@ import datetime
 
 from sqlalchemy import Column, DateTime, Integer, String
 
-from travel_plan.sql_models.modelbase_existing import SqlAlchemyBaseExisting
+from travel_plan.sql_models.modelbase import SqlAlchemyBaseExternal
 
 
-class User(SqlAlchemyBaseExisting):
+class User(SqlAlchemyBaseExternal):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -13,3 +13,4 @@ class User(SqlAlchemyBaseExisting):
 
     name = Column(String, nullable=False)
     email = Column(String, index=True, unique=True, nullable=True)
+    hashed_ssn = Column(String, index=True)

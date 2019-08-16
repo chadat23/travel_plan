@@ -6,7 +6,7 @@ sys.path.insert(0, folder)
 import travel_plan
 from travel_plan.sql_models import db_session
 from travel_plan.sql_models.locations import Location
-from travel_plan.sql_models.user import User
+from travel_plan.sql_models.users import User
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
 
 
 def insert_users():
-    session = db_session.create_session_existing()
+    session = db_session.create_session_patrol()
 
     u = User()
     u.name = 'Jane Dow'
@@ -55,7 +55,7 @@ def insert_users():
 
 def insert_locations():
     # https://www.latlong.net/
-    session = db_session.create_session_existing()
+    session = db_session.create_session_patrol()
 
     loc = Location()
     loc.name = "Happy Isles TH"
@@ -110,9 +110,9 @@ def insert_locations():
 
 def init_db():
     top_folder = os.path.dirname(__file__)
-    rel_file = os.path.join('..', 'db', 'existing.sqlite')
+    rel_file = os.path.join('..', 'db', 'patrol.sqlite')
     db_file = os.path.abspath(os.path.join(top_folder, rel_file))
-    db_session.global_init(db_file)
+    db_session.global_init('', db_file)
 
 
 if __name__ == '__main__':

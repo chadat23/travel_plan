@@ -61,13 +61,11 @@ def add_location_to_map(park_map: folium.folium.Map,
                         tooltip: Callable[[Location], str],
                         color: str = 'darkblue') -> folium.folium.Map:
 
-    icon = folium.Icon(color=color, icon='')
-
     folium.Marker(
         location=[location.latitude, location.longitude],
         popup=popup(location),
         tooltip=tooltip(location),
-        icon=icon,
+        icon=folium.Icon(color=color, icon=''),
     ).add_to(park_map)
 
     return park_map

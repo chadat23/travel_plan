@@ -7,7 +7,7 @@ from travel_plan.sql_models.locations import Location
 
 
 def all_locations() -> List[Location]:
-    session: Session = db_session.create_session_existing()
+    session: Session = db_session.create_session_external()
     try:
         return sorted(list(session.query(Location)))
     finally:

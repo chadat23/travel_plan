@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from travel_plan.services import location_services
 from travel_plan.sql_models import db_session
-from travel_plan.sql_models.patrol import Patrol
+from travel_plan.sql_models.patrols import Patrol
 
 
 def get_plans():
