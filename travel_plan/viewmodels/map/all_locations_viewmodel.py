@@ -13,7 +13,7 @@ class AllLocationsViewModel(ViewModelBase):
         super().__init__()
 
         park_map = view_utils.get_map(view_utils.park_center)
-        locations: List[Location] = location_services.all_locations()
+        locations: List[Location] = location_services.get_all()
         park_map = view_utils.add_locations_to_map(park_map, locations,
                                                    lambda loc: f'<strong>{loc.latitude}, {loc.longitude}<strong>',
                                                    lambda loc: f'{loc.name}')

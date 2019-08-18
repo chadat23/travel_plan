@@ -8,3 +8,6 @@ sys.path.insert(0, container_folder)
 
 # noinspection PyUnresolvedReferences
 from tests.unit.services.location_services_tests import *
+
+# noinspection PyUnresolvedReferences
+from tests.unit.services.user_services_tests import *

@@ -6,16 +6,16 @@ from travel_plan.models import db_session
 from travel_plan.models.locations import Location
 
 
-def all_locations() -> List[Location]:
+def get_all() -> List[Location]:
     session: Session = db_session.create_session()
     try:
-        return sorted(list(session.query(Location)))
+        return session.query(Location).all()
     finally:
         session.close()
 
 
-def all_location_names():
-    return [i.name for i in all_locations()]
+# def all_location_names():
+#     return [i.name for i in get_all()]
 
 
 def add_location(name: str, latitude: float, longitude: float) -> Optional[Location]:

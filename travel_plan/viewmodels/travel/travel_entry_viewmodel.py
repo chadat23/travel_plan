@@ -24,7 +24,7 @@ class TravelEntryViewModel(ViewModelBase):
 
         self.plb: str = self.request_dict.plb
 
-        self.users: List[User] = user_services.all_patrollers()
+        self.users: List[User] = user_services.get_users()
 
         self.name0 = self.request_dict.name0
         self.call_sign0 = self.request_dict.callsign0

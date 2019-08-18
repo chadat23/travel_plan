@@ -20,3 +20,6 @@ class Location(SqlAlchemyBasePatrol):
 
     def __repr__(self):
         return f'{self.name}: {self.latitude}, {self.longitude}'
+
+    # def __eq__(self, other):
+    #     return self.name == other.name and self.latitude == other.latitude and self.longitude == other.longitude

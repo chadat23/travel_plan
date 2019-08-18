@@ -17,7 +17,7 @@ class AssessLocationsViewModel(ViewModelBase):
 
         park_map = vutil.get_map(vutil.park_center)
 
-        locations: List[Location] = location_services.all_locations()
+        locations: List[Location] = location_services.get_all()
         park_map = vutil.add_locations_to_map(park_map, locations,
                                               lambda loc: f'<strong>{loc.latitude}, {loc.longitude}<strong>',
                                               lambda loc: f'Existing: {loc.name}')

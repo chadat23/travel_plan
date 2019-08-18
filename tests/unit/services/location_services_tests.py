@@ -1,5 +1,3 @@
-import unittest.mock
-
 from sqlalchemy.orm import Session
 
 
@@ -19,17 +17,27 @@ def test_add_location_returns_location(db_test_session: Session):
     assert longitude == location.longitude
 
 
-def test_get_location_success(db_session_w_info: Session):
+def test_get_location_success(db_session_w_info):
     from travel_plan.models.locations import Location
-    from travel_plan.services.location_services import get_location
+    from travel_plan.services import location_services
 
-    name = "LYV"
-    latitude = 37.733023
-    longitude = -119.514508
+    locations, users = db_session_w_info
 
-    location = get_location(name)
+    for location in locations:
+        loc = location_services.get_location(location['name'])
+        assert isinstance(loc, Location)
+        assert loc.name == location['name']
+        assert loc.latitude == location['latitude']
+        assert loc.longitude == location['longitude']
 
-    assert isinstance(location, Location)
-    assert name == location.name
-    assert latitude == location.latitude
-    assert longitude == location.longitude
+
+def test_get_all_success(db_session_w_info):
+    from travel_plan.services import location_services
+
+    locations, users = db_session_w_info
+
+    locs = location_services.get_all()
+
+    for loc in locs:
+        location = {'name': loc.name, 'latitude': loc.latitude, 'longitude': loc.longitude}
+        assert location in locations

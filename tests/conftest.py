@@ -14,14 +14,14 @@ users = [{'name': 'Jane Dow', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn'
          {'name': 'Rocky Balboa', 'email': 'chad.derosier+e@gmail.com', 'hashed_ssn': '5'},
          ]
 
-locations = [{'name': 'Happy Isles TH', 'lat': 37.732555, 'long': -119.557803},
-             {'name': 'LYV', 'lat': 37.733023, 'long': -119.514508},
-             {'name': 'May Lake HSC', 'lat': 37.844617, 'long': -119.491018},
-             {'name': 'May Lake TH', 'lat': 37.832687, 'long': -119.490761},
-             {'name': 'Ten Lakes Basin', 'lat': 37.899158, 'long': -119.522609},
-             {'name': 'Ten Lakes TH', 'lat': 37.852321, 'long': -119.575861},
-             {'name': 'Sunrise Lakes', 'lat': 37.805904, 'long': -119.448250},
-             {'name': 'Sunrise Lakes TH', 'lat': 37.826962, 'long': -119.468687},
+locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803},
+             {'name': 'LYV', 'latitude': 37.733023, 'longitude': -119.514508},
+             {'name': 'May Lake HSC', 'latitude': 37.844617, 'longitude': -119.491018},
+             {'name': 'May Lake TH', 'latitude': 37.832687, 'longitude': -119.490761},
+             {'name': 'Ten Lakes Basin', 'latitude': 37.899158, 'longitude': -119.522609},
+             {'name': 'Ten Lakes TH', 'latitude': 37.852321, 'longitude': -119.575861},
+             {'name': 'Sunrise Lakes', 'latitude': 37.805904, 'longitude': -119.448250},
+             {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687},
              ]
 
 
@@ -39,8 +39,8 @@ def db_test_session(tmpdir):
 @pytest.fixture()
 def db_session_w_info(db_test_session: Session):
     session: Session = db_session.create_session()
-    [session.add(Location(name=a['name'], latitude=a['lat'], longitude=a['long'])) for a in locations]
+    [session.add(Location(name=a['name'], latitude=a['latitude'], longitude=a['longitude'])) for a in locations]
     [session.add(User(name=u['name'], email=u['email'], hashed_ssn=u['hashed_ssn'])) for u in users]
     session.commit()
 
-    yield session
+    yield locations, users

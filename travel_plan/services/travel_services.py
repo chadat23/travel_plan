@@ -94,7 +94,7 @@ def get_lat_long_frequencies() -> Dict[tuple, int]:
         location_name_frequencies = __add_location(patrol.end2, location_name_frequencies)
 
     location_coord_frequencies = {}
-    loc = {loc.name: loc for loc in location_services.all_locations()}
+    loc = {loc.name: loc for loc in location_services.get_all()}
     for name, freq in location_name_frequencies.items():
         if name in loc:
             location_coord_frequencies[(loc[name].latitude, loc[name].longitude)] = freq
