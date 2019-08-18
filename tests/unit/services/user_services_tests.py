@@ -32,7 +32,7 @@ def test_get_all_no_search_terms_success(db_session_w_info):
         assert user in users
 
 
-def test_get_all_w_search_terms_success(db_session_w_info):
+def test_get_all_w_1_search_term_success(db_session_w_info):
     from travel_plan.services import user_services
 
     locations, users = db_session_w_info
@@ -41,3 +41,31 @@ def test_get_all_w_search_terms_success(db_session_w_info):
     us = user_services.get_users(name=user['name'])
 
     assert len(us) == 1
+    assert us[0].name == user['name']
+    assert us[0].email == user['email']
+    assert us[0].hashed_ssn == user['hashed_ssn']
+
+
+def test_get_all_w_2_search_terms_success(db_session_w_info):
+    from travel_plan.services import user_services
+
+    locations, users = db_session_w_info
+
+    user = users[2]
+    us = user_services.get_users(name=user['name'], email=user['email'])
+
+    assert len(us) == 1
+    assert us[0].name == user['name']
+    assert us[0].email == user['email']
+    assert us[0].hashed_ssn == user['hashed_ssn']
+
+
+def test_get_all_w_2_search_terms_fail(db_session_w_info):
+    from travel_plan.services import user_services
+
+    locations, users = db_session_w_info
+
+    user = users[2]
+    us = user_services.get_users(name=user['name'], email='lkjiuhyguy')
+
+    assert len(us) == 0
