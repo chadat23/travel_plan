@@ -4,8 +4,8 @@ import datetime
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
-from travel_plan.sql_models.modelbase import SqlAlchemyBasePatrol
-from travel_plan.sql_models.patrol_units import PatrolUnit
+from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.patrol_units import PatrolUnit
 
 
 class Patrol(SqlAlchemyBasePatrol):

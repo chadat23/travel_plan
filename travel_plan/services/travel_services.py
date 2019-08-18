@@ -4,8 +4,8 @@ from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 
 from travel_plan.services import location_services
-from travel_plan.sql_models import db_session
-from travel_plan.sql_models.patrols import Patrol
+from travel_plan.models import db_session
+from travel_plan.models.patrols import Patrol
 
 
 def get_plans():
@@ -68,7 +68,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.contact0 = contact0
     patrol.contact1 = contact1
 
-    session: Session = db_session.create_session_patrol()
+    session: Session = db_session.create_session()
     try:
         session.add(patrol)
         session.commit()
@@ -79,7 +79,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
 
 
 def get_lat_long_frequencies() -> Dict[tuple, int]:
-    session: Session = db_session.create_session_patrol()
+    session: Session = db_session.create_session()
 
     patrols: List[Patrol] = list(session.query(Patrol))
 

@@ -3,8 +3,8 @@ from typing import List
 from flask import url_for
 
 from travel_plan.services import location_services, proposed_location_services
-from travel_plan.sql_models.locations import Location
-from travel_plan.sql_models.proposed_locations import StatusEnum
+from travel_plan.models.locations import Location
+from travel_plan.models.proposed_locations import StatusEnum
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 from travel_plan.views import view_utils as vutil
 

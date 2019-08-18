@@ -4,7 +4,7 @@ import sys
 import flask
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
-from travel_plan.sql_models import db_session
+from travel_plan.models import db_session
 
 # from travel_plan.nosql_models import mongo_setup
 
@@ -15,7 +15,6 @@ def main():
     configure()
     # app.run()
     app.run(debug=True)
-    # app.run(host='10.145.196.133')
 
 
 def configure():

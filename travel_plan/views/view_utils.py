@@ -5,7 +5,7 @@ from typing import List, Callable
 from bs4 import BeautifulSoup as bs
 import folium
 
-from travel_plan.sql_models.locations import Location
+from travel_plan.models.locations import Location
 
 park_center = [37.844617, -119.491018]
 

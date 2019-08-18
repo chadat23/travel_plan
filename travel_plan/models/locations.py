@@ -1,8 +1,7 @@
 import datetime
 import sqlalchemy as sa
-from sqlalchemy.orm import relationship
 
-from travel_plan.sql_models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 
 
 class Location(SqlAlchemyBasePatrol):
@@ -20,4 +19,4 @@ class Location(SqlAlchemyBasePatrol):
         return self.name < other.name
 
     def __repr__(self):
-        return self.name
+        return f'{self.name}: {self.latitude}, {self.longitude}'

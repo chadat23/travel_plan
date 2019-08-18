@@ -4,9 +4,9 @@ import sys
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 sys.path.insert(0, folder)
 import travel_plan
-from travel_plan.sql_models import db_session
-from travel_plan.sql_models.locations import Location
-from travel_plan.sql_models.users import User
+from travel_plan.models import db_session
+from travel_plan.models.locations import Location
+from travel_plan.models.users import User
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
 
 
 def insert_users():
-    session = db_session.create_session_patrol()
+    session = db_session.create_session()
 
     u = User()
     u.name = 'Jane Dow'
@@ -55,14 +55,14 @@ def insert_users():
 
 def insert_locations():
     # https://www.latlong.net/
-    session = db_session.create_session_patrol()
+    session = db_session.create_session()
 
     loc = Location()
     loc.name = "Happy Isles TH"
     loc.latitude = 37.732555
     loc.longitude = -119.557803
     session.add(loc)
-    
+
     loc = Location()
     loc.name = "LYV"
     loc.latitude = 37.733023
@@ -80,7 +80,7 @@ def insert_locations():
     loc.latitude = 37.832687
     loc.longitude = -119.490761
     session.add(loc)
-    
+
     loc = Location()
     loc.name = "Ten Lakes Basin"
     loc.latitude = 37.899158
@@ -98,12 +98,12 @@ def insert_locations():
     loc.latitude = 37.805904
     loc.longitude = -119.448250
     session.add(loc)
-    
+
     loc = Location()
     loc.name = "Sunrise Lakes TH"
     loc.latitude = 37.826962
     loc.longitude = -119.468687
-    session.add(loc)    
+    session.add(loc)
 
     session.commit()
 

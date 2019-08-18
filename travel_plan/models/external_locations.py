@@ -1,6 +1,6 @@
 import datetime
 from sqlalchemy import Column, DateTime, Float, String
-from travel_plan.sql_models.modelbase import SqlAlchemyBaseExternal
+from travel_plan.models.modelbase import SqlAlchemyBaseExternal
 
 
 class Location(SqlAlchemyBaseExternal):

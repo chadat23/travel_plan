@@ -2,8 +2,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from travel_plan.sql_models import db_session
-from travel_plan.sql_models.users import User
+from travel_plan.models import db_session
+from travel_plan.models.users import User
 
 
 def all_patrollers() -> List[User]:

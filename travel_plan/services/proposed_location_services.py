@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from travel_plan.sql_models import db_session
-from travel_plan.sql_models.proposed_locations import ProposedLocation
+from travel_plan.models import db_session
+from travel_plan.models.proposed_locations import ProposedLocation
 
 
 def submit_location(name: str, latitude: str, longitude: str, note: str):
@@ -12,7 +12,7 @@ def submit_location(name: str, latitude: str, longitude: str, note: str):
         location.longitude = float(longitude.strip())
         location.note = note.strip()
 
-        session: Session = db_session.create_session_patrol()
+        session: Session = db_session.create_session()
         session.add(location)
         session.commit()
         session.close()
@@ -23,7 +23,7 @@ def submit_location(name: str, latitude: str, longitude: str, note: str):
 
 
 def all_locations():
-    session: Session = db_session.create_session_patrol()
+    session: Session = db_session.create_session()
     try:
         return sorted(list(session.query(ProposedLocation)))
     finally:

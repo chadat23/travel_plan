@@ -2,7 +2,7 @@ import datetime
 
 from sqlalchemy import Column, DateTime, Integer, String
 
-from travel_plan.sql_models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 
 
 class Color(SqlAlchemyBasePatrol):

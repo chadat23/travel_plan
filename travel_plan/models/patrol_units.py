@@ -3,7 +3,7 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 from sqlalchemy.orm import relationship
 
-from travel_plan.sql_models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 
 
 class PatrolUnit(SqlAlchemyBasePatrol):

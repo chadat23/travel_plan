@@ -3,7 +3,7 @@ from typing import List
 import folium
 
 from travel_plan.services import location_services
-from travel_plan.sql_models.locations import Location
+from travel_plan.models.locations import Location
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 from travel_plan.views import view_utils
 
