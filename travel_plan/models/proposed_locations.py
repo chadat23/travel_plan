@@ -1,7 +1,8 @@
 import datetime
 import enum
 
-from sqlalchemy import Column, DateTime, Enum, Float, String
+# from sqlalchemy import Column, DateTime, Enum, Float, String
+import sqlalchemy as sa
 
 from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 
@@ -14,13 +15,14 @@ class StatusEnum(enum.Enum):
 class ProposedLocation(SqlAlchemyBasePatrol):
     __tablename__ = 'proposed_locations'
 
-    created_date = Column(DateTime, default=datetime.datetime.now)
+    id = sa.Column(sa.Integer, primary_key=True)
+    created_date = sa.Column(sa.DateTime, default=datetime.datetime.now)
 
-    name: str = Column(String, primary_key=True, index=True)
-    latitude: float = Column(Float)
-    longitude: float = Column(Float)
-    note: str = Column(String)
-    status: Enum = Column(Enum(StatusEnum), default=StatusEnum.pending)
+    name: str = sa.Column(sa.String, primary_key=True, index=True)
+    latitude: float = sa.Column(sa.Float)
+    longitude: float = sa.Column(sa.Float)
+    note: str = sa.Column(sa.String)
+    status: enum.Enum = sa.Column(sa.Enum(StatusEnum), default=StatusEnum.pending)
 
     def __lt__(self, other):
         return self.name < other.name

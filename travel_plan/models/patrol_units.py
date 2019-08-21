@@ -9,6 +9,8 @@ from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 class PatrolUnit(SqlAlchemyBasePatrol):
     __tablename__ = 'patrol_units'
 
+    created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
+
     user_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'), primary_key=True)
     user = orm.relation('User')
     patrol_id = sa.Column(sa.Integer, sa.ForeignKey('patrols.id'), primary_key=True)

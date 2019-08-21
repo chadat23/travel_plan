@@ -7,9 +7,10 @@ from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 class Location(SqlAlchemyBasePatrol):
     __tablename__ = 'locations'
 
+    id = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow)
 
-    name: str = sa.Column(sa.String, primary_key=True, index=True)
+    name: str = sa.Column(sa.String, index=True, unique=True)
     latitude: float = sa.Column(sa.Float)
     longitude: float = sa.Column(sa.Float)
 

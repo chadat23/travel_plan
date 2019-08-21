@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 
-def test_add_location_returns_location(db_test_session: Session):
+def test_location_services_add_location_returns_location(db_test_session: Session):
     from travel_plan.models.locations import Location
     from travel_plan.services.location_services import add_location
 
@@ -17,11 +17,11 @@ def test_add_location_returns_location(db_test_session: Session):
     assert longitude == location.longitude
 
 
-def test_get_location_success(db_session_w_info):
+def test_location_services_get_location_success(db_session_w_info):
     from travel_plan.models.locations import Location
     from travel_plan.services import location_services
 
-    locations, users = db_session_w_info
+    locations, users, colors = db_session_w_info
 
     for location in locations:
         loc = location_services.get_location(location['name'])
@@ -31,10 +31,10 @@ def test_get_location_success(db_session_w_info):
         assert loc.longitude == location['longitude']
 
 
-def test_get_all_success(db_session_w_info):
+def test_location_services_get_all_success(db_session_w_info):
     from travel_plan.services import location_services
 
-    locations, users = db_session_w_info
+    locations, users, colors = db_session_w_info
 
     locs = location_services.get_all()
 
