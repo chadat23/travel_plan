@@ -41,3 +41,27 @@ def test_location_services_get_all_success(db_session_w_info):
     for loc in locs:
         location = {'name': loc.name, 'latitude': loc.latitude, 'longitude': loc.longitude}
         assert location in locations
+
+
+def test_location_services_get_names_success(db_session_w_info):
+    from travel_plan.services import location_services
+
+    locations, users, colors = db_session_w_info
+
+    actual_locacitons = location_services.get_names()
+
+    expected_locations = sorted([n['name'] for n in locations])
+
+    assert expected_locations == actual_locacitons
+
+
+def test_location_services_get_id_from_name_success(db_session_w_info):
+    from travel_plan.services import location_services
+
+    locations, users, colors = db_session_w_info
+
+    actual_locaciton = location_services.get_id_from_name(locations[1]['name'])
+
+    expected_locations = (2, )
+
+    assert expected_locations == actual_locaciton

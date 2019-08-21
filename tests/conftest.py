@@ -27,6 +27,9 @@ locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119
 
 colors = ['Red', 'Green', 'Blue']
 
+patrols = [{'year': 2019, 'month': 8, 'start_date': 16, 'start_point': 5, 'end_date': 18, 'exit_point': 3, 'tracked': True, 'plb': 'abc123'}
+           ]
+
 
 @pytest.fixture()
 def db_test_session(tmpdir):
@@ -48,3 +51,30 @@ def db_session_w_info(db_test_session: Session):
     session.commit()
 
     yield locations, users, colors
+
+
+@pytest.fixture()
+def db_session_w_patrols(db_session_w_info):
+    import datetime
+
+    from travel_plan.models.patrols import Patrol
+
+    session: Session = db_session.create_session()
+
+    locations = [n[0] for n in session.query(Location.name).order_by(Location.name).all()]
+
+    for p in patrols:
+        patrol = Patrol()
+        date = datetime.datetime(p['year'], p['month'], p['start_date'])
+        patrol.start_date = date
+        patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()
+        date = datetime.datetime(p['year'], p['month'], p['end_date'])
+        patrol.end_date = date
+        patrol.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()
+
+        patrol.tracked = p['tracked']
+        patrol.plb = p['plb']
+
+    session.close()
+
+    yield patrols

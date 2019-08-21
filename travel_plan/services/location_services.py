@@ -14,8 +14,24 @@ def get_all() -> List[Location]:
         session.close()
 
 
-# def all_location_names():
-#     return [i.name for i in get_all()]
+def get_names():
+    session: Session = db_session.create_session()
+    try:
+        return [n[0] for n in session.query(Location.name).order_by(Location.name).all()]
+    except:
+        return []
+    finally:
+        session.close()
+
+
+def get_id_from_name(name: str):
+    session: Session = db_session.create_session()
+    try:
+        return session.query(Location.id).filter(Location.name == name).first()
+    except:
+        return []
+    finally:
+        session.close()
 
 
 def add_location(name: str, latitude: float, longitude: float) -> Optional[Location]:
