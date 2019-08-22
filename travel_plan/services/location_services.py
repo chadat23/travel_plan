@@ -27,7 +27,7 @@ def get_names():
 def get_id_from_name(name: str):
     session: Session = db_session.create_session()
     try:
-        return session.query(Location.id).filter(Location.name == name).first()
+        return session.query(Location.id).filter(Location.name == name).first()[0]
     except:
         return []
     finally:

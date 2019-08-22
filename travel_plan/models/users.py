@@ -8,6 +8,7 @@ from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 class User(SqlAlchemyBasePatrol):
     __tablename__ = 'users'
 
+    # TODO: lots (sa. and __init__)
     id = Column(Integer, primary_key=True, autoincrement=True)
     created_date = Column(DateTime, default=datetime.datetime.now, index=True)
 

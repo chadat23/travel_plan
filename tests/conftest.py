@@ -9,6 +9,7 @@ from travel_plan.models.locations import Location
 from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.users import User
 from travel_plan.services import user_services
+from travel_plan.services.patrol_services import PatrolUnit
 
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1'},
          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com', 'hashed_ssn': '2'},
@@ -27,12 +28,16 @@ locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119
              {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687},
              ]
 
-colors = ['Red', 'Green', 'Blue']
+colors = ['Red', 'Green', 'Blue', 'Orange', 'Black']
 
-patrols = [
-    {'year': 2019, 'month': 8, 'start_date': 16, 'start_point': 5, 'end_date': 18, 'exit_point': 3, 'tracked': True,
-     'plb': 'abc123', 'trip_leader': 1}
-    ]
+patrols = [{'patrol': {'start_date': '2019-08-16', 'entry_point': 'May Lake TH', 'end_date': '2019-08-18', 'exit_point': 'Ten Lakes TH', 
+                       'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger'},
+            'users': [PatrolUnit('Dow, Jane', 'Red', 'Green', 'Green'),
+                      PatrolUnit('Vader, Darth', 'Black', 'Green', 'Red'),
+                      PatrolUnit('Rabbit, Roger', 'Green', 'Green', 'Green')
+                      ]
+            },
+           ]
 
 
 @pytest.fixture()
@@ -56,6 +61,11 @@ def db_session_w_info(db_test_session: Session):
     session.close()
 
     yield locations, users, colors
+
+
+@pytest.fixture()
+def db_session_w_patrol_info(db_session_w_info):
+    yield patrols
 
 
 @pytest.fixture()

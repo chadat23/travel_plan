@@ -3,23 +3,6 @@ import unittest.mock
 from sqlalchemy.orm import Session
 
 
-# def test_add_user_success(db_test_session: Session):
-#     # from travel_plan.models.locations import Location
-#     # from travel_plan.services.location_services import add_location
-#     #
-#     # name = "LYV"
-#     # latitude = 37.733023
-#     # longitude = -119.514508
-#     #
-#     # location = add_location(name, latitude, longitude)
-#     #
-#     # assert isinstance(location, Location)
-#     # assert name == location.name
-#     # assert latitude == location.latitude
-#     # assert longitude == location.longitude
-#     pass
-
-
 def test_user_services_get_names_success(db_session_w_info):
     from travel_plan.services import user_services
 
@@ -31,6 +14,19 @@ def test_user_services_get_names_success(db_session_w_info):
 
     assert actual_names == expected_names
 
+
+def test_user_services_get_id_from_name_success(db_session_w_info):
+    from travel_plan.services import user_services
+
+    locations, users, colors = db_session_w_info
+
+    number = 3
+
+    expected_name = users[number]['name']
+
+    actual_id = user_services.get_id_from_name(expected_name)
+
+    assert actual_id == number + 1
 
 # def test_get_all_no_search_terms_success(db_session_w_info):
 #     from travel_plan.services import user_services

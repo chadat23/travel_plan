@@ -62,6 +62,6 @@ def test_location_services_get_id_from_name_success(db_session_w_info):
 
     actual_locaciton = location_services.get_id_from_name(locations[1]['name'])
 
-    expected_locations = (2, )
+    expected_location = 2
 
-    assert expected_locations == actual_locaciton
+    assert expected_location == actual_locaciton

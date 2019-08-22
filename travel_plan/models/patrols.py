@@ -27,37 +27,19 @@ class Patrol(SqlAlchemyBasePatrol):
 
     patrollers = orm.relationship('PatrolUserUnit', backref='patrol')
 
+    def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int, 
+                 tracked: bool, plb: str, trip_leader_id: int):
+
+        self.start_date = start_date
+        self.entry_point_id = entry_point_id
+        self.end_date = end_date
+        self.exit_point_id = exit_point_id
+
+        self.tracked = tracked
+        self.plb = plb
+
+        self.trip_leader_id = trip_leader_id
+
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'
 
-    # name0 = Column(String, index=False, unique=False, nullable=True)
-    # call_sign0 = Column(String, index=False, unique=False, nullable=True)
-    # pack_color0 = Column(String, index=False, unique=False, nullable=True)
-    # name1 = Column(String, index=False, unique=False, nullable=True)
-    # call_sign1 = Column(String, index=False, unique=False, nullable=True)
-    # pack_color1 = Column(String, index=False, unique=False, nullable=True)
-    # name2 = Column(String, index=False, unique=False, nullable=True)
-    # call_sign2 = Column(String, index=False, unique=False, nullable=True)
-    # pack_color2 = Column(String, index=False, unique=False, nullable=True)
-    # name3 = Column(String, index=False, unique=False, nullable=True)
-    # call_sign3 = Column(String, index=False, unique=False, nullable=True)
-    # pack_color3 = Column(String, index=False, unique=False, nullable=True)
-
-    # date0 = Column(Date, index=False, unique=False, nullable=True)
-    # start0 = Column(String, index=False, unique=False, nullable=True)
-    # end0 = Column(String, index=False, unique=False, nullable=True)
-    # route0 = Column(String, index=False, unique=False, nullable=True)
-    # mode0 = Column(String, index=False, unique=False, nullable=True)
-    # date1 = Column(Date, index=False, unique=False, nullable=True)
-    # start1 = Column(String, index=False, unique=False, nullable=True)
-    # end1 = Column(String, index=False, unique=False, nullable=True)
-    # route1 = Column(String, index=False, unique=False, nullable=True)
-    # mode1 = Column(String, index=False, unique=False, nullable=True)
-    # date2 = Column(Date, index=False, unique=False, nullable=True)
-    # start2 = Column(String, index=False, unique=False, nullable=True)
-    # end2 = Column(String, index=False, unique=False, nullable=True)
-    # route2 = Column(String, index=False, unique=False, nullable=True)
-    # mode2 = Column(String, index=False, unique=False, nullable=True)
-    #
-    # contact0 = Column(String, index=False, unique=False, nullable=True)
-    # contact1 = Column(String, index=False, unique=False, nullable=True)
