@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session
 from travel_plan.models import db_session
 from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
+from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.users import User
+from travel_plan.services import user_services
 
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1'},
          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com', 'hashed_ssn': '2'},
@@ -27,8 +29,10 @@ locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119
 
 colors = ['Red', 'Green', 'Blue']
 
-patrols = [{'year': 2019, 'month': 8, 'start_date': 16, 'start_point': 5, 'end_date': 18, 'exit_point': 3, 'tracked': True, 'plb': 'abc123'}
-           ]
+patrols = [
+    {'year': 2019, 'month': 8, 'start_date': 16, 'start_point': 5, 'end_date': 18, 'exit_point': 3, 'tracked': True,
+     'plb': 'abc123', 'trip_leader': 1}
+    ]
 
 
 @pytest.fixture()
@@ -47,8 +51,9 @@ def db_session_w_info(db_test_session: Session):
     session: Session = db_session.create_session()
     [session.add(Location(name=a['name'], latitude=a['latitude'], longitude=a['longitude'])) for a in locations]
     [session.add(User(name=u['name'], email=u['email'], hashed_ssn=u['hashed_ssn'])) for u in users]
-    [session.add(Color(name=n)) for n in colors]
+    [session.add(Color(id=n)) for n in colors]
     session.commit()
+    session.close()
 
     yield locations, users, colors
 
@@ -64,17 +69,34 @@ def db_session_w_patrols(db_session_w_info):
     locations = [n[0] for n in session.query(Location.name).order_by(Location.name).all()]
 
     for p in patrols:
+        user = user_services.get_names()[0]
+        user = user_services.get_user_from_name(user)
+
         patrol = Patrol()
         date = datetime.datetime(p['year'], p['month'], p['start_date'])
-        patrol.start_date = date
-        patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()
+        patrol.start_date = date.date()
+        patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()[0]
         date = datetime.datetime(p['year'], p['month'], p['end_date'])
-        patrol.end_date = date
-        patrol.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()
+        patrol.end_date = date.date()
+        patrol.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()[0]
 
         patrol.tracked = p['tracked']
         patrol.plb = p['plb']
 
+        patrol.trip_leader_id = session.query(User.id).filter(User.id == p['trip_leader']).first()[0]
+
+        patrol_user_unit = PatrolUserUnit()
+        patrol_user_unit.patrol = patrol
+        patrol_user_unit.patroller = user
+        patrol_user_unit.pack_color = 'Green'
+
+        session.add(patrol)
+
+        session.add(patrol_user_unit)
+
+
+
+    session.commit()
     session.close()
 
     yield patrols

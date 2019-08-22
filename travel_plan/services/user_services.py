@@ -10,7 +10,7 @@ def get_names() -> List[str]:
     session: Session = db_session.create_session()
 
     try:
-        names = sorted([n[0] for n in session.query(User.name).all()])
+        names = [n[0] for n in session.query(User.name).order_by(User.name).all()]
     except:
         names = []
     finally:
@@ -18,6 +18,16 @@ def get_names() -> List[str]:
 
     return names
 
+
+def get_user_from_name(name: str) -> Optional[User]:
+    session: Session = db_session.create_session()
+
+    try:
+        return session.query(User).filter(User.name == name).first()
+    except:
+        return None
+    finally:
+        session.close()
 
 # def get_users(name: str = 'xyzzyx', email: str = 'xyzzyx', hashed_ssn: str = 'xyzzyx') -> List[User]:
 #     '''

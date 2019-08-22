@@ -8,7 +8,7 @@ from travel_plan.models.locations import Location
 from travel_plan.models.patrols import Patrol
 
 # noinspection PyUnresolvedReferences
-from travel_plan.models.patrol_user_units import PatrolUnit
+from travel_plan.models.patrol_user_units import PatrolUserUnit
 
 # noinspection PyUnresolvedReferences
 from travel_plan.models.proposed_locations import ProposedLocation

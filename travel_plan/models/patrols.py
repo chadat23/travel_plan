@@ -1,11 +1,9 @@
 import datetime
 
-# from sqlalchemy import Boolean, Column, Date, Integer, String, ForeignKey
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
 from travel_plan.models.modelbase import SqlAlchemyBasePatrol
-from travel_plan.models.patrol_user_units import PatrolUnit
 
 
 class Patrol(SqlAlchemyBasePatrol):
@@ -15,17 +13,19 @@ class Patrol(SqlAlchemyBasePatrol):
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
 
     start_date = sa.Column(sa.Date, index=True, unique=False, nullable=False)
-    entry_point_id = sa.Column(sa.String, sa.ForeignKey('locations.id'))
-    entry_point = orm.relation('Location', )
-    # end_date = sa.Column(sa.Date, index=True, unique=False, nullable=False)
-    # exit_point_id = sa.Column(sa.String, sa.ForeignKey('locations.id'))
-    # exit_point = orm.relationship('Location')
+    entry_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
+    entry_point = orm.relationship('Location', foreign_keys=[entry_point_id])
+    end_date = sa.Column(sa.Date, index=True, unique=False, nullable=False)
+    exit_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
+    exit_point = orm.relationship('Location', foreign_keys=[exit_point_id])
 
     tracked = sa.Column(sa.Boolean, index=False, unique=False, nullable=True)
     plb = sa.Column(sa.String, index=False, unique=False, nullable=True)
 
-    # patrol_units = orm.relation("PatrolUnit", order_by=PatrolUnit.user.desc(), back_populates=True)
-    patrol_units = orm.relation("PatrolUnit", back_populates='patrol')
+    trip_leader_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
+    trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])
+
+    patrollers = orm.relationship('PatrolUserUnit', backref='patrol')
 
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'

@@ -15,7 +15,7 @@ class User(SqlAlchemyBasePatrol):
     email = Column(String, index=True, unique=True, nullable=True)
     hashed_ssn = Column(String, index=True)
 
-    patrol_units = orm.relation("PatrolUnit", back_populates='user')
+    patrols = orm.relationship('PatrolUserUnit', backref='patroller')
 
     def __lt__(self, other):
         return self.name < other.name
