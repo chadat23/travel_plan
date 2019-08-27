@@ -21,7 +21,7 @@ def test_location_services_get_location_success(db_session_w_info):
     from travel_plan.models.locations import Location
     from travel_plan.services import location_services
 
-    locations, users, colors = db_session_w_info
+    locations, users, colors, cars = db_session_w_info
 
     for location in locations:
         loc = location_services.get_location(location['name'])
@@ -34,7 +34,7 @@ def test_location_services_get_location_success(db_session_w_info):
 def test_location_services_get_all_success(db_session_w_info):
     from travel_plan.services import location_services
 
-    locations, users, colors = db_session_w_info
+    locations, users, colors, cars = db_session_w_info
 
     locs = location_services.get_all()
 
@@ -46,7 +46,7 @@ def test_location_services_get_all_success(db_session_w_info):
 def test_location_services_get_names_success(db_session_w_info):
     from travel_plan.services import location_services
 
-    locations, users, colors = db_session_w_info
+    locations, users, colors, cars = db_session_w_info
 
     actual_locacitons = location_services.get_names()
 
@@ -58,7 +58,7 @@ def test_location_services_get_names_success(db_session_w_info):
 def test_location_services_get_id_from_name_success(db_session_w_info):
     from travel_plan.services import location_services
 
-    locations, users, colors = db_session_w_info
+    locations, users, colors, cars = db_session_w_info
 
     actual_locaciton = location_services.get_id_from_name(locations[1]['name'])
 

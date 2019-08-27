@@ -4,6 +4,7 @@ import pytest
 
 from sqlalchemy.orm import Session
 from travel_plan.models import db_session
+from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
 from travel_plan.models.patrol_user_units import PatrolUserUnit
@@ -28,16 +29,36 @@ locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119
              {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687},
              ]
 
-colors = ['Red', 'Green', 'Blue', 'Orange', 'Black']
+cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White', 'location': 'Yosemite Valley'},
+        {'plate': 'G13-587', 'make': 'Ford', 'model': 'F-150', 'color': 'White', 'location': 'Tuolumne'},
+        {'plate': 'G13-789', 'make': 'Honda', 'model': 'Element', 'color': 'Blue', 'location': 'El Portal'},
+        {'plate': 'G13-875', 'make': 'Nissan', 'model': 'Sentura', 'color': 'Silver', 'location': 'Yosemite Valley'}, ]
 
-patrols = [{'patrol': {'start_date': '2019-08-16', 'entry_point': 'May Lake TH', 'end_date': '2019-08-18', 'exit_point': 'Ten Lakes TH', 
-                       'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger'},
-            'users': [PatrolUnit('Dow, Jane', 'Red', 'Green', 'Green'),
-                      PatrolUnit('Vader, Darth', 'Black', 'Green', 'Red'),
-                      PatrolUnit('Rabbit, Roger', 'Green', 'Green', 'Green')
-                      ]
-            },
-           ]
+colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
+
+_patrols = [{'patrol': {'start_date': '2019-08-06', 'entry_point': 'May Lake TH',
+                        'end_date': '2019-08-18', 'exit_point': 'Ten Lakes TH',
+                        'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger',
+                        'car': 'G12-123'},
+             'patroller_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8],
+                                 ['Vader, Darth', 'Wild Pi', 'Black', 'Green', 'Red', 9, 8, 7, 6, 5, 4, 3, 2],
+                                 ['Rabbit, Roger', 'Wild 55', 'Green', 'Green', 'Green', 1, 1, 1, 1, 1, 1, 1, 1]
+                                 ]
+             },
+            ]
+
+
+# @property
+def patrols():
+    if isinstance(_patrols[0]['patroller_units'][0], list):
+        for p in _patrols:
+            users = []
+            for u in p['patroller_units']:
+                users.append(PatrolUserUnit(u[0], u[1], u[2], u[3], u[4], u[5], u[6],
+                                            u[7], u[8], u[9], u[10], u[11], u[12]))
+            p['patroller_units'] = users
+
+    return _patrols
 
 
 @pytest.fixture()
@@ -54,59 +75,58 @@ def db_test_session(tmpdir):
 @pytest.fixture()
 def db_session_w_info(db_test_session: Session):
     session: Session = db_session.create_session()
-    [session.add(Location(name=a['name'], latitude=a['latitude'], longitude=a['longitude'])) for a in locations]
-    [session.add(User(name=u['name'], email=u['email'], hashed_ssn=u['hashed_ssn'])) for u in users]
+    [session.add(Location(**a)) for a in locations]
+    [session.add(User(**u)) for u in users]
     [session.add(Color(id=n)) for n in colors]
+    [session.add(Car(**c)) for c in cars]
     session.commit()
     session.close()
 
-    yield locations, users, colors
+    yield locations, users, colors, cars
 
 
 @pytest.fixture()
 def db_session_w_patrol_info(db_session_w_info):
-    yield patrols
+    yield patrols()
 
-
-@pytest.fixture()
-def db_session_w_patrols(db_session_w_info):
-    import datetime
-
-    from travel_plan.models.patrols import Patrol
-
-    session: Session = db_session.create_session()
-
-    locations = [n[0] for n in session.query(Location.name).order_by(Location.name).all()]
-
-    for p in patrols:
-        user = user_services.get_names()[0]
-        user = user_services.get_user_from_name(user)
-
-        patrol = Patrol()
-        date = datetime.datetime(p['year'], p['month'], p['start_date'])
-        patrol.start_date = date.date()
-        patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()[0]
-        date = datetime.datetime(p['year'], p['month'], p['end_date'])
-        patrol.end_date = date.date()
-        patrol.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()[0]
-
-        patrol.tracked = p['tracked']
-        patrol.plb = p['plb']
-
-        patrol.trip_leader_id = session.query(User.id).filter(User.id == p['trip_leader']).first()[0]
-
-        patrol_user_unit = PatrolUserUnit()
-        patrol_user_unit.patrol = patrol
-        patrol_user_unit.patroller = user
-        patrol_user_unit.pack_color = 'Green'
-
-        session.add(patrol)
-
-        session.add(patrol_user_unit)
-
-
-
-    session.commit()
-    session.close()
-
-    yield patrols
+# @pytest.fixture()
+# def db_session_w_patrols(db_session_w_info):
+#     import datetime
+#
+#     from travel_plan.models.patrols import Patrol
+#
+#     session: Session = db_session.create_session()
+#
+#     locations = [n[0] for n in session.query(Location.name).order_by(Location.name).all()]
+#
+#     for p in patrols:
+#         user = user_services.get_names()[0]
+#         user = user_services.get_user_from_name(user)
+#
+#         patrol = Patrol()
+#         date = datetime.datetime(p['year'], p['month'], p['start_date'])
+#         patrol.start_date = date.date()
+#         patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()[
+#             0]
+#         date = datetime.datetime(p['year'], p['month'], p['end_date'])
+#         patrol.end_date = date.date()
+#         patrol.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()[0]
+#
+#         patrol.tracked = p['tracked']
+#         patrol.plb = p['plb']
+#
+#         patrol.trip_leader_id = session.query(User.id).filter(User.id == p['trip_leader']).first()[0]
+#
+#         patrol_user_unit = PatrolUserUnit()
+#         patrol_user_unit.patrol = patrol
+#         patrol_user_unit.patroller = user
+#         patrol_user_unit.pack_color = 'Green'
+#
+#         session.add(patrol)
+#
+#         session.add(patrol_user_unit)
+#
+#     session.commit()
+#     session.close()
+#
+#     yield patrols

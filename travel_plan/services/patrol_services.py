@@ -8,15 +8,24 @@ from sqlalchemy.orm import Session
 from travel_plan.models import db_session
 from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.patrols import Patrol
-from travel_plan.services import location_services, user_services
+from travel_plan.services import location_services, user_services, car_services
 
 
 @dataclass
 class PatrolUnit:
     name: str
+    call_sign: str
     pack_color: str
     tent_color: str
     fly_color: str
+    supervision: int
+    planning: int
+    contingency: int
+    comms: int
+    team_selection: int
+    fitness: int
+    env: int
+    complexity: int
 
 
 def get_all(start_date: datetime = '%', entry_point: str = '%', end_date: datetime = '%', exit_point: str = '%',
@@ -36,21 +45,19 @@ def get_all(start_date: datetime = '%', entry_point: str = '%', end_date: dateti
             # filter(Patrol.end_date.like(end_date)). \
             # filter(Patrol.exit_point.like(exit_point)). \
             # all()
-        # patrols = [p[0] for p in patrols]
 
     except:
         patrols = []
     finally:
-        # session.close()
-        pass
+        session.close()
 
     return patrols
 
 
-def add_patrol(start_date: str, entry_point: str, end_date: str, exit_point: str, 
-        tracked: bool, plb: str, trip_leader_name: str, 
-        patrollers: List[PatrolUnit]
-        ):
+def add_patrol(start_date: str, entry_point: str, end_date: str, exit_point: str,
+               tracked: bool, plb: str, trip_leader_name: str,
+               patroller_units: List[PatrolUserUnit], car: str
+               ):
 
         session: Session = db_session.create_session()
 
@@ -63,26 +70,28 @@ def add_patrol(start_date: str, entry_point: str, end_date: str, exit_point: str
         exit_point_id = location_services.get_id_from_name(exit_point)
         trip_leader_id = user_services.get_id_from_name(trip_leader_name)
 
+        # If the car name, rather than plate is entered, remove everything after the plate
+        car = car.split(' ')[0]
+        car_id = car_services.get_id_from_plate(car)
+
         patrol = Patrol(start_date, entry_point_id, end_date, 
-                        exit_point_id, tracked, plb, trip_leader_id)
+                        exit_point_id, tracked, plb, trip_leader_id, car_id)
 
         session.add(patrol)
 
-        for p in patrollers:
+        for p_u in patroller_units:
+            if not p_u.pack_color:
+                p_u.pack_color = 'NA'
+            if not p_u.tent_color:
+                p_u.tent_color = 'NA'
+            if not p_u.fly_color:
+                p_u.fly_color = 'NA'
 
-            name = p.name
-            pack_color = p.pack_color
-            tent_color = p.tent_color
-            fly_color = p.fly_color
-
-            if not pack_color:
-                pack_color = 'NA'
-            if not tent_color:
-                tent_color = 'NA'
-            if not fly_color:
-                fly_color = 'NA'
+            p_u.patrol = patrol
                 
-            session.add(PatrolUserUnit(patrol, name, pack_color, tent_color, fly_color))
+            session.add(p_u)
 
         session.commit()
         session.close()
+
+        return patrol

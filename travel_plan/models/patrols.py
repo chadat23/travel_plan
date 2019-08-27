@@ -27,8 +27,11 @@ class Patrol(SqlAlchemyBasePatrol):
 
     patrollers = orm.relationship('PatrolUserUnit', backref='patrol')
 
+    car_id = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
+    car = orm.relationship('Car', foreign_keys=[car_id])
+
     def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int, 
-                 tracked: bool, plb: str, trip_leader_id: int):
+                 tracked: bool, plb: str, trip_leader_id: int, car_id: int):
 
         self.start_date = start_date
         self.entry_point_id = entry_point_id
@@ -39,6 +42,8 @@ class Patrol(SqlAlchemyBasePatrol):
         self.plb = plb
 
         self.trip_leader_id = trip_leader_id
+
+        self.car_id = car_id
 
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'

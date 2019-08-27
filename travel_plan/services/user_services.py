@@ -11,6 +11,7 @@ def get_names() -> List[str]:
 
     try:
         return [n[0] for n in session.query(User.name).order_by(User.name).all()]
+        # return session.query(User.name).order_by(User.name).all()
     except:
         return []
     finally:

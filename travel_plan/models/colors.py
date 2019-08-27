@@ -10,4 +10,4 @@ class Color(SqlAlchemyBasePatrol):
     id: str = sa.Column(sa.String, primary_key=True)
 
     def __lt__(self, other):
-        return self.name < other.name
+        return self.id < other.id
