@@ -13,13 +13,15 @@ class Car(SqlAlchemyBasePatrol):
     model: str = sa.Column(sa.String, nullable=False)
     color: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
     location: str = sa.Column(sa.String, nullable=False)
+    active: bool = sa.Column(sa.Boolean, nullable=False)
 
-    def __init__(self, plate: str, make: str, model: str, color: str, location: str):
+    def __init__(self, plate: str, make: str, model: str, color: str, location: str, active: bool = True):
         self.plate = plate
         self.make = make
         self.model = model
         self.color = color
         self.location = location
+        self.active = active
 
     def __lt__(self, other):
         return str(self) < str(other)

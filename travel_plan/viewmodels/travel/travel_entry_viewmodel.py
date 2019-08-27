@@ -1,5 +1,7 @@
 from typing import List
 
+import flask
+
 from travel_plan.services import location_services, user_services
 from travel_plan.models.users import User
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
@@ -24,24 +26,34 @@ class TravelEntryViewModel(ViewModelBase):
 
         self.plb: str = self.request_dict.plb
 
-        self.users: List[User] = user_services.get_users()
+        self.usernames: List[str] = user_services.get_names()
 
-        self.name0 = self.request_dict.name0
-        self.call_sign0 = self.request_dict.callsign0
-        self.pack_color0 = self.request_dict.packcolor0
+        self.leader_name = self.request_dict.leadername
+        self.leader_call_sign = self.request_dict.leadercallsign
+        self.leader_pack_color = self.request_dict.leaderpackcolor
 
-        self.name1 = self.request_dict.name1
-        self.call_sign1 = self.request_dict.callsign1
-        self.pack_color1 = self.request_dict.packcolor1
+        request = flask.request
+        self.patrollers = []
+        # i = 0
+        # while 'name' + str(i) in request.form:
+        #     p = {}
+        #     p['name'] = request.form['name' + str(i)]
+        #     p['call_sign'] = request.form['call_sign' + str(i)]
+        #     p['pack_color'] = request.form['pack_color' + str(i)]
+        #     i += 1
+        for i in range(3):
+            p = {}
+            if 'name' + str(i) in request.form:
+                p['name'] = request.form['name' + str(i)]
+                p['callsign'] = request.form['callsign' + str(i)]
+                p['packcolor'] = request.form['packcolor' + str(i)]
+            else:
+                p['name'] = ''
+                p['callsign'] = ''
+                p['packcolor'] = ''
+            self.patrollers.append(p)
 
-        self.name2 = self.request_dict.name2
-        self.call_sign2 = self.request_dict.callsign2
-        self.pack_color2 = self.request_dict.packcolor2
-
-        self.name3 = self.request_dict.name3
-        self.call_sign3 = self.request_dict.callsign3
-        self.pack_color3 = self.request_dict.packcolor3
-
+        self.days_plan = []
         self.date0 = self.request_dict.date0
         self.start0 = self.request_dict.start0
         self.end0 = self.request_dict.end0

@@ -60,29 +60,45 @@
             <div class="entry-section">
                 <div class="row">
                     <datalist id="users">
-                        {% for u in users %}
-                            <option>{{ u.name }}</option>
+                        {% for user in usernames %}
+                            <option>{{ user }}</option>
                         {% endfor %}
                     </datalist>
-                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ name0 }}" list="users" required/>
-                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign0 }}" required/>
-                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color0 }}" required/>
+                    <input type="text" name="leadername" placeholder="Trip Leader" class="col-xl-4" value="{{ leader_name }}" list="users" required/>
+                    <input type="text" name="leadercallsign" placeholder="Call Sign" class="col-xl-4" value="{{ leader_call_sign }}" required/>
+                    <input type="text" name="leaderpackcolor" placeholder="Pack Color" class="col-xl-4" value="{{ leader_pack_color }}" required/>
                 </div>
-                <div class="row">
-                    <input type="text" name="name1" placeholder="Name" class="col-xl-4" value="{{ name1 }}" list="users"/>
-                    <input type="text" name="callsign1" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign1 }}"/>
-                    <input type="text" name="packcolor1" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color1 }}"/>
-                </div>
-                <div class="row">
-                    <input type="text" name="name2" placeholder="Name" class="col-xl-4" value="{{ name2 }}" list="users"/>
-                    <input type="text" name="callsig2" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign2 }}"/>
-                    <input type="text" name="packcolor2" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color2 }}"/>
-                </div>
-                <div class="row">
-                    <input type="text" name="name3" placeholder="Name" class="col-xl-4" value="{{ name3 }}" list="users"/>
-                    <input type="text" name="callsign3" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign3 }}"/>
-                    <input type="text" name="packcolor3" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color3 }}"/>
-                </div>
+                {% for p in patrollers %}
+                    <div class="row">
+<!--                        <input type="text" name="name{{ i }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>-->
+<!--                        <input type="text" name="callsign{{ i }}" placeholder="Call Sign" class="col-xl-4" value="{{ p['callsign'] }}"/>-->
+<!--                        <input type="text" name="packcolor{{ i }}" placeholder="Pack Color" class="col-xl-4" value="{{ p['packcolor'] }}"/>-->
+                        <input type="text" name="name{{ loop.index0 }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>
+                        <input type="text" name="callsign{{ loop.index0 }}" placeholder="Call Sign" class="col-xl-4" value="{{ p['callsign'] }}"/>
+                        <input type="text" name="packcolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-4" value="{{ p['packcolor'] }}"/>
+                    </div>
+                {% endfor %}
+
+<!--                <div class="row">-->
+<!--                    <input type="text" name="name0" placeholder="Name" class="col-xl-4" value="{{ name0 }}" list="users" required/>-->
+<!--                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign0 }}" required/>-->
+<!--                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color0 }}" required/>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <input type="text" name="name1" placeholder="Name" class="col-xl-4" value="{{ name1 }}" list="users"/>-->
+<!--                    <input type="text" name="callsign1" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign1 }}"/>-->
+<!--                    <input type="text" name="packcolor1" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color1 }}"/>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <input type="text" name="name2" placeholder="Name" class="col-xl-4" value="{{ name2 }}" list="users"/>-->
+<!--                    <input type="text" name="callsig2" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign2 }}"/>-->
+<!--                    <input type="text" name="packcolor2" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color2 }}"/>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <input type="text" name="name3" placeholder="Name" class="col-xl-4" value="{{ name3 }}" list="users"/>-->
+<!--                    <input type="text" name="callsign3" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign3 }}"/>-->
+<!--                    <input type="text" name="packcolor3" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color3 }}"/>-->
+<!--                </div>-->
             </div>
             <div class="entry-section">
                 <datalist id="mode">

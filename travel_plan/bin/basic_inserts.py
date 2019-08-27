@@ -1,9 +1,15 @@
 import os
 import sys
 
+from travel_plan.models.cars import Car
+from travel_plan.models.colors import Color
+
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+data = os.path.join(folder, 'tests')
 sys.path.insert(0, folder)
+sys.path.insert(0, data)
 import travel_plan
+import conftest
 from travel_plan.models import db_session
 from travel_plan.models.locations import Location
 from travel_plan.models.users import User
@@ -20,6 +26,27 @@ def main():
         insert_locations()
     elif choice == '2':
         insert_users()
+
+
+def main2():
+    init_db()
+
+    session = db_session.create_session()
+
+    for n in conftest.cars:
+        session.add(Car(**n))
+
+    for n in conftest.users:
+        session.add(User(**n))
+
+    for n in conftest.locations:
+        session.add(Location(**n))
+
+    for n in conftest.colors:
+        session.add(Color(id=n))
+
+    session.commit()
+    session.close()
 
 
 def insert_users():
@@ -116,4 +143,5 @@ def init_db():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    main2()
