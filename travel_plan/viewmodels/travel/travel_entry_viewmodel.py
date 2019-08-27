@@ -13,7 +13,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.entry_point: str = self.request_dict.entrylocation
         self.exit_date: str = self.request_dict.exitdate
         self.exit_point: str = self.request_dict.exitlocation
-        self.locations: List[str] = location_services.all_location_names()
+        self.locations: List[str] = location_services.get_names()
 
         if self.request_dict.tracked == 'yes':
             self.tracked: str = 'checked'
