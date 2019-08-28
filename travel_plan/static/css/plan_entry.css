@@ -35,6 +35,23 @@ body {
     margin: 2px 0px;
 }
 
+.set-height {
+    /*padding: 0px;*/
+    /*margin: 0px;*/
+    /*height: 30px;*/
+}
+
+.risk-label {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    /*background-color: yellow;*/
+    -ms-transform: rotate(-60deg); /* IE 9 */
+    -webkit-transform: rotate(-60deg); /* Safari 3-8 */
+    transform: rotate(-60deg);
+}
+
 input[type=”text”] {
     padding: 1px 1px;
 }

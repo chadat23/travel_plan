@@ -12,11 +12,16 @@ from travel_plan.models.users import User
 from travel_plan.services import user_services
 from travel_plan.services.patrol_services import PatrolUnit
 
-users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1'},
-         {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com', 'hashed_ssn': '2'},
-         {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com', 'hashed_ssn': '3'},
-         {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com', 'hashed_ssn': '4'},
-         {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com', 'hashed_ssn': '5'},
+users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1',
+          'home_phone': '555-123-1234', 'work_phone': '555-123-2345', 'cell_phone': '555-123-3456'},
+         {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com', 'hashed_ssn': '2',
+          'home_phone': '555-234-1234', 'work_phone': '555-234-2345', 'cell_phone': '555-234-3456'},
+         {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com', 'hashed_ssn': '3',
+          'home_phone': '555-345-1234', 'work_phone': '555-345-2345', 'cell_phone': '555-345-3456'},
+         {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com', 'hashed_ssn': '4',
+          'home_phone': '555-456-1234', 'work_phone': '555-456-2345', 'cell_phone': '555-456-3456'},
+         {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com', 'hashed_ssn': '5',
+          'home_phone': '555-567-1234', 'work_phone': '555-567-2345', 'cell_phone': '555-567-3456'},
          ]
 
 locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803},

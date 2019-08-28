@@ -15,6 +15,25 @@ def test_user_services_get_names_success(db_session_w_info):
     assert actual_names == expected_names
 
 
+def test_user_services_get_users_success(db_session_w_info):
+    from travel_plan.services import user_services
+
+    locations, users, colors, cars = db_session_w_info
+
+    actual_users = user_services.get_users()
+
+    never_ran = True
+    for u in users:
+        if u['name'] == actual_users[0].name:
+            assert u['email'] == actual_users[0].email
+            assert u['hashed_ssn'] == actual_users[0].hashed_ssn
+            assert u['cell_phone'] == actual_users[0].cell_phone
+            never_ran = False
+            break
+    assert not never_ran
+    assert len(actual_users) == len(users)
+
+
 def test_user_services_get_id_from_name_success(db_session_w_info):
     from travel_plan.services import user_services
 

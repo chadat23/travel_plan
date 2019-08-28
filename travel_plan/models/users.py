@@ -20,14 +20,21 @@ class User(SqlAlchemyBasePatrol):
 
     patrols = orm.relationship('PatrolUserUnit', backref='patroller')
 
+    home_phone = sa.Column(sa.String)
+    work_phone = sa.Column(sa.String)
+    cell_phone = sa.Column(sa.String)
+
     active: bool = sa.Column(sa.Boolean, nullable=False)
 
-    def __init__(self, name: str, email: str, hashed_ssn: str, active: bool = True):
+    def __init__(self, name: str, email: str, hashed_ssn: str,
+                 home_phone: str, work_phone: str, cell_phone: str, active: bool = True):
         self.name = name
         self.email = email
         self.hashed_ssn = hashed_ssn
+        self.home_phone = home_phone
+        self.work_phone = work_phone
+        self.cell_phone = cell_phone
         self.active = active
-
 
     def __lt__(self, other):
         return self.name < other.name

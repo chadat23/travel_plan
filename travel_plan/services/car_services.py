@@ -27,3 +27,14 @@ def get_id_from_plate(plate: str):
         return None
     finally:
         session.close()
+
+
+def get_plates() -> Optional[List[str]]:
+    session: Session = db_session.create_session()
+
+    try:
+        return [p[0] for p in session.query(Car.plate).order_by(Car.plate).all()]
+    except:
+        return []
+    finally:
+        session.close()

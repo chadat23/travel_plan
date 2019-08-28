@@ -26,7 +26,7 @@
     </div>
 
     <div class="container">
-        <form action="/travel/entry" method="POST">
+        <form action="/travel/entry" method="POST" enctype=multipart/form-data>
             <div class="row entry-section">
                 <div class="row col-lg-5">
                     <div class="col-xl-2">Entry:</div>
@@ -60,74 +60,170 @@
             <div class="entry-section">
                 <div class="row">
                     <datalist id="users">
-                        {% for user in usernames %}
-                            <option>{{ user }}</option>
+                        {% for user in users %}
+                            <option>{{ user.name }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <datalist id="colors">
+                        {% for color in colors %}
+                            <option>{{ color }}</option>
                         {% endfor %}
                     </datalist>
                     <input type="text" name="leadername" placeholder="Trip Leader" class="col-xl-4" value="{{ leader_name }}" list="users" required/>
-                    <input type="text" name="leadercallsign" placeholder="Call Sign" class="col-xl-4" value="{{ leader_call_sign }}" required/>
-                    <input type="text" name="leaderpackcolor" placeholder="Pack Color" class="col-xl-4" value="{{ leader_pack_color }}" required/>
+                    <input type="text" name="leadercallsign" placeholder="Call Sign" class="col-xl-2" value="{{ leader_call_sign }}" required/>
+                    <input type="text" name="leaderpackcolor" placeholder="Pack Color" class="col-xl-2" value="{{ leader_pack_color }}" list="colors" required/>
+                    <input type="text" name="leadertentcolor" placeholder="Tent Color" class="col-xl-2" value="{{ leader_tent_color }}" list="colors" required/>
+                    <input type="text" name="leaderflycolor" placeholder="Fly Color" class="col-xl-2" value="{{ leader_fly_color }}" list="colors" required/>
                 </div>
                 {% for p in patrollers %}
                     <div class="row">
-<!--                        <input type="text" name="name{{ i }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>-->
-<!--                        <input type="text" name="callsign{{ i }}" placeholder="Call Sign" class="col-xl-4" value="{{ p['callsign'] }}"/>-->
-<!--                        <input type="text" name="packcolor{{ i }}" placeholder="Pack Color" class="col-xl-4" value="{{ p['packcolor'] }}"/>-->
                         <input type="text" name="name{{ loop.index0 }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>
-                        <input type="text" name="callsign{{ loop.index0 }}" placeholder="Call Sign" class="col-xl-4" value="{{ p['callsign'] }}"/>
-                        <input type="text" name="packcolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-4" value="{{ p['packcolor'] }}"/>
+                        <input type="text" name="callsign{{ loop.index0 }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['callsign'] }}"/>
+                        <input type="text" name="packcolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['packcolor'] }}" list="colors" />
+                        <input type="text" name="tentcolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['tentcolor'] }}" list="colors" />
+                        <input type="text" name="flycolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['flycolor'] }}" list="colors" />
                     </div>
                 {% endfor %}
-
-<!--                <div class="row">-->
-<!--                    <input type="text" name="name0" placeholder="Name" class="col-xl-4" value="{{ name0 }}" list="users" required/>-->
-<!--                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign0 }}" required/>-->
-<!--                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color0 }}" required/>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <input type="text" name="name1" placeholder="Name" class="col-xl-4" value="{{ name1 }}" list="users"/>-->
-<!--                    <input type="text" name="callsign1" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign1 }}"/>-->
-<!--                    <input type="text" name="packcolor1" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color1 }}"/>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <input type="text" name="name2" placeholder="Name" class="col-xl-4" value="{{ name2 }}" list="users"/>-->
-<!--                    <input type="text" name="callsig2" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign2 }}"/>-->
-<!--                    <input type="text" name="packcolor2" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color2 }}"/>-->
-<!--                </div>-->
-<!--                <div class="row">-->
-<!--                    <input type="text" name="name3" placeholder="Name" class="col-xl-4" value="{{ name3 }}" list="users"/>-->
-<!--                    <input type="text" name="callsign3" placeholder="Call Sign" class="col-xl-4" value="{{ call_sign3 }}"/>-->
-<!--                    <input type="text" name="packcolor3" placeholder="Pack Color" class="col-xl-4" value="{{ pack_color3 }}"/>-->
-<!--                </div>-->
             </div>
+
             <div class="entry-section">
                 <datalist id="mode">
                     <option>Foot</option>
                     <option>Stock</option>
                     <option>Boat</option>
                 </datalist>
-                <div class="row">
-                    <input type="date" name="date0" title="Date:" class="col-xl-1 date-input" value="{{ date0 }}"/>
-                    <input type="text" name="start0" placeholder="Starting Point:" class="col-xl-3" value="{{ start0 }}" list="destinations"/>
-                    <input type="text" name="end0" placeholder="Ending Point:" class="col-xl-3" value="{{ end0 }}" list="destinations"/>
-                    <input type="text" name="route0" placeholder="Route:" class="col-xl-4" value="{{ route0 }}"/>
-                    <input type="text" name="mode0" placeholder="Mode:" class="col-xl-1" value="{{ mode0 }}" list="mode"/>
-                </div>
-                <div class="row">
-                    <input type="date" name="date1" title="Date:" class="col-xl-1 date-input" value="{{ date1 }}"/>
-                    <input type="text" name="start1" placeholder="Starting Point:" class="col-xl-3" value="{{ start1 }}" list="destinations"/>
-                    <input type="text" name="end1" placeholder="Ending Point:" class="col-xl-3" value="{{ end1 }}" list="destinations"/>
-                    <input type="text" name="route1" placeholder="Route:" class="col-xl-4" value="{{ route1 }}"/>
-                    <input type="text" name="mode1" placeholder="Mode:" class="col-xl-1" value="{{ mode1 }}" list="mode"/>
-                </div>
-                <div class="row">
-                    <input type="date" name="date2" title="Date:" class="col-xl-1 date-input" value="{{ date1 }}"/>
-                    <input type="text" name="start2" placeholder="Starting Point:" class="col-xl-3" value="{{ start1 }}" list="destinations"/>
-                    <input type="text" name="end2" placeholder="Ending Point:" class="col-xl-3" value="{{ end1 }}" list="destinations"/>
-                    <input type="text" name="route2" placeholder="Route:" class="col-xl-4" value="{{ route1 }}"/>
-                    <input type="text" name="mode2" placeholder="Mode:" class="col-xl-1" value="{{ mode1 }}" list="mode"/>
-                </div>
+                {% for d in day_plans %}
+                    <div class="row">
+                        <input type="date" name="date{{ loop.index0 }}" title="Date:" class="col-xl-1 date-input" value="{{ d['date'] }}"/>
+                        <input type="text" name="start{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['start'] }}" list="destinations"/>
+                        <input type="text" name="end{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['end'] }}" list="destinations"/>
+                        <input type="text" name="route{{ loop.index0 }}" placeholder="Route:" class="col-xl-4" value="{{ d['route'] }}"/>
+                        <input type="text" name="mode{{ loop.index0 }}" placeholder="Mode:" class="col-xl-1" value="{{ d['mode'] }}" list="mode"/>
+                    </div>
+                {% endfor %}
             </div>
+
+            <div class="entry-section">
+                <div class="row">
+                    <datalist id="cars">
+                        {% for car in cars %}
+                            <option>{{ car }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <input type="text" name="carplate" placeholder="License Plate" class="col-xl-4" value="{{ car_plate }}" list="cars">
+                    <input type="text" name="carmake" placeholder="Make" class="col-xl-3" value="{{ car_make }}">
+                    <input type="text" name="carmodel" placeholder="Model" class="col-xl-3" value="{{ car_model }}">
+                    <input type="text" name="carcolor" placeholder="Color" class="col-xl-2" value="{{ car_color }}" list="colors">
+                </div>
+                <row>
+                    <input type="text" name="carlocation" placeholder="Car Location" class="col-xl-6" value="{{ car_location }}">
+                </row>
+            </div>
+
+            <div class="entry-section">
+                <div class="form-check">
+                    <input type="checkbox" name="bivygear" id="bivygear" {% if bivy_gear %}checked{% else %}{% endif %}>
+                    <label for="bivygear" class="form-check-label">Bivy Gear</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="compass" id="compass" {% if compas %}checked{% else %}{% endif %}>
+                    <label for="compass" class="form-check-label">Compass</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="firstaidkit" id="firstaidkit" {% if first_aid_kit %}checked{% else %}{% endif %}>
+                    <label for="firstaidkit" class="form-check-label">First Aid Kit</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="flasgging" id="flasgging" {% if flagging %}checked{% else %}{% endif %}>
+                    <label for="flasgging" class="form-check-label">Flagging</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="flair" id="flair" {% if flair %}checked{% else %}{% endif %}>
+                    <label for="flair" class="form-check-label">Flair</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="flashlight" id="flashlight" {% if flashlight %}checked{% else %}{% endif %}>
+                    <label for="flashlight" class="form-check-label">Flashlight</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="gps" id="gps" {% if gps %}checked{% else %}{% endif %}>
+                    <label for="gps" class="form-check-label">GPS</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="headlamp" id="headlamp" {% if head_lamp %}checked{% else %}{% endif %}>
+                    <label for="headlamp" class="form-check-label">Head Lamp</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="helmet" id="helmet" {% if helmet %}checked{% else %}{% endif %}>
+                    <label for="helmet" class="form-check-label">Helmet</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="iceaxe" id="iceaxe" {% if ice_axe %}checked{% else %}{% endif %}>
+                    <label for="iceaxe" class="form-check-label">Ice Axe</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="map" id="map" {% if map %}checked{% else %}{% endif %}>
+                    <label for="map" class="form-check-label">Map</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="matches" id="matches" {% if matches %}checked{% else %}{% endif %}>
+                    <label for="matches" class="form-check-label">Matches</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="probepole" id="probepole" {% if probe_pole %}checked{% else %}{% endif %}>
+                    <label for="probepole" class="form-check-label">Probe Pole</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="radio" id="radio" {% if radio %}checked{% else %}{% endif %}>
+                    <label for="radio" class="form-check-label">Radio</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="rope" id="rope" {% if rope %}checked{% else %}{% endif %}>
+                    <label for="rope" class="form-check-label">Rope</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="shovel" id="shovel" {% if shovel %}checked{% else %}{% endif %}>
+                    <label for="shovel" class="form-check-label">Shovel</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="signalmirror" id="signalmirror" {% if signal_mirror %}checked{% else %}{% endif %}>
+                    <label for="signalmirror" class="form-check-label">Signal Mirror</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="spaceblanket" id="spaceblanket" {% if space_blanket %}checked{% else %}{% endif %}>
+                    <label for="spaceblanket" class="form-check-label">Space Blanket</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="sparebattery" id="sparebattery" {% if spare_battery %}checked{% else %}{% endif %}>
+                    <label for="sparebattery" class="form-check-label">Spare Battery</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="tent" id="tent" {% if tent %}checked{% else %}{% endif %}>
+                    <label for="tent" class="form-check-label">Tent</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="whistle" id="whistle" {% if whistle %}checked{% else %}{% endif %}>
+                    <label for="whistle" class="form-check-label">Whistle</label>
+                </div>
+                <input type="number" name="daysoffood" placeholder="Days Worth of Food" class="col-xl-6" value="{{ days_of_food }}" step="any"/>
+                <input type="text" name="weapon" placeholder="Weapon?" class="col-xl-6" value="{{ weapon }}"/>
+                <input type="text" name="radiomonitertime" placeholder="Time You Monitor Radio" class="col-xl-6" value="{{ radio_monitor_time }}"/>
+                <div class="col-xl-7" title="Off trail map included?">
+                    Off-trail travel?
+                    <label class="radio-inline">
+                        <input type="radio" name="offtrailtravel" id="offtrail1" value="yes" {{ off_trail_travel }} required>
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="offtrailtravel" id="offtrail2" value="no" {{ not off_trail_travel }} required>
+                        No
+                    </label>
+                    <input type="file" name="offtrailtravelmapfile">
+                </div>
+                <input type="text" name="cellnumber" placeholder="Cell phone #" class="col-xl-6" value="{{ cell_number }}"/>
+                <input type="text" name="satellitenumber" placeholder="Satellite Phone #" class="col-xl-6" value="{{ satellite_number }}"/>
+            </div>
+
             <div class="entry-section">
                 <datalist id="emails">
                     {% for user in users %}
@@ -135,14 +231,109 @@
                     {% endfor %}
                 </datalist>
                 <div class="row">
-                    <input type="text" name="contact0" placeholder="Responsible Party 1" class="col-xl-4" value="{{ contact0 }}" list="emails" required/>
+                    <input type="text" name="contact0" placeholder="Responsible Party 1" class="col-xl-3" value="{{ contact_email0 }}" list="emails" required/>
+                    <input type="text" name="work0" placeholder="Work Phone" class="col-xl-3" value="{{ work_phone0 }}"/>
+                    <input type="text" name="home0" placeholder="Home Phone" class="col-xl-3" value="{{ home_phone0 }}"/>
+                    <input type="text" name="cell0" placeholder="Cell Phone" class="col-xl-3" value="{{ cell_phone0 }}"/>
                 </div>
                 <div class="row">
-                    <input type="text" name="contact1" placeholder="Responsible Party 2" class="col-xl-4" value="{{ contact1 }}" list="emails" required/>
+                    <input type="text" name="contact1" placeholder="Responsible Party 2" class="col-xl-3" value="{{ contact_email1 }}" list="emails" required/>
+                    <input type="text" name="work1" placeholder="Work Phone" class="col-xl-3" value="{{ work_phone1 }}"/>
+                    <input type="text" name="home1" placeholder="Home Phone" class="col-xl-3" value="{{ home_phone1 }}"/>
+                    <input type="text" name="cell1" placeholder="Cell Phone" class="col-xl-3" value="{{ cell_phone1 }}"/>
                 </div>
-
-                <button type="submit" class="btn btn-danger">Submit</button>
             </div>
+
+            <div class="entry-section">
+                <div class="row">
+                    <div class="col-xl-2">
+                        Risk Calculation
+                    </div>
+                    <div class="col-xl-10">
+                        1 = No Risk, 10 = Extreme Risk
+                    </div>
+                </div>
+                <div class="row set-height">
+                    <div class="col-sm-1 risk-label">
+                        TM
+                    </div>
+                    <div class="col-sm-1 risk-label" >
+                        Supervision
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Planning
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Contingency Resources
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Communication
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Team Selection
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Team Fitness
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Environment
+                    </div>
+                    <div class="col-sm-1 risk-label">
+                        Incident Complexity
+                    </div>
+                </div>
+                {% for gar in gars %}
+                    <div class="row">
+                        <span class="col-sm-1">{{ loop.index }}</span>
+                        <input type="number" name="s{{ loop.index0 }}" class="col-sm-1" value="{{ gar['s'] }}"/>
+                        <input type="number" name="p{{ loop.index0 }}" class="col-sm-1" value="{{ gar['p'] }}"/>
+                        <input type="number" name="cr{{ loop.index0 }}" class="col-sm-1" value="{{ gar['cr'] }}"/>
+                        <input type="number" name="c{{ loop.index0 }}" class="col-sm-1" value="{{ gar['c'] }}"/>
+                        <input type="number" name="ts{{ loop.index0 }}" class="col-sm-1" value="{{ gar['ts'] }}"/>
+                        <input type="number" name="tf{{ loop.index0 }}" class="col-sm-1" value="{{ gar['tf'] }}"/>
+                        <input type="number" name="e{{ loop.index0 }}" class="col-sm-1" value="{{ gar['e'] }}"/>
+                        <input type="number" name="ic{{ loop.index0 }}" class="col-sm-1" value="{{ gar['ic'] }}"/>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <span class="col-sm-1">Avg</span>
+                    <input type="text" name="savg" class="col-sm-1" disabled/>
+                    <input type="text" name="pavg" class="col-sm-1" disabled/>
+                    <input type="text" name="cravg" class="col-sm-1" disabled/>
+                    <input type="text" name="cavg" class="col-sm-1" disabled/>
+                    <input type="text" name="tsavg" class="col-sm-1" disabled/>
+                    <input type="text" name="tfavg" class="col-sm-1" disabled/>
+                    <input type="text" name="eavg" class="col-sm-1" disabled/>
+                    <input type="text" name="icavg" class="col-sm-1" disabled/>
+                </div>
+                <div class="row">
+                    <span class="col-xl-1">Total Avg</span>
+                    <input type="text" name="garavg" class="col-sm-1"/>
+                </div>
+                <div>
+                    Discuss as a group how to manage and mitigate these risks and then the reasons.
+                </div>
+                <div class="row">
+                    <span class="col-xl-1"></span>
+                    <input type="number" name="mitigatedgar" value="{{ mitigated_gar }}" class="col-sm-1" step="any"/>
+                </div>
+                <div>
+                    Hazards identified and mitigations taken: radio dead spots, river crossings, weather forecasts, snow/ice, insects/animals, other-specify.
+                </div>
+                <div class="row">
+                    <span class="col-xl-1"></span>
+                    <input type="text" placeholder="GAR Justification" name="garmitigations" value="{{ gar_justification }}" class="col-sm-11"/>
+                </div>
+                <div>
+                    Additional notes:
+                </div>
+                <div class="row">
+                    <span class="col-xl-1"></span>
+                    <input type="text" placeholder="Notes:" name="notes" value="{{ notes }}" class="col-sm-11"/>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-danger">Submit</button>
         </form>
     </div>
 {% endblock %}

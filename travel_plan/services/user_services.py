@@ -6,6 +6,17 @@ from travel_plan.models import db_session
 from travel_plan.models.users import User
 
 
+def get_users() -> List[User]:
+    session: Session = db_session.create_session()
+
+    try:
+        return session.query(User).order_by(User.name).all()
+    except:
+        return []
+    finally:
+        session.close()
+
+
 def get_names() -> List[str]:
     session: Session = db_session.create_session()
 
