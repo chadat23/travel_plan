@@ -1,16 +1,16 @@
 import os
 import sys
 
-from travel_plan.models.cars import Car
-from travel_plan.models.colors import Color
-
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 data = os.path.join(folder, 'tests')
 sys.path.insert(0, folder)
 sys.path.insert(0, data)
-import travel_plan
+
 import conftest
+import travel_plan
 from travel_plan.models import db_session
+from travel_plan.models.cars import Car
+from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
 from travel_plan.models.users import User
 

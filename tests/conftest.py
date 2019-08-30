@@ -2,6 +2,7 @@ import os
 
 import pytest
 
+from sqlalchemy import create_engine, inspect, MetaData
 from sqlalchemy.orm import Session
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
@@ -11,6 +12,7 @@ from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.users import User
 from travel_plan.services import user_services
 from travel_plan.services.patrol_services import PatrolUnit
+
 
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1',
           'home_phone': '555-123-1234', 'work_phone': '555-123-2345', 'cell_phone': '555-123-3456'},
@@ -44,7 +46,7 @@ colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
 _patrols = [{'patrol': {'start_date': '2019-08-06', 'entry_point': 'May Lake TH',
                         'end_date': '2019-08-18', 'exit_point': 'Ten Lakes TH',
                         'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger',
-                        'car': 'G12-123'},
+                        'car': 'G12-123', 'car_locaton': 'May Lake TH'},
              'patroller_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8],
                                  ['Vader, Darth', 'Wild Pi', 'Black', 'Green', 'Red', 9, 8, 7, 6, 5, 4, 3, 2],
                                  ['Rabbit, Roger', 'Wild 55', 'Green', 'Green', 'Green', 1, 1, 1, 1, 1, 1, 1, 1]
@@ -66,9 +68,20 @@ def patrols():
     return _patrols
 
 
-@pytest.fixture()
-def db_test_session(tmpdir):
+# inspector = None
+# engine = None
+
+
+@pytest.fixture(scope='session')
+def db_test_session(tmp_path_factory): #tmpdir):
+    global inspector, engine
+
+    tmpdir = tmp_path_factory.mktemp("data")
+
     db = str(tmpdir / 'test.sqlite')
+    # engine = create_engine('sqlite:///' + db)
+    # inspector = inspect(engine)
+
     try:
         db_session.__factory = None
         session: Session = db_session.global_init('', db)
@@ -77,9 +90,11 @@ def db_test_session(tmpdir):
         os.remove(db)
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def db_session_w_info(db_test_session: Session):
+    # global engine
     session: Session = db_session.create_session()
+
     [session.add(Location(**a)) for a in locations]
     [session.add(User(**u)) for u in users]
     [session.add(Color(id=n)) for n in colors]
@@ -88,6 +103,16 @@ def db_session_w_info(db_test_session: Session):
     session.close()
 
     yield locations, users, colors, cars
+
+    session: Session = db_session.create_session()
+    
+    session.query(Location).delete()
+    session.query(User).delete()
+    session.query(Color).delete()
+    session.query(Car).delete()
+
+    session.commit()
+    session.close()
 
 
 @pytest.fixture()

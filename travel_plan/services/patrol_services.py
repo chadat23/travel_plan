@@ -56,7 +56,7 @@ def get_all(start_date: datetime = '%', entry_point: str = '%', end_date: dateti
 
 def add_patrol(start_date: str, entry_point: str, end_date: str, exit_point: str,
                tracked: bool, plb: str, trip_leader_name: str,
-               patroller_units: List[PatrolUserUnit], car: str
+               patroller_units: List[PatrolUserUnit], car_name: str, car_location: str
                ):
 
         session: Session = db_session.create_session()
@@ -71,11 +71,12 @@ def add_patrol(start_date: str, entry_point: str, end_date: str, exit_point: str
         trip_leader_id = user_services.get_id_from_name(trip_leader_name)
 
         # If the car name, rather than plate is entered, remove everything after the plate
-        car = car.split(' ')[0]
-        car_id = car_services.get_id_from_plate(car)
+        car_name: str = car_name.split(' ')[0]
+        car_id: int = car_services.get_id_from_plate(car_name)
+        car_location: int = location_services.get_id_from_name(car_location)
 
-        patrol = Patrol(start_date, entry_point_id, end_date, 
-                        exit_point_id, tracked, plb, trip_leader_id, car_id)
+        patrol = Patrol(start_date, entry_point_id, end_date, exit_point_id, 
+                        tracked, plb, trip_leader_id, car_id, car_location)
 
         session.add(patrol)
 

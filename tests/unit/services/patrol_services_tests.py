@@ -18,7 +18,7 @@ def test_patrol_services_get_names_success(db_session_w_patrol_info):
         actual_patrols.append(
             patrol_services.add_patrol(p['start_date'], p['entry_point'], p['end_date'], p['exit_point'],
                                        p['tracked'], p['plb'], p['trip_leader_name'],
-                                       patrol['patroller_units'], p['car']
+                                       patrol['patroller_units'], p['car'], p['car_locaton']
                                        ))
 
     for actual, expected in zip(actual_patrols, expected_patrols):

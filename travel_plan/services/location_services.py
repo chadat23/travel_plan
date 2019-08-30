@@ -3,7 +3,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from travel_plan.models import db_session
-from travel_plan.models.locations import Location
+from travel_plan.models.locations import Location, KindEnum
 
 
 def get_all() -> List[Location]:
@@ -34,11 +34,10 @@ def get_id_from_name(name: str):
         session.close()
 
 
-def add_location(name: str, latitude: float, longitude: float) -> Optional[Location]:
-    location = Location()
-    location.name = name.strip()
-    location.latitude = latitude
-    location.longitude = longitude
+def add_location(name: str, latitude: float, longitude: float, kind: KindEnum = KindEnum.Other, 
+                 note: str = "", is_in_park: bool = True) -> Optional[Location]:
+
+    location = Location(name, latitude, longitude, kind, note, is_in_park)
 
     session: Session = db_session.create_session()
     try:
