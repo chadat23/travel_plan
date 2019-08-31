@@ -5,6 +5,7 @@ import flask
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 from travel_plan.models import db_session
+import config
 
 # from travel_plan.nosql_models import mongo_setup
 
@@ -29,20 +30,24 @@ def configure():
 
 
 def setup_db():
-    # mongo_setup.global_init()
+    db_path = config.DB_FOLDER_PATH
+    os.makedirs(db_path, exist_ok=True)
 
-    db_existing = os.path.join(
-        os.path.dirname(__file__),
-        'db',
-        'existing.sqlite'
-    )
-    db_patrol = os.path.join(
-        os.path.dirname(__file__),
-        'db',
-        'patrol.sqlite'
-    )
+    # db_existing = os.path.join(
+    #     os.path.dirname(__file__),
+    #     'db',
+    #     'existing.sqlite'
+    # )
+    # db_patrol = os.path.join(
+    #     os.path.dirname(__file__),
+    #     'db',
+    #     'patrol.sqlite'
+    # )
 
-    db_session.global_init(db_existing, db_patrol)
+    db_patrol = os.path.join(db_path, config.DB_NAME)
+
+    # db_session.global_init(db_existing, db_patrol)
+    db_session.global_init("", db_patrol)
 
 
 def register_blueprints():

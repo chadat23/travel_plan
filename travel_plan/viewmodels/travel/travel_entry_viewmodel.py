@@ -117,8 +117,8 @@ class TravelEntryViewModel(ViewModelBase):
         self.cell_number = self.request_dict.cellnumber
         self.satellite_number = self.request_dict.satellitenumber
 
-        self.contact0 = self.request_dict.contact0
-        self.contact1 = self.request_dict.contact1
+        self.contact_email0 = self.request_dict.contactemail0
+        self.contact_email1 = self.request_dict.contactemail1
 
         self.gars = []
         for i in range(4):

@@ -7,7 +7,7 @@ sys.path.insert(0, folder)
 sys.path.insert(0, data)
 
 import conftest
-import travel_plan
+import travel_plan.config as config
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
@@ -136,9 +136,9 @@ def insert_locations():
 
 
 def init_db():
-    top_folder = os.path.dirname(__file__)
-    rel_file = os.path.join('..', 'db', 'patrol.sqlite')
-    db_file = os.path.abspath(os.path.join(top_folder, rel_file))
+    db_path = config.DB_FOLDER_PATH
+    os.makedirs(db_path, exist_ok=True)
+    db_file = os.path.abspath(os.path.join(db_path, config.DB_NAME))
     db_session.global_init('', db_file)
 
 

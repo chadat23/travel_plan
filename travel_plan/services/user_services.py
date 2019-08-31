@@ -10,6 +10,7 @@ def get_users() -> List[User]:
     session: Session = db_session.create_session()
 
     try:
+        a = session.query(User).order_by(User.name).all()
         return session.query(User).order_by(User.name).all()
     except:
         return []
