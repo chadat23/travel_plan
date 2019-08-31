@@ -2,7 +2,6 @@ import os
 
 import pytest
 
-from sqlalchemy import create_engine, inspect, MetaData
 from sqlalchemy.orm import Session
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
@@ -10,8 +9,7 @@ from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
 from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.users import User
-from travel_plan.services import user_services
-from travel_plan.services.patrol_services import PatrolUnit
+import travel_plan.models.__all_models as all_models
 
 
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1',
@@ -68,19 +66,23 @@ def patrols():
     return _patrols
 
 
-# inspector = None
-# engine = None
+def clear_db_values():
+    classes = dict([(name, cls) for name, cls in all_models.__dict__.items() if isinstance(cls, type)])
+
+    session: Session = db_session.create_session()
+
+    [session.query(cls).delete() for name, cls in classes.items()]
+
+    session.commit()
+    session.close()
 
 
 @pytest.fixture(scope='session')
-def db_test_session(tmp_path_factory): #tmpdir):
-    global inspector, engine
+def db_test_session(tmp_path_factory):
 
     tmpdir = tmp_path_factory.mktemp("data")
 
     db = str(tmpdir / 'test.sqlite')
-    # engine = create_engine('sqlite:///' + db)
-    # inspector = inspect(engine)
 
     try:
         db_session.__factory = None
@@ -90,7 +92,14 @@ def db_test_session(tmp_path_factory): #tmpdir):
         os.remove(db)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
+def db_session_wo_info(db_test_session: Session):
+    yield None
+
+    clear_db_values()
+
+
+@pytest.fixture()
 def db_session_w_info(db_test_session: Session):
     # global engine
     session: Session = db_session.create_session()
@@ -104,15 +113,7 @@ def db_session_w_info(db_test_session: Session):
 
     yield locations, users, colors, cars
 
-    session: Session = db_session.create_session()
-    
-    session.query(Location).delete()
-    session.query(User).delete()
-    session.query(Color).delete()
-    session.query(Car).delete()
-
-    session.commit()
-    session.close()
+    clear_db_values()
 
 
 @pytest.fixture()
