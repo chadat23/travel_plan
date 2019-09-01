@@ -12,7 +12,8 @@ from typing import List
 from fpdf import FPDF
 
 
-from travel_plan.disseminate.email_config import email
+# from travel_plan.disseminate.email_config import email
+from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
 
 
 def save_file(pdf: FPDF, name0: str, start_date: str) -> str:
@@ -36,8 +37,8 @@ def delete_file(file: str):
 def send_mail(recipients: List[str], file: str):
     COMMASPACE = ', '
 
-    sender = email['address']
-    gmail_password = email['password']
+    sender = EMAIL_ADDRESS
+    gmail_password = EMAIL_PASSWORD
     recipients = recipients
 
     # Create the enclosing (outer) message

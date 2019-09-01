@@ -8,7 +8,6 @@ pytest = "*"
 v = {editable = true,version = "*"}
 
 [packages]
-flask = "*"
 sqlalchemy = "*"
 fpdf = "*"
 folium = "*"

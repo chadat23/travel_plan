@@ -5,7 +5,7 @@ import flask
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 from travel_plan.models import db_session
-import config
+import travel_plan.config as config
 
 # from travel_plan.nosql_models import mongo_setup
 

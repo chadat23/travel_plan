@@ -7,6 +7,9 @@ container_folder = os.path.abspath(os.path.join(
 sys.path.insert(0, container_folder)
 
 # noinspection PyUnresolvedReferences
+from tests.unit.viewmodels.travel_entry_viewmodel_tests import *
+
+# noinspection PyUnresolvedReferences
 from tests.unit.services.car_services_tests import *
 
 # noinspection PyUnresolvedReferences
