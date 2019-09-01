@@ -1,6 +1,6 @@
 """
 This is an example of the actual config.py file
-and should be renamed as such. Additionally, actual
+and should be renamed to "config.py". Additionally, actual
 values should be placed in it.
 """
 
