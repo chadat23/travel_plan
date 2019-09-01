@@ -4,7 +4,7 @@ and should be renamed to "config.py". Additionally, actual
 values should be placed in it.
 """
 
-DB_LOCATION = "<absolute/path/to/db>"
+DB_FOLDER_PATH = "<absolute/path/to/db>"
 
 DB_NAME = "<db.name>"
 

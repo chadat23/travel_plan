@@ -29,14 +29,14 @@
         <form action="/travel/entry" method="POST" enctype=multipart/form-data>
             <div class="row entry-section">
                 <div class="row col-lg-5">
-                    <div class="col-xl-2">Entry:</div>
-                    <input type="date" name="entrydate" title="Entry Date" class="col-xl-3 date-input" value="{{ entry_date }}" required/>
-                    <input type="text" name="entrylocation" placeholder="Entry Location" class="col-xl-7 text-input" value="{{ entry_point }}" list="destinations" required/>
                     <datalist id="destinations">
                         {% for loc in locations %}
                             <option>{{ loc }}</option>
                         {% endfor %}
                     </datalist>
+                    <div class="col-xl-2">Entry:</div>
+                    <input type="date" name="entrydate" title="Entry Date" class="col-xl-3 date-input" value="{{ entry_date }}" required/>
+                    <input type="text" name="entrylocation" placeholder="Entry Location" class="col-xl-7 text-input" value="{{ entry_point }}" list="destinations" required/>
                 </div>
                 <div class="row col-lg-5">
                     <div class="col-xl-2">Exit:</div>
@@ -69,19 +69,19 @@
                             <option>{{ color }}</option>
                         {% endfor %}
                     </datalist>
-                    <input type="text" name="leadername" placeholder="Trip Leader" class="col-xl-4" value="{{ leader_name }}" list="users" required/>
-                    <input type="text" name="leadercallsign" placeholder="Call Sign" class="col-xl-2" value="{{ leader_call_sign }}" required/>
-                    <input type="text" name="leaderpackcolor" placeholder="Pack Color" class="col-xl-2" value="{{ leader_pack_color }}" list="colors" required/>
-                    <input type="text" name="leadertentcolor" placeholder="Tent Color" class="col-xl-2" value="{{ leader_tent_color }}" list="colors" required/>
-                    <input type="text" name="leaderflycolor" placeholder="Fly Color" class="col-xl-2" value="{{ leader_fly_color }}" list="colors" required/>
+                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ name0 }}" list="users" required/>
+                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ call_sign0 }}" required/>
+                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ pack_color0 }}" list="colors" required/>
+                    <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ tent_color0 }}" list="colors" required/>
+                    <input type="text" name="flycolor0" placeholder="Fly Color" class="col-xl-2" value="{{ fly_color0 }}" list="colors" required/>
                 </div>
                 {% for p in patrollers %}
                     <div class="row">
-                        <input type="text" name="name{{ loop.index0 }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>
-                        <input type="text" name="callsign{{ loop.index0 }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['callsign'] }}"/>
-                        <input type="text" name="packcolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['packcolor'] }}" list="colors" />
-                        <input type="text" name="tentcolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['tentcolor'] }}" list="colors" />
-                        <input type="text" name="flycolor{{ loop.index0 }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['flycolor'] }}" list="colors" />
+                        <input type="text" name="name{{ loop.index }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>
+                        <input type="text" name="callsign{{ loop.index }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['call_sign'] }}"/>
+                        <input type="text" name="packcolor{{ loop.index }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['pack_color'] }}" list="colors" />
+                        <input type="text" name="tentcolor{{ loop.index }}" placeholder="Tent Color" class="col-xl-2" value="{{ p['tent_color'] }}" list="colors" />
+                        <input type="text" name="flycolor{{ loop.index }}" placeholder="Fly Color" class="col-xl-2" value="{{ p['fly_color'] }}" list="colors" />
                     </div>
                 {% endfor %}
             </div>
@@ -231,13 +231,13 @@
                     {% endfor %}
                 </datalist>
                 <div class="row">
-                    <input type="text" name="contactemail0" placeholder="Responsible Party 1" class="col-xl-3" value="{{ contact_email0 }}" list="emails" required autocomplete="off"/>
+                    <input type="text" name="contactemail0" placeholder="Responsible Party 1" class="col-xl-3" value="{{ contact_email0 }}" list="emails" required/>
                     <input type="text" name="contactwork0" placeholder="Work Phone" class="col-xl-3" value="{{ contact_work0 }}"/>
                     <input type="text" name="contacthome0" placeholder="Home Phone" class="col-xl-3" value="{{ contact_home0 }}"/>
                     <input type="text" name="contactcell0" placeholder="Cell Phone" class="col-xl-3" value="{{ contact_cell0 }}"/>
                 </div>
                 <div class="row">
-                    <input type="text" name="contactemail1" placeholder="Responsible Party 2" class="col-xl-3" value="{{ contact_email1 }}" list="emails" required autocomplete="off"/>
+                    <input type="text" name="contactemail1" placeholder="Responsible Party 2" class="col-xl-3" value="{{ contact_email1 }}" list="emails" required/>
                     <input type="text" name="contactwork1" placeholder="Work Phone" class="col-xl-3" value="{{ contact_work1 }}"/>
                     <input type="text" name="contacthome1" placeholder="Home Phone" class="col-xl-3" value="{{ contact_home1 }}"/>
                     <input type="text" name="contactcell1" placeholder="Cell Phone" class="col-xl-3" value="{{ contact_cell1 }}"/>
@@ -332,6 +332,10 @@
                     <input type="text" placeholder="Notes:" name="notes" value="{{ notes }}" class="col-sm-11"/>
                 </div>
             </div>
+
+            {% if error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
 
             <button type="submit" class="btn btn-danger">Submit</button>
         </form>

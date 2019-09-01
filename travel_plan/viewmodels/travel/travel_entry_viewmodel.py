@@ -29,10 +29,6 @@ class TravelEntryViewModel(ViewModelBase):
         self.users: List[User] = user_services.get_users()
         self.colors: List[str] = color_services.get_names()
 
-        self.leader_name = self.request_dict.leadername
-        self.leader_call_sign = self.request_dict.leadercallsign
-        self.leader_pack_color = self.request_dict.leaderpackcolor
-
         request = flask.request
         self.patrollers = []
         # i = 0
@@ -42,7 +38,7 @@ class TravelEntryViewModel(ViewModelBase):
         #     p['call_sign'] = request.form['call_sign' + str(i)]
         #     p['pack_color'] = request.form['pack_color' + str(i)]
         #     i += 1
-        for i in range(3):
+        for i in range(4):
             p = {}
             if 'name' + str(i) in request.form:
                 p['name'] = request.form['name' + str(i)]
@@ -111,7 +107,8 @@ class TravelEntryViewModel(ViewModelBase):
         # https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
         # self.off_trail_travel_map_file = self.request_dict.offtrailtravelmapfile
         if 'offtrailtravelmapfile' in request.files:
-            self.off_trail_travel_map_file = request.files['offtrailtravelmapfile']
+            # self.off_trail_travel_map_file = request.files['offtrailtravelmapfile']
+            self.off_trail_travel_map_file = self.request_dict.offtrailtravelmapfile
         else:
             self.off_trail_travel_map_file = ''
         self.cell_number = self.request_dict.cellnumber
@@ -143,4 +140,12 @@ class TravelEntryViewModel(ViewModelBase):
                 gar['ic'] = ''
             self.gars.append(gar)
 
+    def validate(self):
+        self._validate_dates()
+        if self.error:
+            return None
+
+    def _validate_dates(self):
+        if self.exit_date < self.entry_date:
+            self.error = "Your exit date can't be before your entry date."
 
