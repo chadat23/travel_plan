@@ -44,12 +44,28 @@ class TravelEntryViewModel(ViewModelBase):
                 p['pack_color'] = request.form['packcolor' + str(i)]
                 p['tent_color'] = request.form['tentcolor' + str(i)]
                 p['fly_color'] = request.form['flycolor' + str(i)]
+                p['s'] = request.form['s' + str(i)]
+                p['p'] = request.form['p' + str(i)]
+                p['cr'] = request.form['cr' + str(i)]
+                p['c'] = request.form['c' + str(i)]
+                p['ts'] = request.form['ts' + str(i)]
+                p['tf'] = request.form['tf' + str(i)]
+                p['e'] = request.form['e' + str(i)]
+                p['ic'] = request.form['ic' + str(i)]
             else:
                 p['name'] = ''
                 p['call_sign'] = ''
                 p['pack_color'] = ''
                 p['tent_color'] = ''
                 p['fly_color'] = ''
+                p['s'] = ''
+                p['p'] = ''
+                p['cr'] = ''
+                p['c'] = ''
+                p['ts'] = ''
+                p['tf'] = ''
+                p['e'] = ''
+                p['ic'] = ''
             self.patrollers.append(p)
 
         self.day_plans = []
@@ -70,10 +86,11 @@ class TravelEntryViewModel(ViewModelBase):
             self.day_plans.append(d_p)
 
         self.cars = car_services.get_names()
-        self.car_plate = self.request_dict.carmake
+        self.car_plate = self.request_dict.carplate
         self.car_make = self.request_dict.carmake
         self.car_model = self.request_dict.carmodel
         self.car_color = self.request_dict.carcolor
+        self.car_location = self.request_dict.carlocation
 
         self.bivy_gear = self.request_dict.bivygear
         self.compass = self.request_dict.compass
@@ -87,7 +104,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.ice_axe = self.request_dict.iceaxe
         self.map = self.request_dict.map
         self.matches = self.request_dict.matches
-        self.pole_probe = self.request_dict.poleprobe
+        self.probe_pole = self.request_dict.probepole
         self.radio = self.request_dict.radio
         self.rope = self.request_dict.rope
         self.shovel = self.request_dict.shovel
@@ -113,37 +130,39 @@ class TravelEntryViewModel(ViewModelBase):
         self.satellite_number = self.request_dict.satellitenumber
 
         self.contact_email0 = self.request_dict.contactemail0
+        self.contact_work0 = self.request_dict.contactwork0
+        self.contact_home0 = self.request_dict.contacthome0
+        self.contact_cell0 = self.request_dict.contactcell0
         self.contact_email1 = self.request_dict.contactemail1
+        self.contact_work1 = self.request_dict.contactwork1
+        self.contact_home1 = self.request_dict.contacthome1
+        self.contact_cell1 = self.request_dict.contactcell1
 
-        self.gars = []
-        for i in range(4):
-            gar = {}
-            if 's' + str(i) in request.form:
-                gar['s'] = request.form['s' + str(i)]
-                gar['p'] = request.form['p' + str(i)]
-                gar['cr'] = request.form['cr' + str(i)]
-                gar['c'] = request.form['c' + str(i)]
-                gar['ts'] = request.form['ts' + str(i)]
-                gar['tf'] = request.form['tf' + str(i)]
-                gar['e'] = request.form['e' + str(i)]
-                gar['ic'] = request.form['ic' + str(i)]
-            else:
-                gar['s'] = ''
-                gar['p'] = ''
-                gar['cr'] = ''
-                gar['c'] = ''
-                gar['ts'] = ''
-                gar['tf'] = ''
-                gar['e'] = ''
-                gar['ic'] = ''
-            self.gars.append(gar)
+        self.s_avg = self.request_dict.savg
+        self.p_avg = self.request_dict.pavg
+        self.cr_avg = self.request_dict.cravg
+        self.c_avg = self.request_dict.cavg
+        self.ts_avg = self.request_dict.tsavg
+        self.tf_avg = self.request_dict.tfavg
+        self.e_avg = self.request_dict.eavg
+        self.ic_avg = self.request_dict.icavg
+        self.gar_avg = self.request_dict.garavg
+        self.mitigated_avg = self.request_dict.mitigatedavg
+        self.gar_mitigations = self.request_dict.garmitigations
+
+        self.notes = self.request_dict.notes
 
     def validate(self):
         self._validate_dates()
-        if self.error:
-            return None
 
     def _validate_dates(self):
         if self.exit_date < self.entry_date:
             self.error = "Your exit date can't be before your entry date."
 
+        if self.entry_date != self.day_plans[0]['date']:
+            self.error = "Your days' plans should start on your entry date. " \
+                         "The two dates don't match. You have days that are unaccounted for."
+
+        if self.exit_date != self.day_plans[-1]['date']:
+            self.error = "Your days' plans should end on your exit date. " \
+                         "The two dates don't match. You have days that are unaccounted for."

@@ -134,12 +134,12 @@
                     <label for="firstaidkit" class="form-check-label">First Aid Kit</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="flasgging" id="flasgging" {% if flagging %}checked{% else %}{% endif %}>
-                    <label for="flasgging" class="form-check-label">Flagging</label>
+                    <input type="checkbox" name="flagging" id="flagging" {% if flagging %}checked{% else %}{% endif %}>
+                    <label for="flagging" class="form-check-label">Flagging</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="flair" id="flair" {% if flair %}checked{% else %}{% endif %}>
-                    <label for="flair" class="form-check-label">Flair</label>
+                    <input type="checkbox" name="flare" id="flare" {% if flare %}checked{% else %}{% endif %}>
+                    <label for="flare" class="form-check-label">flare</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" name="flashlight" id="flashlight" {% if flashlight %}checked{% else %}{% endif %}>
@@ -205,17 +205,18 @@
                     <input type="checkbox" name="whistle" id="whistle" {% if whistle %}checked{% else %}{% endif %}>
                     <label for="whistle" class="form-check-label">Whistle</label>
                 </div>
+
                 <input type="number" name="daysoffood" placeholder="Days Worth of Food" class="col-xl-6" value="{{ days_of_food }}" step="any"/>
                 <input type="text" name="weapon" placeholder="Weapon?" class="col-xl-6" value="{{ weapon }}"/>
-                <input type="text" name="radiomonitertime" placeholder="Time You Monitor Radio" class="col-xl-6" value="{{ radio_monitor_time }}"/>
+                <input type="text" name="radiomonitortime" placeholder="Time You Monitor Radio" class="col-xl-6" value="{{ radio_monitor_time }}"/>
                 <div class="col-xl-7" title="Off trail map included?">
                     Off-trail travel?
                     <label class="radio-inline">
-                        <input type="radio" name="offtrailtravel" id="offtrail1" value="yes" {% if off_trail_travel %}checked{% else %}{% endif %} required>
+                        <input type="radio" name="offtrailtravel" id="offtrail1" value="yes" {% if off_trail_travel %}checked{% else %}{% endif %}>
                         Yes
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="offtrailtravel" id="offtrail2" value="no" {% if not off_trail_travel %}checked{% else %}{% endif %} required>
+                        <input type="radio" name="offtrailtravel" id="offtrail2" value="no" {% if not off_trail_travel %}checked{% else %}{% endif %}>
                         No
                     </label>
                     <input type="file" name="offtrailtravelmapfile">
@@ -282,17 +283,17 @@
                         Incident Complexity
                     </div>
                 </div>
-                {% for gar in gars %}
+                {% for p in patrollers %}
                     <div class="row">
                         <span class="col-sm-1">{{ loop.index }}</span>
-                        <input type="number" name="s{{ loop.index0 }}" class="col-sm-1" value="{{ gar['s'] }}"/>
-                        <input type="number" name="p{{ loop.index0 }}" class="col-sm-1" value="{{ gar['p'] }}"/>
-                        <input type="number" name="cr{{ loop.index0 }}" class="col-sm-1" value="{{ gar['cr'] }}"/>
-                        <input type="number" name="c{{ loop.index0 }}" class="col-sm-1" value="{{ gar['c'] }}"/>
-                        <input type="number" name="ts{{ loop.index0 }}" class="col-sm-1" value="{{ gar['ts'] }}"/>
-                        <input type="number" name="tf{{ loop.index0 }}" class="col-sm-1" value="{{ gar['tf'] }}"/>
-                        <input type="number" name="e{{ loop.index0 }}" class="col-sm-1" value="{{ gar['e'] }}"/>
-                        <input type="number" name="ic{{ loop.index0 }}" class="col-sm-1" value="{{ gar['ic'] }}"/>
+                        <input type="number" name="s{{ loop.index0 }}" class="col-sm-1" value="{{ p['s'] }}"/>
+                        <input type="number" name="p{{ loop.index0 }}" class="col-sm-1" value="{{ p['p'] }}"/>
+                        <input type="number" name="cr{{ loop.index0 }}" class="col-sm-1" value="{{ p['cr'] }}"/>
+                        <input type="number" name="c{{ loop.index0 }}" class="col-sm-1" value="{{ p['c'] }}"/>
+                        <input type="number" name="ts{{ loop.index0 }}" class="col-sm-1" value="{{ p['ts'] }}"/>
+                        <input type="number" name="tf{{ loop.index0 }}" class="col-sm-1" value="{{ p['tf'] }}"/>
+                        <input type="number" name="e{{ loop.index0 }}" class="col-sm-1" value="{{ p['e'] }}"/>
+                        <input type="number" name="ic{{ loop.index0 }}" class="col-sm-1" value="{{ p['ic'] }}"/>
                     </div>
                 {% endfor %}
                 <div class="row">
