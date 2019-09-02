@@ -17,16 +17,12 @@ def entry_get():
 
 
 @blueprint.route('/travel/entry', methods=['POST'])
-# @response(template_file='travel/entry.html')
+@response(template_file='travel/entry.html')
 def entry_post():
     vm = TravelEntryViewModel()
-    print('1')
     vm.validate()
-    print('2')
     if vm.error:
-        print('3')
         return vm.to_dict()
-    print('4')
     # entry = travel_services.create_plan(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
     #                                     vm.tracked, vm.plb,
     #                                     vm.name0, vm.call_sign0, vm.pack_color0,
@@ -51,8 +47,7 @@ def entry_post():
     #                   vm.contact0, vm.contact1
     #                   )
 
-    # return redirect(url_for('travel.email_sent'))
-    return vm.to_dict()
+    return redirect(url_for('travel.email_sent'))
 
 
 @blueprint.route('/travel/sent', methods=['GET'])

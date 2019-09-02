@@ -29,28 +29,28 @@
         <form action="/travel/entry" method="POST" enctype=multipart/form-data>
             <div class="row entry-section">
                 <div class="row col-lg-5">
-                    <datalist id="destinations">
+                    <datalist id="locations">
                         {% for loc in locations %}
                             <option>{{ loc }}</option>
                         {% endfor %}
                     </datalist>
                     <div class="col-xl-2">Entry:</div>
                     <input type="date" name="entrydate" title="Entry Date" class="col-xl-3 date-input" value="{{ entry_date }}" required/>
-                    <input type="text" name="entrylocation" placeholder="Entry Location" class="col-xl-7 text-input" value="{{ entry_point }}" list="destinations" required/>
+                    <input type="text" name="entrypoint" placeholder="Entry Location" class="col-xl-7 text-input" value="{{ entry_point }}" list="locations" required/>
                 </div>
                 <div class="row col-lg-5">
                     <div class="col-xl-2">Exit:</div>
                     <input type="date" name="exitdate" title="Exit Date" class="col-xl-3 date-input" value="{{ exit_date }}" required/>
-                    <input type="text" name="exitlocation" placeholder="Exit Location" class="col-xl-7" value="{{ exit_point }}" list="destinations" required/>
+                    <input type="text" name="exitpoint" placeholder="Exit Location" class="col-xl-7" value="{{ exit_point }}" list="locations" required/>
                 </div>
                 <div class="row col-lg-2" >
                     <div class="col-xl-7" title="Will you be tracked by dispatch?">
                         <label class="radio-inline">
-                            <input type="radio" name="tracked" id="tracked1" value="yes" {{ tracked }} required>
+                            <input type="radio" name="tracked" id="tracked1" value="yes" {% if tracked %}checked{% else %}{% endif %} required>
                             Yes
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="tracked" id="tracked2" value="no" {{ nottracked }} required>
+                            <input type="radio" name="tracked" id="tracked2" value="no" {% if not tracked %}checked{% else %}{% endif %} required>
                             No
                         </label>
                     </div>
@@ -69,13 +69,13 @@
                             <option>{{ color }}</option>
                         {% endfor %}
                     </datalist>
-                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ name0 }}" list="users" required/>
-                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ call_sign0 }}" required/>
-                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ pack_color0 }}" list="colors" required/>
-                    <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ tent_color0 }}" list="colors" required/>
-                    <input type="text" name="flycolor0" placeholder="Fly Color" class="col-xl-2" value="{{ fly_color0 }}" list="colors" required/>
+                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ patrollers[0]['name'] }}" list="users" required/>
+                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ patrollers[0]['call_sign'] }}" required/>
+                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ patrollers[0]['pack_color'] }}" list="colors" required/>
+                    <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ patrollers[0]['tent_color'] }}" list="colors" required/>
+                    <input type="text" name="flycolor0" placeholder="Fly Color" class="col-xl-2" value="{{ patrollers[0]['fly_color'] }}" list="colors" required/>
                 </div>
-                {% for p in patrollers %}
+                {% for p in patrollers[1:] %}
                     <div class="row">
                         <input type="text" name="name{{ loop.index }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>
                         <input type="text" name="callsign{{ loop.index }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['call_sign'] }}"/>
@@ -95,8 +95,8 @@
                 {% for d in day_plans %}
                     <div class="row">
                         <input type="date" name="date{{ loop.index0 }}" title="Date:" class="col-xl-1 date-input" value="{{ d['date'] }}"/>
-                        <input type="text" name="start{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['start'] }}" list="destinations"/>
-                        <input type="text" name="end{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['end'] }}" list="destinations"/>
+                        <input type="text" name="start{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['start'] }}" list="locations"/>
+                        <input type="text" name="end{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['end'] }}" list="locations"/>
                         <input type="text" name="route{{ loop.index0 }}" placeholder="Route:" class="col-xl-4" value="{{ d['route'] }}"/>
                         <input type="text" name="mode{{ loop.index0 }}" placeholder="Mode:" class="col-xl-1" value="{{ d['mode'] }}" list="mode"/>
                     </div>
@@ -211,11 +211,11 @@
                 <div class="col-xl-7" title="Off trail map included?">
                     Off-trail travel?
                     <label class="radio-inline">
-                        <input type="radio" name="offtrailtravel" id="offtrail1" value="yes" {{ off_trail_travel }} required>
+                        <input type="radio" name="offtrailtravel" id="offtrail1" value="yes" {% if off_trail_travel %}checked{% else %}{% endif %} required>
                         Yes
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="offtrailtravel" id="offtrail2" value="no" {{ not off_trail_travel }} required>
+                        <input type="radio" name="offtrailtravel" id="offtrail2" value="no" {% if not off_trail_travel %}checked{% else %}{% endif %} required>
                         No
                     </label>
                     <input type="file" name="offtrailtravelmapfile">

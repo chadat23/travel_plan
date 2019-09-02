@@ -47,7 +47,8 @@ def setup_db():
     db_patrol = os.path.join(db_path, config.DB_NAME)
 
     # db_session.global_init(db_existing, db_patrol)
-    db_session.global_init("", db_patrol)
+    # db_session.global_init("", db_patrol)
+    db_session.global_init(db_patrol)
 
 
 def register_blueprints():

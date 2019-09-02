@@ -12,17 +12,15 @@ class TravelEntryViewModel(ViewModelBase):
         super().__init__()
 
         self.entry_date: str = self.request_dict.entrydate
-        self.entry_point: str = self.request_dict.entrylocation
+        self.entry_point: str = self.request_dict.entrypoint
         self.exit_date: str = self.request_dict.exitdate
-        self.exit_point: str = self.request_dict.exitlocation
+        self.exit_point: str = self.request_dict.exitpoint
         self.locations: List[str] = location_services.get_names()
 
-        if self.request_dict.tracked == 'yes':
-            self.tracked: str = 'checked'
-            self.nottracked: str = ''
+        if self.request_dict.tracked == '':
+            self.tracked = 'yes'
         else:
-            self.tracked: str = ''
-            self.nottracked: str = 'checked'
+            self.tracked = self.request_dict.tracked == 'yes'
 
         self.plb: str = self.request_dict.plb
 
@@ -42,16 +40,16 @@ class TravelEntryViewModel(ViewModelBase):
             p = {}
             if 'name' + str(i) in request.form:
                 p['name'] = request.form['name' + str(i)]
-                p['callsign'] = request.form['callsign' + str(i)]
-                p['packcolor'] = request.form['packcolor' + str(i)]
-                p['tentcolor'] = request.form['tentcolor' + str(i)]
-                p['flycolor'] = request.form['flycolor' + str(i)]
+                p['call_sign'] = request.form['callsign' + str(i)]
+                p['pack_color'] = request.form['packcolor' + str(i)]
+                p['tent_color'] = request.form['tentcolor' + str(i)]
+                p['fly_color'] = request.form['flycolor' + str(i)]
             else:
                 p['name'] = ''
-                p['callsign'] = ''
-                p['packcolor'] = ''
-                p['tentcolor'] = ''
-                p['flycolor'] = ''
+                p['call_sign'] = ''
+                p['pack_color'] = ''
+                p['tent_color'] = ''
+                p['fly_color'] = ''
             self.patrollers.append(p)
 
         self.day_plans = []
@@ -102,7 +100,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.days_of_food = self.request_dict.daysoffood
         self.weapon = self.request_dict.weapon
         self.radio_monitor_time = self.request_dict.radiomonitortime
-        self.off_trail_travel = self.request_dict.offtrailtravel
+        self.off_trail_travel = self.request_dict.offtrailtravel == 'yes'
         # https://www.tutorialspoint.com/flask/flask_file_uploading.htm
         # https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
         # self.off_trail_travel_map_file = self.request_dict.offtrailtravelmapfile
