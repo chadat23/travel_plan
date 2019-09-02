@@ -163,6 +163,13 @@ class TravelEntryViewModel(ViewModelBase):
             self.error = "Your days' plans should start on your entry date. " \
                          "The two dates don't match. You have days that are unaccounted for."
 
-        if self.exit_date != self.day_plans[-1]['date']:
-            self.error = "Your days' plans should end on your exit date. " \
-                         "The two dates don't match. You have days that are unaccounted for."
+        for plan in reversed(self.day_plans):
+            if plan['date'] != '':
+                if self.exit_date != plan['date']:
+                    self.error = "Your days' plans should end on your exit date. " \
+                                 "The two dates don't match. You have days that are unaccounted for."
+                break
+
+        # if self.exit_date != self.day_plans[-1]['date']:
+        #     self.error = "Your days' plans should end on your exit date. " \
+        #                  "The two dates don't match. You have days that are unaccounted for."
