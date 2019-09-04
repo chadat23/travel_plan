@@ -33,8 +33,29 @@ def get_plates() -> Optional[List[str]]:
     session: Session = db_session.create_session()
 
     try:
-        return [p[0] for p in session.query(Car.plate).order_by(Car.plate).all()]
+        return [p[0] for p in session.query(Car.plate).filter(Car.active).order_by(Car.plate).all()]
     except:
         return []
     finally:
         session.close()
+
+
+def create_car(plate: str, make: str, model: str, color: str, location: str = 'NA', active: bool = True) -> int:
+    '''
+    Creates a car object and adds it to the database
+
+    Returns the id of the added car.    
+    '''
+    session: Session = db_session.create_session()
+
+    color = color.lower().strip().capitalize()
+    color = color_services.add_if_not_present(color)
+
+    car = Car(plate, make, model, color, active)
+    session.add(car)
+    session.flush()
+
+    session.commit()
+    session.close()
+
+    return car.id

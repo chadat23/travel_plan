@@ -22,8 +22,6 @@ class PatrolDay(SqlAlchemyBasePatrol):
     route = sa.Column(sa.String, index=True, unique=True, nullable=True)
     mode = sa.Column(sa.String, index=True)
 
-    # patrols = orm.relationship('PatrolDay', backref='patrol_day')
-
     def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):
         self.date = datetime.strptime(date, '%Y-%m-%d')
         self.starting_point = location_services.get_id_from_name(starting_point)
@@ -33,3 +31,6 @@ class PatrolDay(SqlAlchemyBasePatrol):
 
     # def __lt__(self, other):
     #     return self.name < other.name
+
+    def __repr__(self):
+        return f'{str(self.date)} {self.starting_point} {self.ending_point} {self.route} {self.mode}'

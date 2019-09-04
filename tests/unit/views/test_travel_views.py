@@ -28,19 +28,11 @@ def test_travel_view_entry_post_success(form_data, initialized_users, initialize
     target = 'travel_plan.services.car_services.get_names'
     get_car_names = unittest.mock.patch(target, return_value=[c.plate for c in initialized_cars])
 
-    # target = 'travel_plan.services.location_services.get_names'
-    # get_location_names = unittest.mock.patch(target, return_value=None)
-    # target = 'travel_plan.services.user_services.get_users'
-    # get_users = unittest.mock.patch(target, return_value=None)
-    # target = 'travel_plan.services.color_services.get_names'
-    # get_color_names = unittest.mock.patch(target, return_value=None)
-    # target = 'travel_plan.services.car_services.get_names'
-    # get_car_names = unittest.mock.patch(target, return_value=None)
-
-    # m.side_effect = [form_data, form_data, form_data, form_data, form_data]
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
 
     with user_names, location_ids, get_location_names, get_users, get_color_names, get_car_names, request:
         resp: Response = entry_post()
 
     a = 0
+
+    assert False

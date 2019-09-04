@@ -4,28 +4,15 @@ from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 
 from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.services import location_services
+from travel_plan.models.patrol_days import PatrolDay
+from travel_plan.services import car_services, location_services
 from travel_plan.models import db_session
 from travel_plan.models.patrols import Patrol
 
 
-def get_plans():
-    return [
-        {'patroller_name': 'flask', 'version': '1.2.3'},
-        {'patroller_name': 'sqlalchemy', 'version': '2.2.0'},
-        {'patroller_name': 'passlib', 'version': '3.0.0'},
-    ]
-
-
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
-                patroller_units: List[PatrolUserUnit],
-                name0: str, call_sign0: str, pack_color0: str,
-                name1: str, call_sign1: str, pack_color1: str,
-                name2: str, call_sign2: str, pack_color2: str,
-                name3: str, call_sign3: str, pack_color3: str,
-                date0: str, start0: str, end0: str, route0: str, mode0: str,
-                date1: str, start1: str, end1: str, route1: str, mode1: str,
-                date2: str, start2: str, end2: str, route2: str, mode2: str,
+                patroller_units: List[PatrolUserUnit], day_plans: List[PatrolDay],
+                car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
                 contact0: str, contact1: str,
                 ) -> Optional[Patrol]:
 
@@ -38,34 +25,27 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.tracked = True if tracked == 'yes' else False
     patrol.plb = plb
 
-    patrol.name0 = name0
-    patrol.call_sign0 = call_sign0
-    patrol.pack_color0 = pack_color0
-    patrol.name1 = name1
-    patrol.call_sign1 = call_sign1
-    patrol.pack_color1 = pack_color1
-    patrol.name2 = name2
-    patrol.call_sign2 = call_sign2
-    patrol.pack_color2 = pack_color2
-    patrol.name3 = name3
-    patrol.call_sign3 = call_sign3
-    patrol.pack_color3 = pack_color3
+    car = car_services.get_id_from_plate(car_plate.split(' ')[0])
+    if not car_plate:
+        car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
 
-    patrol.date0 = None if date0 == '' else datetime.strptime(date0, '%Y-%m-%d')
-    patrol.start0 = start0
-    patrol.end0 = end0
-    patrol.route0 = route0
-    patrol.mode0 = mode0
-    patrol.date1 = None if date1 == '' else datetime.strptime(date1, '%Y-%m-%d')
-    patrol.start1 = start1
-    patrol.end1 = end1
-    patrol.route1 = route1
-    patrol.mode1 = mode1
-    patrol.date2 = None if date1 == '' else datetime.strptime(date2, '%Y-%m-%d')
-    patrol.start2 = start2
-    patrol.end2 = end2
-    patrol.route2 = route2
-    patrol.mode2 = mode2
+    # patrol.date0 = None if date0 == '' else datetime.strptime(date0, '%Y-%m-%d')
+    # patrol.start0 = start0
+    # patrol.end0 = end0
+    # patrol.route0 = route0
+    # patrol.mode0 = mode0
+    # patrol.date1 = None if date1 == '' else datetime.strptime(date1, '%Y-%m-%d')
+    # patrol.start1 = start1
+    # patrol.end1 = end1
+    # patrol.route1 = route1
+    # patrol.mode1 = mode1
+    # patrol.date2 = None if date1 == '' else datetime.strptime(date2, '%Y-%m-%d')
+    # patrol.start2 = start2
+    # patrol.end2 = end2
+    # patrol.route2 = route2
+    # patrol.mode2 = mode2
+
+    patrol
 
     patrol.contact0 = contact0
     patrol.contact1 = contact1

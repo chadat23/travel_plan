@@ -4,7 +4,7 @@ from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBasePatrol
 from travel_plan.models.patrols import Patrol
-from travel_plan.services import user_services
+from travel_plan.services import color_services, user_services
 
 
 class PatrolUserUnit(SqlAlchemyBasePatrol):
@@ -40,8 +40,15 @@ class PatrolUserUnit(SqlAlchemyBasePatrol):
 
         self.call_sign = call_sign
 
+        #TODO: should be some sort of list of colors
+        pack_color = pack_color.lower().strip().capitalize()
+        color_services.add_if_not_present(pack_color)
         self.pack_color = pack_color
+        tent_color = tent_color.lower().strip().capitalize()
+        color_services.add_if_not_present(tent_color)
         self.tent_color = tent_color
+        fly_color = fly_color.lower().strip().capitalize()
+        color_services.add_if_not_present(fly_color)
         self.fly_color = fly_color
 
         self.supervision = supervision

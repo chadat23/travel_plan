@@ -2,6 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.services import color_services
 
 
 class Car(SqlAlchemyBasePatrol):
@@ -15,10 +16,12 @@ class Car(SqlAlchemyBasePatrol):
     location: str = sa.Column(sa.String, nullable=False)
     active: bool = sa.Column(sa.Boolean, nullable=False)
 
-    def __init__(self, plate: str, make: str, model: str, color: str, location: str, active: bool = True):
+    def __init__(self, plate: str, make: str, model: str, color: str, 
+                 location: str = 'NA', active: bool = True):
         self.plate = plate
         self.make = make
         self.model = model
+        color_services.add_if_not_present(color)
         self.color = color
         self.location = location
         self.active = active
