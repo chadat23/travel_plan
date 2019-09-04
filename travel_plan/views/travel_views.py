@@ -2,8 +2,8 @@ from flask import Blueprint, redirect, url_for
 
 from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
-from travel_plan.models.patrol_days import PatrolDay
 from travel_plan.models.patrol_user_units import PatrolUserUnit
+# from travel_plan.models.patrol_days import PatrolDay
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
@@ -26,13 +26,6 @@ def entry_post():
     if vm.error:
         return vm.to_dict()
 
-    patrol_user_units = []
-    for p in vm.patrollers:
-        if not p['patroller_name']:
-            break
-        puu = PatrolUserUnit(**p)
-        puu = PatrolUserUnit('a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', )
-        patrol_user_units.append(puu)
     patrol_user_units = [PatrolUserUnit(**p) for p in vm.patrollers if p['patroller_name']]
 
     # day_plans = [PatrolDay(**pd) for pd in vm.day_plans if pd['date']]
