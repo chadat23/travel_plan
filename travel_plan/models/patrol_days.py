@@ -4,6 +4,7 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.patrols import Patrol
 from travel_plan.services import location_services
 
 
@@ -13,13 +14,15 @@ class PatrolDay(SqlAlchemyBasePatrol):
     id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
     created_date = sa.Column(sa.DateTime, default=datetime.now, index=True)
 
+    patrol_id: int = sa.Column(sa.Integer, sa.ForeignKey('patrols.id'))
+
     date = sa.Column(sa.DateTime, nullable=False)
     starting_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     ending_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     route = sa.Column(sa.String, index=True, unique=True, nullable=True)
     mode = sa.Column(sa.String, index=True)
 
-    patrols = orm.relationship('PatrolDay', backref='patrol_day')
+    # patrols = orm.relationship('PatrolDay', backref='patrol_day')
 
     def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):
         self.date = datetime.strptime(date, '%Y-%m-%d')

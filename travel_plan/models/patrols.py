@@ -26,6 +26,7 @@ class Patrol(SqlAlchemyBasePatrol):
     trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])
 
     patrollers = orm.relationship('PatrolUserUnit', backref='patrol')
+    patrol_dayss = orm.relationship('PatrolDay', backref='patrol')
 
     car_id = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
     car = orm.relationship('Car', foreign_keys=[car_id])
