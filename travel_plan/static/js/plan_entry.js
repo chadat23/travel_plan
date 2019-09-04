@@ -1,6 +1,6 @@
 count = 0;
 inputs1 = '<div>Is this working ' + count.toString() + '</div>';
-names = ['name', 'callsign', 'packcolor'];
+names = ['patroller_name', 'callsign', 'packcolor'];
 
 function line(count) {
     return '<div class="row">'
@@ -17,7 +17,7 @@ function get_values(count) {
     var j;
     for (i = 0; i < count; i++) {
         for (j = 0; j < names.length; j++){
-            n = 'p' + i + names[j];
+            n = 'planning' + i + names[j];
             val = document.getElementsByName(n)[0].value;
             console.log('val', val, n)
             if (val === undefined) {

@@ -69,7 +69,7 @@
                             <option>{{ color }}</option>
                         {% endfor %}
                     </datalist>
-                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ patrollers[0]['name'] }}" list="users" required/>
+                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ patrollers[0]['patroller_name'] }}" list="users" required/>
                     <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ patrollers[0]['call_sign'] }}" required/>
                     <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ patrollers[0]['pack_color'] }}" list="colors" required/>
                     <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ patrollers[0]['tent_color'] }}" list="colors" required/>
@@ -77,7 +77,7 @@
                 </div>
                 {% for p in patrollers[1:] %}
                     <div class="row">
-                        <input type="text" name="name{{ loop.index }}" placeholder="Name" class="col-xl-4" value="{{ p['name'] }}" list="users"/>
+                        <input type="text" name="name{{ loop.index }}" placeholder="Name" class="col-xl-4" value="{{ p['patroller_name'] }}" list="users"/>
                         <input type="text" name="callsign{{ loop.index }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['call_sign'] }}"/>
                         <input type="text" name="packcolor{{ loop.index }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['pack_color'] }}" list="colors" />
                         <input type="text" name="tentcolor{{ loop.index }}" placeholder="Tent Color" class="col-xl-2" value="{{ p['tent_color'] }}" list="colors" />
@@ -95,8 +95,8 @@
                 {% for d in day_plans %}
                     <div class="row">
                         <input type="date" name="date{{ loop.index0 }}" title="Date:" class="col-xl-1 date-input" value="{{ d['date'] }}"/>
-                        <input type="text" name="start{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['start'] }}" list="locations"/>
-                        <input type="text" name="end{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['end'] }}" list="locations"/>
+                        <input type="text" name="start{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['starting_point'] }}" list="locations"/>
+                        <input type="text" name="end{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['ending_point'] }}" list="locations"/>
                         <input type="text" name="route{{ loop.index0 }}" placeholder="Route:" class="col-xl-4" value="{{ d['route'] }}"/>
                         <input type="text" name="mode{{ loop.index0 }}" placeholder="Mode:" class="col-xl-1" value="{{ d['mode'] }}" list="mode"/>
                     </div>
@@ -286,14 +286,14 @@
                 {% for p in patrollers %}
                     <div class="row">
                         <span class="col-sm-1">{{ loop.index }}</span>
-                        <input type="number" name="s{{ loop.index0 }}" class="col-sm-1" value="{{ p['s'] }}"/>
-                        <input type="number" name="p{{ loop.index0 }}" class="col-sm-1" value="{{ p['p'] }}"/>
-                        <input type="number" name="cr{{ loop.index0 }}" class="col-sm-1" value="{{ p['cr'] }}"/>
-                        <input type="number" name="c{{ loop.index0 }}" class="col-sm-1" value="{{ p['c'] }}"/>
-                        <input type="number" name="ts{{ loop.index0 }}" class="col-sm-1" value="{{ p['ts'] }}"/>
-                        <input type="number" name="tf{{ loop.index0 }}" class="col-sm-1" value="{{ p['tf'] }}"/>
-                        <input type="number" name="e{{ loop.index0 }}" class="col-sm-1" value="{{ p['e'] }}"/>
-                        <input type="number" name="ic{{ loop.index0 }}" class="col-sm-1" value="{{ p['ic'] }}"/>
+                        <input type="number" name="s{{ loop.index0 }}" class="col-sm-1" value="{{ p['supervision'] }}"/>
+                        <input type="number" name="p{{ loop.index0 }}" class="col-sm-1" value="{{ p['planning'] }}"/>
+                        <input type="number" name="cr{{ loop.index0 }}" class="col-sm-1" value="{{ p['contingency'] }}"/>
+                        <input type="number" name="c{{ loop.index0 }}" class="col-sm-1" value="{{ p['comms'] }}"/>
+                        <input type="number" name="ts{{ loop.index0 }}" class="col-sm-1" value="{{ p['team_selection'] }}"/>
+                        <input type="number" name="tf{{ loop.index0 }}" class="col-sm-1" value="{{ p['fitness'] }}"/>
+                        <input type="number" name="e{{ loop.index0 }}" class="col-sm-1" value="{{ p['env'] }}"/>
+                        <input type="number" name="ic{{ loop.index0 }}" class="col-sm-1" value="{{ p['complexity'] }}"/>
                     </div>
                 {% endfor %}
                 <div class="row">

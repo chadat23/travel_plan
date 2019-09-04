@@ -53,7 +53,6 @@ _patrols = [{'patrol': {'start_date': '2019-08-06', 'entry_point': 'May Lake TH'
             ]
 
 
-# @property
 def patrols():
     if isinstance(_patrols[0]['patroller_units'][0], list):
         for p in _patrols:
@@ -86,7 +85,8 @@ def db_test_session(tmp_path_factory):
 
     try:
         db_session.__factory = None
-        session: Session = db_session.global_init('', db)
+        # session: Session = db_session.global_init('', db)
+        session: Session = db_session.global_init(db)
         yield session
     finally:
         os.remove(db)
@@ -114,6 +114,26 @@ def db_session_w_info(db_test_session: Session):
     yield locations, users, colors, cars
 
     clear_db_values()
+
+
+@pytest.fixture()
+def db_users():
+    yield users
+
+
+@pytest.fixture()
+def db_locations():
+    yield locations
+
+
+@pytest.fixture()
+def db_colors():
+    yield colors
+
+
+@pytest.fixture()
+def db_cars():
+    yield cars
 
 
 @pytest.fixture()

@@ -2,6 +2,8 @@ from flask import Blueprint, redirect, url_for
 
 from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
+from travel_plan.models.patrol_days import PatrolDay
+from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
@@ -23,17 +25,29 @@ def entry_post():
     vm.validate()
     if vm.error:
         return vm.to_dict()
-    # entry = travel_services.create_plan(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
-    #                                     vm.tracked, vm.plb,
-    #                                     vm.name0, vm.call_sign0, vm.pack_color0,
-    #                                     vm.name1, vm.call_sign1, vm.pack_color1,
-    #                                     vm.name2, vm.call_sign2, vm.pack_color2,
-    #                                     vm.name3, vm.call_sign3, vm.pack_color3,
-    #                                     vm.date0, vm.start0, vm.end0, vm.route0, vm.mode0,
-    #                                     vm.date1, vm.start1, vm.end1, vm.route1, vm.mode1,
-    #                                     vm.date2, vm.start2, vm.end2, vm.route2, vm.mode2,
-    #                                     vm.contact0, vm.contact1
-    #                                     )
+
+    patrol_user_units = []
+    for p in vm.patrollers:
+        if not p['patroller_name']:
+            break
+        puu = PatrolUserUnit(**p)
+        puu = PatrolUserUnit('a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', )
+        patrol_user_units.append(puu)
+    patrol_user_units = [PatrolUserUnit(**p) for p in vm.patrollers if p['patroller_name']]
+
+    # day_plans = [PatrolDay(**pd) for pd in vm.day_plans if pd['date']]
+
+    entry = travel_services.create_plan(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
+                                        vm.tracked, vm.plb,
+                                        vm.name0, vm.call_sign0, vm.pack_color0,
+                                        vm.name1, vm.call_sign1, vm.pack_color1,
+                                        vm.name2, vm.call_sign2, vm.pack_color2,
+                                        vm.name3, vm.call_sign3, vm.pack_color3,
+                                        vm.date0, vm.start0, vm.end0, vm.route0, vm.mode0,
+                                        vm.date1, vm.start1, vm.end1, vm.route1, vm.mode1,
+                                        vm.date2, vm.start2, vm.end2, vm.route2, vm.mode2,
+                                        vm.contact0, vm.contact1
+                                        )
 
     # emailer.email_pdf(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
     #                   vm.tracked, vm.plb,

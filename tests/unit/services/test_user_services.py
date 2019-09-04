@@ -55,7 +55,7 @@ def test_user_services_get_id_from_name_success(db_session_w_info):
 #     all_users = user_services.get_users()
 #
 #     for u in all_users:
-#         user = {'name': u.name, 'email': u.email, 'hashed_ssn': u.hashed_ssn}
+#         user = {'patroller_name': u.name, 'email': u.email, 'hashed_ssn': u.hashed_ssn}
 #         assert user in users
 #
 #
@@ -65,10 +65,10 @@ def test_user_services_get_id_from_name_success(db_session_w_info):
 #     locations, users = db_session_w_info
 #
 #     user = users[0]
-#     us = user_services.get_users(name=user['name'])
+#     us = user_services.get_users(name=user['patroller_name'])
 #
 #     assert len(us) == 1
-#     assert us[0].name == user['name']
+#     assert us[0].name == user['patroller_name']
 #     assert us[0].email == user['email']
 #     assert us[0].hashed_ssn == user['hashed_ssn']
 #
@@ -79,10 +79,10 @@ def test_user_services_get_id_from_name_success(db_session_w_info):
 #     locations, users = db_session_w_info
 #
 #     user = users[2]
-#     us = user_services.get_users(name=user['name'], email=user['email'])
+#     us = user_services.get_users(name=user['patroller_name'], email=user['email'])
 #
 #     assert len(us) == 1
-#     assert us[0].name == user['name']
+#     assert us[0].name == user['patroller_name']
 #     assert us[0].email == user['email']
 #     assert us[0].hashed_ssn == user['hashed_ssn']
 #
@@ -93,6 +93,6 @@ def test_user_services_get_id_from_name_success(db_session_w_info):
 #     locations, users = db_session_w_info
 #
 #     user = users[2]
-#     us = user_services.get_users(name=user['name'], email='lkjiuhyguy')
+#     us = user_services.get_users(name=user['patroller_name'], email='lkjiuhyguy')
 #
 #     assert len(us) == 0

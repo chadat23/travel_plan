@@ -30,42 +30,42 @@ class TravelEntryViewModel(ViewModelBase):
         request = flask.request
         self.patrollers = []
         # i = 0
-        # while 'name' + str(i) in request.form:
+        # while 'patroller_name' + str(i) in request.form:
         #     p = {}
-        #     p['name'] = request.form['name' + str(i)]
+        #     p['patroller_name'] = request.form['patroller_name' + str(i)]
         #     p['call_sign'] = request.form['call_sign' + str(i)]
         #     p['pack_color'] = request.form['pack_color' + str(i)]
         #     i += 1
         for i in range(4):
             p = {}
-            if 'name' + str(i) in request.form:
-                p['name'] = request.form['name' + str(i)]
+            if 'patroller_name' + str(i) in request.form:
+                p['patroller_name'] = request.form['patroller_name' + str(i)]
                 p['call_sign'] = request.form['callsign' + str(i)]
                 p['pack_color'] = request.form['packcolor' + str(i)]
                 p['tent_color'] = request.form['tentcolor' + str(i)]
                 p['fly_color'] = request.form['flycolor' + str(i)]
-                p['s'] = request.form['s' + str(i)]
-                p['p'] = request.form['p' + str(i)]
-                p['cr'] = request.form['cr' + str(i)]
-                p['c'] = request.form['c' + str(i)]
-                p['ts'] = request.form['ts' + str(i)]
-                p['tf'] = request.form['tf' + str(i)]
-                p['e'] = request.form['e' + str(i)]
-                p['ic'] = request.form['ic' + str(i)]
+                p['supervision'] = request.form['supervision' + str(i)]
+                p['planning'] = request.form['planning' + str(i)]
+                p['contingency'] = request.form['contingency' + str(i)]
+                p['comms'] = request.form['comms' + str(i)]
+                p['team_selection'] = request.form['team_selection' + str(i)]
+                p['fitness'] = request.form['fitness' + str(i)]
+                p['env'] = request.form['env' + str(i)]
+                p['complexity'] = request.form['complexity' + str(i)]
             else:
-                p['name'] = ''
+                p['patroller_name'] = ''
                 p['call_sign'] = ''
                 p['pack_color'] = ''
                 p['tent_color'] = ''
                 p['fly_color'] = ''
-                p['s'] = ''
-                p['p'] = ''
-                p['cr'] = ''
-                p['c'] = ''
-                p['ts'] = ''
-                p['tf'] = ''
-                p['e'] = ''
-                p['ic'] = ''
+                p['supervision'] = ''
+                p['planning'] = ''
+                p['contingency'] = ''
+                p['comms'] = ''
+                p['team_selection'] = ''
+                p['fitness'] = ''
+                p['env'] = ''
+                p['complexity'] = ''
             self.patrollers.append(p)
 
         self.day_plans = []
@@ -73,14 +73,14 @@ class TravelEntryViewModel(ViewModelBase):
             d_p = {}
             if 'date' + str(i) in request.form:
                 d_p['date'] = request.form['date' + str(i)]
-                d_p['start'] = request.form['start' + str(i)]
-                d_p['end'] = request.form['end' + str(i)]
+                d_p['starting_point'] = request.form['startingpoint' + str(i)]
+                d_p['ending_point'] = request.form['endingpoint' + str(i)]
                 d_p['route'] = request.form['route' + str(i)]
                 d_p['mode'] = request.form['mode' + str(i)]
             else:
                 d_p['date'] = ''
-                d_p['start'] = ''
-                d_p['end'] = ''
+                d_p['starting_point'] = ''
+                d_p['ending_point'] = ''
                 d_p['route'] = ''
                 d_p['mode'] = ''
             self.day_plans.append(d_p)
@@ -151,6 +151,9 @@ class TravelEntryViewModel(ViewModelBase):
         self.gar_mitigations = self.request_dict.garmitigations
 
         self.notes = self.request_dict.notes
+
+    # def get_patrollers(self):
+    #     pass
 
     def validate(self):
         self._validate_dates()

@@ -3,6 +3,7 @@ from typing import Optional, List, Dict
 
 from sqlalchemy.orm import Session
 
+from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.services import location_services
 from travel_plan.models import db_session
 from travel_plan.models.patrols import Patrol
@@ -10,13 +11,14 @@ from travel_plan.models.patrols import Patrol
 
 def get_plans():
     return [
-        {'name': 'flask', 'version': '1.2.3'},
-        {'name': 'sqlalchemy', 'version': '2.2.0'},
-        {'name': 'passlib', 'version': '3.0.0'},
+        {'patroller_name': 'flask', 'version': '1.2.3'},
+        {'patroller_name': 'sqlalchemy', 'version': '2.2.0'},
+        {'patroller_name': 'passlib', 'version': '3.0.0'},
     ]
 
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
+                patroller_units: List[PatrolUserUnit],
                 name0: str, call_sign0: str, pack_color0: str,
                 name1: str, call_sign1: str, pack_color1: str,
                 name2: str, call_sign2: str, pack_color2: str,

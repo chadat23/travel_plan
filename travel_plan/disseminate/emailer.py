@@ -121,18 +121,18 @@ def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: s
                  date2: str, start2: str, end2: str, route2: str, mode2: str,
                  contact0: str, contact1: str,
                  ) -> FPDF:
-    pdf = FPDF(orientation='P', unit='mm', format='A4')
+    pdf = FPDF(orientation='planning', unit='mm', format='A4')
     pdf.add_page()
 
     ht = 6
 
     pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Start Date:', 1, 0, 'C')
-    pdf.cell(55, ht, 'Entry Point:', 1, 0, 'C')
-    pdf.cell(22, ht, 'End Date:', 1, 0, 'C')
-    pdf.cell(55, ht, 'Exit Point:', 1, 0, 'C')
-    pdf.cell(15, ht, 'Tracked:', 1, 0, 'C')
-    pdf.cell(20, ht, 'PLB #:', 1, 1, 'C')
+    pdf.cell(22, ht, 'Start Date:', 1, 0, 'comms')
+    pdf.cell(55, ht, 'Entry Point:', 1, 0, 'comms')
+    pdf.cell(22, ht, 'End Date:', 1, 0, 'comms')
+    pdf.cell(55, ht, 'Exit Point:', 1, 0, 'comms')
+    pdf.cell(15, ht, 'Tracked:', 1, 0, 'comms')
+    pdf.cell(20, ht, 'PLB #:', 1, 1, 'comms')
 
     pdf.cell(*__ft_txt(pdf, 22, ht, start_date, 'V', False, 1, 0, 'L'))
     pdf.cell(*__ft_txt(pdf, 55, ht, entry_point, 'V', False, 1, 0, 'L'))
@@ -198,11 +198,11 @@ def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: s
     pdf.cell(10, 2, '', ln=1)
 
     pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Date:', 1, 0, 'C')
-    pdf.cell(46, ht, 'Starting Point:', 1, 0, 'C')
-    pdf.cell(46, ht, 'Ending Point:', 1, 0, 'C')
-    pdf.cell(40, ht, 'Route:', 1, 0, 'C')
-    pdf.cell(35, ht, 'Mode: (foot/stock/boat)', 1, 1, 'C')
+    pdf.cell(22, ht, 'Date:', 1, 0, 'comms')
+    pdf.cell(46, ht, 'Starting Point:', 1, 0, 'comms')
+    pdf.cell(46, ht, 'Ending Point:', 1, 0, 'comms')
+    pdf.cell(40, ht, 'Route:', 1, 0, 'comms')
+    pdf.cell(35, ht, 'Mode: (foot/stock/boat)', 1, 1, 'comms')
 
     pdf.set_font("Arial", '', size=10)
     pdf.cell(22, ht, date0, 1, 0, 'L')
