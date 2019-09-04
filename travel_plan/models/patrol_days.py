@@ -14,19 +14,19 @@ class PatrolDay(SqlAlchemyBasePatrol):
     created_date = sa.Column(sa.DateTime, default=datetime.now, index=True)
 
     date = sa.Column(sa.DateTime, nullable=False)
-    starting_point = sa.Column(sa.Integer, sa.ForeignKey('patrols.id'))
-    ending_point = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
+    starting_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
+    ending_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     route = sa.Column(sa.String, index=True, unique=True, nullable=True)
     mode = sa.Column(sa.String, index=True)
 
-    patrols = orm.relationship('PatrolUserUnit', backref='patroller')
+    patrols = orm.relationship('PatrolDay', backref='patrol_day')
 
-    # def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):
-    #     self.date = datetime.strptime(date, '%Y-%m-%d')
-    #     self.starting_point = location_services.get_id_from_name(starting_point)
-    #     self.ending_point = location_services.get_id_from_name(ending_point)
-    #     self.route = route
-    #     self.mode = mode
+    def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):
+        self.date = datetime.strptime(date, '%Y-%m-%d')
+        self.starting_point = location_services.get_id_from_name(starting_point)
+        self.ending_point = location_services.get_id_from_name(ending_point)
+        self.route = route
+        self.mode = mode
 
     # def __lt__(self, other):
     #     return self.name < other.name
