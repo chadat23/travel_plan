@@ -13,6 +13,10 @@ from travel_plan.models.patrols import Patrol
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
                 patroller_units: List[PatrolUserUnit], day_plans: List[PatrolDay],
                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
+                bivy_gear: bool, compass: bool, first_aid_kit: bool, flagging: bool, flare: bool, flashlight: bool,
+                gps: bool, head_lamp: bool, helmet: bool, ice_axe: bool, map: bool, matches: bool, probe_pole: bool,
+                radio: bool, rope: bool, shovel: bool, signal_mirror: bool, space_blanket: bool, spare_battery: bool,
+                tent: bool, whistle: bool,
                 contact0: str, contact1: str,
                 ) -> Optional[Patrol]:
 
@@ -25,27 +29,31 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.tracked = True if tracked == 'yes' else False
     patrol.plb = plb
 
-    car = car_services.get_id_from_plate(car_plate.split(' ')[0])
-    if not car_plate:
-        car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
+    car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
+    if not car_id:
+        car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
 
-    # patrol.date0 = None if date0 == '' else datetime.strptime(date0, '%Y-%m-%d')
-    # patrol.start0 = start0
-    # patrol.end0 = end0
-    # patrol.route0 = route0
-    # patrol.mode0 = mode0
-    # patrol.date1 = None if date1 == '' else datetime.strptime(date1, '%Y-%m-%d')
-    # patrol.start1 = start1
-    # patrol.end1 = end1
-    # patrol.route1 = route1
-    # patrol.mode1 = mode1
-    # patrol.date2 = None if date1 == '' else datetime.strptime(date2, '%Y-%m-%d')
-    # patrol.start2 = start2
-    # patrol.end2 = end2
-    # patrol.route2 = route2
-    # patrol.mode2 = mode2
-
-    patrol
+    self.bivy_gear = bivy_gear
+    self.compass = compass
+    self.first_aid_kit = first_aid_kit
+    self.flagging = flagging
+    self.flare = flare
+    self.flashlight = flashlight
+    self.gps = gps
+    self.head_lamp = head_lamp
+    self.helmet = helmet
+    self.ice_axe = ice_axe
+    self.map = map
+    self.matches = matches
+    self.probe_pole = probe_pole
+    self.radio = radio
+    self.rope = rope
+    self.shovel = shovel
+    self.signal_mirror = signal_mirror
+    self.space_blanket = space_blanket
+    self.spare_battery = spare_battery
+    self.tent = tent
+    self.whistle = whistle
 
     patrol.contact0 = contact0
     patrol.contact1 = contact1

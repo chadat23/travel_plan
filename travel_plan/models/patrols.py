@@ -33,7 +33,11 @@ class Patrol(SqlAlchemyBasePatrol):
     car_location = sa.Column(sa.String)
 
     def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int, 
-                 tracked: bool, plb: str, trip_leader_id: int, car_id: int, car_location: str):
+                 tracked: bool, plb: str, trip_leader_id: int, car_id: int, car_location: str,
+                 bivy_gear: bool, compass: bool, first_aid_kit: bool, flagging: bool, flare: bool, flashlight: bool,
+                 gps: bool, head_lamp: bool, helmet: bool, ice_axe: bool, map: bool, matches: bool, probe_pole: bool,
+                 radio: bool, rope: bool, shovel: bool, signal_mirror: bool, space_blanket: bool, spare_battery: bool,
+                 tent: bool, whistle: bool):
 
         self.start_date = start_date
         self.entry_point_id = entry_point_id
@@ -47,6 +51,28 @@ class Patrol(SqlAlchemyBasePatrol):
 
         self.car_id = car_id
         self.car_location = car_location
+
+        self.bivy_gear = bivy_gear
+        self.compass = compass
+        self.first_aid_kit = first_aid_kit
+        self.flagging = flagging
+        self.flare = flare
+        self.flashlight = flashlight
+        self.gps = gps
+        self.head_lamp = head_lamp
+        self.helmet = helmet
+        self.ice_axe = ice_axe
+        self.map = map
+        self.matches = matches
+        self.probe_pole = probe_pole
+        self.radio = radio
+        self.rope = rope
+        self.shovel = shovel
+        self.signal_mirror = signal_mirror
+        self.space_blanket = space_blanket
+        self.spare_battery = spare_battery
+        self.tent = tent
+        self.whistle = whistle
 
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'
