@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
+from travel_plan.services import color_services
 
 
 def get_names() -> List[str]:
@@ -48,7 +49,6 @@ def create_car(plate: str, make: str, model: str, color: str, location: str = 'N
     '''
     session: Session = db_session.create_session()
 
-    color = color.lower().strip().capitalize()
     color = color_services.add_if_not_present(color)
 
     car = Car(plate, make, model, color, active)

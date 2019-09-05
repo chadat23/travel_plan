@@ -66,6 +66,4 @@ def test_color_services_add_if_not_present_not_success(db_session_w_info):
 
     color = colors[0]
 
-    assert color_services.is_present(color)
-
-    assert not color_services.add_if_not_present(color)
+    assert color_services.add_if_not_present(color.lower()) == color

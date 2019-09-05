@@ -41,14 +41,11 @@ class PatrolUserUnit(SqlAlchemyBasePatrol):
         self.call_sign = call_sign
 
         #TODO: should be some sort of list of colors
-        pack_color = pack_color.lower().strip().capitalize()
-        color_services.add_if_not_present(pack_color)
+        pack_color = color_services.add_if_not_present(pack_color)
         self.pack_color = pack_color
-        tent_color = tent_color.lower().strip().capitalize()
-        color_services.add_if_not_present(tent_color)
+        tent_color = color_services.add_if_not_present(tent_color)
         self.tent_color = tent_color
-        fly_color = fly_color.lower().strip().capitalize()
-        color_services.add_if_not_present(fly_color)
+        fly_color = color_services.add_if_not_present(fly_color)
         self.fly_color = fly_color
 
         self.supervision = supervision

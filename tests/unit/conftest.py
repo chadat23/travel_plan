@@ -65,14 +65,21 @@ def initialized_locations(db_locations):
 def initialized_colors(db_colors):
     from travel_plan.models.colors import Color
 
-    yield [Color(id=c) for c in db_colors]
+    yield [Color(c) for c in db_colors]
 
 
 @pytest.fixture()
 def initialized_cars(db_cars):
+    import unittest.mock
+
     from travel_plan.models.cars import Car
 
-    cars = [Car(**c) for c in db_cars]
+    target = 'travel_plan.services.color_services.add_if_not_present'
+    # m = unittest.mock.MagicMock()
+    # m.side_effect = 'Red'
+    test_color = unittest.mock.patch(target, return_value='Red')
+    with test_color:
+        cars = [Car(**c) for c in db_cars]
 
     for i, c in enumerate(cars):
         c.id = i + 1

@@ -106,11 +106,10 @@ def db_session_w_info(db_test_session: Session):
 
     [session.add(Location(**a)) for a in locations]
     [session.add(User(**u)) for u in users]
+    [session.add(Color(n)) for n in colors]
     target = 'travel_plan.services.color_services.add_if_not_present'
     test_color = unittest.mock.patch(target, return_value=None)
     with test_color:
-        a = 0
-        [session.add(Color(n)) for n in colors]
         [session.add(Car(**c)) for c in cars]
     session.commit()
     session.close()

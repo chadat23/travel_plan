@@ -46,9 +46,8 @@ def add(name: str):
         session.close()
 
 
-def add_if_not_present(name: str):
-    name = name.lower().strip().capitalize()
+def add_if_not_present(name: str) -> Optional[str]:
     if not is_present(name):
         return add(name)
 
-    return name
+    return name.lower().strip().capitalize()

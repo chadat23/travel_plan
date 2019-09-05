@@ -34,6 +34,8 @@ def test_car_services_get_id_from_plat(db_session_w_info):
 
 
 def test_car_services_create_car(db_session_w_info):
+    import unittest.mock
+
     from travel_plan.services import car_services
     
     locations, users, colors, cars = db_session_w_info
@@ -43,6 +45,9 @@ def test_car_services_create_car(db_session_w_info):
     model = 'Vroom Queen'
     color = 'White'
 
-    car_services.create_car(plate, make, model, color)
+    target = 'travel_plan.services.color_services.add_if_not_present'
+    test_color = unittest.mock.patch(target, return_value=None)
+    with test_color:
+        car_services.create_car(plate, make, model, color)
 
     assert car_services.get_id_from_plate(plate) == len(cars) + 1
