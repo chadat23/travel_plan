@@ -5,7 +5,10 @@ import flask
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 from travel_plan.models import db_session
-import travel_plan.config as config
+try:
+    import travel_plan.config as config
+except:
+    print('*'*10 + ' Did you create a config.py file from the config_example.py file? ' + '*'*10)
 
 # from travel_plan.nosql_models import mongo_setup
 

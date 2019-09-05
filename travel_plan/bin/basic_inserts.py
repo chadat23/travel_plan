@@ -7,7 +7,10 @@ sys.path.insert(0, folder)
 sys.path.insert(0, data)
 
 import conftest
-import travel_plan.config as config
+try:
+    import travel_plan.config as config
+except:
+    print('*'*10 + ' Did you create a config.py file from the config_example.py file? ' + '*'*10)
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
@@ -43,7 +46,9 @@ def main2():
         session.add(Location(**n))
 
     for n in conftest.colors:
-        session.add(Color(id=n))
+        if not session.query(Color).filter(Color.id == n).all():
+            session.add(Color(n))
+            session.commit()
 
     session.commit()
     session.close()
@@ -139,7 +144,7 @@ def init_db():
     db_path = config.DB_FOLDER_PATH
     os.makedirs(db_path, exist_ok=True)
     db_file = os.path.abspath(os.path.join(db_path, config.DB_NAME))
-    db_session.global_init('', db_file)
+    db_session.global_init(db_file)
 
 
 if __name__ == '__main__':

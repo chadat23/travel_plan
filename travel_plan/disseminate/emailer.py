@@ -12,8 +12,10 @@ from typing import List
 from fpdf import FPDF
 
 
-# from travel_plan.disseminate.email_config import email
-from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
+try:
+    from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
+except:
+    print('*'*10 + ' Did you create a config.py file from the config_example.py file? ' + '*'*10)
 
 
 def save_file(pdf: FPDF, name0: str, start_date: str) -> str:

@@ -14,5 +14,4 @@ class ViewModelBase:
         self.error: Optional[str] = None
 
     def to_dict(self):
-        print(self.__dict__)
         return self.__dict__
