@@ -18,7 +18,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 radio: bool, rope: bool, shovel: bool, signal_mirror: bool, space_blanket: bool, spare_battery: bool,
                 tent: bool, whistle: bool,
                 contact0: str, contact1: str,
-                ) -> Optional[Patrol]:
+                ):
 
     patrol = Patrol()
     patrol.start_date = datetime.strptime(start_date, '%Y-%m-%d')

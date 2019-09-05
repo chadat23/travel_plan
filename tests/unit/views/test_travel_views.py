@@ -5,7 +5,26 @@ from tests.test_client import flask_app
 import unittest.mock
 
 
-def test_travel_view_entry_post_success(form_data, initialized_users, initialized_locations, initialized_cars,
+def test_travel_view_entry_post_success(db_test_session, form_data, 
+                                        initialized_users, initialized_locations, initialized_cars,
+                                        initialized_colors):
+    from travel_plan.views.travel_views import entry_post
+    from unittest.mock import Mock
+
+    target = 'travel_plan.services.travel_services.create_plan'
+    create_plan = unittest.mock.patch(target, return_value=None)
+    target = 'travel_plan.disseminate.emailer.email_pdf'
+    email_pdf = unittest.mock.patch(target, return_value=None)
+
+    request = flask_app.test_request_context(path='/travel/entry', data=form_data)
+
+    with create_plan, email_pdf, request:
+        resp: Response = entry_post()
+
+    assert isinstance(resp, Response)
+
+
+def test_junk_travel_view_entry_post_success(form_data, initialized_users, initialized_locations, initialized_cars,
                                         initialized_colors):
     from travel_plan.views.travel_views import entry_post
     from unittest.mock import Mock
