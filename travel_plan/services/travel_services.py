@@ -32,6 +32,8 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
     if not car_id:
         car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
+    patrol.car_id = car_id
+    patrol.car_location = car_location
 
     patrol.bivy_gear = bivy_gear
     patrol.compass = compass
