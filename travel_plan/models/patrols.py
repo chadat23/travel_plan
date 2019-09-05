@@ -34,10 +34,27 @@ class Patrol(SqlAlchemyBasePatrol):
 
     def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int, 
                  tracked: bool, plb: str, trip_leader_id: int, car_id: int, car_location: str,
-                 bivy_gear: bool, compass: bool, first_aid_kit: bool, flagging: bool, flare: bool, flashlight: bool,
-                 gps: bool, head_lamp: bool, helmet: bool, ice_axe: bool, map: bool, matches: bool, probe_pole: bool,
-                 radio: bool, rope: bool, shovel: bool, signal_mirror: bool, space_blanket: bool, spare_battery: bool,
-                 tent: bool, whistle: bool):
+                 bivy_gear: bool, 
+                 compass: bool, 
+                 first_aid_kit: bool, 
+                 flagging: bool, 
+                 flare: bool, 
+                 flashlight: bool,
+                 gps: bool, 
+                 head_lamp: bool, 
+                 helmet: bool, 
+                 ice_axe: bool, 
+                 map: bool, 
+                 matches: bool, 
+                 probe_pole: bool,
+                 radio: bool, 
+                 rope: bool, 
+                 shovel: bool, 
+                 signal_mirror: bool, 
+                 space_blanket: bool, 
+                 spare_battery: bool,
+                 tent: bool, 
+                 whistle: bool):
 
         self.start_date = start_date
         self.entry_point_id = entry_point_id

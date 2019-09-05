@@ -41,14 +41,18 @@ cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White',
 
 colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
 
-_patrols = [{'patrol': {'start_date': '2019-08-06', 'entry_point': 'May Lake TH',
-                        'end_date': '2019-08-18', 'exit_point': 'Ten Lakes TH',
+_patrols = [{'patrol': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH',
+                        'end_date': '2019-08-11', 'exit_point': 'Ten Lakes TH',
                         'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger',
-                        'car': 'G12-123', 'car_locaton': 'May Lake TH'},
+                        'car_plate': 'G12-123', 'car_make': 'Ford', 'car_model': 'Vroom Queen', 'car_color': 'Red' 'car_locaton': 'May Lake TH'},
              'patroller_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8],
                                  ['Vader, Darth', 'Wild Pi', 'Black', 'Green', 'Red', 9, 8, 7, 6, 5, 4, 3, 2],
                                  ['Rabbit, Roger', 'Wild 55', 'Green', 'Green', 'Green', 1, 1, 1, 1, 1, 1, 1, 1]
-                                 ]
+                                 ],
+             'day_plans': [['date': '2019-08-09', 'starting_point': 'May Lake TH', 'ending_point': 'May Lake HSC', 'route': 'The trail', 'mode': 'foot'],
+                           ['date': '2019-08-10', 'starting_point': 'May Lake HSC', 'ending_point': 'Ten Lakes Basin', 'route': 'Still the trail', 'mode': 'foot'],
+                           ['date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH', 'route': 'More trail', 'mode': 'foot'],
+                           ],
              },
             ]
 

@@ -13,10 +13,26 @@ from travel_plan.models.patrols import Patrol
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
                 patroller_units: List[PatrolUserUnit], day_plans: List[PatrolDay],
                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
-                bivy_gear: bool, compass: bool, first_aid_kit: bool, flagging: bool, flare: bool, flashlight: bool,
-                gps: bool, head_lamp: bool, helmet: bool, ice_axe: bool, map: bool, matches: bool, probe_pole: bool,
-                radio: bool, rope: bool, shovel: bool, signal_mirror: bool, space_blanket: bool, spare_battery: bool,
-                tent: bool, whistle: bool,
+                bivy_gear: bool, 
+                compass: bool, 
+                first_aid_kit: bool, 
+                flagging: bool, 
+                flare: bool, 
+                flashlight: bool,
+                gps: bool, 
+                head_lamp: bool, 
+                helmet: bool, 
+                ice_axe: bool, 
+                map: bool, 
+                matches: bool, 
+                probe_pole: bool,
+                radio: bool, rope: bool, 
+                shovel: bool, 
+                signal_mirror: bool, 
+                space_blanket: bool, 
+                spare_battery: bool,
+                tent: bool, 
+                whistle: bool,
                 contact0: str, contact1: str,
                 ):
 
@@ -56,9 +72,6 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.spare_battery = spare_battery
     patrol.tent = tent
     patrol.whistle = whistle
-
-    patrol.contact0 = contact0
-    patrol.contact1 = contact1
 
     session: Session = db_session.create_session()
     try:

@@ -24,9 +24,6 @@ def entry_post():
     vm = TravelEntryViewModel()
     vm.validate()
     if vm.error:
-        # print('*'*10, vm.error)
-        # print(vm.exit_date, vm.day_plans[2]['date'])
-        # return None
         return vm.to_dict()
 
     patrol_user_units = [PatrolUserUnit(**p) for p in vm.patrollers if p['patroller_name']]
