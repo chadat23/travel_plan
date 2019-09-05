@@ -24,6 +24,9 @@ def entry_post():
     vm = TravelEntryViewModel()
     vm.validate()
     if vm.error:
+        # print('*'*10, vm.error)
+        # print(vm.exit_date, vm.day_plans[2]['date'])
+        # return None
         return vm.to_dict()
 
     patrol_user_units = [PatrolUserUnit(**p) for p in vm.patrollers if p['patroller_name']]
@@ -55,6 +58,7 @@ def entry_post():
                                 vm.spare_battery == 'on',
                                 vm.tent == 'on',
                                 vm.whistle == 'on',
+                                'a', 'b'
                                 # vm.contact0, vm.contact1
                                 )
 
@@ -70,7 +74,8 @@ def entry_post():
                     #   vm.contact0, vm.contact1
                       )
 
-    return redirect(url_for('.email_sent'))
+    # return redirect(url_for('travel.email_sent'))
+    return redirect('/travel/email-sent')
 
 
 @blueprint.route('/travel/email-sent')

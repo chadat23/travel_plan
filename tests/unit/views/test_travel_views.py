@@ -1,27 +1,56 @@
 from flask import Response
+from werkzeug.wrappers.response import Response as werkzeug_response
 
 from tests.test_client import flask_app
 
 import unittest.mock
 
 
-def test_travel_view_entry_post_success(db_test_session, form_data, 
+def test_travel_view_entry_post_success(db_session_w_info, form_data, 
                                         initialized_users, initialized_locations, initialized_cars,
                                         initialized_colors):
     from travel_plan.views.travel_views import entry_post
     from unittest.mock import Mock
 
-    target = 'travel_plan.services.travel_services.create_plan'
-    create_plan = unittest.mock.patch(target, return_value=None)
+    request = flask_app.test_request_context(path='/travel/entry', data=form_data)
     target = 'travel_plan.disseminate.emailer.email_pdf'
     email_pdf = unittest.mock.patch(target, return_value=None)
+    target = 'travel_plan.services.travel_services.create_plan'
+    with unittest.mock.patch(target, retun_value=None) as plan:
+        print(type(plan))
+        with email_pdf, request:
+            resp: Response = entry_post()
+
+    assert isinstance(resp, Response) or isinstance(resp, werkzeug_response)
+    plan.assert_called()
+
+
+def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data, 
+                                                 initialized_users, initialized_locations, initialized_cars,
+                                                 initialized_colors):
+    from datetime import datetime, timedelta
+    from unittest.mock import Mock
+
+    from travel_plan.views.travel_views import entry_post
+    
+
+    start_date = datetime.strptime(form_data['entrydate'], '%Y-%m-%d')
+    start_date = start_date - timedelta(days=5)
+    start_date = datetime.strftime(start_date, '%Y-%m-%d')
+    form_data['exitdate'] = start_date
+    form_data['date2'] = start_date
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
-
-    with create_plan, email_pdf, request:
-        resp: Response = entry_post()
+    target = 'travel_plan.disseminate.emailer.email_pdf'
+    email_pdf = unittest.mock.patch(target, return_value=None)
+    target = 'travel_plan.services.travel_services.create_plan'
+    with unittest.mock.patch(target, retun_value=None) as plan:
+        print(type(plan))
+        with email_pdf, request:
+            resp: Response = entry_post()
 
     assert isinstance(resp, Response)
+    plan.assert_not_called()
 
 
 def test_junk_travel_view_entry_post_success(form_data, initialized_users, initialized_locations, initialized_cars,

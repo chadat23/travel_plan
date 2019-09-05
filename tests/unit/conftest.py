@@ -39,7 +39,7 @@ _form_data = {'entrydate': '2019-06-18', 'entrypoint': 'May Lake TH',
 
 @pytest.fixture()
 def form_data():
-    yield _form_data
+    yield _form_data.copy()
 
 
 @pytest.fixture()
