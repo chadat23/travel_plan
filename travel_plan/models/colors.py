@@ -11,6 +11,7 @@ class Color(SqlAlchemyBasePatrol):
 
     def __init__(self, name: str):
         id = name.lower().strip().capitalize()
+        id = name.lower().strip().capitalize()
 
     def __lt__(self, other):
         return self.id < other.id

@@ -21,7 +21,7 @@ class Car(SqlAlchemyBasePatrol):
         self.plate = plate
         self.make = make
         self.model = model
-        color_services.add_if_not_present(color)
+        color = color_services.add_if_not_present(color)
         self.color = color
         self.location = location
         self.active = active

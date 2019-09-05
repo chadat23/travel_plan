@@ -37,9 +37,9 @@ def add(name: str):
 
     session: Session = db_session.create_session()
     try:
-        session.add(Color(id=name))
+        session.add(Color(name))
         session.commit()
-        return True
+        return name
     except:
         return None
     finally:
@@ -47,7 +47,8 @@ def add(name: str):
 
 
 def add_if_not_present(name: str):
+    name = name.lower().strip().capitalize()
     if not is_present(name):
         return add(name)
 
-    return None
+    return name
