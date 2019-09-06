@@ -24,13 +24,15 @@ def test_patrol_services_get_names_success(db_session_w_patrol_info):
     m.side_effect = [1, 2, 2, 3, 3, 1]
     target = 'travel_plan.services.car_services.get_id_from_plate'
     get_car_id = unittest.mock.patch(target, return_value=m())
+    target = 'travel_plan.services.user_services.get_id_from_name'
+    get_user_id = unittest.mock.patch(target, return_value=1)
 
-    with get_location_id, get_car_id:
+    with get_location_id, get_car_id, get_user_id:
         for patrol in expected_patrols:
             p = patrol['patrol']
             actual_patrols.append(
                 travel_services.create_plan(p['start_date'], p['entry_point'], p['end_date'], p['exit_point'],
-                                            p['tracked'], p['plb'],
+                                            p['tracked'], p['plb'], p['trip_leader_name'],
                                             patrol['patroller_units'], patrol['day_plans'],
                                             p['car_plate'], p['car_make'], p['car_model'], p['car_color'],
                                             p['car_locaton'],
