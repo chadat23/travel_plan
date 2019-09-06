@@ -26,16 +26,24 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 map: bool, 
                 matches: bool, 
                 probe_pole: bool,
-                radio: bool, rope: bool, 
+                radio: bool,
+                rope: bool,
                 shovel: bool, 
                 signal_mirror: bool, 
                 space_blanket: bool, 
                 spare_battery: bool,
                 tent: bool, 
                 whistle: bool,
-                contact0: str, contact1: str,
+                # contact0: str, contact1: str,
                 ):
 
+    car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
+    if not car_id:
+        car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
+
+    # patrol = Patrol(start_date=datetime.strptime(start_date, '%Y-%m-%d'),
+    #
+    #                 )
     patrol = Patrol()
     patrol.start_date = datetime.strptime(start_date, '%Y-%m-%d')
     patrol.entry_point = entry_point
@@ -45,9 +53,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     patrol.tracked = True if tracked == 'yes' else False
     patrol.plb = plb
 
-    car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
-    if not car_id:
-        car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
+
     patrol.car_id = car_id
     patrol.car_location = car_location
 

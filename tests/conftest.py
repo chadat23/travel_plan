@@ -11,7 +11,6 @@ from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.users import User
 import travel_plan.models.__all_models as all_models
 
-
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'hashed_ssn': '1',
           'home_phone': '555-123-1234', 'work_phone': '555-123-2345', 'cell_phone': '555-123-3456'},
          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com', 'hashed_ssn': '2',
@@ -44,14 +43,25 @@ colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
 _patrols = [{'patrol': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH',
                         'end_date': '2019-08-11', 'exit_point': 'Ten Lakes TH',
                         'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger',
-                        'car_plate': 'G12-123', 'car_make': 'Ford', 'car_model': 'Vroom Queen', 'car_color': 'Red' 'car_locaton': 'May Lake TH'},
+                        'car_plate': 'G12-123', 'car_make': 'Ford', 'car_model': 'Vroom Queen', 'car_color': 'Red',
+                        'car_locaton': 'May Lake TH',
+                        'bivy_gear': 'on', 'compass': 'on', 'first_aid_kit': 'on', 'flagging': 'on', 'flare': 'on',
+                        'flashlight': 'on',
+                        'gps': 'on', 'head_lamp': 'on', 'helmet': 'on', 'ice_axe': 'on', 'map': 'on', 'matches': 'on',
+                        'probe_pole': 'on', 'radio': 'on', 'rope': 'on', 'shovel': 'on', 'signal_mirror': 'on',
+                        'space_blanket': 'on',
+                        'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
+                        },
              'patroller_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8],
                                  ['Vader, Darth', 'Wild Pi', 'Black', 'Green', 'Red', 9, 8, 7, 6, 5, 4, 3, 2],
-                                 ['Rabbit, Roger', 'Wild 55', 'Green', 'Green', 'Green', 1, 1, 1, 1, 1, 1, 1, 1]
+                                 ['Rabbit, Roger', 'Wild 55', 'Green', 'Green', 'Green', 1, 1, 1, 1, 1, 1, 1, 1],
                                  ],
-             'day_plans': [['date': '2019-08-09', 'starting_point': 'May Lake TH', 'ending_point': 'May Lake HSC', 'route': 'The trail', 'mode': 'foot'],
-                           ['date': '2019-08-10', 'starting_point': 'May Lake HSC', 'ending_point': 'Ten Lakes Basin', 'route': 'Still the trail', 'mode': 'foot'],
-                           ['date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH', 'route': 'More trail', 'mode': 'foot'],
+             'day_plans': [{'date': '2019-08-09', 'starting_point': 'May Lake TH', 'ending_point': 'May Lake HSC',
+                            'route': 'The trail', 'mode': 'foot'},
+                           {'date': '2019-08-10', 'starting_point': 'May Lake HSC', 'ending_point': 'Ten Lakes Basin',
+                            'route': 'Still the trail', 'mode': 'foot'},
+                           {'date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH',
+                            'route': 'More trail', 'mode': 'foot'},
                            ],
              },
             ]
@@ -82,7 +92,6 @@ def clear_db_values():
 
 @pytest.fixture(scope='session')
 def db_test_session(tmp_path_factory):
-
     tmpdir = tmp_path_factory.mktemp("data")
 
     db = str(tmpdir / 'test.sqlite')
