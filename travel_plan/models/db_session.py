@@ -9,14 +9,14 @@ __factory_external = None
 __factory = None
 
 
-# def global_init(db_external: str, db_patrol: str = ''):
+# def global_init(db_external: str, db_travel: str = ''):
 #     global __factory_external, __factory
 #
 #     if not __factory_external and db_external != '':
 #         __initiate_base('external', db_external, SqlAlchemyBaseExternal)
 #
-#     if not __factory and db_patrol != '':
-#         __initiate_base('patrol', db_patrol, SqlAlchemyBaseTravel)
+#     if not __factory and db_travel != '':
+#         __initiate_base('travel', db_travel, SqlAlchemyBaseTravel)
 
 def global_init(db_name: str):
     global __factory
@@ -49,7 +49,7 @@ def global_init(db_name: str):
 #     engine = sa.create_engine(conn_str, echo=False)
 #     if factory == 'external':
 #         __factory_external = orm.sessionmaker(bind=engine)
-#     elif factory == 'patrol':
+#     elif factory == 'travel':
 #         __factory = orm.sessionmaker(bind=engine)
 #
 #     # noinspection PyUnresolvedReferences

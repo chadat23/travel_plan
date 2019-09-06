@@ -28,18 +28,18 @@ class TravelEntryViewModel(ViewModelBase):
         self.colors: List[str] = color_services.get_names()
 
         request = flask.request
-        self.patrollers = []
+        self.travelers = []
         # i = 0
-        # while 'patroller_name' + str(i) in request.form:
+        # while 'traveler_name' + str(i) in request.form:
         #     p = {}
-        #     p['patroller_name'] = request.form['patroller_name' + str(i)]
+        #     p['traveler_name'] = request.form['traveler_name' + str(i)]
         #     p['call_sign'] = request.form['call_sign' + str(i)]
         #     p['pack_color'] = request.form['pack_color' + str(i)]
         #     i += 1
         for i in range(4):
             p = {}
-            if 'patroller_name' + str(i) in request.form:
-                p['patroller_name'] = request.form['patroller_name' + str(i)]
+            if 'travelername' + str(i) in request.form:
+                p['traveler_name'] = request.form['travelername' + str(i)]
                 p['call_sign'] = request.form['callsign' + str(i)]
                 p['pack_color'] = request.form['packcolor' + str(i)]
                 p['tent_color'] = request.form['tentcolor' + str(i)]
@@ -48,12 +48,12 @@ class TravelEntryViewModel(ViewModelBase):
                 p['planning'] = request.form['planning' + str(i)]
                 p['contingency'] = request.form['contingency' + str(i)]
                 p['comms'] = request.form['comms' + str(i)]
-                p['team_selection'] = request.form['team_selection' + str(i)]
+                p['team_selection'] = request.form['teamselection' + str(i)]
                 p['fitness'] = request.form['fitness' + str(i)]
                 p['env'] = request.form['env' + str(i)]
                 p['complexity'] = request.form['complexity' + str(i)]
             else:
-                p['patroller_name'] = ''
+                p['traveler_name'] = ''
                 p['call_sign'] = ''
                 p['pack_color'] = ''
                 p['tent_color'] = ''
@@ -66,7 +66,7 @@ class TravelEntryViewModel(ViewModelBase):
                 p['fitness'] = ''
                 p['env'] = ''
                 p['complexity'] = ''
-            self.patrollers.append(p)
+            self.travelers.append(p)
 
         self.day_plans = []
         for i in range(9):
@@ -147,12 +147,12 @@ class TravelEntryViewModel(ViewModelBase):
         self.e_avg = self.request_dict.eavg
         self.ic_avg = self.request_dict.icavg
         self.gar_avg = self.request_dict.garavg
-        self.mitigated_avg = self.request_dict.mitigatedavg
+        self.mitigated_gar = self.request_dict.mitigatedgar
         self.gar_mitigations = self.request_dict.garmitigations
 
         self.notes = self.request_dict.notes
 
-    # def get_patrollers(self):
+    # def get_travelers(self):
     #     pass
 
     def validate(self):

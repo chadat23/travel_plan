@@ -3,8 +3,8 @@ from typing import Optional, List, Dict
 
 from sqlalchemy.orm import Session
 
-from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.models.travel_days import PatrolDay
+from travel_plan.models.travel_user_units import TravelUserUnit
+from travel_plan.models.travel_days import TravelDay
 from travel_plan.services import car_services, location_services, user_services
 from travel_plan.models import db_session
 from travel_plan.models.travels import Travel
@@ -12,7 +12,7 @@ from travel_plan.models.travels import Travel
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
                 trip_leader_name: str,
-                patroller_units: List[PatrolUserUnit], day_plans: List[PatrolDay],
+                traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
                 bivy_gear: bool,
                 compass: bool,
@@ -45,7 +45,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     exit_point_id = location_services.get_id_from_name(exit_point)
     trip_leader_id = user_services.get_id_from_name(trip_leader_name)
 
-    patrol = Travel(start_date=datetime.strptime(start_date, '%Y-%m-%d'), entry_point_id=entry_point_id,
+    travel = Travel(start_date=datetime.strptime(start_date, '%Y-%m-%d'), entry_point_id=entry_point_id,
                     end_date=datetime.strptime(end_date, '%Y-%m-%d'), exit_point_id=exit_point_id,
                     tracked=True if tracked == 'yes' else False, plb=plb, trip_leader_id=trip_leader_id,
                     car_id=car_id, car_location=car_location,
@@ -74,28 +74,28 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
 
     session: Session = db_session.create_session()
     try:
-        session.add(patrol)
+        session.add(travel)
         session.commit()
     finally:
         session.close()
 
-    return patrol
+    return travel
 
 
 def get_lat_long_frequencies() -> Dict[tuple, int]:
     session: Session = db_session.create_session()
 
-    patrols: List[Patrol] = list(session.query(Patrol))
+    travels: List[Travel] = list(session.query(Travel))
 
     location_name_frequencies = {}
 
-    for patrol in patrols:
-        location_name_frequencies = __add_location(patrol.start0, location_name_frequencies)
-        location_name_frequencies = __add_location(patrol.start1, location_name_frequencies)
-        location_name_frequencies = __add_location(patrol.start2, location_name_frequencies)
-        location_name_frequencies = __add_location(patrol.end0, location_name_frequencies)
-        location_name_frequencies = __add_location(patrol.end1, location_name_frequencies)
-        location_name_frequencies = __add_location(patrol.end2, location_name_frequencies)
+    for travel in travels:
+        location_name_frequencies = __add_location(travel.start0, location_name_frequencies)
+        location_name_frequencies = __add_location(travel.start1, location_name_frequencies)
+        location_name_frequencies = __add_location(travel.start2, location_name_frequencies)
+        location_name_frequencies = __add_location(travel.end0, location_name_frequencies)
+        location_name_frequencies = __add_location(travel.end1, location_name_frequencies)
+        location_name_frequencies = __add_location(travel.end2, location_name_frequencies)
 
     location_coord_frequencies = {}
     loc = {loc.name: loc for loc in location_services.get_all()}
@@ -106,7 +106,7 @@ def get_lat_long_frequencies() -> Dict[tuple, int]:
     return location_coord_frequencies
 
 
-# def __add_point(patrol: Patrol, points) -> Dict[str: List[float, float]]:
+# def __add_point(travel: Travel, points) -> Dict[str: List[float, float]]:
 def __add_location(point: str, points):
     if point in points:
         points[point] = points[point] + 1

@@ -18,7 +18,7 @@ class User(SqlAlchemyBaseTravel):
     email = sa.Column(sa.String, index=True, unique=True, nullable=True)
     hashed_ssn = sa.Column(sa.String, index=True)
 
-    patrols = orm.relationship('PatrolUserUnit', backref='patroller')
+    travels = orm.relationship('TravelUserUnit', backref='traveler')
 
     home_phone = sa.Column(sa.String)
     work_phone = sa.Column(sa.String)

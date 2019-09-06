@@ -7,13 +7,13 @@ from travel_plan.models.travels import Travel
 from travel_plan.services import color_services, user_services
 
 
-class PatrolUserUnit(SqlAlchemyBaseTravel):
-    __tablename__ = 'patrol_user_units'
+class TravelUserUnit(SqlAlchemyBaseTravel):
+    __tablename__ = 'travel_user_units'
 
     id = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
 
-    patrol_id: int = sa.Column(sa.Integer, sa.ForeignKey('patrols.id'))
+    travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
     user_id: int = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
 
     call_sign: str = sa.Column(sa.String)
@@ -31,12 +31,12 @@ class PatrolUserUnit(SqlAlchemyBaseTravel):
     env: int = sa.Column(sa.Integer)
     complexity: int = sa.Column(sa.Integer)
 
-    def __init__(self, patroller_name: str, call_sign: str,
+    def __init__(self, traveler_name: str, call_sign: str,
                  pack_color: str, tent_color: str, fly_color: str,
                  supervision: int, planning: int, contingency: int, comms: int,
                  team_selection: int, fitness: int, env: int, complexity: int):
-        # self.patrol = patrol
-        self.patroller = user_services.get_user_from_name(patroller_name)
+        # self.travel = travel
+        self.traveler = user_services.get_user_from_name(traveler_name)
 
         self.call_sign = call_sign
 

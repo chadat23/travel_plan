@@ -5,6 +5,7 @@ import sqlalchemy as sa
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
+
 class KindEnum(enum.Enum):
     Peak = 1
     Valley = 2
@@ -30,15 +31,13 @@ class Location(SqlAlchemyBaseTravel):
     is_in_park: bool = sa.Column(sa.Boolean, nullable=False)
     note: str = sa.Column(sa.String)
 
-    # patrols = relationship('Location', backref='visited', lazy=True)
-
     def __lt__(self, other):
         return self.name < other.name
 
     def __repr__(self):
         return f'{self.name}: {self.latitude}, {self.longitude}'
 
-    def __init__(self, name: str, latitude: float, longitude: float, 
+    def __init__(self, name: str, latitude: float, longitude: float,
                  kind: KindEnum = KindEnum.Other, note: str = "", is_in_park: bool = True):
         self.name = name
         self.latitude = latitude
@@ -46,7 +45,6 @@ class Location(SqlAlchemyBaseTravel):
         self.kind = kind
         self.is_in_park = is_in_park
         self.note = note
-    
 
     # def __eq__(self, other):
     #     return self.name == other.name and self.latitude == other.latitude and self.longitude == other.longitude

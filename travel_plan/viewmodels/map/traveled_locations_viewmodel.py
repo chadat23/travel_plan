@@ -8,7 +8,7 @@ from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 from travel_plan.views import view_utils
 
 
-class PatrolledLocationsViewModel(ViewModelBase):
+class TraveledLocationsViewModel(ViewModelBase):
     def __init__(self):
         super().__init__()
 

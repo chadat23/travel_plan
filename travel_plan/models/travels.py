@@ -7,7 +7,7 @@ from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 
 class Travel(SqlAlchemyBaseTravel):
-    __tablename__ = 'patrols'
+    __tablename__ = 'travels'
 
     id = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
@@ -25,8 +25,8 @@ class Travel(SqlAlchemyBaseTravel):
     trip_leader_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
     trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])
 
-    patrollers = orm.relationship('PatrolUserUnit', backref='patrol')
-    patrol_dayss = orm.relationship('PatrolDay', backref='patrol')
+    travelers = orm.relationship('TravelUserUnit', backref='travel')
+    travel_dayss = orm.relationship('TravelDay', backref='travel')
 
     car_id = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
     car = orm.relationship('Car', foreign_keys=[car_id])

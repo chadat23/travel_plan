@@ -8,13 +8,13 @@ from travel_plan.models.travels import Travel
 from travel_plan.services import location_services
 
 
-class PatrolDay(SqlAlchemyBaseTravel):
-    __tablename__ = 'patrol_days'
+class TravelDay(SqlAlchemyBaseTravel):
+    __tablename__ = 'travel_days'
     # TODO: needs work
     id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
     created_date = sa.Column(sa.DateTime, default=datetime.now, index=True)
 
-    patrol_id: int = sa.Column(sa.Integer, sa.ForeignKey('patrols.id'))
+    travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
 
     date = sa.Column(sa.DateTime, nullable=False)
     starting_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))

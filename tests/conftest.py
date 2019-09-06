@@ -7,7 +7,7 @@ from travel_plan.models import db_session
 from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
-from travel_plan.models.patrol_user_units import PatrolUserUnit
+from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.users import User
 import travel_plan.models.__all_models as all_models
 
@@ -40,7 +40,7 @@ cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White',
 
 colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
 
-_patrols = [{'patrol': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH',
+_travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH',
                         'end_date': '2019-08-11', 'exit_point': 'Ten Lakes TH',
                         'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger',
                         'car_plate': 'G12-123', 'car_make': 'Ford', 'car_model': 'Vroom Queen', 'car_color': 'Red',
@@ -52,7 +52,7 @@ _patrols = [{'patrol': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                         'space_blanket': 'on',
                         'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
                         },
-             'patroller_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8],
+             'traveler_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8],
                                  ['Vader, Darth', 'Wild Pi', 'Black', 'Green', 'Red', 9, 8, 7, 6, 5, 4, 3, 2],
                                  ['Rabbit, Roger', 'Wild 55', 'Green', 'Green', 'Green', 1, 1, 1, 1, 1, 1, 1, 1],
                                  ],
@@ -67,16 +67,16 @@ _patrols = [{'patrol': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
             ]
 
 
-def patrols():
-    if isinstance(_patrols[0]['patroller_units'][0], list):
-        for p in _patrols:
+def travels():
+    if isinstance(_travels[0]['traveler_units'][0], list):
+        for p in _travels:
             users = []
-            for u in p['patroller_units']:
-                users.append(PatrolUserUnit(u[0], u[1], u[2], u[3], u[4], u[5], u[6],
+            for u in p['traveler_units']:
+                users.append(TravelUserUnit(u[0], u[1], u[2], u[3], u[4], u[5], u[6],
                                             u[7], u[8], u[9], u[10], u[11], u[12]))
-            p['patroller_units'] = users
+            p['traveler_units'] = users
 
-    return _patrols
+    return _travels
 
 
 def clear_db_values():
@@ -153,47 +153,47 @@ def db_cars():
 
 
 @pytest.fixture()
-def db_session_w_patrol_info(db_session_w_info):
-    yield patrols()
+def db_session_w_travel_info(db_session_w_info):
+    yield travels()
 
 # @pytest.fixture()
-# def db_session_w_patrols(db_session_w_info):
+# def db_session_w_travels(db_session_w_info):
 #     import datetime
 #
-#     from travel_plan.models.patrols import Travel
+#     from travel_plan.models.travels import Travel
 #
 #     session: Session = db_session.create_session()
 #
 #     locations = [n[0] for n in session.query(Location.name).order_by(Location.name).all()]
 #
-#     for p in patrols:
+#     for p in travels:
 #         user = user_services.get_names()[0]
 #         user = user_services.get_user_from_name(user)
 #
-#         patrol = Travel()
+#         travel = Travel()
 #         date = datetime.datetime(p['year'], p['month'], p['start_date'])
-#         patrol.start_date = date.date()
-#         patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()[
+#         travel.start_date = date.date()
+#         travel.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()[
 #             0]
 #         date = datetime.datetime(p['year'], p['month'], p['end_date'])
-#         patrol.end_date = date.date()
-#         patrol.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()[0]
+#         travel.end_date = date.date()
+#         travel.exit_point_id = session.query(Location.id).filter(Location.name == locations[p['exit_point']]).first()[0]
 #
-#         patrol.tracked = p['tracked']
-#         patrol.plb = p['plb']
+#         travel.tracked = p['tracked']
+#         travel.plb = p['plb']
 #
-#         patrol.trip_leader_id = session.query(User.id).filter(User.id == p['trip_leader']).first()[0]
+#         travel.trip_leader_id = session.query(User.id).filter(User.id == p['trip_leader']).first()[0]
 #
-#         patrol_user_unit = PatrolUserUnit()
-#         patrol_user_unit.patrol = patrol
-#         patrol_user_unit.patroller = user
-#         patrol_user_unit.pack_color = 'Green'
+#         travel_user_unit = TravelUserUnit()
+#         travel_user_unit.travel = travel
+#         travel_user_unit.traveler = user
+#         travel_user_unit.pack_color = 'Green'
 #
-#         session.add(patrol)
+#         session.add(travel)
 #
-#         session.add(patrol_user_unit)
+#         session.add(travel_user_unit)
 #
 #     session.commit()
 #     session.close()
 #
-#     yield patrols
+#     yield travels

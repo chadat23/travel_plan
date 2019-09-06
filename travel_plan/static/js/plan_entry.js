@@ -1,6 +1,6 @@
 count = 0;
 inputs1 = '<div>Is this working ' + count.toString() + '</div>';
-names = ['patroller_name', 'callsign', 'packcolor'];
+names = ['traveler_name', 'callsign', 'packcolor'];
 
 function line(count) {
     return '<div class="row">'
@@ -36,16 +36,16 @@ function update_values(values) {
     }
 }
 
-document.getElementById('add-patroller-btn').onclick = function () {
-    document.getElementsByName('npatrollers')[0].value = 0;
+document.getElementById('add-traveler-btn').onclick = function () {
+    document.getElementsByName('ntravelers')[0].value = 0;
 
     values = get_values(count);
 
-    document.getElementById('added-patroller').innerHTML += line(count);
+    document.getElementById('added-traveler').innerHTML += line(count);
 
     update_values(values);
 
     count += 1;
 
-    document.getElementsByName('npatrollers')[0].value = count;
+    document.getElementsByName('ntravelers')[0].value = count;
 };

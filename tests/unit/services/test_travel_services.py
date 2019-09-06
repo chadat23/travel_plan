@@ -4,18 +4,18 @@ from typing import List
 import pytest
 from sqlalchemy.orm import Session
 
-from travel_plan.models.patrol_user_units import PatrolUserUnit
+from travel_plan.models.travel_user_units import TravelUserUnit
 
 
-def test_patrol_services_get_names_success(db_session_w_patrol_info):
+def test_travel_services_get_names_success(db_session_w_travel_info):
     import unittest.mock
     from unittest.mock import Mock
 
     from travel_plan.models.travels import Travel
     from travel_plan.services import travel_services
 
-    expected_patrols = db_session_w_patrol_info
-    actual_patrols = []
+    expected_travels = db_session_w_travel_info
+    actual_travels = []
 
     m = Mock()
     m.side_effect = [1, 2, 2, 3, 3, 1]
@@ -28,12 +28,12 @@ def test_patrol_services_get_names_success(db_session_w_patrol_info):
     get_user_id = unittest.mock.patch(target, return_value=1)
 
     with get_location_id, get_car_id, get_user_id:
-        for patrol in expected_patrols:
-            p = patrol['patrol']
-            actual_patrols.append(
+        for travel in expected_travels:
+            p = travel['travel']
+            actual_travels.append(
                 travel_services.create_plan(p['start_date'], p['entry_point'], p['end_date'], p['exit_point'],
                                             p['tracked'], p['plb'], p['trip_leader_name'],
-                                            patrol['patroller_units'], patrol['day_plans'],
+                                            travel['traveler_units'], travel['day_plans'],
                                             p['car_plate'], p['car_make'], p['car_model'], p['car_color'],
                                             p['car_locaton'],
                                             p['bivy_gear'] == 'on',
@@ -60,7 +60,7 @@ def test_patrol_services_get_names_success(db_session_w_patrol_info):
                                             )
             )
 
-    for actual, expected in zip(actual_patrols, expected_patrols):
+    for actual, expected in zip(actual_travels, expected_travels):
         assert isinstance(actual, Travel)
-        assert actual.start_date.strftime("%Y-%m-%d") == expected['patrol']['start_date']
-        # assert actual.entry_point.name == expected['patrol']['entry_point']
+        assert actual.start_date.strftime("%Y-%m-%d") == expected['travel']['start_date']
+        # assert actual.entry_point.name == expected['travel']['entry_point']

@@ -11,10 +11,10 @@ from travel_plan.models.locations import Location
 from travel_plan.models.travels import Travel
 
 # noinspection PyUnresolvedReferences
-from travel_plan.models.travel_days import PatrolDay
+from travel_plan.models.travel_days import TravelDay
 
 # noinspection PyUnresolvedReferences
-from travel_plan.models.patrol_user_units import PatrolUserUnit
+from travel_plan.models.travel_user_units import TravelUserUnit
 
 # noinspection PyUnresolvedReferences
 from travel_plan.models.proposed_locations import ProposedLocation

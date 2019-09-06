@@ -69,15 +69,15 @@
                             <option>{{ color }}</option>
                         {% endfor %}
                     </datalist>
-                    <input type="text" name="name0" placeholder="Trip Leader" class="col-xl-4" value="{{ patrollers[0]['patroller_name'] }}" list="users" required/>
-                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ patrollers[0]['call_sign'] }}" required/>
-                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ patrollers[0]['pack_color'] }}" list="colors" required/>
-                    <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ patrollers[0]['tent_color'] }}" list="colors" required/>
-                    <input type="text" name="flycolor0" placeholder="Fly Color" class="col-xl-2" value="{{ patrollers[0]['fly_color'] }}" list="colors" required/>
+                    <input type="text" name="travelername0" placeholder="Trip Leader" class="col-xl-4" value="{{ travelers[0]['traveler_name'] }}" list="users" required/>
+                    <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ travelers[0]['call_sign'] }}" required/>
+                    <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ travelers[0]['pack_color'] }}" list="colors" required/>
+                    <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ travelers[0]['tent_color'] }}" list="colors" required/>
+                    <input type="text" name="flycolor0" placeholder="Fly Color" class="col-xl-2" value="{{ travelers[0]['fly_color'] }}" list="colors" required/>
                 </div>
-                {% for p in patrollers[1:] %}
+                {% for p in travelers[1:] %}
                     <div class="row">
-                        <input type="text" name="name{{ loop.index }}" placeholder="Name" class="col-xl-4" value="{{ p['patroller_name'] }}" list="users"/>
+                        <input type="text" name="travelername{{ loop.index }}" placeholder="Name" class="col-xl-4" value="{{ p['traveler_name'] }}" list="users"/>
                         <input type="text" name="callsign{{ loop.index }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['call_sign'] }}"/>
                         <input type="text" name="packcolor{{ loop.index }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['pack_color'] }}" list="colors" />
                         <input type="text" name="tentcolor{{ loop.index }}" placeholder="Tent Color" class="col-xl-2" value="{{ p['tent_color'] }}" list="colors" />
@@ -95,8 +95,8 @@
                 {% for d in day_plans %}
                     <div class="row">
                         <input type="date" name="date{{ loop.index0 }}" title="Date:" class="col-xl-1 date-input" value="{{ d['date'] }}"/>
-                        <input type="text" name="start{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['starting_point'] }}" list="locations"/>
-                        <input type="text" name="end{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['ending_point'] }}" list="locations"/>
+                        <input type="text" name="startingpoint{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3" value="{{ d['starting_point'] }}" list="locations"/>
+                        <input type="text" name="endingpoint{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3" value="{{ d['ending_point'] }}" list="locations"/>
                         <input type="text" name="route{{ loop.index0 }}" placeholder="Route:" class="col-xl-4" value="{{ d['route'] }}"/>
                         <input type="text" name="mode{{ loop.index0 }}" placeholder="Mode:" class="col-xl-1" value="{{ d['mode'] }}" list="mode"/>
                     </div>
@@ -126,7 +126,7 @@
                     <label for="bivygear" class="form-check-label">Bivy Gear</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" name="compass" id="compass" {% if compas %}checked{% else %}{% endif %}>
+                    <input type="checkbox" name="compass" id="compass" {% if compass %}checked{% else %}{% endif %}>
                     <label for="compass" class="form-check-label">Compass</label>
                 </div>
                 <div class="form-check">
@@ -283,17 +283,17 @@
                         Incident Complexity
                     </div>
                 </div>
-                {% for p in patrollers %}
+                {% for p in travelers %}
                     <div class="row">
                         <span class="col-sm-1">{{ loop.index }}</span>
-                        <input type="number" name="s{{ loop.index0 }}" class="col-sm-1" value="{{ p['supervision'] }}"/>
-                        <input type="number" name="p{{ loop.index0 }}" class="col-sm-1" value="{{ p['planning'] }}"/>
-                        <input type="number" name="cr{{ loop.index0 }}" class="col-sm-1" value="{{ p['contingency'] }}"/>
-                        <input type="number" name="c{{ loop.index0 }}" class="col-sm-1" value="{{ p['comms'] }}"/>
-                        <input type="number" name="ts{{ loop.index0 }}" class="col-sm-1" value="{{ p['team_selection'] }}"/>
-                        <input type="number" name="tf{{ loop.index0 }}" class="col-sm-1" value="{{ p['fitness'] }}"/>
-                        <input type="number" name="e{{ loop.index0 }}" class="col-sm-1" value="{{ p['env'] }}"/>
-                        <input type="number" name="ic{{ loop.index0 }}" class="col-sm-1" value="{{ p['complexity'] }}"/>
+                        <input type="number" name="supervision{{ loop.index0 }}" class="col-sm-1" value="{{ p['supervision'] }}"/>
+                        <input type="number" name="planning{{ loop.index0 }}" class="col-sm-1" value="{{ p['planning'] }}"/>
+                        <input type="number" name="contingency{{ loop.index0 }}" class="col-sm-1" value="{{ p['contingency'] }}"/>
+                        <input type="number" name="comms{{ loop.index0 }}" class="col-sm-1" value="{{ p['comms'] }}"/>
+                        <input type="number" name="teamselection{{ loop.index0 }}" class="col-sm-1" value="{{ p['team_selection'] }}"/>
+                        <input type="number" name="fitness{{ loop.index0 }}" class="col-sm-1" value="{{ p['fitness'] }}"/>
+                        <input type="number" name="env{{ loop.index0 }}" class="col-sm-1" value="{{ p['env'] }}"/>
+                        <input type="number" name="complexity{{ loop.index0 }}" class="col-sm-1" value="{{ p['complexity'] }}"/>
                     </div>
                 {% endfor %}
                 <div class="row">
@@ -309,7 +309,7 @@
                 </div>
                 <div class="row">
                     <span class="col-xl-1">Total Avg</span>
-                    <input type="text" name="garavg" class="col-sm-1"/>
+                    <input type="text" name="garavg" class="col-sm-1" value="{{ gar_avg }}"/>
                 </div>
                 <div>
                     Discuss as a group how to manage and mitigate these risks and then the reasons.
@@ -323,7 +323,7 @@
                 </div>
                 <div class="row">
                     <span class="col-xl-1"></span>
-                    <input type="text" placeholder="GAR Justification" name="garmitigations" value="{{ gar_justification }}" class="col-sm-11"/>
+                    <input type="text" placeholder="GAR Mitigation" name="garmitigations" value="{{ gar_mitigations }}" class="col-sm-11"/>
                 </div>
                 <div>
                     Additional notes:

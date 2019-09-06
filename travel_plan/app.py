@@ -41,17 +41,17 @@ def setup_db():
     #     'db',
     #     'existing.sqlite'
     # )
-    # db_patrol = os.path.join(
+    # db_travel = os.path.join(
     #     os.path.dirname(__file__),
     #     'db',
-    #     'patrol.sqlite'
+    #     'travel.sqlite'
     # )
 
-    db_patrol = os.path.join(db_path, config.DB_NAME)
+    db_travel = os.path.join(db_path, config.DB_NAME)
 
-    # db_session.global_init(db_existing, db_patrol)
-    # db_session.global_init("", db_patrol)
-    db_session.global_init(db_patrol)
+    # db_session.global_init(db_existing, db_travel)
+    # db_session.global_init("", db_travel)
+    db_session.global_init(db_travel)
 
 
 def register_blueprints():

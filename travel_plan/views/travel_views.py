@@ -2,8 +2,8 @@ from flask import Blueprint, redirect, url_for
 
 from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
-from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.models.travel_days import PatrolDay
+from travel_plan.models.travel_user_units import TravelUserUnit
+from travel_plan.models.travel_days import TravelDay
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
@@ -26,13 +26,13 @@ def entry_post():
     if vm.error:
         return vm.to_dict()
 
-    patrol_user_units = [PatrolUserUnit(**p) for p in vm.patrollers if p['patroller_name']]
+    travel_user_units = [TravelUserUnit(**p) for p in vm.travelers if p['traveler_name']]
 
-    day_plans = [PatrolDay(**pd) for pd in vm.day_plans if pd['date']]
+    day_plans = [TravelDay(**pd) for pd in vm.day_plans if pd['date']]
 
     travel_services.create_plan(vm.entry_date, vm.entry_point, vm.exit_date, vm.exit_point,
                                 vm.tracked, vm.plb,
-                                patrol_user_units, day_plans,
+                                travel_user_units, day_plans,
                                 vm.car_plate, vm.car_make, vm.car_model, vm.car_color, vm.car_location,
                                 vm.bivy_gear == 'on',
                                 vm.compass == 'on',
@@ -81,9 +81,9 @@ def email_sent():
     return {}
 
 
-@blueprint.route('/travel/add-patroller')
+@blueprint.route('/travel/add-traveler')
 @response(template_file='travel/entry.html')
-def add_patroler():
+def add_traveler():
     vm = TravelEntryViewModel()
 
     return vm.to_dict()
