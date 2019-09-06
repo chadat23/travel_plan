@@ -3,7 +3,7 @@ from flask import Blueprint, redirect, url_for
 from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.models.patrol_days import PatrolDay
+from travel_plan.models.travel_days import PatrolDay
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 

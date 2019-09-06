@@ -9,7 +9,7 @@ from travel_plan.models.patrol_user_units import PatrolUserUnit
 
 @pytest.mark.xfail
 def test_patrol_services_get_names_success(db_session_w_patrol_info):
-    from travel_plan.models.patrols import Travel
+    from travel_plan.models.travels import Travel
     from travel_plan.services import patrol_services
 
     expected_patrols = db_session_w_patrol_info

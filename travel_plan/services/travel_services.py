@@ -4,10 +4,10 @@ from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 
 from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.models.patrol_days import PatrolDay
+from travel_plan.models.travel_days import PatrolDay
 from travel_plan.services import car_services, location_services, user_services
 from travel_plan.models import db_session
-from travel_plan.models.patrols import Travel
+from travel_plan.models.travels import Travel
 
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,

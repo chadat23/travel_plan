@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from travel_plan.models import db_session
 from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.models.patrols import Travel
+from travel_plan.models.travels import Travel
 from travel_plan.services import location_services, user_services, car_services
 
 
