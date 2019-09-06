@@ -3,12 +3,12 @@ from datetime import datetime
 import sqlalchemy as sa
 from sqlalchemy import orm
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.models.patrols import Patrol
 from travel_plan.services import location_services
 
 
-class PatrolDay(SqlAlchemyBasePatrol):
+class PatrolDay(SqlAlchemyBaseTravel):
     __tablename__ = 'patrol_days'
     # TODO: needs work
     id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)

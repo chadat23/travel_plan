@@ -3,7 +3,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
-from travel_plan.models.modelbase import SqlAlchemyBaseExternal, SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseExternal, SqlAlchemyBaseTravel
 
 __factory_external = None
 __factory = None
@@ -16,7 +16,7 @@ __factory = None
 #         __initiate_base('external', db_external, SqlAlchemyBaseExternal)
 #
 #     if not __factory and db_patrol != '':
-#         __initiate_base('patrol', db_patrol, SqlAlchemyBasePatrol)
+#         __initiate_base('patrol', db_patrol, SqlAlchemyBaseTravel)
 
 def global_init(db_name: str):
     global __factory
@@ -34,7 +34,7 @@ def global_init(db_name: str):
         # noinspection PyUnresolvedReferences
         import travel_plan.models.__all_models
 
-        SqlAlchemyBasePatrol.metadata.create_all(engine)
+        SqlAlchemyBaseTravel.metadata.create_all(engine)
 
 
 # def __initiate_base(factory: str, db_name: str, sql_alchemy_base: sqlalchemybase):

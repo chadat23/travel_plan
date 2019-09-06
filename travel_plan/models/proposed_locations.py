@@ -4,7 +4,7 @@ import enum
 # from sqlalchemy import Column, DateTime, Enum, Float, String
 import sqlalchemy as sa
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 
 class StatusEnum(enum.Enum):
@@ -12,7 +12,7 @@ class StatusEnum(enum.Enum):
     rejected = 2
 
 
-class ProposedLocation(SqlAlchemyBasePatrol):
+class ProposedLocation(SqlAlchemyBaseTravel):
     __tablename__ = 'proposed_locations'
 
     id = sa.Column(sa.Integer, primary_key=True)

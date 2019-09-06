@@ -1,11 +1,11 @@
 import sqlalchemy as sa
 from sqlalchemy import orm
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.services import color_services
 
 
-class Car(SqlAlchemyBasePatrol):
+class Car(SqlAlchemyBaseTravel):
     __tablename__ = 'cars'
 
     id: str = sa.Column(sa.Integer, primary_key=True)

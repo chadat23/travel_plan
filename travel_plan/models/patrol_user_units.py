@@ -2,12 +2,12 @@ import datetime
 import sqlalchemy as sa
 from sqlalchemy import orm
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.models.patrols import Patrol
 from travel_plan.services import color_services, user_services
 
 
-class PatrolUserUnit(SqlAlchemyBasePatrol):
+class PatrolUserUnit(SqlAlchemyBaseTravel):
     __tablename__ = 'patrol_user_units'
 
     id = sa.Column(sa.Integer, primary_key=True)

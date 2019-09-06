@@ -3,7 +3,7 @@ import enum
 
 import sqlalchemy as sa
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 class KindEnum(enum.Enum):
     Peak = 1
@@ -17,7 +17,7 @@ class KindEnum(enum.Enum):
     Campground = 9
 
 
-class Location(SqlAlchemyBasePatrol):
+class Location(SqlAlchemyBaseTravel):
     __tablename__ = 'locations'
 
     id = sa.Column(sa.Integer, primary_key=True)

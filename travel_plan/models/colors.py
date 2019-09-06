@@ -1,9 +1,9 @@
 import sqlalchemy as sa
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 
-class Color(SqlAlchemyBasePatrol):
+class Color(SqlAlchemyBaseTravel):
     __tablename__ = 'colors'
 
     # id = sa.Column(sa.Integer, primary_key=True)

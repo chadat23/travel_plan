@@ -4,10 +4,10 @@ import datetime
 import sqlalchemy as sa
 from sqlalchemy import orm
 
-from travel_plan.models.modelbase import SqlAlchemyBasePatrol
+from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 
-class User(SqlAlchemyBasePatrol):
+class User(SqlAlchemyBaseTravel):
     __tablename__ = 'users'
 
     # TODO: lots (sa. and __init__)
