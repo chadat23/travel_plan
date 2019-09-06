@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from travel_plan.models import db_session
 from travel_plan.models.patrol_user_units import PatrolUserUnit
-from travel_plan.models.patrols import Patrol
+from travel_plan.models.patrols import Travel
 from travel_plan.services import location_services, user_services, car_services
 
 
@@ -75,7 +75,7 @@ def add_patrol(start_date: str, entry_point: str, end_date: str, exit_point: str
         car_id: int = car_services.get_id_from_plate(car_name)
         car_location: int = location_services.get_id_from_name(car_location)
 
-        patrol = Patrol(start_date, entry_point_id, end_date, exit_point_id, 
+        patrol = Travel(start_date, entry_point_id, end_date, exit_point_id,
                         tracked, plb, trip_leader_id, car_id, car_location)
 
         session.add(patrol)

@@ -6,7 +6,7 @@ import sqlalchemy.orm as orm
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 
-class Patrol(SqlAlchemyBaseTravel):
+class Travel(SqlAlchemyBaseTravel):
     __tablename__ = 'patrols'
 
     id = sa.Column(sa.Integer, primary_key=True)

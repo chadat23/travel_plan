@@ -7,7 +7,7 @@ from travel_plan.models.patrol_user_units import PatrolUserUnit
 from travel_plan.models.patrol_days import PatrolDay
 from travel_plan.services import car_services, location_services, user_services
 from travel_plan.models import db_session
-from travel_plan.models.patrols import Patrol
+from travel_plan.models.patrols import Travel
 
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
@@ -45,7 +45,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     exit_point_id = location_services.get_id_from_name(exit_point)
     trip_leader_id = user_services.get_id_from_name(trip_leader_name)
 
-    patrol = Patrol(start_date=datetime.strptime(start_date, '%Y-%m-%d'), entry_point_id=entry_point_id,
+    patrol = Travel(start_date=datetime.strptime(start_date, '%Y-%m-%d'), entry_point_id=entry_point_id,
                     end_date=datetime.strptime(end_date, '%Y-%m-%d'), exit_point_id=exit_point_id,
                     tracked=True if tracked == 'yes' else False, plb=plb, trip_leader_id=trip_leader_id,
                     car_id=car_id, car_location=car_location,

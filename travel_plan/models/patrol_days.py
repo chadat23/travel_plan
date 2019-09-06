@@ -4,7 +4,7 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
-from travel_plan.models.patrols import Patrol
+from travel_plan.models.patrols import Travel
 from travel_plan.services import location_services
 
 

@@ -8,7 +8,7 @@ from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
 
 # noinspection PyUnresolvedReferences
-from travel_plan.models.patrols import Patrol
+from travel_plan.models.patrols import Travel
 
 # noinspection PyUnresolvedReferences
 from travel_plan.models.patrol_days import PatrolDay

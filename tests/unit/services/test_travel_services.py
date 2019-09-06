@@ -11,7 +11,7 @@ def test_patrol_services_get_names_success(db_session_w_patrol_info):
     import unittest.mock
     from unittest.mock import Mock
 
-    from travel_plan.models.patrols import Patrol
+    from travel_plan.models.patrols import Travel
     from travel_plan.services import travel_services
 
     expected_patrols = db_session_w_patrol_info
@@ -61,6 +61,6 @@ def test_patrol_services_get_names_success(db_session_w_patrol_info):
             )
 
     for actual, expected in zip(actual_patrols, expected_patrols):
-        assert isinstance(actual, Patrol)
+        assert isinstance(actual, Travel)
         assert actual.start_date.strftime("%Y-%m-%d") == expected['patrol']['start_date']
         # assert actual.entry_point.name == expected['patrol']['entry_point']

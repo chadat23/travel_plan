@@ -160,7 +160,7 @@ def db_session_w_patrol_info(db_session_w_info):
 # def db_session_w_patrols(db_session_w_info):
 #     import datetime
 #
-#     from travel_plan.models.patrols import Patrol
+#     from travel_plan.models.patrols import Travel
 #
 #     session: Session = db_session.create_session()
 #
@@ -170,7 +170,7 @@ def db_session_w_patrol_info(db_session_w_info):
 #         user = user_services.get_names()[0]
 #         user = user_services.get_user_from_name(user)
 #
-#         patrol = Patrol()
+#         patrol = Travel()
 #         date = datetime.datetime(p['year'], p['month'], p['start_date'])
 #         patrol.start_date = date.date()
 #         patrol.entry_point_id = session.query(Location.id).filter(Location.name == locations[p['start_point']]).first()[
