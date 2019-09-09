@@ -25,14 +25,20 @@ class User(SqlAlchemyBaseTravel):
 
     active: bool = sa.Column(sa.Boolean, nullable=False)
 
-    def __init__(self, name: str, email: str, home_number: str, work_number: str, cell_number: str,
+    def __init__(self, name: str, email: str, work_number: str, home_number: str, cell_number: str,
                  active: bool = True):
         self.name = name
         self.email = email
-        self.home_number = home_number
         self.work_number = work_number
+        self.home_number = home_number
         self.cell_number = cell_number
         self.active = active
 
     def __lt__(self, other):
         return self.name < other.name
+
+    def __eq__(self, other):
+        return self.name == other.name and self.email == other.email and \
+               self.work_number == self.work_number and \
+               self.home_number == self.home_number and \
+               self.cell_number == self.cell_number

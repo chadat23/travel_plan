@@ -81,3 +81,60 @@ def test_user_services_get_user_from_email_success(db_session_w_info):
     assert actual_user.name == expected_user['name']
     assert actual_user.email == expected_user['email']
     assert actual_user.cell_number == expected_user['cell_number']
+
+
+def test_user_services_create_user_success(db_session_w_info):
+    from travel_plan.models.users import User
+    from travel_plan.services import user_services
+
+    locations, users, colors, cars = db_session_w_info
+
+    name = 'Bob'
+    email = 'bob@email.com'
+    work = '555-123-4567'
+    home = '555-223-4567'
+    cell = '555-323-4567'
+    active = False
+
+    actual_user = user_services.create_user(name, email, work, home, cell, active)
+
+    assert isinstance(actual_user, User)
+    assert actual_user.name == name
+    assert actual_user.email == email
+    assert actual_user.cell_number == cell
+    assert not actual_user.active
+
+
+def test_user_services_update_user_success(db_session_w_info):
+    from travel_plan.models.users import User
+    from travel_plan.services import user_services
+
+    locations, users, colors, cars = db_session_w_info
+
+    number = 2
+    retreaved_user = user_services.get_user_from_name(users[number]['name'])
+
+    name = 'Bob'
+    email = 'bob@email.com'
+    work = '555-123-4567'
+    home = '555-223-4567'
+    cell = '555-323-4567'
+    active = False
+
+    actual_user = user_services.update_user(retreaved_user.id, active,
+                                            name=name, email=email,
+                                            work_number=work, home_number=home, cell_number=cell)
+
+    assert isinstance(actual_user, User)
+    assert actual_user.name == name
+    assert actual_user.email == email
+    assert actual_user.cell_number == cell
+    assert not actual_user.active
+
+    actual_user = user_services.get_user_from_name(actual_user.name)
+
+    assert isinstance(actual_user, User)
+    assert actual_user.name == name
+    assert actual_user.email == email
+    assert actual_user.cell_number == cell
+    assert not actual_user.active

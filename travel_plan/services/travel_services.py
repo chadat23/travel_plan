@@ -134,7 +134,11 @@ def __add_location(point: str, points):
 def _get_and_update_contact(email: str, work: str, home: str, cell: str) -> User:
     contact = user_services.get_user_from_email(email)
     if contact:
-        return user_services.update_user(contact, contact.active, email=email,
-                                         work_number=work, home_number=home, cell_number=cell)
+        if contact.email != email or contact.work_number != work or \
+                contact.home_number != home or contact.cell_number != cell:
+            return user_services.update_user(contact.id, contact.active, email=email,
+                                             work_number=work, home_number=home, cell_number=cell)
+        else:
+            return contact
     else:
         return user_services.create_user(email.split('@')[0], email, work, home, cell, False)

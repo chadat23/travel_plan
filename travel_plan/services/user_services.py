@@ -63,44 +63,39 @@ def get_user_from_email(email: str) -> Optional[User]:
         session.close()
 
 
-def create_user(name: str, email: str, work_number: str, home_number: str, cell_number: str, active: bool = True):
+def create_user(name: str, email: str,
+                work_number: str, home_number: str, cell_number: str, active: bool = True) -> Optional[User]:
     user = User(name, email, work_number, home_number, cell_number, active)
 
     session: Session = db_session.create_session()
 
     try:
         session.add(user)
+        return user
     except:
         return None
     finally:
         session.close()
 
 
-def update_user(user: User, active: bool, name: str = '', email: str = '',
+def update_user(user_id: int, active: bool, name: str = '', email: str = '',
                 work_number: str = '', home_number: str = '', cell_number: str = ''):
-    updated = False
+    session: Session = db_session.create_session()
+    user = session.query(User).filter(User.id == user_id).first()
     if active != user.active:
         user.active = active
-        updated = True
     if name and name != user.name:
         user.name = name
-        updated = True
     if email and email != user.email:
         user.email = email
-        updated = True
     if work_number and work_number != user.work_number:
         user.work_number = work_number
-        updated = True
     if home_number and home_number != user.home_number:
         user.home_number = home_number
-        updated = True
     if cell_number and cell_number != user.cell_number:
         user.cell_number = cell_number
-        updated = True
 
-    if updated:
-        session: Session = db_session.create_session()
-        session.commit()
-        session.close()
+    session.commit()
+    session.close()
 
     return user
