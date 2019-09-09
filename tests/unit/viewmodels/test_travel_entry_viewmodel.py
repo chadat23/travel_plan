@@ -152,27 +152,28 @@ def test_travel_entry_vm_entry_exit_date_success(form_data):
     assert vm.car_color == form_data['carcolor']
     assert vm.car_location == form_data['carlocation']
 
-    assert vm.bivy_gear == 'on'
-    assert vm.compass == 'on'
-    assert vm.first_aid_kit == 'on'
-    assert vm.flagging == 'on'
-    assert vm.flare == 'on'
-    assert vm.flashlight == 'on'
-    assert vm.gps == 'on'
-    assert vm.head_lamp == 'on'
-    assert vm.helmet == 'on'
-    assert vm.ice_axe == 'on'
-    assert vm.map == 'on'
-    assert vm.matches == 'on'
-    assert vm.probe_pole == 'on'
-    assert vm.radio == 'on'
-    assert vm.rope == 'on'
-    assert vm.shovel == 'on'
-    assert vm.signal_mirror == 'on'
-    assert vm.space_blanket == 'on'
-    assert vm.spare_battery == 'on'
-    assert vm.tent == 'on'
-    assert vm.whistle == 'on'
+    # assert vm.bivy_gear == 'on'
+    assert vm.bivy_gear is True
+    assert vm.compass is True
+    assert vm.first_aid_kit is True
+    assert vm.flagging is True
+    assert vm.flare is True
+    assert vm.flashlight
+    assert vm.gps
+    assert vm.head_lamp is True
+    assert vm.helmet is True
+    assert vm.ice_axe is True
+    assert vm.map is True
+    assert vm.matches is True
+    assert vm.probe_pole is True
+    assert vm.radio is True
+    assert vm.rope is True
+    assert vm.shovel is True
+    assert vm.signal_mirror is True
+    assert vm.space_blanket is True
+    assert vm.spare_battery is True
+    assert vm.tent is True
+    assert vm.whistle is True
 
     assert vm.days_of_food == form_data['daysoffood']
     assert vm.radio_monitor_time == form_data['radiomonitortime']

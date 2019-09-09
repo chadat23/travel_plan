@@ -96,27 +96,27 @@ class TravelEntryViewModel(ViewModelBase):
         self.car_color = self.request_dict.carcolor
         self.car_location = self.request_dict.carlocation
 
-        self.bivy_gear = self.request_dict.bivygear
-        self.compass = self.request_dict.compass
-        self.first_aid_kit = self.request_dict.firstaidkit
-        self.flagging = self.request_dict.flagging
-        self.flare = self.request_dict.flare
-        self.flashlight = self.request_dict.flashlight
-        self.gps = self.request_dict.gps
-        self.head_lamp = self.request_dict.headlamp
-        self.helmet = self.request_dict.helmet
-        self.ice_axe = self.request_dict.iceaxe
-        self.map = self.request_dict.map
-        self.matches = self.request_dict.matches
-        self.probe_pole = self.request_dict.probepole
-        self.radio = self.request_dict.radio
-        self.rope = self.request_dict.rope
-        self.shovel = self.request_dict.shovel
-        self.signal_mirror = self.request_dict.signalmirror
-        self.space_blanket = self.request_dict.spaceblanket
-        self.spare_battery = self.request_dict.sparebattery
-        self.tent = self.request_dict.tent
-        self.whistle = self.request_dict.whistle
+        self.bivy_gear = self.request_dict.bivygear == 'on'
+        self.compass = self.request_dict.compass == 'on'
+        self.first_aid_kit = self.request_dict.firstaidkit == 'on'
+        self.flagging = self.request_dict.flagging == 'on'
+        self.flare = self.request_dict.flare == 'on'
+        self.flashlight = self.request_dict.flashlight == 'on'
+        self.gps = self.request_dict.gps == 'on'
+        self.head_lamp = self.request_dict.headlamp == 'on'
+        self.helmet = self.request_dict.helmet == 'on'
+        self.ice_axe = self.request_dict.iceaxe == 'on'
+        self.map = self.request_dict.map == 'on'
+        self.matches = self.request_dict.matches == 'on'
+        self.probe_pole = self.request_dict.probepole == 'on'
+        self.radio = self.request_dict.radio == 'on'
+        self.rope = self.request_dict.rope == 'on'
+        self.shovel = self.request_dict.shovel == 'on'
+        self.signal_mirror = self.request_dict.signalmirror == 'on'
+        self.space_blanket = self.request_dict.spaceblanket == 'on'
+        self.spare_battery = self.request_dict.sparebattery == 'on'
+        self.tent = self.request_dict.tent == 'on'
+        self.whistle = self.request_dict.whistle == 'on'
 
         self.days_of_food = self.request_dict.daysoffood
         self.weapon = self.request_dict.weapon

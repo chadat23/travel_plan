@@ -78,6 +78,12 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     session: Session = db_session.create_session()
     try:
         session.add(travel)
+        for tu in traveler_units:
+            tu.travel = travel
+            session.add(tu)
+        for day in day_plans:
+            day.travel = travel
+            session.add(day)
         session.commit()
     finally:
         session.close()
