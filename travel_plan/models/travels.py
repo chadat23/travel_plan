@@ -7,12 +7,9 @@ import sqlalchemy.orm as orm
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.models.users import User
 
-
 contact_association_table = sa.Table('travel_contact_association', SqlAlchemyBaseTravel.metadata,
-                                     sa.Column('travels_id', sa.Integer,
-                                               sa.ForeignKey('travels.id'), primary_key = True),
-                                     sa.Column('contacts_id', sa.Integer,
-                                               sa.ForeignKey('users.id'), primary_key = True)
+                                     sa.Column('travels_id', sa.Integer, sa.ForeignKey('travels.id'), primary_key=True),
+                                     sa.Column('contacts_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True)
                                      )
 
 
@@ -157,6 +154,3 @@ class Travel(SqlAlchemyBaseTravel):
 
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'
-
-
-

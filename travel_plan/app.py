@@ -28,6 +28,7 @@ def configure():
     print("Registered blueprints")
 
     setup_db()
+    os.makedirs(config.PDF_FOLDER_PATH, exist_ok=True)
     print("DB setup completed.")
     print("", flush=True)
 

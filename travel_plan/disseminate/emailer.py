@@ -13,6 +13,7 @@ from fpdf import FPDF
 
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.travel_user_units import TravelUserUnit
+from travel_plan.models.users import User
 
 try:
     from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
@@ -88,8 +89,8 @@ def send_mail(recipients: List[str], file: str):
         raise
 
 
-def make_and_email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
-                       trip_leader_name: str,
+def make_and_email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
+                       tracked: bool, plb: str, trip_leader_name: str,
                        traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
                        car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
                        bivy_gear: bool,
@@ -113,23 +114,40 @@ def make_and_email_pdf(start_date: str, entry_point: str, end_date: str, exit_po
                        spare_battery: bool,
                        tent: bool,
                        whistle: bool,
+                       days_of_food: str, weapon: str, radio_monitor_time: str,
+                       off_trail_travel: bool,
+                       cell_number: str, satellite_number: str,
+                       contacts: List[User],
                        gar_avg: float, mitigated_gar: int, gar_mitigations: str,
                        notes: str
                        ):
     pdf = generate_pdf(start_date, entry_point, end_date, exit_point, tracked, plb,
-                       trip_leader_name, traveler_units, day_plans,
+                       trip_leader_name,
+                       traveler_units, day_plans,
                        car_plate, car_make, car_model, car_color, car_location,
-                       bivy_gear, compass,
-                       first_aid_kit, flagging,
-                       flare, flashlight,
-                       gps, head_lamp,
-                       helmet, ice_axe,
-                       map, matches,
-                       probe_pole, radio,
-                       rope, shovel,
-                       signal_mirror, space_blanket,
-                       spare_battery, tent,
+                       bivy_gear,
+                       compass,
+                       first_aid_kit,
+                       flagging,
+                       flare,
+                       flashlight,
+                       gps,
+                       head_lamp,
+                       helmet,
+                       ice_axe,
+                       map,
+                       matches,
+                       probe_pole,
+                       radio,
+                       rope,
+                       shovel,
+                       signal_mirror,
+                       space_blanket,
+                       spare_battery,
+                       tent,
                        whistle,
+                       days_of_food, weapon, radio_monitor_time, off_trail_travel,
+                       cell_number, satellite_number, contacts,
                        gar_avg, mitigated_gar, gar_mitigations,
                        notes)
 
@@ -140,15 +158,37 @@ def make_and_email_pdf(start_date: str, entry_point: str, end_date: str, exit_po
         delete_file(file)
 
 
-def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
-                 name0: str, call_sign0: str, pack_color0: str,
-                 name1: str, call_sign1: str, pack_color1: str,
-                 name2: str, call_sign2: str, pack_color2: str,
-                 name3: str, call_sign3: str, pack_color3: str,
-                 date0: str, start0: str, end0: str, route0: str, mode0: str,
-                 date1: str, start1: str, end1: str, route1: str, mode1: str,
-                 date2: str, start2: str, end2: str, route2: str, mode2: str,
-                 contact0: str, contact1: str,
+def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
+                 tracked: bool, plb: str, trip_leader_name: str,
+                 traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
+                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
+                 bivy_gear: bool,
+                 compass: bool,
+                 first_aid_kit: bool,
+                 flagging: bool,
+                 flare: bool,
+                 flashlight: bool,
+                 gps: bool,
+                 head_lamp: bool,
+                 helmet: bool,
+                 ice_axe: bool,
+                 map: bool,
+                 matches: bool,
+                 probe_pole: bool,
+                 radio: bool,
+                 rope: bool,
+                 shovel: bool,
+                 signal_mirror: bool,
+                 space_blanket: bool,
+                 spare_battery: bool,
+                 tent: bool,
+                 whistle: bool,
+                 days_of_food: str, weapon: str, radio_monitor_time: str,
+                 off_trail_travel: bool,
+                 cell_number: str, satellite_number: str,
+                 contacts: List[User],
+                 gar_avg: float, mitigated_gar: int, gar_mitigations: str,
+                 notes: str
                  ) -> FPDF:
     pdf = FPDF(orientation='planning', unit='mm', format='A4')
     pdf.add_page()

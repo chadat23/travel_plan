@@ -7,8 +7,8 @@ from travel_plan.models.travels import Travel
 from travel_plan.services import color_services, user_services
 
 
-class TravelUserUnit(SqlAlchemyBaseTravel):
-    __tablename__ = 'travel_user_units'
+class TravelUserContact(SqlAlchemyBaseTravel):
+    __tablename__ = 'travel_user_contacts'
 
     id = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)

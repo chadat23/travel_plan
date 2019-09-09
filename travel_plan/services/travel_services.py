@@ -1,8 +1,13 @@
 from datetime import datetime
 from typing import Optional, List, Dict
 
-from sqlalchemy.orm import Session
+from sqlalchemy import or_
+from sqlalchemy.orm import Session, joinedload
 
+from travel_plan.models.cars import Car
+from travel_plan.models.colors import Color
+from travel_plan.models.locations import Location
+from travel_plan.models.travel_user_contacts import TravelUserContact
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.services import car_services, location_services, user_services
@@ -101,15 +106,29 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     finally:
         session.close()
 
-    return travel
+    return travel.id
 
 
-def _verify_contact(contact: User, session: Session = None) -> User:
+def get_travel_by_id(travel_id: int):
+    session: Session = db_session.create_session()
+
+    try:
+        a = session.query(Travel).options(joinedload(Travel.entry_point)).\
+            options(joinedload(Travel.car)).\
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.traveler)).\
+            filter(Travel.id == travel_id).first()
+        # a = session.query(Travel).filter(Travel.id == travel_id).first()
+        return a
+    finally:
+        session.close()
+
+
+def _verify_contact(contact: User) -> User:
     existing_contact = user_services.get_user_from_email(contact.email)
     if not existing_contact:
         contact.name = contact.email.split('@')[0].replace('_', '')
         contact.active = False
-        return user_services.create_user(contact, session)
+        return user_services.create_user(user=contact)
     if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \
             existing_contact.cell_number != contact.cell_number:
         return user_services.update_user(existing_contact.id, existing_contact.active, work_number=contact.work_number,
@@ -148,6 +167,3 @@ def __add_location(point: str, points):
         return points
     points[point] = 1
     return points
-
-
-
