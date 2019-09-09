@@ -54,6 +54,13 @@ class Travel(SqlAlchemyBaseTravel):
     tent = sa.Column(sa.Boolean)
     whistle = sa.Column(sa.Boolean)
 
+    days_of_food = sa.Column(sa.Float)
+    weapon = sa.Column(sa.String)
+    radio_monitor_time = sa.Column(sa.String)
+    off_trail_travel = sa.Column(sa.Boolean)
+    cell_number = sa.Column(sa.String)
+    satellite_number = sa.Column(sa.String)
+
     gar_avg = sa.Column(sa.Float)
     mitigated_gar = sa.Column(sa.Integer)
     gar_mitigations = sa.Column(sa.String)
@@ -83,6 +90,8 @@ class Travel(SqlAlchemyBaseTravel):
                  spare_battery: bool,
                  tent: bool,
                  whistle: bool,
+                 days_of_food: float, weapon: str, radio_monitor_time: str, off_trail_travel: bool,
+                 cell_number: str, satellite_number: str,
                  gar_avg: float, mitigated_gar: int, gar_mitigations: str,
                  notes: str,
                  ):

@@ -35,6 +35,8 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 spare_battery: bool,
                 tent: bool,
                 whistle: bool,
+                days_of_food: str, weapon: str, radio_monitor_time: str, off_trail_travel: bool,
+                cell_number: str, satellite_number: str,
                 gar_avg: float, mitigated_gar: int, gar_mitigations: str,
                 notes: str
                 ):
@@ -71,6 +73,8 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     spare_battery=spare_battery,
                     tent=tent,
                     whistle=whistle,
+                    days_of_food=float(days_of_food), weapon=weapon, radio_monitor_time=radio_monitor_time,
+                    off_trail_travel=off_trail_travel, cell_number=cell_number, satellite_number=satellite_number,
                     gar_avg=gar_avg, mitigated_gar=mitigated_gar, gar_mitigations=gar_mitigations,
                     notes=notes,
                     )

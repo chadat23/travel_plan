@@ -55,6 +55,8 @@ def entry_post():
                                 vm.spare_battery,
                                 vm.tent,
                                 vm.whistle,
+                                vm.days_of_food, vm.weapon, vm.radio_monitor_time, vm.off_trail_travel,
+                                vm.cell_number, vm.satellite_number,
                                 vm.gar_avg, vm.mitigated_gar, vm.gar_mitigations,
                                 vm.notes
                                 )
