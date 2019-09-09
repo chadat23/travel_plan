@@ -11,9 +11,9 @@ class TravelEntryViewModel(ViewModelBase):
     def __init__(self):
         super().__init__()
 
-        self.entry_date: str = self.request_dict.entrydate
+        self.start_date: str = self.request_dict.entrydate
         self.entry_point: str = self.request_dict.entrypoint
-        self.exit_date: str = self.request_dict.exitdate
+        self.end_date: str = self.request_dict.exitdate
         self.exit_point: str = self.request_dict.exitpoint
         self.locations: List[str] = location_services.get_names()
 
@@ -28,6 +28,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.colors: List[str] = color_services.get_names()
 
         request = flask.request
+        self.trip_leader_name = self.request_dict.travelername0
         self.travelers = []
         # i = 0
         # while 'traveler_name' + str(i) in request.form:
@@ -159,16 +160,16 @@ class TravelEntryViewModel(ViewModelBase):
         self._validate_dates()
 
     def _validate_dates(self):
-        if self.exit_date < self.entry_date:
+        if self.end_date < self.start_date:
             self.error = "Your exit date can't be before your entry date."
 
-        if self.entry_date != self.day_plans[0]['date']:
+        if self.start_date != self.day_plans[0]['date']:
             self.error = "Your days' plans should start on your entry date. " \
                          "The two dates don't match. You have days that are unaccounted for."
 
         for plan in reversed(self.day_plans):
             if plan['date'] != '':
-                if self.exit_date != plan['date']:
+                if self.end_date != plan['date']:
                     self.error = "Your days' plans should end on your exit date. " \
                                  "The two dates don't match. You have days that are unaccounted for."
                 break

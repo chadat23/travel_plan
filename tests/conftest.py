@@ -7,6 +7,7 @@ from travel_plan.models import db_session
 from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
+from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.users import User
 import travel_plan.models.__all_models as all_models
@@ -68,14 +69,17 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
 
 
 def travels():
-    if isinstance(_travels[0]['traveler_units'][0], list):
-        for p in _travels:
-            users = []
-            for u in p['traveler_units']:
-                users.append(TravelUserUnit(u[0], u[1], u[2], u[3], u[4], u[5], u[6],
-                                            u[7], u[8], u[9], u[10], u[11], u[12]))
-            p['traveler_units'] = users
+    '''
+    convert a list of dicts to a list of TravelUserUnits
+    and a list of dicts into a list of TravelDays
 
+    This gets around an issue with import order stuff.
+    :return:
+    '''
+    if isinstance(_travels[0]['traveler_units'][0], list):
+        for t in _travels:
+            t['traveler_units'] = [TravelUserUnit(*u) for u in t['traveler_units']]
+            t['day_plans'] = [TravelDay(**d) for d in t['day_plans']]
     return _travels
 
 
@@ -155,6 +159,7 @@ def db_cars():
 @pytest.fixture()
 def db_session_w_travel_info(db_session_w_info):
     yield travels()
+    # yield _travels
 
 # @pytest.fixture()
 # def db_session_w_travels(db_session_w_info):

@@ -93,13 +93,15 @@ def test_travel_entry_vm_entry_exit_date_success(form_data):
             vm = TravelEntryViewModel()
 
     # THEN: all of the data in the form should be properly represented in the vm.
-    assert vm.entry_date == form_data['entrydate']
+    assert vm.start_date == form_data['entrydate']
     assert vm.entry_point == form_data['entrypoint']
-    assert vm.exit_date == form_data['exitdate']
+    assert vm.end_date == form_data['exitdate']
     assert vm.exit_point == form_data['exitpoint']
     # assert vm.tracked == good_form_data['tracked']
     assert vm.tracked is True
     assert vm.plb == form_data['plb']
+
+    assert vm.trip_leader_name == form_data['travelername0']
 
     assert vm.travelers[0]['traveler_name'] == form_data['travelername0']
     assert vm.travelers[0]['pack_color'] == form_data['packcolor0']
