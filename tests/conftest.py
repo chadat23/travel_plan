@@ -13,15 +13,15 @@ from travel_plan.models.users import User
 import travel_plan.models.__all_models as all_models
 
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com',
-          'home_phone': '555-123-1234', 'work_phone': '555-123-2345', 'cell_phone': '555-123-3456'},
+          'home_number': '555-123-1234', 'work_number': '555-123-2345', 'cell_number': '555-123-3456'},
          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com',
-          'home_phone': '555-234-1234', 'work_phone': '555-234-2345', 'cell_phone': '555-234-3456'},
+          'home_number': '555-234-1234', 'work_number': '555-234-2345', 'cell_number': '555-234-3456'},
          {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com',
-          'home_phone': '555-345-1234', 'work_phone': '555-345-2345', 'cell_phone': '555-345-3456'},
+          'home_number': '555-345-1234', 'work_number': '555-345-2345', 'cell_number': '555-345-3456'},
          {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com',
-          'home_phone': '555-456-1234', 'work_phone': '555-456-2345', 'cell_phone': '555-456-3456'},
+          'home_number': '555-456-1234', 'work_number': '555-456-2345', 'cell_number': '555-456-3456'},
          {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com',
-          'home_phone': '555-567-1234', 'work_phone': '555-567-2345', 'cell_phone': '555-567-3456'},
+          'home_number': '555-567-1234', 'work_number': '555-567-2345', 'cell_number': '555-567-3456'},
          ]
 
 locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803},
@@ -66,10 +66,10 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                            {'date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH',
                             'route': 'More trail', 'mode': 'foot'},
                            ],
-             'contacts': [{'name': 'Coworker 1', 'email': 'chad.derosier+a@gmail.com', 'work_phone': '555-1234',
-                           'home_phone': '555-2345', 'cell_phone': '555-3456'},
-                          {'name': 'Coworker 2', 'email': 'chad.derosier+b@gmail.com', 'work_phone': '555-2234',
-                           'home_phone': '555-3345', 'cell_phone': '555-4456'}
+             'contacts': [{'name': 'Coworker 1', 'email': 'chad.derosier+a@gmail.com', 'work_number': '555-1234',
+                           'home_number': '555-2345', 'cell_number': '555-3456'},
+                          {'name': 'Coworker 2', 'email': 'chad.derosier+b@gmail.com', 'work_number': '555-2234',
+                           'home_number': '555-3345', 'cell_number': '555-4456'}
                           ]
              },
             ]

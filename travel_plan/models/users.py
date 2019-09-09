@@ -19,18 +19,19 @@ class User(SqlAlchemyBaseTravel):
 
     travels = orm.relationship('TravelUserUnit', backref='traveler')
 
-    home_phone = sa.Column(sa.String)
-    work_phone = sa.Column(sa.String)
-    cell_phone = sa.Column(sa.String)
+    home_number = sa.Column(sa.String)
+    work_number = sa.Column(sa.String)
+    cell_number = sa.Column(sa.String)
 
     active: bool = sa.Column(sa.Boolean, nullable=False)
 
-    def __init__(self, name: str, email: str, home_phone: str, work_phone: str, cell_phone: str, active: bool = True):
+    def __init__(self, name: str, email: str, home_number: str, work_number: str, cell_number: str,
+                 active: bool = True):
         self.name = name
         self.email = email
-        self.home_phone = home_phone
-        self.work_phone = work_phone
-        self.cell_phone = cell_phone
+        self.home_number = home_number
+        self.work_number = work_number
+        self.cell_number = cell_number
         self.active = active
 
     def __lt__(self, other):

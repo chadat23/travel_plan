@@ -1,6 +1,5 @@
 from typing import List, Optional
 
-from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 from sqlalchemy.orm import Session
 
 from travel_plan.config import NUMB_OF_HASHES
@@ -64,8 +63,8 @@ def get_user_from_email(email: str) -> Optional[User]:
         session.close()
 
 
-def create_user(name: str, email: str, home_phone: str, work_phone: str, cell_phone: str, active: bool = True):
-    user = User(name, email, home_phone, work_phone, cell_phone, active)
+def create_user(name: str, email: str, work_number: str, home_number: str, cell_number: str, active: bool = True):
+    user = User(name, email, work_number, home_number, cell_number, active)
 
     session: Session = db_session.create_session()
 
@@ -78,7 +77,7 @@ def create_user(name: str, email: str, home_phone: str, work_phone: str, cell_ph
 
 
 def update_user(user: User, active: bool, name: str = '', email: str = '',
-                work_phone: str = '', home_phone: str = '', cell_phone: str = ''):
+                work_number: str = '', home_number: str = '', cell_number: str = ''):
     updated = False
     if active != user.active:
         user.active = active
@@ -89,14 +88,14 @@ def update_user(user: User, active: bool, name: str = '', email: str = '',
     if email and email != user.email:
         user.email = email
         updated = True
-    if work_phone and work_phone != user.work_phone:
-        user.work_phone = work_phone
+    if work_number and work_number != user.work_number:
+        user.work_number = work_number
         updated = True
-    if home_phone and home_phone != user.home_phone:
-        user.home_phone = home_phone
+    if home_number and home_number != user.home_number:
+        user.home_number = home_number
         updated = True
-    if cell_phone and cell_phone != user.cell_phone:
-        user.cell_phone = cell_phone
+    if cell_number and cell_number != user.cell_number:
+        user.cell_number = cell_number
         updated = True
 
     if updated:

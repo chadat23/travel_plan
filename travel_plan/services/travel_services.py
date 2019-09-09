@@ -135,6 +135,6 @@ def _get_and_update_contact(email: str, work: str, home: str, cell: str) -> User
     contact = user_services.get_user_from_email(email)
     if contact:
         return user_services.update_user(contact, contact.active, email=email,
-                                         work_phone=work, home_phone=home, cell_phone=cell)
+                                         work_number=work, home_number=home, cell_number=cell)
     else:
         return user_services.create_user(email.split('@')[0], email, work, home, cell, False)

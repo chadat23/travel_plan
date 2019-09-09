@@ -13,7 +13,6 @@ fpdf = "*"
 folium = "*"
 bs4 = "*"
 flask = "*"
-passlib = "*"
 
 [requires]
 python_version = "3.7"
