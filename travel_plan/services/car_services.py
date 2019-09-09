@@ -41,7 +41,7 @@ def get_plates() -> Optional[List[str]]:
         session.close()
 
 
-def create_car(plate: str, make: str, model: str, color: str, location: str = 'NA', active: bool = True) -> int:
+def create_car(plate: str, make: str, model: str, color: str, location: str = 'NA', active: bool = True) -> Car:
     '''
     Creates a car object and adds it to the database
 
@@ -51,11 +51,11 @@ def create_car(plate: str, make: str, model: str, color: str, location: str = 'N
 
     color = color_services.add_if_not_present(color)
 
-    car = Car(plate, make, model, color, active)
-    session.add(car)
-    session.flush()
+    car = Car(plate, make, model, color, location, active)
+    try:
+        session.add(car)
+        session.commit()
+    finally:
+        session.close()
 
-    session.commit()
-    session.close()
-
-    return car.id
+    return car

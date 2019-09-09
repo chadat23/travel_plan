@@ -44,7 +44,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 ):
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
     if not car_id:
-        car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False)
+        car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False).id
 
     entry_point_id = location_services.get_id_from_name(entry_point)
     exit_point_id = location_services.get_id_from_name(exit_point)
