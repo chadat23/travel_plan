@@ -26,7 +26,7 @@ def entry_post():
     if vm.error:
         return vm.to_dict()
 
-    travel_user_units = [TravelUserUnit(**p) for p in vm.travelers if p['traveler_name']]
+    travel_user_units = [TravelUserUnit(**t) for t in vm.travelers if t['traveler_name']]
 
     day_plans = [TravelDay(**pd) for pd in vm.day_plans if pd['date']]
 
@@ -55,8 +55,6 @@ def entry_post():
                                 vm.spare_battery == 'on',
                                 vm.tent == 'on',
                                 vm.whistle == 'on',
-                                # 'a',
-                                # vm.contact0, vm.contact1
                                 )
 
     emailer.email_pdf(vm.start_date, vm.entry_point, vm.end_date, vm.exit_point,

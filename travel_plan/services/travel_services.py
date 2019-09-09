@@ -10,7 +10,7 @@ from travel_plan.models import db_session
 from travel_plan.models.travels import Travel
 
 
-def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
+def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
                 trip_leader_name: str,
                 traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
@@ -47,7 +47,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
 
     travel = Travel(start_date=datetime.strptime(start_date, '%Y-%m-%d'), entry_point_id=entry_point_id,
                     end_date=datetime.strptime(end_date, '%Y-%m-%d'), exit_point_id=exit_point_id,
-                    tracked=True if tracked == 'yes' else False, plb=plb, trip_leader_id=trip_leader_id,
+                    tracked=tracked, plb=plb, trip_leader_id=trip_leader_id,
                     car_id=car_id, car_location=car_location,
                     bivy_gear=bivy_gear,
                     compass=compass,

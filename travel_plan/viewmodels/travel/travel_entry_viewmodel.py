@@ -15,15 +15,16 @@ class TravelEntryViewModel(ViewModelBase):
         self.entry_point: str = self.request_dict.entrypoint
         self.end_date: str = self.request_dict.exitdate
         self.exit_point: str = self.request_dict.exitpoint
-        self.locations: List[str] = location_services.get_names()
 
-        if self.request_dict.tracked == '':
-            self.tracked = 'yes'
-        else:
-            self.tracked = self.request_dict.tracked == 'yes'
-
+        # if self.request_dict.tracked == '' or self.request_dict.tracked == 'yes':
+        #     self.tracked = True
+        # else:
+        #     self.tracked = False
+        self.tracked = self.request_dict.tracked == '' or self.request_dict.tracked == 'yes'
+        #     self.tracked = self.request_dict.tracked == 'yes'
         self.plb: str = self.request_dict.plb
 
+        self.locations: List[str] = location_services.get_names()
         self.users: List[User] = user_services.get_users()
         self.colors: List[str] = color_services.get_names()
 
@@ -38,36 +39,38 @@ class TravelEntryViewModel(ViewModelBase):
         #     p['pack_color'] = request.form['pack_color' + str(i)]
         #     i += 1
         for i in range(4):
-            p = {}
+            t = {}
             if 'travelername' + str(i) in request.form:
-                p['traveler_name'] = request.form['travelername' + str(i)]
-                p['call_sign'] = request.form['callsign' + str(i)]
-                p['pack_color'] = request.form['packcolor' + str(i)]
-                p['tent_color'] = request.form['tentcolor' + str(i)]
-                p['fly_color'] = request.form['flycolor' + str(i)]
-                p['supervision'] = request.form['supervision' + str(i)]
-                p['planning'] = request.form['planning' + str(i)]
-                p['contingency'] = request.form['contingency' + str(i)]
-                p['comms'] = request.form['comms' + str(i)]
-                p['team_selection'] = request.form['teamselection' + str(i)]
-                p['fitness'] = request.form['fitness' + str(i)]
-                p['env'] = request.form['env' + str(i)]
-                p['complexity'] = request.form['complexity' + str(i)]
+                t['traveler_name'] = request.form['travelername' + str(i)]
+                t['call_sign'] = request.form['callsign' + str(i)]
+                t['pack_color'] = request.form['packcolor' + str(i)]
+                t['tent_color'] = request.form['tentcolor' + str(i)]
+                t['fly_color'] = request.form['flycolor' + str(i)]
+                t['supervision'] = request.form['supervision' + str(i)]
+                t['planning'] = request.form['planning' + str(i)]
+                t['contingency'] = request.form['contingency' + str(i)]
+                t['comms'] = request.form['comms' + str(i)]
+                t['team_selection'] = request.form['teamselection' + str(i)]
+                t['fitness'] = request.form['fitness' + str(i)]
+                t['env'] = request.form['env' + str(i)]
+                t['complexity'] = request.form['complexity' + str(i)]
+                t['total'] = request.form['total' + str(i)]
             else:
-                p['traveler_name'] = ''
-                p['call_sign'] = ''
-                p['pack_color'] = ''
-                p['tent_color'] = ''
-                p['fly_color'] = ''
-                p['supervision'] = ''
-                p['planning'] = ''
-                p['contingency'] = ''
-                p['comms'] = ''
-                p['team_selection'] = ''
-                p['fitness'] = ''
-                p['env'] = ''
-                p['complexity'] = ''
-            self.travelers.append(p)
+                t['traveler_name'] = ''
+                t['call_sign'] = ''
+                t['pack_color'] = ''
+                t['tent_color'] = ''
+                t['fly_color'] = ''
+                t['supervision'] = ''
+                t['planning'] = ''
+                t['contingency'] = ''
+                t['comms'] = ''
+                t['team_selection'] = ''
+                t['fitness'] = ''
+                t['env'] = ''
+                t['complexity'] = ''
+                t['total'] = ''
+            self.travelers.append(t)
 
         self.day_plans = []
         for i in range(9):

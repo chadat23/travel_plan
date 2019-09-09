@@ -86,7 +86,7 @@ def send_mail(recipients: List[str], file: str):
         raise
 
 
-def email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
+def email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
               name0: str, call_sign0: str, pack_color0: str,
               name1: str, call_sign1: str, pack_color1: str,
               name2: str, call_sign2: str, pack_color2: str,
@@ -113,7 +113,7 @@ def email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
         delete_file(file)
 
 
-def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: str, plb: str,
+def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
                  name0: str, call_sign0: str, pack_color0: str,
                  name1: str, call_sign1: str, pack_color1: str,
                  name2: str, call_sign2: str, pack_color2: str,

@@ -97,7 +97,7 @@ def test_travel_entry_vm_entry_exit_date_success(form_data):
     assert vm.entry_point == form_data['entrypoint']
     assert vm.end_date == form_data['exitdate']
     assert vm.exit_point == form_data['exitpoint']
-    # assert vm.tracked == good_form_data['tracked']
+    # assert vm.tracked == form_data['tracked']
     assert vm.tracked is True
     assert vm.plb == form_data['plb']
 

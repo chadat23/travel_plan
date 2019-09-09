@@ -30,11 +30,13 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
     fitness: int = sa.Column(sa.Integer)
     env: int = sa.Column(sa.Integer)
     complexity: int = sa.Column(sa.Integer)
+    total: int = sa.Column(sa.Integer)
 
     def __init__(self, traveler_name: str, call_sign: str,
                  pack_color: str, tent_color: str, fly_color: str,
                  supervision: int, planning: int, contingency: int, comms: int,
-                 team_selection: int, fitness: int, env: int, complexity: int):
+                 team_selection: int, fitness: int, env: int, complexity: int,
+                 total: int):
         # self.travel = travel
         self.traveler = user_services.get_user_from_name(traveler_name)
 
@@ -56,6 +58,7 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
         self.fitness = fitness
         self.env = env
         self.complexity = complexity
+        self.total = total
 
     @property
     def total_gar_score(self):
