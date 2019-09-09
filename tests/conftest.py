@@ -52,7 +52,7 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                         'probe_pole': 'on', 'radio': 'on', 'rope': 'on', 'shovel': 'on', 'signal_mirror': 'on',
                         'space_blanket': 'on', 'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
                         'days_of_food': '3.5', 'weapon': 'None', 'radio_monitor_time': '800-2000',
-                        'off_trail_travel': 'no', 'cell_number': '555-132-4567', 'satellite_number': '555-987-6543',
+                        'off_trail_travel': False, 'cell_number': '555-132-4567', 'satellite_number': '555-987-6543',
                         'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': 'be careful?', 'notes': 'Nope!'
                         },
              'traveler_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8, 36],

@@ -8,6 +8,14 @@ from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.models.users import User
 
 
+contact_association_table = sa.Table('travel_contact_association', SqlAlchemyBaseTravel.metadata,
+                                     sa.Column('travels_id', sa.Integer,
+                                               sa.ForeignKey('travels.id'), primary_key = True),
+                                     sa.Column('contacts_id', sa.Integer,
+                                               sa.ForeignKey('users.id'), primary_key = True)
+                                     )
+
+
 class Travel(SqlAlchemyBaseTravel):
     __tablename__ = 'travels'
 
@@ -28,7 +36,7 @@ class Travel(SqlAlchemyBaseTravel):
     trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])
 
     travelers = orm.relationship('TravelUserUnit', backref='travel')
-    travel_dayss = orm.relationship('TravelDay', backref='travel')
+    travel_days = orm.relationship('TravelDay', backref='travel')
 
     car_id = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
     car = orm.relationship('Car', foreign_keys=[car_id])
@@ -63,7 +71,7 @@ class Travel(SqlAlchemyBaseTravel):
     cell_number = sa.Column(sa.String)
     satellite_number = sa.Column(sa.String)
 
-    contacts = orm.relationship('User', backref='contact_for_travel')
+    contacts = orm.relationship('User', secondary=contact_association_table)
 
     gar_avg = sa.Column(sa.Float)
     mitigated_gar = sa.Column(sa.Integer)
@@ -95,7 +103,7 @@ class Travel(SqlAlchemyBaseTravel):
                  tent: bool,
                  whistle: bool,
                  days_of_food: float, weapon: str, radio_monitor_time: str, off_trail_travel: bool,
-                 cell_number: str, satellite_number: str, contacts: List[User],
+                 cell_number: str, satellite_number: str,
                  gar_avg: float, mitigated_gar: int, gar_mitigations: str,
                  notes: str,
                  ):
@@ -134,6 +142,13 @@ class Travel(SqlAlchemyBaseTravel):
         self.tent = tent
         self.whistle = whistle
 
+        self.days_of_food = days_of_food
+        self.weapon = weapon
+        self.radio_monitor_time = radio_monitor_time
+        self.off_trail_travel = off_trail_travel
+        self.cell_number = cell_number
+        self.satellite_number = satellite_number
+
         self.gar_avg = gar_avg
         self.mitigated_gar = mitigated_gar
         self.gar_mitigations = gar_mitigations
@@ -142,3 +157,6 @@ class Travel(SqlAlchemyBaseTravel):
 
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'
+
+
+

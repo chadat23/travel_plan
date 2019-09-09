@@ -11,8 +11,8 @@ from travel_plan.models.travels import Travel
 from travel_plan.models.users import User
 
 
-def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
-                trip_leader_name: str,
+def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str,
+                tracked: bool, plb: str, trip_leader_name: str,
                 traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
                 bivy_gear: bool,
@@ -36,7 +36,8 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 spare_battery: bool,
                 tent: bool,
                 whistle: bool,
-                days_of_food: str, weapon: str, radio_monitor_time: str, off_trail_travel: bool,
+                days_of_food: str, weapon: str, radio_monitor_time: str,
+                off_trail_travel: bool,
                 cell_number: str, satellite_number: str,
                 contacts: List[User],
                 gar_avg: float, mitigated_gar: int, gar_mitigations: str,
@@ -76,12 +77,13 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     tent=tent,
                     whistle=whistle,
                     days_of_food=float(days_of_food), weapon=weapon, radio_monitor_time=radio_monitor_time,
-                    off_trail_travel=off_trail_travel, cell_number=cell_number, satellite_number=satellite_number,
-                    contacts=contacts,
+                    off_trail_travel=off_trail_travel,
+                    cell_number=cell_number, satellite_number=satellite_number,
                     gar_avg=gar_avg, mitigated_gar=mitigated_gar, gar_mitigations=gar_mitigations,
                     notes=notes,
                     )
 
+    contacts = [_verify_contact(c) for c in contacts]
     session: Session = db_session.create_session()
     try:
         session.add(travel)
@@ -92,10 +94,27 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
             day.travel = travel
             session.add(day)
         session.commit()
+        for contact in contacts:
+            contact = session.query(User).filter(User.email == contact.email).first()
+            travel.contacts.append(contact)
+        session.commit()
     finally:
         session.close()
 
     return travel
+
+
+def _verify_contact(contact: User, session: Session = None) -> User:
+    existing_contact = user_services.get_user_from_email(contact.email)
+    if not existing_contact:
+        contact.name = contact.email.split('@')[0].replace('_', '')
+        contact.active = False
+        return user_services.create_user(contact, session)
+    if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \
+            existing_contact.cell_number != contact.cell_number:
+        return user_services.update_user(existing_contact.id, existing_contact.active, work_number=contact.work_number,
+                                         home_number=contact.work_number, cell_number=contact.work_number)
+    return existing_contact
 
 
 def get_lat_long_frequencies() -> Dict[tuple, int]:
@@ -131,14 +150,4 @@ def __add_location(point: str, points):
     return points
 
 
-def _get_and_update_contact(email: str, work: str, home: str, cell: str) -> User:
-    contact = user_services.get_user_from_email(email)
-    if contact:
-        if contact.email != email or contact.work_number != work or \
-                contact.home_number != home or contact.cell_number != cell:
-            return user_services.update_user(contact.id, contact.active, email=email,
-                                             work_number=work, home_number=home, cell_number=cell)
-        else:
-            return contact
-    else:
-        return user_services.create_user(email.split('@')[0], email, work, home, cell, False)
+

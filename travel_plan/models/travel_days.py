@@ -17,15 +17,17 @@ class TravelDay(SqlAlchemyBaseTravel):
     travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
 
     date = sa.Column(sa.DateTime, nullable=False)
-    starting_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    ending_point = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
+    starting_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
+    starting_point = orm.relationship('Location', foreign_keys=[starting_point_id])
+    ending_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
+    ending_point = orm.relationship('Location', foreign_keys=[ending_point_id])
     route = sa.Column(sa.String, index=True, unique=True, nullable=True)
     mode = sa.Column(sa.String, index=True)
 
     def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):
         self.date = datetime.strptime(date, '%Y-%m-%d')
-        self.starting_point = location_services.get_id_from_name(starting_point)
-        self.ending_point = location_services.get_id_from_name(ending_point)
+        self.starting_point_id = location_services.get_id_from_name(starting_point)
+        self.ending_point_id = location_services.get_id_from_name(ending_point)
         self.route = route
         self.mode = mode
 

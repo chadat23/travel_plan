@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from travel_plan.models.travel_user_units import TravelUserUnit
 
 
-def test_travel_services_get_names_success(db_session_w_travel_info):
+def test_travel_services_create_plan_success(db_session_w_travel_info):
     import unittest.mock
     from unittest.mock import Mock
 
