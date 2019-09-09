@@ -11,3 +11,5 @@ DB_NAME = "<db.name>"
 EMAIL_ADDRESS = "<email@address.example>"
 
 EMAIL_PASSWORD = "<email_password>"
+
+NUMB_OF_HASHES = '<numb>'

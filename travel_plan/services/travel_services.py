@@ -8,6 +8,7 @@ from travel_plan.models.travel_days import TravelDay
 from travel_plan.services import car_services, location_services, user_services
 from travel_plan.models import db_session
 from travel_plan.models.travels import Travel
+from travel_plan.models.users import User
 
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
@@ -37,6 +38,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 whistle: bool,
                 days_of_food: str, weapon: str, radio_monitor_time: str, off_trail_travel: bool,
                 cell_number: str, satellite_number: str,
+                contacts: List[User],
                 gar_avg: float, mitigated_gar: int, gar_mitigations: str,
                 notes: str
                 ):
@@ -75,6 +77,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     whistle=whistle,
                     days_of_food=float(days_of_food), weapon=weapon, radio_monitor_time=radio_monitor_time,
                     off_trail_travel=off_trail_travel, cell_number=cell_number, satellite_number=satellite_number,
+                    contacts=contacts,
                     gar_avg=gar_avg, mitigated_gar=mitigated_gar, gar_mitigations=gar_mitigations,
                     notes=notes,
                     )
@@ -126,3 +129,12 @@ def __add_location(point: str, points):
         return points
     points[point] = 1
     return points
+
+
+def _get_and_update_contact(email: str, work: str, home: str, cell: str) -> User:
+    contact = user_services.get_user_from_email(email)
+    if contact:
+        return user_services.update_user(contact, contact.active, email=email,
+                                         work_phone=work, home_phone=home, cell_phone=cell)
+    else:
+        return user_services.create_user(email.split('@')[0], email, work, home, cell, False)

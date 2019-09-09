@@ -1,9 +1,11 @@
 import datetime
+from typing import List
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan.models.users import User
 
 
 class Travel(SqlAlchemyBaseTravel):
@@ -61,6 +63,8 @@ class Travel(SqlAlchemyBaseTravel):
     cell_number = sa.Column(sa.String)
     satellite_number = sa.Column(sa.String)
 
+    contacts = orm.relationship('User', backref='contact_for_travel')
+
     gar_avg = sa.Column(sa.Float)
     mitigated_gar = sa.Column(sa.Integer)
     gar_mitigations = sa.Column(sa.String)
@@ -91,7 +95,7 @@ class Travel(SqlAlchemyBaseTravel):
                  tent: bool,
                  whistle: bool,
                  days_of_food: float, weapon: str, radio_monitor_time: str, off_trail_travel: bool,
-                 cell_number: str, satellite_number: str,
+                 cell_number: str, satellite_number: str, contacts: List[User],
                  gar_avg: float, mitigated_gar: int, gar_mitigations: str,
                  notes: str,
                  ):

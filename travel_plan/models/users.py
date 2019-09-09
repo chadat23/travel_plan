@@ -16,7 +16,6 @@ class User(SqlAlchemyBaseTravel):
 
     name = sa.Column(sa.String, nullable=False)
     email = sa.Column(sa.String, index=True, unique=True, nullable=True)
-    hashed_ssn = sa.Column(sa.String, index=True)
 
     travels = orm.relationship('TravelUserUnit', backref='traveler')
 
@@ -26,11 +25,9 @@ class User(SqlAlchemyBaseTravel):
 
     active: bool = sa.Column(sa.Boolean, nullable=False)
 
-    def __init__(self, name: str, email: str, hashed_ssn: str,
-                 home_phone: str, work_phone: str, cell_phone: str, active: bool = True):
+    def __init__(self, name: str, email: str, home_phone: str, work_phone: str, cell_phone: str, active: bool = True):
         self.name = name
         self.email = email
-        self.hashed_ssn = hashed_ssn
         self.home_phone = home_phone
         self.work_phone = work_phone
         self.cell_phone = cell_phone

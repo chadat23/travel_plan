@@ -89,6 +89,21 @@ class TravelEntryViewModel(ViewModelBase):
                 d_p['mode'] = ''
             self.day_plans.append(d_p)
 
+        self.contacts = []
+        for i in range(2):
+            c = {}
+            if 'contactemail' + str(i) in request.form:
+                c['contact_email'] = request.form['contactemail' + str(i)]
+                c['contact_work'] = request.form['contactwork' + str(i)]
+                c['contact_home'] = request.form['contacthome' + str(i)]
+                c['contact_cell'] = request.form['contactcell' + str(i)]
+            else:
+                c['contact_email'] = ''
+                c['contact_work'] = ''
+                c['contact_home'] = ''
+                c['contact_cell'] = ''
+            self.contacts.append(c)
+
         self.cars = car_services.get_names()
         self.car_plate = self.request_dict.carplate
         self.car_make = self.request_dict.carmake

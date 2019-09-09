@@ -26,7 +26,6 @@ def test_user_services_get_users_success(db_session_w_info):
     for u in users:
         if u['name'] == actual_users[0].name:
             assert u['email'] == actual_users[0].email
-            assert u['hashed_ssn'] == actual_users[0].hashed_ssn
             assert u['cell_phone'] == actual_users[0].cell_phone
             never_ran = False
             break

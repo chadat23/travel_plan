@@ -4,6 +4,7 @@ from travel_plan.disseminate import emailer
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
+from travel_plan.models.users import User
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
@@ -29,6 +30,8 @@ def entry_post():
     travel_user_units = [TravelUserUnit(**t) for t in vm.travelers if t['traveler_name']]
 
     day_plans = [TravelDay(**pd) for pd in vm.day_plans if pd['date']]
+
+    contacts = [User(u['contact_email'].split('@')[0], u['contact_email'], u['contact_work'], u['contact_home'], u['contact_cell']) for u in vm.contacts]
 
     travel_services.create_plan(vm.start_date, vm.entry_point, vm.end_date, vm.exit_point, vm.tracked, vm.plb,
                                 vm.trip_leader_name,
@@ -56,7 +59,7 @@ def entry_post():
                                 vm.tent,
                                 vm.whistle,
                                 vm.days_of_food, vm.weapon, vm.radio_monitor_time, vm.off_trail_travel,
-                                vm.cell_number, vm.satellite_number,
+                                vm.cell_number, vm.satellite_number, contacts,
                                 vm.gar_avg, vm.mitigated_gar, vm.gar_mitigations,
                                 vm.notes
                                 )

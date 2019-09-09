@@ -231,18 +231,14 @@
                         <option>{{ user.email }}</option>
                     {% endfor %}
                 </datalist>
-                <div class="row">
-                    <input type="text" name="contactemail0" placeholder="Responsible Party 1" class="col-xl-3" value="{{ contact_email0 }}" list="emails" required/>
-                    <input type="text" name="contactwork0" placeholder="Work Phone" class="col-xl-3" value="{{ contact_work0 }}"/>
-                    <input type="text" name="contacthome0" placeholder="Home Phone" class="col-xl-3" value="{{ contact_home0 }}"/>
-                    <input type="text" name="contactcell0" placeholder="Cell Phone" class="col-xl-3" value="{{ contact_cell0 }}"/>
-                </div>
-                <div class="row">
-                    <input type="text" name="contactemail1" placeholder="Responsible Party 2" class="col-xl-3" value="{{ contact_email1 }}" list="emails" required/>
-                    <input type="text" name="contactwork1" placeholder="Work Phone" class="col-xl-3" value="{{ contact_work1 }}"/>
-                    <input type="text" name="contacthome1" placeholder="Home Phone" class="col-xl-3" value="{{ contact_home1 }}"/>
-                    <input type="text" name="contactcell1" placeholder="Cell Phone" class="col-xl-3" value="{{ contact_cell1 }}"/>
-                </div>
+                {% for d in contacts %}
+                    <div class="row">
+                        <input type="text" name="contactemail{{ loop.index0 }}" placeholder="Responsible Party {{ loop.index }}" class="col-xl-3" value="{{ d['contact_email'] }}" list="emails"/>
+                        <input type="text" name="contactwork{{ loop.index0 }}" placeholder="Work Phone" class="col-xl-3" value="{{ d['contact_work'] }}" list="locations"/>
+                        <input type="text" name="contacthome{{ loop.index0 }}" placeholder="Home Phone" class="col-xl-3" value="{{ d['contact_home'] }}" list="locations"/>
+                        <input type="text" name="contactcell{{ loop.index0 }}" placeholder="Cell Phone" class="col-xl-3" value="{{ d['contact_cell'] }}" list="mode"/>
+                    </div>
+                {% endfor %}
             </div>
 
             <div class="entry-section">
