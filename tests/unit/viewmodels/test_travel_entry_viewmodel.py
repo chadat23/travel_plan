@@ -178,7 +178,7 @@ def test_travel_entry_vm_entry_exit_date_success(form_data):
     assert vm.days_of_food == form_data['daysoffood']
     assert vm.radio_monitor_time == form_data['radiomonitortime']
     # assert vm.off_trail_travel == good_form_data['offtrailtravel']
-    assert vm.off_trail_travel is True
+    assert vm.off_trail_travel is False
     # Need off trail travel map
     assert vm.cell_number == form_data['cellnumber']
     assert vm.satellite_number == form_data['satellitenumber']

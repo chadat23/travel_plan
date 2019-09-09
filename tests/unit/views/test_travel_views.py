@@ -13,7 +13,7 @@ def test_travel_view_entry_post_success(db_session_w_info, form_data,
     from unittest.mock import Mock
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
-    target = 'travel_plan.disseminate.emailer.email_pdf'
+    target = 'travel_plan.disseminate.emailer.make_and_email_pdf'
     email_pdf = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=None) as plan:
@@ -40,7 +40,7 @@ def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
     form_data['date2'] = start_date
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
-    target = 'travel_plan.disseminate.emailer.email_pdf'
+    target = 'travel_plan.disseminate.emailer.make_and_email_pdf'
     email_pdf = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=None) as plan:

@@ -11,11 +11,13 @@ from typing import List
 
 from fpdf import FPDF
 
+from travel_plan.models.travel_days import TravelDay
+from travel_plan.models.travel_user_units import TravelUserUnit
 
 try:
     from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
 except:
-    print('*'*10 + ' Did you create a config.py file from the config_example.py file? ' + '*'*10)
+    print('*' * 10 + ' Did you create a config.py file from the config_example.py file? ' + '*' * 10)
 
 
 def save_file(pdf: FPDF, name0: str, start_date: str) -> str:
@@ -86,28 +88,53 @@ def send_mail(recipients: List[str], file: str):
         raise
 
 
-def email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
-              name0: str, call_sign0: str, pack_color0: str,
-              name1: str, call_sign1: str, pack_color1: str,
-              name2: str, call_sign2: str, pack_color2: str,
-              name3: str, call_sign3: str, pack_color3: str,
-              date0: str, start0: str, end0: str, route0: str, mode0: str,
-              date1: str, start1: str, end1: str, route1: str, mode1: str,
-              date2: str, start2: str, end2: str, route2: str, mode2: str,
-              contact0: str, contact1: str,
-              ):
+def make_and_email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str, tracked: bool, plb: str,
+                       trip_leader_name: str,
+                       traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
+                       car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
+                       bivy_gear: bool,
+                       compass: bool,
+                       first_aid_kit: bool,
+                       flagging: bool,
+                       flare: bool,
+                       flashlight: bool,
+                       gps: bool,
+                       head_lamp: bool,
+                       helmet: bool,
+                       ice_axe: bool,
+                       map: bool,
+                       matches: bool,
+                       probe_pole: bool,
+                       radio: bool,
+                       rope: bool,
+                       shovel: bool,
+                       signal_mirror: bool,
+                       space_blanket: bool,
+                       spare_battery: bool,
+                       tent: bool,
+                       whistle: bool,
+                       gar_avg: float, mitigated_gar: int, gar_mitigations: str,
+                       notes: str
+                       ):
     pdf = generate_pdf(start_date, entry_point, end_date, exit_point, tracked, plb,
-                       name0, call_sign0, pack_color0,
-                       name1, call_sign1, pack_color1,
-                       name2, call_sign2, pack_color2,
-                       name3, call_sign3, pack_color3,
-                       date0, start0, end0, route0, mode0,
-                       date1, start1, end1, route1, mode1,
-                       date2, start2, end2, route2, mode2,
-                       contact0, contact1, )
+                       trip_leader_name, traveler_units, day_plans,
+                       car_plate, car_make, car_model, car_color, car_location,
+                       bivy_gear, compass,
+                       first_aid_kit, flagging,
+                       flare, flashlight,
+                       gps, head_lamp,
+                       helmet, ice_axe,
+                       map, matches,
+                       probe_pole, radio,
+                       rope, shovel,
+                       signal_mirror, space_blanket,
+                       spare_battery, tent,
+                       whistle,
+                       gar_avg, mitigated_gar, gar_mitigations,
+                       notes)
 
     try:
-        file = save_file(pdf, name0, start_date)
+        file = save_file(pdf, trip_leader_name, start_date)
         send_mail([contact0, contact1], file)
     except:
         delete_file(file)
