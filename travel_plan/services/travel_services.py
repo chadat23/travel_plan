@@ -35,7 +35,8 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 spare_battery: bool,
                 tent: bool,
                 whistle: bool,
-                # contact0: str, contact1: str,
+                gar_avg: float, mitigated_gar: int, gar_mitigations: str,
+                notes: str
                 ):
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
     if not car_id:
@@ -70,6 +71,8 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     spare_battery=spare_battery,
                     tent=tent,
                     whistle=whistle,
+                    gar_avg=gar_avg, mitigated_gar=mitigated_gar, gar_mitigations=gar_mitigations,
+                    notes=notes,
                     )
 
     session: Session = db_session.create_session()

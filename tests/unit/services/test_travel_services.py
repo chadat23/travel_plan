@@ -57,6 +57,8 @@ def test_travel_services_get_names_success(db_session_w_travel_info):
                                             p['spare_battery'] == 'on',
                                             p['tent'] == 'on',
                                             p['whistle'] == 'on',
+                                            p['gar_avg'], p['mitigated_gar'], p['gar_mitigations'],
+                                            p['notes'],
                                             )
             )
 

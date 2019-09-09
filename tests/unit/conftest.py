@@ -31,8 +31,8 @@ _form_data = {'entrydate': '2019-06-18', 'entrypoint': 'May Lake TH',
               'contacthome0': '555-465-4566', 'contactcell0': '555-789-7899',
               'contactemail1': 'email@address.net', 'contactwork1': '555-123-1230',
               'contacthome1': '555-465-4560', 'contactcell1': '555-789-7890',
-              'savg': '2', 'pavg': '1', 'cravg': '1', 'cavg': '6', 'tsavg': '1', 'tfavg': '1', 'eavg': '2',
-              'icavg': '2',
+              # 'savg': '2', 'pavg': '1', 'cravg': '1', 'cavg': '6', 'tsavg': '1', 'tfavg': '1', 'eavg': '2',
+              # 'icavg': '2',
               'garavg': '3.84', 'mitigatedgar': '2.5', 'garmitigations': 'Be careful!', 'notes': "Here's a note!",
               }
 

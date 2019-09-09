@@ -32,30 +32,60 @@ class Travel(SqlAlchemyBaseTravel):
     car = orm.relationship('Car', foreign_keys=[car_id])
     car_location = sa.Column(sa.String)
 
-    def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int, 
-                 tracked: bool, plb: str, trip_leader_id: int, car_id: int, car_location: str,
-                 bivy_gear: bool, 
-                 compass: bool, 
-                 first_aid_kit: bool, 
-                 flagging: bool, 
-                 flare: bool, 
-                 flashlight: bool,
-                 gps: bool, 
-                 head_lamp: bool, 
-                 helmet: bool, 
-                 ice_axe: bool, 
-                 map: bool, 
-                 matches: bool, 
-                 probe_pole: bool,
-                 radio: bool, 
-                 rope: bool, 
-                 shovel: bool, 
-                 signal_mirror: bool, 
-                 space_blanket: bool, 
-                 spare_battery: bool,
-                 tent: bool, 
-                 whistle: bool):
+    bivy_gear = sa.Column(sa.Boolean)
+    compass = sa.Column(sa.Boolean)
+    first_aid_kit = sa.Column(sa.Boolean)
+    flagging = sa.Column(sa.Boolean)
+    flare = sa.Column(sa.Boolean)
+    flashlight = sa.Column(sa.Boolean)
+    gps = sa.Column(sa.Boolean)
+    head_lamp = sa.Column(sa.Boolean)
+    helmet = sa.Column(sa.Boolean)
+    ice_axe = sa.Column(sa.Boolean)
+    map = sa.Column(sa.Boolean)
+    matches = sa.Column(sa.Boolean)
+    probe_pole = sa.Column(sa.Boolean)
+    radio = sa.Column(sa.Boolean)
+    rope = sa.Column(sa.Boolean)
+    shovel = sa.Column(sa.Boolean)
+    signal_mirror = sa.Column(sa.Boolean)
+    space_blanket = sa.Column(sa.Boolean)
+    spare_battery = sa.Column(sa.Boolean)
+    tent = sa.Column(sa.Boolean)
+    whistle = sa.Column(sa.Boolean)
 
+    gar_avg = sa.Column(sa.Float)
+    mitigated_gar = sa.Column(sa.Integer)
+    gar_mitigations = sa.Column(sa.String)
+
+    notes = sa.Column(sa.String)
+
+    def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int,
+                 tracked: bool, plb: str, trip_leader_id: int, car_id: int, car_location: str,
+                 bivy_gear: bool,
+                 compass: bool,
+                 first_aid_kit: bool,
+                 flagging: bool,
+                 flare: bool,
+                 flashlight: bool,
+                 gps: bool,
+                 head_lamp: bool,
+                 helmet: bool,
+                 ice_axe: bool,
+                 map: bool,
+                 matches: bool,
+                 probe_pole: bool,
+                 radio: bool,
+                 rope: bool,
+                 shovel: bool,
+                 signal_mirror: bool,
+                 space_blanket: bool,
+                 spare_battery: bool,
+                 tent: bool,
+                 whistle: bool,
+                 gar_avg: float, mitigated_gar: int, gar_mitigations: str,
+                 notes: str,
+                 ):
         self.start_date = start_date
         self.entry_point_id = entry_point_id
         self.end_date = end_date
@@ -91,6 +121,11 @@ class Travel(SqlAlchemyBaseTravel):
         self.tent = tent
         self.whistle = whistle
 
+        self.gar_avg = gar_avg
+        self.mitigated_gar = mitigated_gar
+        self.gar_mitigations = gar_mitigations
+
+        self.notes = notes
+
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'
-

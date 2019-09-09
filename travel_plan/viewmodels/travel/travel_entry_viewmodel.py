@@ -142,14 +142,14 @@ class TravelEntryViewModel(ViewModelBase):
         self.contact_home1 = self.request_dict.contacthome1
         self.contact_cell1 = self.request_dict.contactcell1
 
-        self.s_avg = self.request_dict.savg
-        self.p_avg = self.request_dict.pavg
-        self.cr_avg = self.request_dict.cravg
-        self.c_avg = self.request_dict.cavg
-        self.ts_avg = self.request_dict.tsavg
-        self.tf_avg = self.request_dict.tfavg
-        self.e_avg = self.request_dict.eavg
-        self.ic_avg = self.request_dict.icavg
+        # self.s_avg = self.request_dict.savg
+        # self.p_avg = self.request_dict.pavg
+        # self.cr_avg = self.request_dict.cravg
+        # self.c_avg = self.request_dict.cavg
+        # self.ts_avg = self.request_dict.tsavg
+        # self.tf_avg = self.request_dict.tfavg
+        # self.e_avg = self.request_dict.eavg
+        # self.ic_avg = self.request_dict.icavg
         self.gar_avg = self.request_dict.garavg
         self.mitigated_gar = self.request_dict.mitigatedgar
         self.gar_mitigations = self.request_dict.garmitigations
