@@ -31,8 +31,8 @@ class TravelDay(SqlAlchemyBaseTravel):
         self.route = route
         self.mode = mode
 
-    # def __lt__(self, other):
-    #     return self.name < other.name
+    def __lt__(self, other):
+        return self.date < other.date
 
     def __repr__(self):
         return f'{str(self.date)} {self.starting_point} {self.ending_point} {self.route} {self.mode}'

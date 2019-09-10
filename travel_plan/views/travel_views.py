@@ -68,36 +68,7 @@ def entry_post():
 
     travel = travel_services.get_travel_by_id(travel_id)
 
-    emailer.make_and_email_pdf(vm.start_date, vm.entry_point, vm.end_date, vm.exit_point, vm.tracked, vm.plb,
-                               vm.trip_leader_name,
-                               travel_user_units, day_plans,
-                               vm.car_plate, vm.car_make, vm.car_model, vm.car_color, vm.car_location,
-                               vm.bivy_gear,
-                               vm.compass,
-                               vm.first_aid_kit,
-                               vm.flagging,
-                               vm.flare,
-                               vm.flashlight,
-                               vm.gps,
-                               vm.head_lamp,
-                               vm.helmet,
-                               vm.ice_axe,
-                               vm.map,
-                               vm.matches,
-                               vm.probe_pole,
-                               vm.radio,
-                               vm.rope,
-                               vm.shovel,
-                               vm.signal_mirror,
-                               vm.space_blanket,
-                               vm.spare_battery,
-                               vm.tent,
-                               vm.whistle,
-                               vm.days_of_food, vm.weapon, vm.radio_monitor_time, vm.off_trail_travel,
-                               vm.cell_number, vm.satellite_number, contacts,
-                               vm.gar_avg, vm.mitigated_gar, vm.gar_mitigations,
-                               vm.notes
-                               )
+    emailer.make_and_email_pdf(travel)
 
     # return redirect(url_for('travel.email_sent'))
     return redirect('/travel/email-sent')

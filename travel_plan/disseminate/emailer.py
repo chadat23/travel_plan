@@ -6,14 +6,13 @@ import os
 import sys
 import shutil
 import smtplib
-import tempfile
 from typing import List
 
 from fpdf import FPDF
 
-from travel_plan.models.travel_days import TravelDay
-from travel_plan.models.travel_user_units import TravelUserUnit
-from travel_plan.models.users import User
+from travel_plan.config import PDF_FOLDER_PATH
+from travel_plan.models.travels import Travel
+from travel_plan.disseminate.pdf import PDF
 
 try:
     from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
@@ -21,10 +20,11 @@ except:
     print('*' * 10 + ' Did you create a config.py file from the config_example.py file? ' + '*' * 10)
 
 
-def save_file(pdf: FPDF, name0: str, start_date: str) -> str:
-    name = name0.strip().replace(' ', '_') + '_' + start_date.replace('-', '') + '.pdf'
+def save_file(pdf: PDF, name: str, start_date: str) -> str:
+    name = name.strip().replace(' ', '_').replace(',', '') + '_' + start_date.replace('-', '') + '.pdf'
     # pdf.output(name)
-    save_path = tempfile.mkdtemp()
+    # save_path = tempfile.mkdtemp()
+    save_path = PDF_FOLDER_PATH
     working_directory = os.getcwd()
     try:
         os.chdir(save_path)
@@ -89,224 +89,103 @@ def send_mail(recipients: List[str], file: str):
         raise
 
 
-def make_and_email_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
-                       tracked: bool, plb: str, trip_leader_name: str,
-                       traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
-                       car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
-                       bivy_gear: bool,
-                       compass: bool,
-                       first_aid_kit: bool,
-                       flagging: bool,
-                       flare: bool,
-                       flashlight: bool,
-                       gps: bool,
-                       head_lamp: bool,
-                       helmet: bool,
-                       ice_axe: bool,
-                       map: bool,
-                       matches: bool,
-                       probe_pole: bool,
-                       radio: bool,
-                       rope: bool,
-                       shovel: bool,
-                       signal_mirror: bool,
-                       space_blanket: bool,
-                       spare_battery: bool,
-                       tent: bool,
-                       whistle: bool,
-                       days_of_food: str, weapon: str, radio_monitor_time: str,
-                       off_trail_travel: bool,
-                       cell_number: str, satellite_number: str,
-                       contacts: List[User],
-                       gar_avg: float, mitigated_gar: int, gar_mitigations: str,
-                       notes: str
-                       ):
-    pdf = generate_pdf(start_date, entry_point, end_date, exit_point, tracked, plb,
-                       trip_leader_name,
-                       traveler_units, day_plans,
-                       car_plate, car_make, car_model, car_color, car_location,
-                       bivy_gear,
-                       compass,
-                       first_aid_kit,
-                       flagging,
-                       flare,
-                       flashlight,
-                       gps,
-                       head_lamp,
-                       helmet,
-                       ice_axe,
-                       map,
-                       matches,
-                       probe_pole,
-                       radio,
-                       rope,
-                       shovel,
-                       signal_mirror,
-                       space_blanket,
-                       spare_battery,
-                       tent,
-                       whistle,
-                       days_of_food, weapon, radio_monitor_time, off_trail_travel,
-                       cell_number, satellite_number, contacts,
-                       gar_avg, mitigated_gar, gar_mitigations,
-                       notes)
+def make_and_email_pdf(travel: Travel):
+    pdf = generate_pdf(travel)
 
     try:
-        file = save_file(pdf, trip_leader_name, start_date)
-        send_mail([contact0, contact1], file)
+        file = save_file(pdf, travel.trip_leader.name, str(travel.start_date))
+        # send_mail([contact0, contact1], file)
     except:
-        delete_file(file)
+        # delete_file(file)
+        pass
 
 
-def generate_pdf(start_date: str, entry_point: str, end_date: str, exit_point: str,
-                 tracked: bool, plb: str, trip_leader_name: str,
-                 traveler_units: List[TravelUserUnit], day_plans: List[TravelDay],
-                 car_plate: str, car_make: str, car_model: str, car_color: str, car_location: str,
-                 bivy_gear: bool,
-                 compass: bool,
-                 first_aid_kit: bool,
-                 flagging: bool,
-                 flare: bool,
-                 flashlight: bool,
-                 gps: bool,
-                 head_lamp: bool,
-                 helmet: bool,
-                 ice_axe: bool,
-                 map: bool,
-                 matches: bool,
-                 probe_pole: bool,
-                 radio: bool,
-                 rope: bool,
-                 shovel: bool,
-                 signal_mirror: bool,
-                 space_blanket: bool,
-                 spare_battery: bool,
-                 tent: bool,
-                 whistle: bool,
-                 days_of_food: str, weapon: str, radio_monitor_time: str,
-                 off_trail_travel: bool,
-                 cell_number: str, satellite_number: str,
-                 contacts: List[User],
-                 gar_avg: float, mitigated_gar: int, gar_mitigations: str,
-                 notes: str
-                 ) -> FPDF:
-    pdf = FPDF(orientation='planning', unit='mm', format='A4')
+def generate_pdf(travel: Travel) -> FPDF:
+    pdf = PDF(orientation='P', unit='mm', format='A4')
     pdf.add_page()
 
-    ht = 6
+    pdf.add_cell(22, 'Start Date:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(55, 'Entry Point:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(22, 'End Date:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(55, 'Exit Point:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(15, 'Tracked:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(20, 'PLB #:', 'L', False, 1, 1, 'C')
 
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Start Date:', 1, 0, 'comms')
-    pdf.cell(55, ht, 'Entry Point:', 1, 0, 'comms')
-    pdf.cell(22, ht, 'End Date:', 1, 0, 'comms')
-    pdf.cell(55, ht, 'Exit Point:', 1, 0, 'comms')
-    pdf.cell(15, ht, 'Tracked:', 1, 0, 'comms')
-    pdf.cell(20, ht, 'PLB #:', 1, 1, 'comms')
-
-    pdf.cell(*__ft_txt(pdf, 22, ht, start_date, 'V', False, 1, 0, 'L'))
-    pdf.cell(*__ft_txt(pdf, 55, ht, entry_point, 'V', False, 1, 0, 'L'))
-    pdf.cell(*__ft_txt(pdf, 22, ht, end_date, 'V', False, 1, 0, 'L'))
-    pdf.cell(*__ft_txt(pdf, 55, ht, exit_point, 'V', False, 1, 0, 'L'))
-    pdf.cell(*__ft_txt(pdf, 15, ht, 'Yes' if tracked else 'No', 'V', False, 1, 0, 'L'))
-    pdf.cell(*__ft_txt(pdf, 20, ht, plb, 'V', False, 1, 1, 'L'))
+    pdf.add_cell(22, str(travel.start_date), 'V', False, 1, 0, 'L')
+    pdf.add_cell(55, travel.entry_point.name, 'V', False, 1, 0, 'L')
+    pdf.add_cell(22, str(travel.end_date), 'V', False, 1, 0, 'L')
+    pdf.add_cell(55, travel.exit_point.name, 'V', False, 1, 0, 'L')
+    pdf.add_cell(15, 'Yes' if travel.tracked else 'No', 'V', False, 1, 0, 'L')
+    pdf.add_cell(20, travel.plb, 'V', False, 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
 
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Trip Leader:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(55, ht, name0, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(30, ht, 'Radio Call Sign:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(47, ht, call_sign0, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(19, ht, 'Pack Color:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(16, ht, pack_color0, 1, 1, 'L')
+    for unit in travel.travelers:
+        if unit.traveler.email == travel.trip_leader.email:
+            leader_unit = unit
+            travel.travelers.remove(leader_unit)
+            other_units = travel.travelers
+            break
+    _traveler(pdf, 'Trip Leader:', leader_unit)
 
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Name:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(55, ht, name1, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(30, ht, 'Radio Call Sign:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(47, ht, call_sign1, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(19, ht, 'Pack Color:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(16, ht, pack_color1, 1, 1, 'L')
-
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Name:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(55, ht, name2, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(30, ht, 'Radio Call Sign:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(47, ht, call_sign2, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(19, ht, 'Pack Color:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(16, ht, pack_color2, 1, 1, 'L')
-
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Name:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(55, ht, name3, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(30, ht, 'Radio Call Sign:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(47, ht, call_sign3, 1, 0, 'L')
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(19, ht, 'Pack Color:', 1, 0, 'L')
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(16, ht, pack_color3, 1, 1, 'L')
+    for unit in other_units:
+        _traveler(pdf, 'Name:', unit)
 
     pdf.cell(10, 2, '', ln=1)
 
-    pdf.set_font("Arial", 'B', size=8)
-    pdf.cell(22, ht, 'Date:', 1, 0, 'comms')
-    pdf.cell(46, ht, 'Starting Point:', 1, 0, 'comms')
-    pdf.cell(46, ht, 'Ending Point:', 1, 0, 'comms')
-    pdf.cell(40, ht, 'Route:', 1, 0, 'comms')
-    pdf.cell(35, ht, 'Mode: (foot/stock/boat)', 1, 1, 'comms')
+    pdf.add_cell(22, 'Date:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(46, 'Starting Point:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(46, 'Ending Point:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(40, 'Route:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(35, 'Mode:', 'L', False, 1, 1, 'C')
 
-    pdf.set_font("Arial", '', size=10)
-    pdf.cell(22, ht, date0, 1, 0, 'L')
-    pdf.cell(46, ht, start0, 1, 0, 'L')
-    pdf.cell(46, ht, end0, 1, 0, 'L')
-    pdf.cell(40, ht, route0, 1, 0, 'L')
-    pdf.cell(35, ht, mode0, 1, 1, 'L')
-    pdf.cell(22, ht, date1, 1, 0, 'L')
-    pdf.cell(46, ht, start1, 1, 0, 'L')
-    pdf.cell(46, ht, end1, 1, 0, 'L')
-    pdf.cell(40, ht, route1, 1, 0, 'L')
-    pdf.cell(35, ht, mode1, 1, 1, 'L')
-    pdf.cell(22, ht, date2, 1, 0, 'L')
-    pdf.cell(46, ht, start2, 1, 0, 'L')
-    pdf.cell(46, ht, end2, 1, 0, 'L')
-    pdf.cell(40, ht, route2, 1, 0, 'L')
-    pdf.cell(35, ht, mode2, 1, 1, 'L')
+    for day in sorted(travel.travel_days):
+        pdf.add_cell(22, str(day.date.date()), 'V', False, 1, 0, 'L')
+        pdf.add_cell(46, day.starting_point.name, 'V', False, 1, 0, 'L')
+        pdf.add_cell(46, day.ending_point.name, 'V', False, 1, 0, 'L')
+        pdf.add_cell(40, day.route, 'V', False, 1, 0, 'L')
+        pdf.add_cell(35, day.mode, 'V', False, 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
 
-    y = pdf.get_y()
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    pdf.cell(20, ht, 'hello', 1, 1, 'L')
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    pdf.cell(20, ht, 'hello', 1, 1, 'L')
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    x = pdf.get_x()
-    pdf.set_xy(x, y)
-    pdf.cell(20, 18, 'hello', 1, 1, 'L')
+    pdf.add_cell(22, 'Plate:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(46, 'Make:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(46, 'Model:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(40, 'Color:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(35, 'Location:', 'L', False, 1, 1, 'C')
+
+    pdf.add_cell(22, travel.car.plate, 'V', False, 1, 0, 'L')
+    pdf.add_cell(46, travel.car.make, 'V', False, 1, 0, 'L')
+    pdf.add_cell(46, travel.car.model, 'V', False, 1, 0, 'L')
+    pdf.add_cell(40, travel.car.color, 'V', False, 1, 0, 'L')
+    pdf.add_cell(35, travel.car.location, 'V', False, 1, 1, 'L')
+
+    pdf.cell(10, 2, '', ln=1)
+
+    # y = pdf.get_y()
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 1, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 1, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
+    # x = pdf.get_x()
+    # pdf.set_xy(x, y)
+    # pdf.cell(20, 18, 'hello', 1, 1, 'L')
 
     return pdf
+
+
+def _traveler(pdf: PDF, label: str, unit):
+    pdf.add_cell(22, label, 'L', False, 1, 0, 'L')
+    pdf.add_cell(55, unit.traveler.name, 'V', False, 1, 0, 'L')
+    pdf.add_cell(30, 'Radio Call Sign:', 'L', False, 1, 0, 'L')
+    pdf.add_cell(47, unit.call_sign, 'V', False, 1, 0, 'L')
+    pdf.add_cell(19, 'Pack Color:', 'L', False, 1, 0, 'L')
+    pdf.add_cell(16, unit.pack_color, 'V', False, 1, 1, 'L')
 
 
 def __ft_txt(pdf: FPDF, width: int, height: int = 0, text: str = '', roll: str = 'V', wrap: bool = False,

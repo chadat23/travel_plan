@@ -21,8 +21,7 @@ class Car(SqlAlchemyBaseTravel):
         self.plate = plate
         self.make = make
         self.model = model
-        color = color_services.add_if_not_present(color)
-        self.color = color
+        self.color = color_services.add_if_not_present(color)
         self.location = location
         self.active = active
 
