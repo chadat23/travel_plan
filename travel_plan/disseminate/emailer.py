@@ -175,8 +175,6 @@ def generate_pdf(travel: Travel) -> FPDF:
     w1 = 7
     w2 = 26
     pdf.add_cell(99, 'Equipment:', 'L', False, 1, 0, 'C')
-    # text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus at ultrices mi tempus imperdiet nulla malesuada pellentesque.'
-    # pdf.add_cell(99, text, 'V', False, 1, 0, 'L')
     pdf.add_cell(30, 'Weapon:', 'L', False, 1, 0, 'C')
     pdf.add_cell(30, 'Days Worth of Food:', 'L', False, 1, 0, 'C')
     pdf.add_cell(30, 'Time You Monitor Radio:', 'L', False, 1, 1, 'C', font_size=7)
@@ -252,41 +250,25 @@ def generate_pdf(travel: Travel) -> FPDF:
     x = pdf.get_x()
     y = pdf.get_y()
     gar_width = 15
-    gar_height = 40
+    gar_height = 34
     for _ in range(10):
         pdf.cell(gar_width, gar_height, ' ', 1, 0)
-    _label(pdf, 'Team Member', x, y, 0)
-    _label(pdf, 'Supervision', x, y, 1)
-    _label(pdf, 'Planning', x, y, 2)
-    _label(pdf, 'Contingency Resources', x, y, 3)
-    _label(pdf, 'Communication', x, y, 4)
-    _label(pdf, 'Team Selection', x, y, 5)
-    _label(pdf, 'Team Fitness', x, y, 6)
-    _label(pdf, 'Environment', x, y, 7)
-    _label(pdf, 'Incident Complexity', x, y, 8)
-    _label(pdf, 'Team Member Total', x, y, 9)
+    pdf.set_font("Arial", 'B', size=8)
+    _label(pdf, 'Team Member', x, y, 0, gar_height)
+    _label(pdf, 'Supervision', x, y, 1, gar_height)
+    _label(pdf, 'Planning', x, y, 2, gar_height)
+    _label(pdf, 'Contingency Resources', x, y, 3, gar_height)
+    _label(pdf, 'Communication', x, y, 4, gar_height)
+    _label(pdf, 'Team Selection', x, y, 5, gar_height)
+    _label(pdf, 'Team Fitness', x, y, 6, gar_height)
+    _label(pdf, 'Environment', x, y, 7, gar_height)
+    _label(pdf, 'Incident Complexity', x, y, 8, gar_height)
+    _label(pdf, 'Team Member Total', x, y, 9, gar_height)
 
     pdf.set_xy(x, y + gar_height)
     _write_gar(pdf, 1, leader_unit, gar_width)
     for i, unit in enumerate(other_units):
-        _write_gar(pdf, i + 1, unit, gar_width)
-
-    # pdf.set_xy(90, y)
-    # pdf.add_cell(30, 'Weapon', 'L', False, 1, 0, 'L')
-
-    # y = pdf.get_y()
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 1, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 1, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # pdf.cell(20, ht, 'hello', 1, 0, 'L')
-    # x = pdf.get_x()
-    # pdf.set_xy(x, y)
-    # pdf.cell(20, 18, 'hello', 1, 1, 'L')
+        _write_gar(pdf, i + 2, unit, gar_width)
 
     return pdf
 
@@ -312,53 +294,8 @@ def _write_traveler(pdf: PDF, unit):
     pdf.add_cell(35, unit.fly_color, 'V', False, 1, 1, 'L')
 
 
-def _label(pdf: PDF, label, x, y, dx):
-    pdf.set_xy(x + dx * 15 - 7, y + 37)
+def _label(pdf: PDF, label, x, y, dx, h):
+    pdf.set_xy(x + dx * 15 - 7, y + h - 3)
     pdf.rotate(75)
     pdf.cell(20, 20, label, 0, 0, 'L')
     pdf.rotate(0)
-
-# def __ft_txt(pdf: FPDF, width: int, height: int = 0, text: str = '', roll: str = 'V', wrap: bool = False,
-#              border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = ''):
-#     '''
-#     Fits and formats the text to the cell that it's supposed to fit into.
-#
-#     :param width: Width of the cell in mm.
-#     :type width: int
-#     :param height: Height of the cell in mm.
-#     :type height: int
-#     :param text: The string that is to be put in the cell
-#     :type text: str
-#     :param roll: Specifies whether the text is a Label or Value: "L" or "V" is expected
-#     :type roll:
-#     :param wrap: Whether or not the text should wrap within the cell.
-#     :return:
-#     :rtype:
-#     '''
-#
-#     mm_per_letter = {1.667: 10,
-#                      1.486: 9,
-#                      1.31: 8,
-#                      1.122: 7,
-#                      0.932: 6
-#                      }
-#
-#     if roll.strip().lower() == 'l':
-#         font_size = 8
-#         font_style = 'B'
-#     elif roll.strip().lower() == 'v':
-#         font_size = 5
-#         font_style = ''
-#
-#         if not wrap:
-#             space_per_letter = width / len(text)
-#             for mm, size in mm_per_letter.items():
-#                 if space_per_letter > mm:
-#                     font_size = size
-#                     break
-#         else:
-#             pass
-#
-#     pdf.set_font("Arial", font_style, size=font_size)
-#
-#     return width, height, text, border, ln, align, fill, link
