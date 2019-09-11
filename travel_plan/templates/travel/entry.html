@@ -73,7 +73,7 @@
                     <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2" value="{{ travelers[0]['call_sign'] }}" required/>
                     <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2" value="{{ travelers[0]['pack_color'] }}" list="colors" required/>
                     <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2" value="{{ travelers[0]['tent_color'] }}" list="colors" required/>
-                    <input type="text" name="flycolor0" placeholder="Fly Color" class="col-xl-2" value="{{ travelers[0]['fly_color'] }}" list="colors" required/>
+                    <input type="text" name="flycolor0" placeholder="Fly/Tarp Color" class="col-xl-2" value="{{ travelers[0]['fly_color'] }}" list="colors" required/>
                 </div>
                 {% for p in travelers[1:] %}
                     <div class="row">
@@ -81,7 +81,7 @@
                         <input type="text" name="callsign{{ loop.index }}" placeholder="Call Sign" class="col-xl-2" value="{{ p['call_sign'] }}"/>
                         <input type="text" name="packcolor{{ loop.index }}" placeholder="Pack Color" class="col-xl-2" value="{{ p['pack_color'] }}" list="colors" />
                         <input type="text" name="tentcolor{{ loop.index }}" placeholder="Tent Color" class="col-xl-2" value="{{ p['tent_color'] }}" list="colors" />
-                        <input type="text" name="flycolor{{ loop.index }}" placeholder="Fly Color" class="col-xl-2" value="{{ p['fly_color'] }}" list="colors" />
+                        <input type="text" name="flycolor{{ loop.index }}" placeholder="Fly/Tarp Color" class="col-xl-2" value="{{ p['fly_color'] }}" list="colors" />
                     </div>
                 {% endfor %}
             </div>
@@ -296,17 +296,6 @@
                         <input type="number" name="total{{ loop.index0 }}" class="col-sm-1" value="{{ p['total'] }}"/>
                     </div>
                 {% endfor %}
-<!--                <div class="row">-->
-<!--                    <span class="col-sm-1">Avg</span>-->
-<!--                    <input type="text" name="savg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="pavg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="cravg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="cavg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="tsavg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="tfavg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="eavg" class="col-sm-1" disabled/>-->
-<!--                    <input type="text" name="icavg" class="col-sm-1" disabled/>-->
-<!--                </div>-->
                 <div class="row">
                     <span class="col-xl-1">Average of Totals</span>
                     <input type="text" name="garavg" class="col-sm-1" value="{{ gar_avg }}"/>

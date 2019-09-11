@@ -10,7 +10,7 @@ class Color(SqlAlchemyBaseTravel):
     id: str = sa.Column(sa.String, primary_key=True)
 
     def __init__(self, name: str):
-        self.id = name.lower().strip().capitalize()
+        self.id = name.lower().strip().title()
 
     def __lt__(self, other):
         return self.id < other.id

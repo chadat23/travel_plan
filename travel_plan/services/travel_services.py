@@ -119,10 +119,9 @@ def get_travel_by_id(travel_id: int):
             options(joinedload(Travel.trip_leader)).\
             options(joinedload(Travel.entry_point)).\
             options(joinedload(Travel.exit_point)).\
-            options(joinedload(Travel.travel_days).
-                    joinedload(TravelDay.starting_point)).\
-            options(joinedload(Travel.travel_days).
-                    joinedload(TravelDay.ending_point)).\
+            options(joinedload(Travel.travel_days).joinedload(TravelDay.starting_point)).\
+            options(joinedload(Travel.travel_days).joinedload(TravelDay.ending_point)).\
+            options(joinedload(Travel.contacts)).\
             filter(Travel.id == travel_id).first()
         # a = session.query(Travel).filter(Travel.id == travel_id).first()
         return a

@@ -20,7 +20,7 @@ def get_names() -> List[str]:
 
 
 def is_present(name: str) -> bool:
-    name = name.lower().strip().capitalize()
+    name = name.lower().strip().title()
 
     session: Session = db_session.create_session()
 
@@ -33,7 +33,7 @@ def is_present(name: str) -> bool:
 
 
 def add(name: str):
-    name = name.lower().strip().capitalize()
+    name = name.lower().strip().title()
 
     session: Session = db_session.create_session()
     try:
@@ -50,4 +50,4 @@ def add_if_not_present(name: str) -> Optional[str]:
     if not is_present(name):
         return add(name)
 
-    return name.lower().strip().capitalize()
+    return name.lower().strip().title()

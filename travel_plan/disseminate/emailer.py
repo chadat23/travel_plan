@@ -126,10 +126,17 @@ def generate_pdf(travel: Travel) -> FPDF:
             travel.travelers.remove(leader_unit)
             other_units = travel.travelers
             break
-    _traveler(pdf, 'Trip Leader:', leader_unit)
+
+    pdf.add_cell(49, 'Name:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(35, 'Radio Call Sign:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(35, 'Pack Color:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(35, 'Tent Color:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(35, 'Fly/Tarp Color:', 'L', False, 1, 1, 'C')
+
+    _write_traveler(pdf, leader_unit)
 
     for unit in other_units:
-        _traveler(pdf, 'Name:', unit)
+        _write_traveler(pdf, unit)
 
     pdf.cell(10, 2, '', ln=1)
 
@@ -161,6 +168,90 @@ def generate_pdf(travel: Travel) -> FPDF:
     pdf.add_cell(35, travel.car.location, 'V', False, 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
+    y = pdf.get_y()
+
+    eq_ft_sz = 8
+    w1 = 7
+    w2 = 26
+    pdf.add_cell(99, 'Equipment:', 'L', False, 1, 0, 'C')
+    # text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus at ultrices mi tempus imperdiet nulla malesuada pellentesque.'
+    # pdf.add_cell(99, text, 'V', False, 1, 0, 'L')
+    pdf.add_cell(30, 'Weapon:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(30, 'Days Worth of Food:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(30, 'Time You Monitor Radio:', 'L', False, 1, 1, 'C', font_size=7)
+    pdf.add_cell(w1, 'Yes' if travel.bivy_gear else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Bivy Gear', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.head_lamp else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Head Lamp', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.rope else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Rope', 'V', False, 0, 0, 'L')
+    pdf.add_cell(30, travel.weapon, 'V', False, 1, 0, 'C')
+    pdf.add_cell(30, str(travel.days_of_food), 'V', False, 1, 0, 'C')
+    pdf.add_cell(30, travel.radio_monitor_time, 'V', False, 1, 1, 'C')
+    pdf.add_cell(w1, 'Yes' if travel.compass else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Compas', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.helmet else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Helmet', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.shovel else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Shovel', 'V', False, 0, 0, 'L')
+    pdf.add_cell(30, 'Off-Trail Map Included?:', 'L', False, 1, 0, 'C', font_size=7)
+    pdf.add_cell(30, 'Cell Phone #:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(30, 'Satellite Phone #:', 'L', False, 1, 1, 'C', font_size=9)
+    pdf.add_cell(w1, 'Yes' if travel.first_aid_kit else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'First Aid Kit', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.ice_axe else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Ice Axe', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.signal_mirror else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Signal Mirror', 'V', False, 0, 0, 'L')
+    pdf.add_cell(30, 'Yes' if travel.off_trail_travel else 'No', 'V', False, 1, 0, 'C')
+    pdf.add_cell(30, travel.cell_number, 'V', False, 1, 0, 'C')
+    pdf.add_cell(30, travel.satellite_number, 'V', False, 1, 1, 'C')
+    pdf.add_cell(w1, 'Yes' if travel.flagging else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Flagging', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.map else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Map', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.space_blanket else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Space Blanket', 'V', False, 0, 1, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.flare else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Flare', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.matches else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Matches', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.spare_battery else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Spare Battery', 'V', False, 0, 1, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.flashlight else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Flashlight', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.probe_pole else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Probe Pole', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.tent else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Tent', 'V', False, 0, 1, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.gps else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'GPS', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.radio else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Radio', 'V', False, 0, 0, 'L')
+    pdf.add_cell(w1, 'Yes' if travel.whistle else 'No', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
+    pdf.add_cell(w2, 'Whistle', 'V', False, 0, 1, 'L')
+
+    pdf.cell(10, 2, '', ln=1)
+
+    pdf.add_cell(41, 'Responsible Party Name:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(37, 'Email:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(37, 'Work Phone #:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(37, 'Home Phone #:', 'L', False, 1, 0, 'C')
+    pdf.add_cell(37, 'Cell Phone #:', 'L', False, 1, 1, 'C')
+
+    for rp in travel.contacts:
+        pdf.add_cell(41, rp.name, 'V', False, 1, 0, 'L')
+        pdf.add_cell(37, rp.email, 'V', False, 1, 0, 'L')
+        pdf.add_cell(37, rp.work_number, 'V', False, 1, 0, 'L')
+        pdf.add_cell(37, rp.home_number, 'V', False, 1, 0, 'L')
+        pdf.add_cell(37, rp.cell_number, 'V', False, 1, 1, 'L')
+
+    pdf.cell(10, 2, '', ln=1)
+
+    pdf.add_cell(0, '')
+
+    # pdf.set_xy(90, y)
+    # pdf.add_cell(30, 'Weapon', 'L', False, 1, 0, 'L')
 
     # y = pdf.get_y()
     # pdf.cell(20, ht, 'hello', 1, 0, 'L')
@@ -179,56 +270,54 @@ def generate_pdf(travel: Travel) -> FPDF:
     return pdf
 
 
-def _traveler(pdf: PDF, label: str, unit):
-    pdf.add_cell(22, label, 'L', False, 1, 0, 'L')
-    pdf.add_cell(55, unit.traveler.name, 'V', False, 1, 0, 'L')
-    pdf.add_cell(30, 'Radio Call Sign:', 'L', False, 1, 0, 'L')
-    pdf.add_cell(47, unit.call_sign, 'V', False, 1, 0, 'L')
-    pdf.add_cell(19, 'Pack Color:', 'L', False, 1, 0, 'L')
-    pdf.add_cell(16, unit.pack_color, 'V', False, 1, 1, 'L')
+def _write_traveler(pdf: PDF, unit):
+    pdf.add_cell(49, unit.traveler.name, 'V', False, 1, 0, 'L')
+    pdf.add_cell(35, unit.call_sign, 'V', False, 1, 0, 'L')
+    pdf.add_cell(35, unit.pack_color, 'V', False, 1, 0, 'L')
+    pdf.add_cell(35, unit.tent_color, 'V', False, 1, 0, 'L')
+    pdf.add_cell(35, unit.fly_color, 'V', False, 1, 1, 'L')
 
-
-def __ft_txt(pdf: FPDF, width: int, height: int = 0, text: str = '', roll: str = 'V', wrap: bool = False,
-             border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = ''):
-    '''
-    Fits and formats the text to the cell that it's supposed to fit into.
-
-    :param width: Width of the cell in mm.
-    :type width: int
-    :param height: Height of the cell in mm.
-    :type height: int
-    :param text: The string that is to be put in the cell
-    :type text: str
-    :param roll: Specifies whether the text is a Label or Value: "L" or "V" is expected
-    :type roll:
-    :param wrap: Whether or not the text should wrap within the cell.
-    :return:
-    :rtype:
-    '''
-
-    mm_per_letter = {1.667: 10,
-                     1.486: 9,
-                     1.31: 8,
-                     1.122: 7,
-                     0.932: 6
-                     }
-
-    if roll.strip().lower() == 'l':
-        font_size = 8
-        font_style = 'B'
-    elif roll.strip().lower() == 'v':
-        font_size = 5
-        font_style = ''
-
-        if not wrap:
-            space_per_letter = width / len(text)
-            for mm, size in mm_per_letter.items():
-                if space_per_letter > mm:
-                    font_size = size
-                    break
-        else:
-            pass
-
-    pdf.set_font("Arial", font_style, size=font_size)
-
-    return width, height, text, border, ln, align, fill, link
+# def __ft_txt(pdf: FPDF, width: int, height: int = 0, text: str = '', roll: str = 'V', wrap: bool = False,
+#              border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = ''):
+#     '''
+#     Fits and formats the text to the cell that it's supposed to fit into.
+#
+#     :param width: Width of the cell in mm.
+#     :type width: int
+#     :param height: Height of the cell in mm.
+#     :type height: int
+#     :param text: The string that is to be put in the cell
+#     :type text: str
+#     :param roll: Specifies whether the text is a Label or Value: "L" or "V" is expected
+#     :type roll:
+#     :param wrap: Whether or not the text should wrap within the cell.
+#     :return:
+#     :rtype:
+#     '''
+#
+#     mm_per_letter = {1.667: 10,
+#                      1.486: 9,
+#                      1.31: 8,
+#                      1.122: 7,
+#                      0.932: 6
+#                      }
+#
+#     if roll.strip().lower() == 'l':
+#         font_size = 8
+#         font_style = 'B'
+#     elif roll.strip().lower() == 'v':
+#         font_size = 5
+#         font_style = ''
+#
+#         if not wrap:
+#             space_per_letter = width / len(text)
+#             for mm, size in mm_per_letter.items():
+#                 if space_per_letter > mm:
+#                     font_size = size
+#                     break
+#         else:
+#             pass
+#
+#     pdf.set_font("Arial", font_style, size=font_size)
+#
+#     return width, height, text, border, ln, align, fill, link
