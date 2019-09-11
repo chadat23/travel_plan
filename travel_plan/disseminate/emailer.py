@@ -11,6 +11,7 @@ from typing import List
 from fpdf import FPDF
 
 from travel_plan.config import PDF_FOLDER_PATH
+from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travels import Travel
 from travel_plan.disseminate.pdf import PDF
 
@@ -248,7 +249,27 @@ def generate_pdf(travel: Travel) -> FPDF:
 
     pdf.cell(10, 2, '', ln=1)
 
-    pdf.add_cell(0, '')
+    x = pdf.get_x()
+    y = pdf.get_y()
+    gar_width = 15
+    gar_height = 40
+    for _ in range(10):
+        pdf.cell(gar_width, gar_height, ' ', 1, 0)
+    _label(pdf, 'Team Member', x, y, 0)
+    _label(pdf, 'Supervision', x, y, 1)
+    _label(pdf, 'Planning', x, y, 2)
+    _label(pdf, 'Contingency Resources', x, y, 3)
+    _label(pdf, 'Communication', x, y, 4)
+    _label(pdf, 'Team Selection', x, y, 5)
+    _label(pdf, 'Team Fitness', x, y, 6)
+    _label(pdf, 'Environment', x, y, 7)
+    _label(pdf, 'Incident Complexity', x, y, 8)
+    _label(pdf, 'Team Member Total', x, y, 9)
+
+    pdf.set_xy(x, y + gar_height)
+    _write_gar(pdf, 1, leader_unit, gar_width)
+    for i, unit in enumerate(other_units):
+        _write_gar(pdf, i + 1, unit, gar_width)
 
     # pdf.set_xy(90, y)
     # pdf.add_cell(30, 'Weapon', 'L', False, 1, 0, 'L')
@@ -270,12 +291,32 @@ def generate_pdf(travel: Travel) -> FPDF:
     return pdf
 
 
+def _write_gar(pdf: PDF, i: int, unit: TravelUserUnit, width: int):
+    pdf.add_cell(width, str(i), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.supervision), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.planning), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.contingency), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.comms), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.team_selection), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.fitness), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.env), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.complexity), 'V', False, 1, 0, 'C')
+    pdf.add_cell(width, str(unit.total_gar_score), 'V', False, 1, 1, 'C')
+
+
 def _write_traveler(pdf: PDF, unit):
     pdf.add_cell(49, unit.traveler.name, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.call_sign, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.pack_color, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.tent_color, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.fly_color, 'V', False, 1, 1, 'L')
+
+
+def _label(pdf: PDF, label, x, y, dx):
+    pdf.set_xy(x + dx * 15 - 7, y + 37)
+    pdf.rotate(75)
+    pdf.cell(20, 20, label, 0, 0, 'L')
+    pdf.rotate(0)
 
 # def __ft_txt(pdf: FPDF, width: int, height: int = 0, text: str = '', roll: str = 'V', wrap: bool = False,
 #              border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = ''):

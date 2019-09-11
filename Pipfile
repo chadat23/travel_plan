@@ -9,11 +9,11 @@ v = {editable = true,version = "*"}
 
 [packages]
 sqlalchemy = "*"
-fpdf = "*"
 folium = "*"
 bs4 = "*"
 flask = "*"
 pillow = "*"
+fpdf2 = "*"
 
 [requires]
 python_version = "3.7"
