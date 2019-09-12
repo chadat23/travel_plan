@@ -253,6 +253,10 @@ def generate_pdf(travel: Travel) -> FPDF:
     gar_height = 34
     for _ in range(10):
         pdf.cell(gar_width, gar_height, ' ', 1, 0)
+
+    gar_x = pdf.get_x()
+    gar_y = pdf.get_y()
+
     pdf.set_font("Arial", 'B', size=8)
     _label(pdf, 'Team Member', x, y, 0, gar_height)
     _label(pdf, 'Supervision', x, y, 1, gar_height)
@@ -269,6 +273,22 @@ def generate_pdf(travel: Travel) -> FPDF:
     _write_gar(pdf, 1, leader_unit, gar_width)
     for i, unit in enumerate(other_units):
         _write_gar(pdf, i + 2, unit, gar_width)
+
+    pdf.set_xy(gar_x, gar_y)
+    pdf.add_cell(39, 'Average Team Member Totals', 'L', False, 1, 1, 'C', font_size=7)
+    pdf.set_xy(gar_x, gar_y + pdf.height)
+    if travel.gar_avg < 35:
+        color = 100
+    pdf.set_fill_color(color)
+    pdf.add_cell(39, str(travel.gar_avg), 'V', False, 1, 0, 'C')
+    pdf.set_xy(gar_x, gar_y + 2 * pdf.height + 1)
+    pdf.add_cell(39, 'Mitigated GAR', 'L', False, 1, 0, 'C')
+    pdf.set_xy(gar_x, gar_y + 3 * pdf.height + 1)
+    pdf.add_cell(39, str(travel.mitigated_gar), 'V', False, 1, 0, 'C')
+
+    pdf.cell(10, 2, '', ln=1)
+
+
 
     return pdf
 
