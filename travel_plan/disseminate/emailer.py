@@ -6,7 +6,7 @@ import os
 import sys
 import shutil
 import smtplib
-from typing import List
+from typing import List, Tuple
 
 from fpdf import FPDF
 
@@ -275,20 +275,27 @@ def generate_pdf(travel: Travel) -> FPDF:
         _write_gar(pdf, i + 2, unit, gar_width)
 
     pdf.set_xy(gar_x, gar_y)
-    pdf.add_cell(39, 'Average Team Member Totals', 'L', False, 1, 1, 'C', font_size=7)
+    pdf.set_fill_color(0, 210, 0)
+    pdf.add_cell(39, 'Green', 'V', False, 1, 0, 'C', 1)
     pdf.set_xy(gar_x, gar_y + pdf.height)
-    if travel.gar_avg < 35:
-        color = 100
-    pdf.set_fill_color(color)
-    pdf.add_cell(39, str(travel.gar_avg), 'V', False, 1, 0, 'C')
-    pdf.set_xy(gar_x, gar_y + 2 * pdf.height + 1)
+    pdf.set_fill_color(255, 191, 0)
+    pdf.add_cell(39, 'Amber', 'V', False, 1, 0, 'C', 1)
+    pdf.set_xy(gar_x, gar_y + 2 * pdf.height)
+    pdf.set_fill_color(255, 100, 100)
+    pdf.add_cell(39, 'Red', 'V', False, 1, 0, 'C', 1)
+
+    pdf.set_xy(gar_x, gar_y + 1 + 3 * pdf.height)
+    pdf.add_cell(39, 'Average Team Member Totals', 'L', False, 1, 1, 'C', font_size=7)
+    pdf.set_xy(gar_x, gar_y + 1 + 4 * pdf.height)
+    pdf.set_fill_color(*_set_gar_color(travel.gar_avg))
+    pdf.add_cell(39, str(travel.gar_avg), 'V', False, 1, 0, 'C', 1)
+    pdf.set_xy(gar_x, gar_y + 2 + 5 * pdf.height)
+    pdf.set_fill_color(*_set_gar_color(travel.mitigated_gar))
     pdf.add_cell(39, 'Mitigated GAR', 'L', False, 1, 0, 'C')
-    pdf.set_xy(gar_x, gar_y + 3 * pdf.height + 1)
-    pdf.add_cell(39, str(travel.mitigated_gar), 'V', False, 1, 0, 'C')
+    pdf.set_xy(gar_x, gar_y + 2 + 6 * pdf.height)
+    pdf.add_cell(39, str(travel.mitigated_gar), 'V', False, 1, 0, 'C', 1)
 
     pdf.cell(10, 2, '', ln=1)
-
-
 
     return pdf
 
@@ -303,7 +310,8 @@ def _write_gar(pdf: PDF, i: int, unit: TravelUserUnit, width: int):
     pdf.add_cell(width, str(unit.fitness), 'V', False, 1, 0, 'C')
     pdf.add_cell(width, str(unit.env), 'V', False, 1, 0, 'C')
     pdf.add_cell(width, str(unit.complexity), 'V', False, 1, 0, 'C')
-    pdf.add_cell(width, str(unit.total_gar_score), 'V', False, 1, 1, 'C')
+    pdf.set_fill_color(*_set_gar_color(unit.total_gar_score))
+    pdf.add_cell(width, str(unit.total_gar_score), 'V', False, 1, 1, 'C', 1)
 
 
 def _write_traveler(pdf: PDF, unit):
@@ -319,3 +327,12 @@ def _label(pdf: PDF, label, x, y, dx, h):
     pdf.rotate(75)
     pdf.cell(20, 20, label, 0, 0, 'L')
     pdf.rotate(0)
+
+
+def _set_gar_color(gar_score: int) -> Tuple[int, int, int]:
+    if gar_score < 36:
+        return 0, 210, 0
+    elif 35 < gar_score < 61:
+        return 255, 191, 0
+    else:
+        return 255, 100, 100
