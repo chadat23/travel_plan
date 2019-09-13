@@ -13,7 +13,7 @@ class PDF(fpdf.FPDF):
 
     def add_cell(self, w: int, txt: str = '', roll: str = 'V', wrap: bool = False,
                  border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = '',
-                 font_size: int = None) -> Optional[Any]:
+                 font_size: int = None, height: int = 0) -> Optional[Any]:
         '''
         Fits and formats the text to the cell that it's supposed to fit into.
 
@@ -50,6 +50,9 @@ class PDF(fpdf.FPDF):
         if font_size:
             _font_size = font_size
 
+        if not height:
+            height = self.height
+
         self.set_font('Arial', _font_style, size=_font_size)
 
-        self.cell(w, self.height, txt, border, ln, align, fill, link)
+        self.cell(w, height, txt, border, ln, align, fill, link)

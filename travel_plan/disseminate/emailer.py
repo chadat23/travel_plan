@@ -252,7 +252,8 @@ def generate_pdf(travel: Travel) -> FPDF:
     gar_width = 15
     gar_height = 34
     for _ in range(10):
-        pdf.cell(gar_width, gar_height, ' ', 1, 0)
+        pdf.add_cell(gar_width, ' ', 'L', False, 1, 0, fill=1, height=gar_height)
+        # pdf.cell(gar_width, gar_height, ' ', 1, 0)
         # pdf.add_cell()
 
     gar_x = pdf.get_x()

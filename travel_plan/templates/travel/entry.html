@@ -234,9 +234,9 @@
                 {% for d in contacts %}
                     <div class="row">
                         <input type="text" name="contactemail{{ loop.index0 }}" placeholder="Responsible Party {{ loop.index }}" class="col-xl-3" value="{{ d['contact_email'] }}" list="emails"/>
-                        <input type="text" name="contactwork{{ loop.index0 }}" placeholder="Work Phone" class="col-xl-3" value="{{ d['contact_work'] }}" list="locations"/>
-                        <input type="text" name="contacthome{{ loop.index0 }}" placeholder="Home Phone" class="col-xl-3" value="{{ d['contact_home'] }}" list="locations"/>
-                        <input type="text" name="contactcell{{ loop.index0 }}" placeholder="Cell Phone" class="col-xl-3" value="{{ d['contact_cell'] }}" list="mode"/>
+                        <input type="text" name="contactwork{{ loop.index0 }}" placeholder="Work Phone" class="col-xl-3" value="{{ d['contact_work'] }}"/>
+                        <input type="text" name="contacthome{{ loop.index0 }}" placeholder="Home Phone" class="col-xl-3" value="{{ d['contact_home'] }}"/>
+                        <input type="text" name="contactcell{{ loop.index0 }}" placeholder="Cell Phone" class="col-xl-3" value="{{ d['contact_cell'] }}"/>
                     </div>
                 {% endfor %}
             </div>
