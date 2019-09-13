@@ -32,6 +32,8 @@ class PDF(fpdf.FPDF):
         :return:
         :rtype:
         '''
+        if not height:
+            height = self.height
 
         if roll.strip().lower() == 'l':
             _font_size = 8
@@ -42,21 +44,47 @@ class PDF(fpdf.FPDF):
             _font_size = 5
             _font_style = ''
 
-            if not wrap:
-                for size in range(10, 5, -1):
-                    font = ImageFont.truetype('arial.ttf', size)
-                    dims = font.getsize(txt)[0]/75*25.4
-                    if dims < w - 2:
+            if wrap:
+                final_message = ''
+                n_lines = 0
+                broken = False                
+                for size in range(10, 1, -1):
+                    words = txt.split(' ')
+                    font = ImageFont.truetype('arial.ttf', size)                    
+                    passed_words = 0
+                    for_ran = False
+                    for i in range(2, len(words)):
+                        chunk = ' '.join(words[passed_words:i])
+                        dims = font.getsize(chunk)
+                        if dims[0]/75*25.4 < w - 2:      
+                            pass
+                        else:
+                            n_lines += 1
+                            chunk = ' '.join(words[passed_words:i - 1])
+                            final_message += chunk + ' \n'
+                            passed_words = i - 1
+                        for_ran = True
+                    if not for_ran:
+                        final_message = txt
+                        dims = font.getsize(txt)
+
+                    if dims[1]/75*25.4 > height:
+                        pass
+                    else:
+                        self.multi_cell()
                         _font_size = size
+                        txt = final_message
                         break
             else:
-                pass
+                for size in range(10, 5, -1):
+                    font = ImageFont.truetype('arial.ttf', size)
+                    width = font.getsize(txt)[0]/75*25.4
+                    if width < w - 2:
+                        _font_size = size
+                        break
 
         if font_size:
             _font_size = font_size
-
-        if not height:
-            height = self.height
 
         self.set_font('Arial', _font_style, size=_font_size)
 

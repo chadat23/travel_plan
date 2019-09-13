@@ -253,8 +253,6 @@ def generate_pdf(travel: Travel) -> FPDF:
     gar_height = 34
     for _ in range(10):
         pdf.add_cell(gar_width, ' ', 'L', False, 1, 0, fill=1, height=gar_height)
-        # pdf.cell(gar_width, gar_height, ' ', 1, 0)
-        # pdf.add_cell()
 
     gar_x = pdf.get_x()
     gar_y = pdf.get_y()
@@ -276,28 +274,34 @@ def generate_pdf(travel: Travel) -> FPDF:
     for i, unit in enumerate(other_units):
         _write_gar(pdf, i + 2, unit, gar_width)
 
+    gar_color_height = 5
     pdf.set_xy(gar_x, gar_y)
     pdf.set_fill_color(*pdf.green)
-    pdf.add_cell(39, 'Green', 'V', False, 1, 0, 'C', 1)
-    pdf.set_xy(gar_x, gar_y + pdf.height)
+    pdf.add_cell(39, 'Green', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
+    pdf.set_xy(gar_x, gar_y + gar_color_height)
     pdf.set_fill_color(*pdf.amber)
-    pdf.add_cell(39, 'Amber', 'V', False, 1, 0, 'C', 1)
-    pdf.set_xy(gar_x, gar_y + 2 * pdf.height)
+    pdf.add_cell(39, 'Amber', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
+    pdf.set_xy(gar_x, gar_y + 2 * gar_color_height)
     pdf.set_fill_color(*pdf.red)
-    pdf.add_cell(39, 'Red', 'V', False, 1, 0, 'C', 1)
+    pdf.add_cell(39, 'Red', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
 
-    pdf.set_xy(gar_x, gar_y + 1 + 3 * pdf.height)
+    pdf.set_xy(gar_x, gar_y + 1 + 3 * gar_color_height)
     pdf.add_cell(39, 'Average Team Member Totals', 'L', False, 1, 1, 'C', font_size=7)
-    pdf.set_xy(gar_x, gar_y + 1 + 4 * pdf.height)
-    pdf.set_fill_color(*_set_gar_color(travel.gar_avg))
+    pdf.set_xy(gar_x, gar_y + 1 + 3 * gar_color_height + pdf.height)
+    pdf.set_fill_color(*_set_gar_color(pdf, travel.gar_avg))
     pdf.add_cell(39, str(travel.gar_avg), 'V', False, 1, 0, 'C', 1)
-    pdf.set_xy(gar_x, gar_y + 2 + 5 * pdf.height)
-    pdf.set_fill_color(*_set_gar_color(travel.mitigated_gar))
+    pdf.set_xy(gar_x, gar_y + 1 + 3 * gar_color_height + 2 * pdf.height)    
     pdf.add_cell(39, 'Mitigated GAR', 'L', False, 1, 0, 'C')
-    pdf.set_xy(gar_x, gar_y + 2 + 6 * pdf.height)
-    pdf.add_cell(39, str(travel.mitigated_gar), 'V', False, 1, 0, 'C', 1)
+    pdf.set_xy(gar_x, gar_y + 1 + 3 * gar_color_height + 3 * pdf.height)
+    pdf.set_fill_color(*_set_gar_color(pdf, travel.mitigated_gar))
+    pdf.add_cell(39, str(travel.mitigated_gar), 'V', False, 1, 1, 'C', 1)
 
-    pdf.cell(10, 2, '', ln=1)
+    pdf.set_y(gar_y + gar_height + 1 + pdf.height * (1 + len(other_units)))
+
+    pdf.add_cell(95, 'Mitigations Taken', 'L', False, 1, 0, 'C', 1)
+    pdf.add_cell(94, 'Additional Notes', 'L', False, 1, 1, 'C', 1)
+    pdf.add_cell(95, travel.gar_mitigations, 'V', True, 1, 0, 'L', height=24)
+    pdf.add_cell(94, travel.notes, 'V', True, 1, 1, 'L', height=24)
 
     return pdf
 
@@ -312,7 +316,7 @@ def _write_gar(pdf: PDF, i: int, unit: TravelUserUnit, width: int):
     pdf.add_cell(width, str(unit.fitness), 'V', False, 1, 0, 'C')
     pdf.add_cell(width, str(unit.env), 'V', False, 1, 0, 'C')
     pdf.add_cell(width, str(unit.complexity), 'V', False, 1, 0, 'C')
-    pdf.set_fill_color(*_set_gar_color(unit.total_gar_score))
+    pdf.set_fill_color(*_set_gar_color(pdf, unit.total_gar_score))
     pdf.add_cell(width, str(unit.total_gar_score), 'V', False, 1, 1, 'C', 1)
 
 
@@ -331,10 +335,10 @@ def _label(pdf: PDF, label, x, y, dx, h):
     pdf.rotate(0)
 
 
-def _set_gar_color(gar_score: int) -> Tuple[int, int, int]:
+def _set_gar_color(pdf, gar_score: int) -> Tuple[int, int, int]:
     if gar_score < 36:
-        return 0, 210, 0
+        return pdf.green
     elif 35 < gar_score < 61:
-        return 255, 191, 0
+        return pdf.amber
     else:
-        return 255, 100, 100
+        return pdf.red
