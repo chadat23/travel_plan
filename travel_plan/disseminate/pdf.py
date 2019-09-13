@@ -31,6 +31,8 @@ class PDF(fpdf.FPDF):
         if roll.strip().lower() == 'l':
             _font_size = 8
             _font_style = 'B'
+            self.set_fill_color(200, 200, 200)
+            fill = 1
         elif roll.strip().lower() == 'v':
             _font_size = 5
             _font_style = ''
