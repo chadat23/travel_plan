@@ -11,6 +11,11 @@ class PDF(fpdf.FPDF):
 
         self.height = 6
 
+        self.gray = (200, 200, 200)
+        self.green = (0, 210, 0)
+        self.amber = (255, 191, 0)
+        self.red = (255, 100, 100)
+
     def add_cell(self, w: int, txt: str = '', roll: str = 'V', wrap: bool = False,
                  border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = '',
                  font_size: int = None, height: int = 0) -> Optional[Any]:
@@ -31,7 +36,7 @@ class PDF(fpdf.FPDF):
         if roll.strip().lower() == 'l':
             _font_size = 8
             _font_style = 'B'
-            self.set_fill_color(200, 200, 200)
+            self.set_fill_color(*self.gray)
             fill = 1
         elif roll.strip().lower() == 'v':
             _font_size = 5

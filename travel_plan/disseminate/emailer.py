@@ -277,13 +277,13 @@ def generate_pdf(travel: Travel) -> FPDF:
         _write_gar(pdf, i + 2, unit, gar_width)
 
     pdf.set_xy(gar_x, gar_y)
-    pdf.set_fill_color(0, 210, 0)
+    pdf.set_fill_color(*pdf.green)
     pdf.add_cell(39, 'Green', 'V', False, 1, 0, 'C', 1)
     pdf.set_xy(gar_x, gar_y + pdf.height)
-    pdf.set_fill_color(255, 191, 0)
+    pdf.set_fill_color(*pdf.amber)
     pdf.add_cell(39, 'Amber', 'V', False, 1, 0, 'C', 1)
     pdf.set_xy(gar_x, gar_y + 2 * pdf.height)
-    pdf.set_fill_color(255, 100, 100)
+    pdf.set_fill_color(*pdf.red)
     pdf.add_cell(39, 'Red', 'V', False, 1, 0, 'C', 1)
 
     pdf.set_xy(gar_x, gar_y + 1 + 3 * pdf.height)
