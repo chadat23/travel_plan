@@ -300,8 +300,11 @@ def generate_pdf(travel: Travel) -> FPDF:
 
     pdf.add_cell(95, 'Mitigations Taken', 'L', False, 1, 0, 'C', 1)
     pdf.add_cell(94, 'Additional Notes', 'L', False, 1, 1, 'C', 1)
-    pdf.add_cell(95, travel.gar_mitigations, 'V', True, 1, 0, 'L', height=24)
-    pdf.add_cell(94, travel.notes, 'V', True, 1, 1, 'L', height=24)
+    pdf.multi_cell(95, 4, travel.gar_mitigations, 1, 'L', 0)
+    pdf.multi_cell(94, 4, travel.notes, 1, 'L', 0)
+
+    # pdf.add_cell(95, travel.gar_mitigations, 'V', True, 1, 0, 'L', height=24)
+    # pdf.add_cell(94, travel.notes, 'V', True, 1, 1, 'L', height=24)
 
     return pdf
 
