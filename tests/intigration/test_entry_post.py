@@ -9,3 +9,5 @@ def test_123(db_session_w_info, form_data, initialized_users, initialized_locati
 
     with flask_app.test_request_context(path='/travel/entry', data=form_data):
         resp: Response = entry_post()
+
+    assert False

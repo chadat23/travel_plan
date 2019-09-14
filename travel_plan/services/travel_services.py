@@ -115,6 +115,7 @@ def get_travel_by_id(travel_id: int):
     try:
         a = session.query(Travel).options(joinedload(Travel.entry_point)).\
             options(joinedload(Travel.car)).\
+            options(joinedload(Travel.travelers)).\
             options(joinedload(Travel.travelers).joinedload(TravelUserUnit.traveler)).\
             options(joinedload(Travel.trip_leader)).\
             options(joinedload(Travel.entry_point)).\
