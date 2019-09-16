@@ -71,7 +71,7 @@ class Travel(SqlAlchemyBaseTravel):
     contacts = orm.relationship('User', secondary=contact_association_table)
 
     gar_avg = sa.Column(sa.Float)
-    mitigated_gar = sa.Column(sa.Integer)
+    mitigated_gar = sa.Column(sa.Float)
     gar_mitigations = sa.Column(sa.String)
 
     notes = sa.Column(sa.String)
@@ -146,8 +146,8 @@ class Travel(SqlAlchemyBaseTravel):
         self.cell_number = cell_number
         self.satellite_number = satellite_number
 
-        self.gar_avg = gar_avg
-        self.mitigated_gar = mitigated_gar
+        self.gar_avg = float(gar_avg)
+        self.mitigated_gar = float(mitigated_gar)
         self.gar_mitigations = gar_mitigations
 
         self.notes = notes

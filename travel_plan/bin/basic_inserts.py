@@ -6,7 +6,7 @@ data = os.path.join(folder, 'tests')
 sys.path.insert(0, folder)
 sys.path.insert(0, data)
 
-import conftest
+import tests.conftest as conftest
 try:
     import travel_plan.config as config
 except:

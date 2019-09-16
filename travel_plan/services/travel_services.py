@@ -45,7 +45,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 off_trail_travel: bool,
                 cell_number: str, satellite_number: str,
                 contacts: List[User],
-                gar_avg: float, mitigated_gar: int, gar_mitigations: str,
+                gar_avg: float, mitigated_gar: float, gar_mitigations: str,
                 notes: str
                 ):
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
