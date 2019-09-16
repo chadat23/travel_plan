@@ -12,7 +12,7 @@ def test_car_services_get_names(db_session_w_info):
     assert cars[1]['plate'] in names[1]
 
 
-def test_car_services_get_id_from_plat(db_session_w_info):
+def test_car_services_get_id_from_plate(db_session_w_info):
     from travel_plan.services import car_services
 
     locations, users, colors, cars = db_session_w_info

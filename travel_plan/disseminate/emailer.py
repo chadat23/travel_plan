@@ -6,13 +6,10 @@ import os
 import sys
 import shutil
 import smtplib
-from typing import List, Tuple
-
-# from fpdf import FPDF
+from typing import List
 
 from travel_plan.disseminate.pdf_generater import generate_pdf
 from travel_plan.config import PDF_FOLDER_PATH, DEFAULT_EMAIL_LIST
-from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travels import Travel
 from travel_plan.disseminate.pdf import PDF
 

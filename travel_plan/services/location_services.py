@@ -49,7 +49,7 @@ def add_location(name: str, latitude: float, longitude: float, kind: KindEnum = 
     return location
 
 
-def get_location(name: str) -> Optional[Location]:
+def get_location_from_name(name: str) -> Optional[Location]:
     session: Session = db_session.create_session()
     try:
         location = session.query(Location).filter(Location.name == name).first()

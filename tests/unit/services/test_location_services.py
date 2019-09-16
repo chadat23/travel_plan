@@ -53,14 +53,14 @@ def test_location_services_add_location_returns_location(db_session_wo_info: Ses
     assert longitude == location.longitude
 
 
-def test_location_services_get_location_success(db_session_w_info):
+def test_location_services_get_location_from_name_success(db_session_w_info):
     from travel_plan.models.locations import Location
     from travel_plan.services import location_services
 
     locations, users, colors, cars = db_session_w_info
 
     for location in locations:
-        loc = location_services.get_location(location['name'])
+        loc = location_services.get_location_from_name(location['name'])
         assert isinstance(loc, Location)
         assert loc.name == location['name']
         assert loc.latitude == location['latitude']

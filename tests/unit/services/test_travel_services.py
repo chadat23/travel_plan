@@ -1,17 +1,7 @@
-import unittest.mock
-from typing import List
-
-import pytest
-from sqlalchemy.orm import Session
-
-from travel_plan.models.travel_user_units import TravelUserUnit
-
-
 def test_travel_services_create_plan_success(db_session_w_travel_info):
     import unittest.mock
     from unittest.mock import Mock
 
-    from travel_plan.models.travels import Travel
     from travel_plan.services import travel_services
 
     expected_travels = db_session_w_travel_info
@@ -68,5 +58,6 @@ def test_travel_services_create_plan_success(db_session_w_travel_info):
 
     for actual, expected in zip(actual_travels, expected_travels):
         assert isinstance(actual, int)
-        # assert actual.start_date.strftime("%Y-%m-%d") == expected['travel']['start_date']
-        # assert actual.entry_point.name == expected['travel']['entry_point']
+
+
+# get_travel_by_id being tested with integration test

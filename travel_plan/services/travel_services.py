@@ -1,13 +1,8 @@
 from datetime import datetime
-from typing import Optional, List, Dict
+from typing import List, Dict, Optional
 
-from sqlalchemy import or_
 from sqlalchemy.orm import Session, joinedload
 
-from travel_plan.models.cars import Car
-from travel_plan.models.colors import Color
-from travel_plan.models.locations import Location
-from travel_plan.models.travel_user_contacts import TravelUserContact
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.services import car_services, location_services, user_services
@@ -47,7 +42,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 contacts: List[User],
                 gar_avg: float, mitigated_gar: float, gar_mitigations: str,
                 notes: str
-                ):
+                ) -> int:
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
     if not car_id:
         car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False).id
@@ -109,7 +104,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     return travel.id
 
 
-def get_travel_by_id(travel_id: int):
+def get_travel_by_id(travel_id: int) -> Optional[Travel]:
     session: Session = db_session.create_session()
 
     try:
@@ -124,8 +119,9 @@ def get_travel_by_id(travel_id: int):
             options(joinedload(Travel.travel_days).joinedload(TravelDay.ending_point)).\
             options(joinedload(Travel.contacts)).\
             filter(Travel.id == travel_id).first()
-        # a = session.query(Travel).filter(Travel.id == travel_id).first()
         return a
+    except:
+        return []
     finally:
         session.close()
 
