@@ -15,10 +15,12 @@ def test_travel_view_entry_post_success(db_session_w_info, form_data,
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
     target = 'travel_plan.disseminate.emailer.make_and_email_pdf'
     email_pdf = unittest.mock.patch(target, return_value=None)
+    target = 'travel_plan.services.travel_services.get_travel_by_id'
+    get_travel = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=1) as plan:
         print(type(plan))
-        with email_pdf, request:
+        with email_pdf, get_travel, request:
             resp: Response = entry_post()
 
     assert isinstance(resp, Response) or isinstance(resp, werkzeug_response)

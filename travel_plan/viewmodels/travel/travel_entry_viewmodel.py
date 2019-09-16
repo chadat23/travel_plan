@@ -157,25 +157,24 @@ class TravelEntryViewModel(ViewModelBase):
         self.contact_home1 = self.request_dict.contacthome1
         self.contact_cell1 = self.request_dict.contactcell1
 
-        # self.s_avg = self.request_dict.savg
-        # self.p_avg = self.request_dict.pavg
-        # self.cr_avg = self.request_dict.cravg
-        # self.c_avg = self.request_dict.cavg
-        # self.ts_avg = self.request_dict.tsavg
-        # self.tf_avg = self.request_dict.tfavg
-        # self.e_avg = self.request_dict.eavg
-        # self.ic_avg = self.request_dict.icavg
         self.gar_avg = self.request_dict.garavg
         self.mitigated_gar = self.request_dict.mitigatedgar
         self.gar_mitigations = self.request_dict.garmitigations
 
         self.notes = self.request_dict.notes
 
-    # def get_travelers(self):
-    #     pass
-
     def validate(self):
         self._validate_dates()
+
+        self._validate_fields()
+
+    def _validate_fields(self):
+        for t in self.travelers:
+            if t['traveler_name']:
+                for v in t.values():
+                    if not v:
+                        self.error = "All fields must be filled in for each traveler and each accompanying GAR score."
+                        return
 
     def _validate_dates(self):
         if self.end_date < self.start_date:
@@ -191,7 +190,3 @@ class TravelEntryViewModel(ViewModelBase):
                     self.error = "Your days' plans should end on your exit date. " \
                                  "The two dates don't match. You have days that are unaccounted for."
                 break
-
-        # if self.exit_date != self.day_plans[-1]['date']:
-        #     self.error = "Your days' plans should end on your exit date. " \
-        #                  "The two dates don't match. You have days that are unaccounted for."
