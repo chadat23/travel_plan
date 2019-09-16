@@ -30,3 +30,22 @@ def test_get_travel_by_id(db_session_w_info, form_data, initialized_users, initi
     travel = travel_services.get_travel_by_id(1)
 
     assert travel.start_date == datetime.datetime.strptime(form_data['startdate'], '%Y-%m-%d').date()
+    assert travel.entry_point.name == form_data['entrypoint']
+    assert travel.end_date == datetime.datetime.strptime(form_data['enddate'], '%Y-%m-%d').date()
+    assert travel.entry_point.name == form_data['exitpoint']
+    assert travel.tracked
+    assert travel.plb == form_data['plb']
+
+    for i, t in enumerate(travel.travelers):
+        assert t.traveler.name == form_data['travelername' + str(i)]
+        assert t.call_sign == form_data['callsign' + str(i)]
+        assert t.pack_color == form_data['packcolor' + str(i)]
+        assert t.tent_color.lower() == form_data['tentcolor' + str(i)].lower()
+        assert t.fly_color == form_data['flycolor' + str(i)]
+
+    for i, d in enumerate(travel.travel_days):
+        assert d.date == datetime.datetime.strptime(form_data['date' + str(i)], '%Y-%m-%d').date()
+        assert d.starting_point.name == form_data['startingpoint' + str(i)]
+        assert d.ending_point.name == form_data['endingpoint' + str(i)]
+        assert d.route == form_data['route' + str(i)]
+        assert d.mode == form_data['mode' + str(i)]

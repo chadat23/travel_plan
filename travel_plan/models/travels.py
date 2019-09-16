@@ -4,7 +4,10 @@ from typing import List
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
+from travel_plan.models.cars import Car
+from travel_plan.models.locations import Location
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.users import User
 
 contact_association_table = sa.Table('travel_contact_association', SqlAlchemyBaseTravel.metadata,
@@ -19,12 +22,12 @@ class Travel(SqlAlchemyBaseTravel):
     id = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
 
-    start_date = sa.Column(sa.Date, index=True, unique=False, nullable=False)
+    start_date: datetime = sa.Column(sa.Date, index=True, unique=False, nullable=False)
     entry_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    entry_point = orm.relationship('Location', foreign_keys=[entry_point_id])
-    end_date = sa.Column(sa.Date, index=True, unique=False, nullable=False)
+    entry_point: Location = orm.relationship('Location', foreign_keys=[entry_point_id])
+    end_date: datetime = sa.Column(sa.Date, index=True, unique=False, nullable=False)
     exit_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    exit_point = orm.relationship('Location', foreign_keys=[exit_point_id])
+    exit_point: Location = orm.relationship('Location', foreign_keys=[exit_point_id])
 
     tracked = sa.Column(sa.Boolean, index=False, unique=False, nullable=True)
     plb = sa.Column(sa.String, index=False, unique=False, nullable=True)
@@ -33,11 +36,11 @@ class Travel(SqlAlchemyBaseTravel):
     trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])
 
     travelers = orm.relationship('TravelUserUnit', backref='travel')
-    travel_days = orm.relationship('TravelDay', backref='travel')
+    travel_days: TravelDay = orm.relationship('TravelDay', backref='travel')
 
-    car_id = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
-    car = orm.relationship('Car', foreign_keys=[car_id])
-    car_location = sa.Column(sa.String)
+    car_id: int = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
+    car: Car = orm.relationship('Car', foreign_keys=[car_id])
+    car_location: str = sa.Column(sa.String)
 
     bivy_gear = sa.Column(sa.Boolean)
     compass = sa.Column(sa.Boolean)
@@ -68,7 +71,7 @@ class Travel(SqlAlchemyBaseTravel):
     cell_number = sa.Column(sa.String)
     satellite_number = sa.Column(sa.String)
 
-    contacts = orm.relationship('User', secondary=contact_association_table)
+    contacts: User = orm.relationship('User', secondary=contact_association_table)
 
     gar_avg = sa.Column(sa.Float)
     mitigated_gar = sa.Column(sa.Float)

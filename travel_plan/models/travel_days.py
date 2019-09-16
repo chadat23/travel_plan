@@ -4,7 +4,6 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
-from travel_plan.models.travels import Travel
 from travel_plan.services import location_services
 
 
@@ -16,7 +15,7 @@ class TravelDay(SqlAlchemyBaseTravel):
 
     travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
 
-    date = sa.Column(sa.DateTime, nullable=False)
+    date = sa.Column(sa.Date, nullable=False)
     starting_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     starting_point = orm.relationship('Location', foreign_keys=[starting_point_id])
     ending_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
