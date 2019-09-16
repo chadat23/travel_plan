@@ -170,8 +170,8 @@ def db_session_w_travel_info(db_session_w_info):
 
 import pytest
 
-_form_data = {'entrydate': '2019-06-18', 'entrypoint': 'May Lake TH',
-              'exitdate': '2019-06-20', 'exitpoint': 'May Lake TH',
+_form_data = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
+              'enddate': '2019-06-20', 'exitpoint': 'May Lake TH',
               'tracked': 'yes', 'plb': '123abc',
               'travelername0': 'Vader, Darth', 'callsign0': 'Wild 35',
               'packcolor0': 'Red', 'tentcolor0': 'NA', 'flycolor0': 'Blue',

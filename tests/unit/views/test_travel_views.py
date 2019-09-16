@@ -35,10 +35,10 @@ def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
 
     from travel_plan.views.travel_views import entry_post
 
-    start_date = datetime.strptime(form_data['entrydate'], '%Y-%m-%d')
+    start_date = datetime.strptime(form_data['startdate'], '%Y-%m-%d')
     start_date = start_date - timedelta(days=5)
     start_date = datetime.strftime(start_date, '%Y-%m-%d')
-    form_data['exitdate'] = start_date
+    form_data['enddate'] = start_date
     form_data['date2'] = start_date
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)

@@ -17,10 +17,10 @@ def test_travel_entry_vm_validate_end_before_start_success(form_data):
     get_location_names, get_users, get_color_names, get_car_names = \
         _with_locaiton_names_users_color_names_car_names()
 
-    start_date = datetime.strptime(form_data['entrydate'], '%Y-%m-%d')
+    start_date = datetime.strptime(form_data['startdate'], '%Y-%m-%d')
     start_date = start_date - timedelta(days=5)
     start_date = datetime.strftime(start_date, '%Y-%m-%d')
-    form_data['exitdate'] = start_date
+    form_data['enddate'] = start_date
     form_data['date2'] = start_date
 
     with get_location_names, get_users, get_color_names, get_car_names:
@@ -43,7 +43,7 @@ def test_travel_entry_vm_validate_star_first_day_mismatch_success(form_data):
     get_location_names, get_users, get_color_names, get_car_names = \
         _with_locaiton_names_users_color_names_car_names()
 
-    start_date = datetime.strptime(form_data['entrydate'], '%Y-%m-%d')
+    start_date = datetime.strptime(form_data['startdate'], '%Y-%m-%d')
     start_date = start_date - timedelta(days=5)
     start_date = datetime.strftime(start_date, '%Y-%m-%d')
     form_data['date0'] = start_date
@@ -68,10 +68,10 @@ def test_travel_entry_vm_validate_end_last_day_mismatch_success(form_data):
     get_location_names, get_users, get_color_names, get_car_names = \
         _with_locaiton_names_users_color_names_car_names()
 
-    exit_date = datetime.strptime(form_data['exitdate'], '%Y-%m-%d')
-    exit_date = exit_date + timedelta(days=5)
-    exit_date = datetime.strftime(exit_date, '%Y-%m-%d')
-    form_data['date2'] = exit_date
+    end_date = datetime.strptime(form_data['enddate'], '%Y-%m-%d')
+    end_date = end_date + timedelta(days=5)
+    end_date = datetime.strftime(end_date, '%Y-%m-%d')
+    form_data['date2'] = end_date
 
     with get_location_names, get_users, get_color_names, get_car_names:
         with flask_app.test_request_context(path='/travel/entry', data=form_data):
@@ -83,7 +83,7 @@ def test_travel_entry_vm_validate_end_last_day_mismatch_success(form_data):
     assert 'should end on your exit date.' in vm.error
 
 
-def test_travel_entry_vm_entry_exit_date_success(form_data):
+def test_travel_entry_vm_entry_end_date_success(form_data):
     # WITH: valid form data
     get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
 
@@ -93,9 +93,9 @@ def test_travel_entry_vm_entry_exit_date_success(form_data):
             vm = TravelEntryViewModel()
 
     # THEN: all of the data in the form should be properly represented in the vm.
-    assert vm.start_date == form_data['entrydate']
+    assert vm.start_date == form_data['startdate']
     assert vm.entry_point == form_data['entrypoint']
-    assert vm.end_date == form_data['exitdate']
+    assert vm.end_date == form_data['enddate']
     assert vm.exit_point == form_data['exitpoint']
     # assert vm.tracked == form_data['tracked']
     assert vm.tracked is True

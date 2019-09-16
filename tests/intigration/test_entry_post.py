@@ -29,4 +29,4 @@ def test_get_travel_by_id(db_session_w_info, form_data, initialized_users, initi
 
     travel = travel_services.get_travel_by_id(1)
 
-    assert travel.start_date == datetime.datetime.strptime(form_data['entrydate'], '%Y-%m-%d').date()
+    assert travel.start_date == datetime.datetime.strptime(form_data['startdate'], '%Y-%m-%d').date()

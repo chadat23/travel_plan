@@ -11,9 +11,9 @@ class TravelEntryViewModel(ViewModelBase):
     def __init__(self):
         super().__init__()
 
-        self.start_date: str = self.request_dict.entrydate
+        self.start_date: str = self.request_dict.startdate
         self.entry_point: str = self.request_dict.entrypoint
-        self.end_date: str = self.request_dict.exitdate
+        self.end_date: str = self.request_dict.enddate
         self.exit_point: str = self.request_dict.exitpoint
 
         # if self.request_dict.tracked == '' or self.request_dict.tracked == 'yes':
