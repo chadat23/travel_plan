@@ -52,7 +52,7 @@ def generate_pdf(travel: Travel) -> PDF:
     pdf.add_cell(35, 'Mode:', 'L', False, 1, 1, 'C')
 
     for day in sorted(travel.travel_days):
-        pdf.add_cell(22, str(day.date.date()), 'V', False, 1, 0, 'L')
+        pdf.add_cell(22, str(day.date), 'V', False, 1, 0, 'L')
         pdf.add_cell(46, day.starting_point.name, 'V', False, 1, 0, 'L')
         pdf.add_cell(46, day.ending_point.name, 'V', False, 1, 0, 'L')
         pdf.add_cell(40, day.route, 'V', False, 1, 0, 'L')

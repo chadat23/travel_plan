@@ -1,9 +1,10 @@
+import os
 from typing import List
 
 import flask
 
-from travel_plan.services import location_services, user_services, car_services, color_services
 from travel_plan.models.users import User
+from travel_plan.services import location_services, user_services, car_services, color_services
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 
 
@@ -16,12 +17,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.end_date: str = self.request_dict.enddate
         self.exit_point: str = self.request_dict.exitpoint
 
-        # if self.request_dict.tracked == '' or self.request_dict.tracked == 'yes':
-        #     self.tracked = True
-        # else:
-        #     self.tracked = False
         self.tracked = self.request_dict.tracked == '' or self.request_dict.tracked == 'yes'
-        #     self.tracked = self.request_dict.tracked == 'yes'
         self.plb: str = self.request_dict.plb
 
         self.locations: List[str] = location_services.get_names()
@@ -136,15 +132,10 @@ class TravelEntryViewModel(ViewModelBase):
         self.days_of_food = self.request_dict.daysoffood
         self.weapon = self.request_dict.weapon
         self.radio_monitor_time = self.request_dict.radiomonitortime
-        self.off_trail_travel = self.request_dict.offtrailtravel == 'yes'
-        # https://www.tutorialspoint.com/flask/flask_file_uploading.htm
-        # https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
-        # self.off_trail_travel_map_file = self.request_dict.offtrailtravelmapfile
-        if 'offtrailtravelmapfile' in request.files:
-            # self.off_trail_travel_map_file = request.files['offtrailtravelmapfile']
-            self.off_trail_travel_map_file = self.request_dict.offtrailtravelmapfile
-        else:
-            self.off_trail_travel_map_file = ''
+        self.off_trail_travel = self.request_dict.offtrailtravel == '' or self.request_dict.offtrailtravel == 'yes'
+        self.uploaded_files = ''
+        if 'fileupload' in request.files:
+            self.uploaded_files = request.files.getlist('fileupload')
         self.cell_number = self.request_dict.cellnumber
         self.satellite_number = self.request_dict.satellitenumber
 
@@ -169,6 +160,13 @@ class TravelEntryViewModel(ViewModelBase):
         self._validate_fields()
 
     def _validate_fields(self):
+
+        # if it's reported that there'll be off trail travel then there should be uploaded files
+        if (self.off_trail_travel and not self.uploaded_files) or (not self.off_trail_travel and self.uploaded_files):
+            self.error = "Either you should select that you'll be traveling off trail and select files to upload, " \
+                         "or have neither of those. Sorry, there's no present way to un-select the files."
+
+        # Validate that logical traveler/gar fields make sense
         for t in self.travelers:
             if t['traveler_name']:
                 for v in t.values():

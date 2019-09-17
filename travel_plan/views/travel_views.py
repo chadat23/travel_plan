@@ -1,6 +1,8 @@
 from flask import Blueprint, redirect, url_for
 
+from travel_plan.config import PDF_FOLDER_PATH
 from travel_plan.disseminate import emailer
+from travel_plan.infrastructure import file_util
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
@@ -26,6 +28,8 @@ def entry_post():
     vm.validate()
     if vm.error:
         return vm.to_dict()
+
+    uploaded_files = file_util.save_files(vm.uploaded_files, PDF_FOLDER_PATH)
 
     travel_user_units = [TravelUserUnit(**t) for t in vm.travelers if t['traveler_name']]
 
@@ -68,7 +72,7 @@ def entry_post():
 
     travel = travel_services.get_travel_by_id(travel_id)
 
-    emailer.make_and_email_pdf(travel)
+    emailer.make_and_email_pdf(travel, uploaded_files)
 
     # return redirect(url_for('travel.email_sent'))
     return redirect('/travel/email-sent')

@@ -83,6 +83,22 @@ def test_travel_entry_vm_validate_end_last_day_mismatch_success(form_data):
     assert 'should end on your exit date.' in vm.error
 
 
+def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(form_data):
+    # WITH:
+    get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
+
+    form_data['offtrailtravel'] = 'yes'
+
+    # WHEN: the DB calls are mocked and then the vm is generated.
+    with get_location_names, get_users, get_color_names, get_car_names:
+        with flask_app.test_request_context(path='/travel/entry', data=form_data):
+            vm = TravelEntryViewModel()
+
+    vm.validate()
+
+    assert 'Either you should' in vm.error
+
+
 def test_travel_entry_vm_entry_end_date_success(form_data):
     # WITH: valid form data
     get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()

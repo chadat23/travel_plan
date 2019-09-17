@@ -3,8 +3,6 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
-from travel_plan.models.travels import Travel
-from travel_plan.services import color_services, user_services
 
 
 class TravelUserContact(SqlAlchemyBaseTravel):
