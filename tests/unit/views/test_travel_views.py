@@ -13,14 +13,20 @@ def test_travel_view_entry_post_success(db_session_w_info, form_data,
     from unittest.mock import Mock
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
-    target = 'travel_plan.disseminate.emailer.make_and_email_pdf'
-    email_pdf = unittest.mock.patch(target, return_value=None)
+    target = 'travel_plan.infrastructure.file_util.generate_name'
+    namer = unittest.mock.patch(target, return_value='name')
+    target = 'travel_plan.infrastructure.file_util.save_files_with_name'
+    saver = unittest.mock.patch(target, return_value=[])
+    target = 'travel_plan.infrastructure.pdf_util.make_and_save_pdf'
+    pdf_stuff = unittest.mock.patch(target, return_value=[])
+    target = 'travel_plan.infrastructure.email_util.email_files'
+    emailer = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.services.travel_services.get_travel_by_id'
     get_travel = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=1) as plan:
         print(type(plan))
-        with email_pdf, get_travel, request:
+        with namer, saver, pdf_stuff, emailer, get_travel, request:
             resp: Response = entry_post()
 
     assert isinstance(resp, Response) or isinstance(resp, werkzeug_response)
@@ -42,47 +48,11 @@ def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
     form_data['date2'] = start_date
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
-    target = 'travel_plan.disseminate.emailer.make_and_email_pdf'
-    email_pdf = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=None) as plan:
         print(type(plan))
-        with email_pdf, request:
+        with request:
             resp: Response = entry_post()
 
     assert isinstance(resp, Response)
     plan.assert_not_called()
-
-# def test_junk_travel_view_entry_post_success(form_data, initialized_users, initialized_locations, initialized_cars,
-#                                         initialized_colors):
-#     from travel_plan.views.travel_views import entry_post
-#     from unittest.mock import Mock
-
-#     m = Mock()
-#     m.side_effect = initialized_users[:2]
-#     target = 'travel_plan.services.user_services.get_user_from_name'
-#     user_names = unittest.mock.patch(target, return_value=m())
-#     m.side_effect = [1, 2]
-#     target = 'travel_plan.services.location_services.get_id_from_name'
-#     location_ids = unittest.mock.patch(target, return_value=m())
-
-#     target = 'travel_plan.services.color_services.add_if_not_present'
-#     test_color = unittest.mock.patch(target, return_value='Red')
-
-#     target = 'travel_plan.services.location_services.get_names'
-#     get_location_names = unittest.mock.patch(target, return_value=[a.name for a in initialized_locations])
-#     target = 'travel_plan.services.user_services.get_users'
-#     get_users = unittest.mock.patch(target, return_value=initialized_users)
-#     target = 'travel_plan.services.color_services.get_names'
-#     get_color_names = unittest.mock.patch(target, return_value=[c.id for c in initialized_colors])
-#     target = 'travel_plan.services.car_services.get_names'
-#     get_car_names = unittest.mock.patch(target, return_value=[c.plate for c in initialized_cars])
-
-#     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
-
-#     with user_names, location_ids, test_color, get_location_names, get_users, get_color_names, get_car_names, request:
-#         resp: Response = entry_post()
-
-#     a = 0
-
-#     assert False
