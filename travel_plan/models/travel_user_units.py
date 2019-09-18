@@ -14,9 +14,7 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
 
     travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
-    # trip = orm.relationship('Travel', foreign_keys=[travel_id])
     user_id: int = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
-    # user = orm.relationship('User', foreign_keys=[user_id])
 
     call_sign: str = sa.Column(sa.String)
 

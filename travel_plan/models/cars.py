@@ -1,3 +1,5 @@
+import datetime
+
 import sqlalchemy as sa
 from sqlalchemy import orm
 
@@ -9,6 +11,7 @@ class Car(SqlAlchemyBaseTravel):
     __tablename__ = 'cars'
 
     id: str = sa.Column(sa.Integer, primary_key=True)
+    created_date = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
     plate: str = sa.Column(sa.String, unique=True, nullable=False)
     make: str = sa.Column(sa.String, nullable=False)
     model: str = sa.Column(sa.String, nullable=False)

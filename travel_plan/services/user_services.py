@@ -2,7 +2,6 @@ from typing import List, Optional
 
 from sqlalchemy.orm import Session
 
-from travel_plan.config import NUMB_OF_HASHES
 from travel_plan.models import db_session
 from travel_plan.models.users import User
 

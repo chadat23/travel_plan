@@ -160,9 +160,12 @@ class TravelEntryViewModel(ViewModelBase):
         self._validate_fields()
 
     def _validate_fields(self):
-
         # if it's reported that there'll be off trail travel then there should be uploaded files
-        if (self.off_trail_travel and not self.uploaded_files) or (not self.off_trail_travel and self.uploaded_files):
+        if self.uploaded_files:
+            file_name_1 = self.uploaded_files[0].filename
+        else:
+            file_name_1 = ''
+        if (self.off_trail_travel and (not file_name_1)) or (not self.off_trail_travel and file_name_1):
             self.error = "Either you should select that you'll be traveling off trail and select files to upload, " \
                          "or have neither of those. Sorry, there's no present way to un-select the files."
 

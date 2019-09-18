@@ -3,8 +3,9 @@ from flask import Blueprint, redirect
 from travel_plan.config import PDF_FOLDER_PATH
 from travel_plan.infrastructure import file_util, pdf_util, email_util
 from travel_plan.infrastructure.view_modifiers import response
-from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
+from travel_plan.models.travel_file import TravelFile
+from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.users import User
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
@@ -35,6 +36,11 @@ def entry_post():
     emergency_contacts = [User(u['contact_email'].split('@')[0], u['contact_email'], u['contact_work'],
                                u['contact_home'], u['contact_cell']) for u in vm.contacts]
 
+    base_name = file_util.generate_name(vm.trip_leader_name, vm.start_date)
+
+    travel_files = [TravelFile(f) for f in file_util.save_files_with_name(vm.uploaded_files, base_name, PDF_FOLDER_PATH)]
+    travel_files.append(TravelFile(base_name + '.pdf'))
+
     travel_id = travel_services.create_plan(vm.start_date, vm.entry_point, vm.end_date, vm.exit_point, vm.tracked,
                                             vm.plb,
                                             vm.trip_leader_name,
@@ -64,18 +70,14 @@ def entry_post():
                                             vm.days_of_food, vm.weapon, vm.radio_monitor_time, vm.off_trail_travel,
                                             vm.cell_number, vm.satellite_number, emergency_contacts,
                                             vm.gar_avg, vm.mitigated_gar, vm.gar_mitigations,
-                                            vm.notes
+                                            vm.notes, travel_files
                                             )
 
     travel = travel_services.get_travel_by_id(travel_id)
 
-    base_name = file_util.generate_name(travel)
+    pdf_util.make_and_save_pdf(travel, base_name, PDF_FOLDER_PATH)
 
-    files = file_util.save_files_with_name(vm.uploaded_files, base_name, PDF_FOLDER_PATH)
-
-    files.append(pdf_util.make_and_save_pdf(travel, base_name, PDF_FOLDER_PATH))
-
-    email_util.email_files(travel, files)
+    email_util.email_files(travel, [f.name for f in travel_files], PDF_FOLDER_PATH)
 
     # return redirect(url_for('travel.email_sent'))
     return redirect('/travel/email-sent')

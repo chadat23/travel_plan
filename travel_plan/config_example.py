@@ -12,8 +12,6 @@ EMAIL_ADDRESS = "<email@address.example>"
 
 EMAIL_PASSWORD = "<email_password>"
 
-NUMB_OF_HASHES = '<numb>'
-
 PDF_FOLDER_PATH = "<absolute/path/to/files>"
 
 DEFAULT_EMAIL_LIST = ["<email0>", "<email1>"]

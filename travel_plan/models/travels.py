@@ -73,6 +73,8 @@ class Travel(SqlAlchemyBaseTravel):
 
     contacts: User = orm.relationship('User', secondary=contact_association_table)
 
+    files: User = orm.relationship('TravelFile', backref='travel')
+
     gar_avg = sa.Column(sa.Float)
     mitigated_gar = sa.Column(sa.Float)
     gar_mitigations = sa.Column(sa.String)

@@ -8,7 +8,7 @@ from travel_plan.models.travel_user_units import TravelUserUnit
 
 def make_and_save_pdf(travel: Travel, name: str, path: str):
     pdf = _generate_pdf(travel)
-    return _save_file(pdf, name, path)
+    _save_file(pdf, name, path)
 
 
 def _save_file(pdf: PDF, name: str, path: str) -> str:
@@ -21,8 +21,6 @@ def _save_file(pdf: PDF, name: str, path: str) -> str:
         pdf.output(name)
     finally:
         os.chdir(working_directory)
-
-    return os.path.join(path, name)
 
 
 def _generate_pdf(travel: Travel) -> PDF:
@@ -201,13 +199,13 @@ def _generate_pdf(travel: Travel) -> PDF:
     gar_color_height = 5
     pdf.set_xy(gar_x, gar_y)
     pdf.set_fill_color(*pdf.green)
-    pdf.add_cell(39, 'Green', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
+    pdf.add_cell(39, 'Green: 1-35', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
     pdf.set_xy(gar_x, gar_y + gar_color_height)
     pdf.set_fill_color(*pdf.amber)
-    pdf.add_cell(39, 'Amber', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
+    pdf.add_cell(39, 'Amber: 36-60', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
     pdf.set_xy(gar_x, gar_y + 2 * gar_color_height)
     pdf.set_fill_color(*pdf.red)
-    pdf.add_cell(39, 'Red', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
+    pdf.add_cell(39, 'Red: 61-80', 'V', False, 1, 0, 'C', 1, height=gar_color_height)
 
     pdf.set_xy(gar_x, gar_y + 1 + 3 * gar_color_height)
     pdf.add_cell(39, 'Average Team Member Totals', 'L', False, 1, 1, 'C', font_size=7)

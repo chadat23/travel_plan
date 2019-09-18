@@ -18,16 +18,15 @@ def save_files_with_name(files: List[FileStorage], name: str, path: str):
     file_names = []
     for i, file in enumerate(files):
         ext = os.path.splitext(file.filename)[1]
-        save_name = os.path.join(path, f'{name}_{i+1}{ext}')
-        file.save(save_name)
-        file_names.append(save_name)
-    # file_names = [os.path.join(path, f.filename) for f in files]
-    # [f.save(n) for n, f in zip(file_names, files)]
+        file_name = f'{name}_{i+1}{ext}'
+        full_path = os.path.join(path, file_name)
+        file.save(full_path)
+        file_names.append(file_name)
 
     return file_names
 
 
-def generate_name(travel: Travel) -> str:
-    return travel.trip_leader.name.strip().replace(' ', '_').replace(',', '') \
+def generate_name(leader_name: str, start_date: str) -> str:
+    return leader_name.strip().replace(' ', '_').replace(',', '') \
            + '_' \
-           + datetime.datetime.strftime(travel.start_date, '%Y%m%d')
+           + start_date.replace('-', '')

@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session, joinedload
 
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
-from travel_plan.services import car_services, location_services, user_services
+from travel_plan.services import car_services, location_services, travel_file_services, user_services
 from travel_plan.models import db_session
 from travel_plan.models.travels import Travel
 from travel_plan.models.users import User
@@ -41,7 +41,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 cell_number: str, satellite_number: str,
                 contacts: List[User],
                 gar_avg: float, mitigated_gar: float, gar_mitigations: str,
-                notes: str
+                notes: str, files: List[str]
                 ) -> int:
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
     if not car_id:
@@ -94,6 +94,13 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
             day.travel = travel
             session.add(day)
         session.commit()
+        for file in files:
+            if not travel_file_services.is_present(file.name):
+                print('---------------------------------------ran')
+                file.travel = travel        
+                session.add(file)
+            else:
+                print('++++++++++++++++++++++++++++++++++skipped')
         for contact in contacts:
             contact = session.query(User).filter(User.email == contact.email).first()
             travel.contacts.append(contact)
@@ -118,6 +125,7 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
             options(joinedload(Travel.travel_days).joinedload(TravelDay.starting_point)).\
             options(joinedload(Travel.travel_days).joinedload(TravelDay.ending_point)).\
             options(joinedload(Travel.contacts)).\
+            options(joinedload(Travel.files)).\
             filter(Travel.id == travel_id).first()
         return a
     except:

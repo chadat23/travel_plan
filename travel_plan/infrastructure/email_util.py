@@ -16,7 +16,7 @@ except:
     print('*' * 10 + ' Did you create a config.py file from the config_example.py file? ' + '*' * 10)
 
 
-def email_files(travel: Travel, files: List[str]):
+def email_files(travel: Travel, files: List[str], path: str):
     email_list = list(DEFAULT_EMAIL_LIST)
     [email_list.append(e.traveler.email) for e in travel.travelers if hasattr(e.traveler, 'email')]
     [email_list.append(c.email) for c in travel.contacts if hasattr(c, 'email')]
@@ -25,7 +25,7 @@ def email_files(travel: Travel, files: List[str]):
     body = _make_body(travel)
 
     try:
-        _send_mail(email_list, files, subject, body)
+        _send_mail(email_list, [os.path.join(path, file) for file in files], subject, body)
     except:
         # delete_file(file)
         pass
@@ -93,7 +93,7 @@ def _send_mail(recipients: List[str], files: List[str], subject: str, body: str)
 
 
 def _make_subject(travel: Travel) -> str:
-    subject = 'Travel itinarary for : '
+    subject = 'Travel itinerary for : '
     print(subject)
     for traveler in travel.travelers:
         subject += traveler.call_sign + ', '
@@ -103,7 +103,7 @@ def _make_subject(travel: Travel) -> str:
 
 
 def _make_body(travel: Travel) -> str:
-    body = "Here's the travel itinarary for "
+    body = "Here's the travel itinerary for "
     for traveler in travel.travelers:
         body += f"{traveler.traveler.name} ({traveler.call_sign}), "
 

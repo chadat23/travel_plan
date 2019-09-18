@@ -14,6 +14,9 @@ from travel_plan.models.travels import Travel
 from travel_plan.models.travel_days import TravelDay
 
 # noinspection PyUnresolvedReferences
+from travel_plan.models.travel_file import TravelFile
+
+# noinspection PyUnresolvedReferences
 from travel_plan.models.travel_user_units import TravelUserUnit
 
 # noinspection PyUnresolvedReferences
