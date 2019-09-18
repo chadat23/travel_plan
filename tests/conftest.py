@@ -8,6 +8,7 @@ from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
 from travel_plan.models.locations import Location
 from travel_plan.models.travel_days import TravelDay
+from travel_plan.models.travel_file import TravelFile
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.users import User
 import travel_plan.models.__all_models as all_models
@@ -53,7 +54,8 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                         'space_blanket': 'on', 'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
                         'days_of_food': '3.5', 'weapon': 'None', 'radio_monitor_time': '800-2000',
                         'off_trail_travel': False, 'cell_number': '555-132-4567', 'satellite_number': '555-987-6543',
-                        'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': 'be careful?', 'notes': 'Nope!'
+                        'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': 'be careful?', 'notes': 'Nope!',
+                        'files': ['travel_file.pdf', 'travel_file_1.jpg']
                         },
              'traveler_units': [['Dow, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8, 36],
                                 ['Vader, Darth', 'Wild Pi', 'Black', 'Green', 'Red', 9, 8, 7, 6, 5, 4, 3, 2, 44],
@@ -70,7 +72,8 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                            'home_number': '555-2345', 'cell_number': '555-3456'},
                           {'name': 'Coworker 2', 'email': 'chad.derosier+b@gmail.com', 'work_number': '555-2234',
                            'home_number': '555-3345', 'cell_number': '555-4456'}
-                          ]
+                          ],
+             'files': [{'name': 'Dow_Jane_20190809.pdf'}, {'name': 'Dow_Jane_20190809_1.jpg'}]
              },
             ]
 
@@ -88,6 +91,7 @@ def travels():
             t['traveler_units'] = [TravelUserUnit(*u) for u in t['traveler_units']]
             t['day_plans'] = [TravelDay(**d) for d in t['day_plans']]
             t['contacts'] = [User(**u) for u in t['contacts']]
+            t['files'] = [TravelFile(**f) for f in t['files']]
     return _travels
 
 

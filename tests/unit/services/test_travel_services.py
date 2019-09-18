@@ -52,7 +52,7 @@ def test_travel_services_create_plan_success(db_session_w_travel_info):
                                             p['cell_number'], p['satellite_number'],
                                             travel['contacts'],
                                             p['gar_avg'], p['mitigated_gar'], p['gar_mitigations'],
-                                            p['notes'],
+                                            p['notes'], travel['files']
                                             )
             )
 

@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session, joinedload
 
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
+from travel_plan.models.travel_file import TravelFile
 from travel_plan.services import car_services, location_services, travel_file_services, user_services
 from travel_plan.models import db_session
 from travel_plan.models.travels import Travel
@@ -41,7 +42,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 cell_number: str, satellite_number: str,
                 contacts: List[User],
                 gar_avg: float, mitigated_gar: float, gar_mitigations: str,
-                notes: str, files: List[str]
+                notes: str, files: List[TravelFile]
                 ) -> int:
     car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
     if not car_id:
