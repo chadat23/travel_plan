@@ -10,6 +10,7 @@ def test_color_services_get_names_success(db_session_w_info):
 
     actual_names = color_services.get_names()
 
+    colors.append('Silver')
     expected_names = sorted(colors)
 
     assert actual_names == expected_names

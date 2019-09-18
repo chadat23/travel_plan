@@ -3,6 +3,7 @@ from typing import List, Dict, Optional
 
 from sqlalchemy.orm import Session, joinedload
 
+from travel_plan.models.cars import Car
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.travel_file import TravelFile
@@ -96,12 +97,10 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
             session.add(day)
         session.commit()
         for file in files:
+            # TODO: this could be better
             if not travel_file_services.is_present(file.name):
-                print('---------------------------------------ran')
                 file.travel = travel        
                 session.add(file)
-            else:
-                print('++++++++++++++++++++++++++++++++++skipped')
         for contact in contacts:
             contact = session.query(User).filter(User.email == contact.email).first()
             travel.contacts.append(contact)
@@ -117,9 +116,11 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
 
     try:
         a = session.query(Travel).options(joinedload(Travel.entry_point)).\
-            options(joinedload(Travel.car)).\
             options(joinedload(Travel.travelers)).\
             options(joinedload(Travel.travelers).joinedload(TravelUserUnit.traveler)).\
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.pack_color)).\
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.tent_color)).\
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.fly_color)).\
             options(joinedload(Travel.trip_leader)).\
             options(joinedload(Travel.entry_point)).\
             options(joinedload(Travel.exit_point)).\

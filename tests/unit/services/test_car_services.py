@@ -53,11 +53,13 @@ def test_car_services_create_car(db_session_w_info):
     with test_color:
         car = car_services.create_car(plate, make, model, color, location, active)
 
+    car = car_services.get_car(id=car.id)
+
     assert car_services.get_id_from_plate(plate) == len(cars) + 1
     assert isinstance(car, Car)
     assert car.plate == plate
     assert car.make == make
     assert car.model == model
-    assert car.color == color
+    assert car.color.name == color
     assert car.location == location
     assert not car.active

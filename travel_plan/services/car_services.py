@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
@@ -59,3 +59,26 @@ def create_car(plate: str, make: str, model: str, color: str, location: str = 'N
         session.close()
 
     return car
+
+
+def get_car(id: int = 0, plate: str = '') -> Car:
+    session: Session = db_session.create_session()
+
+    try:
+        if id:
+            a = session.query(Car).\
+                options(joinedload(Car.color)).\
+                filter(Car.id == id).\
+                first()
+            return a
+        elif plate:
+            a = session.query(Car).\
+                options(joinedload(Car.color)).\
+                filter(Car.plate == plate).\
+                first()
+            return a
+    finally:
+        session.close()
+
+    return car
+

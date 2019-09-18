@@ -87,7 +87,7 @@ def _generate_pdf(travel: Travel) -> PDF:
     pdf.add_cell(22, travel.car.plate, 'V', False, 1, 0, 'L')
     pdf.add_cell(46, travel.car.make, 'V', False, 1, 0, 'L')
     pdf.add_cell(46, travel.car.model, 'V', False, 1, 0, 'L')
-    pdf.add_cell(40, travel.car.color, 'V', False, 1, 0, 'L')
+    pdf.add_cell(40, travel.car.color.name, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, travel.car.location, 'V', False, 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)

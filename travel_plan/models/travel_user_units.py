@@ -18,9 +18,15 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
 
     call_sign: str = sa.Column(sa.String)
 
-    pack_color: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
-    tent_color: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
-    fly_color: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    # color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    # color = orm.relationship('Color', foreign_keys=[color_id])
+
+    pack_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    pack_color = orm.relationship('Color', foreign_keys=[pack_color_id])
+    tent_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    tent_color = orm.relationship('Color', foreign_keys=[tent_color_id])
+    fly_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    fly_color = orm.relationship('Color', foreign_keys=[fly_color_id])
 
     supervision: int = sa.Column(sa.Integer)
     planning: int = sa.Column(sa.Integer)
@@ -37,18 +43,18 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
                  supervision: int, planning: int, contingency: int, comms: int,
                  team_selection: int, fitness: int, env: int, complexity: int,
                  total: int):
-        # self.travel = travel
         self.traveler = user_services.get_user_from_name(traveler_name)
 
         self.call_sign = call_sign
 
-        #TODO: should be some sort of list of colors
+        print(pack_color)
         pack_color = color_services.add_if_not_present(pack_color)
-        self.pack_color = pack_color
+        print(pack_color)
+        self.pack_color_id = color_services.get_id_from_name(pack_color)
         tent_color = color_services.add_if_not_present(tent_color)
-        self.tent_color = tent_color
+        self.tent_color_id = color_services.get_id_from_name(tent_color)
         fly_color = color_services.add_if_not_present(fly_color)
-        self.fly_color = fly_color
+        self.fly_color_id = color_services.get_id_from_name(fly_color)
 
         self.supervision = supervision
         self.planning = planning

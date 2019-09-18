@@ -15,7 +15,8 @@ class Car(SqlAlchemyBaseTravel):
     plate: str = sa.Column(sa.String, unique=True, nullable=False)
     make: str = sa.Column(sa.String, nullable=False)
     model: str = sa.Column(sa.String, nullable=False)
-    color: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
+    color = orm.relationship('Color', foreign_keys=[color_id])
     location: str = sa.Column(sa.String, nullable=False)
     active: bool = sa.Column(sa.Boolean, nullable=False)
 
@@ -24,7 +25,8 @@ class Car(SqlAlchemyBaseTravel):
         self.plate = plate
         self.make = make
         self.model = model
-        self.color = color_services.add_if_not_present(color)
+        color = color_services.add_if_not_present(color)
+        self.color_id = color_services.get_id_from_name(color)
         self.location = location
         self.active = active
 
