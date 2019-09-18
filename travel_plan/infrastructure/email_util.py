@@ -4,14 +4,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 import sys
-import shutil
 import smtplib
 from typing import List
 
-from travel_plan.disseminate.pdf_generater import generate_pdf
-from travel_plan.config import PDF_FOLDER_PATH, DEFAULT_EMAIL_LIST
+from travel_plan.config import DEFAULT_EMAIL_LIST
 from travel_plan.models.travels import Travel
-from travel_plan.disseminate.pdf import PDF
 
 try:
     from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
@@ -19,27 +16,25 @@ except:
     print('*' * 10 + ' Did you create a config.py file from the config_example.py file? ' + '*' * 10)
 
 
-def save_file(pdf: PDF, name: str, start_date: str) -> str:
-    name = name.strip().replace(' ', '_').replace(',', '') + '_' + start_date.replace('-', '') + '.pdf'
-    # pdf.output(name)
-    # save_path = tempfile.mkdtemp()
-    print('saving')
-    save_path = PDF_FOLDER_PATH
-    working_directory = os.getcwd()
+def email_files(travel: Travel, files: List[str]):
+    email_list = list(DEFAULT_EMAIL_LIST)
+    [email_list.append(e.traveler.email) for e in travel.travelers if hasattr(e.traveler, 'email')]
+    [email_list.append(c.email) for c in travel.contacts if hasattr(c, 'email')]
+
+    subject = _make_subject(travel)
+    body = _make_body(travel)
+
     try:
-        os.chdir(save_path)
-        pdf.output(name)
-    finally:
-        os.chdir(working_directory)
+        _send_mail(email_list, files, subject, body)
+    except:
+        # delete_file(file)
+        pass
 
-    return os.path.join(save_path, name)
-
-
-def delete_file(file: str):
-    shutil.rmtree(os.path.abspath(os.path.join(file, os.pardir)))
+# def delete_file(file: str):
+#     shutil.rmtree(os.path.abspath(os.path.join(file, os.pardir)))
 
 
-def send_mail(recipients: List[str], files: List[str], subject: str, body: str):
+def _send_mail(recipients: List[str], files: List[str], subject: str, body: str):
     COMMASPACE = ', '
 
     sender = EMAIL_ADDRESS
@@ -47,10 +42,14 @@ def send_mail(recipients: List[str], files: List[str], subject: str, body: str):
     recipients = recipients
 
     # Create the enclosing (outer) message
+    print(1)
     outer = MIMEMultipart()
+    print(2)
     outer['Subject'] = subject
+    print(3)
     outer['To'] = COMMASPACE.join(recipients)
     outer['From'] = sender
+    print(4)
     outer.attach(MIMEText(body, 'plain'))
     outer.preamble = 'You will not see this in a MIME-aware mail reader.\n'
 
@@ -60,21 +59,27 @@ def send_mail(recipients: List[str], files: List[str], subject: str, body: str):
     # Add the attachments to the message
     for file in attachments:
         try:
+            print(str(file))
             with open(file, 'rb') as fp:
+                print(6)
                 msg = MIMEBase('application', "octet-stream")
                 msg.set_payload(fp.read())
+            print(7)
             encoders.encode_base64(msg)
+            print(8)
             msg.add_header('Content-Disposition', 'attachment', filename=os.path.basename(file))
             outer.attach(msg)
         except:
             print("Unable to open one of the attachments. Error: ", sys.exc_info()[0])
             raise
-
+    print(9)
     composed = outer.as_string()
 
+    print(20)
     # Send the email
     try:
         with smtplib.SMTP('smtp.gmail.com', 587) as s:
+            print(21)
             s.ehlo()
             s.starttls()
             s.ehlo()
@@ -85,23 +90,6 @@ def send_mail(recipients: List[str], files: List[str], subject: str, body: str):
     except:
         print("Unable to send the email. Error: ", sys.exc_info()[0])
         raise
-
-
-def make_and_email_pdf(travel: Travel, files: List[str]):
-    pdf = generate_pdf(travel)
-    email_list = list(DEFAULT_EMAIL_LIST)
-    [email_list.append(e.traveler.email) for e in travel.travelers if hasattr(e.traveler, 'email')]
-    [email_list.append(c.email) for c in travel.contacts if hasattr(c, 'email')]
-
-    try:
-        # file =
-        files.append(save_file(pdf, travel.trip_leader.name, str(travel.start_date)))
-        subject = _make_subject(travel)
-        body = _make_body(travel)
-        send_mail(email_list, files, subject, body)
-    except:
-        # delete_file(file)
-        pass
 
 
 def _make_subject(travel: Travel) -> str:
