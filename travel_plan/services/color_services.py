@@ -10,13 +10,12 @@ def get_names() -> List[str]:
     session: Session = db_session.create_session()
 
     try:
-        names = [n[0] for n in session.query(Color.name).order_by(Color.name).all()]
+        return list(dict.fromkeys([n[0] for n in session.query(Color.name).order_by(Color.name).all()]))
+        # names = set([n[0] for n in session.query(Color.name).order_by(Color.name).all()])
     except:
-        names = []
+        return []
     finally:
         session.close()
-
-    return names
 
 
 def is_present(name: str) -> bool:
