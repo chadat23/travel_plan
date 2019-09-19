@@ -8,8 +8,9 @@ def test_car_services_get_names(db_session_w_info):
     locations, users, colors, cars = db_session_w_info
 
     names = car_services.get_names()
-    assert cars[0]['plate'] in names[2]
-    assert cars[1]['plate'] in names[1]
+    
+    for c, n in zip(cars, names):
+        assert c['plate'] in n
 
 
 def test_car_services_get_id_from_plate(db_session_w_info):

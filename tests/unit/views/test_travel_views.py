@@ -25,7 +25,6 @@ def test_travel_view_entry_post_success(db_session_w_info, form_data,
     get_travel = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=1) as plan:
-        print(type(plan))
         with namer, saver, pdf_stuff, emailer, get_travel, request:
             resp: Response = entry_post()
 
@@ -50,7 +49,6 @@ def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=None) as plan:
-        print(type(plan))
         with request:
             resp: Response = entry_post()
 

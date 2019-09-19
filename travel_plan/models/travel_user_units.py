@@ -47,9 +47,7 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
 
         self.call_sign = call_sign
 
-        print(pack_color)
         pack_color = color_services.add_if_not_present(pack_color)
-        print(pack_color)
         self.pack_color_id = color_services.get_id_from_name(pack_color)
         tent_color = color_services.add_if_not_present(tent_color)
         self.tent_color_id = color_services.get_id_from_name(tent_color)

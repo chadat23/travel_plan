@@ -11,9 +11,10 @@ def get_names() -> List[str]:
     session: Session = db_session.create_session()
 
     try:
-        cars: List[Car] = session.query(Car).order_by(Car.location, Car.plate).all()
+        cars = session.query(Car).options(joinedload(Car.color)).all()
         return [c.name for c in cars]
-    except:
+    except Exception as e:
+        print('excepton1', e)
         return []
     finally:
         session.close()

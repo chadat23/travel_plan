@@ -34,7 +34,7 @@ class Car(SqlAlchemyBaseTravel):
         return str(self) < str(other)
 
     def __repr__(self):
-        return f'{self.plate} {self.make} {self.model} {self.color} {self.location}'
+        return f'{self.plate} {self.make} {self.model} {self.color.name} {self.location}'
 
     @property
     def name(self):

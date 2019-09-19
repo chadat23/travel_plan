@@ -116,6 +116,7 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
 
     try:
         a = session.query(Travel).options(joinedload(Travel.entry_point)).\
+            options(joinedload(Travel.car).joinedload(Car.color)).\
             options(joinedload(Travel.travelers)).\
             options(joinedload(Travel.travelers).joinedload(TravelUserUnit.traveler)).\
             options(joinedload(Travel.travelers).joinedload(TravelUserUnit.pack_color)).\

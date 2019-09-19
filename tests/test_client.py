@@ -22,8 +22,7 @@ def client():
     try:
         travel_plan.app.register_blueprints()
     except Exception as x:
-        # print(x)
-        pass
+        print(x)
 
     travel_plan.app.setup_db()
 
