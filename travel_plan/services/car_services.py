@@ -14,7 +14,7 @@ def get_names() -> List[str]:
         cars = session.query(Car).options(joinedload(Car.color)).all()
         return [c.name for c in cars]
     except Exception as e:
-        print('excepton1', e)
+        print('excepton', e)
         return []
     finally:
         session.close()

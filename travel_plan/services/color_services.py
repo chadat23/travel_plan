@@ -25,11 +25,9 @@ def is_present(name: str) -> bool:
     session: Session = db_session.create_session()
 
     try:
-        # TODO: this should be cleaned up: return True or False
-        print('is present', str(session.query(Color).filter(Color.name == name).all()))
-        return session.query(Color).filter(Color.name == name).all()
+        return session.query(Color).filter(Color.name == name).all() != []
     except Exception as e:
-        print('error', e)
+        print('Exception: ', e)
         return None
     finally:
         session.close()
@@ -37,15 +35,11 @@ def is_present(name: str) -> bool:
 
 def add(name: str):
     name = name.lower().strip().title()
-    print('1', name)
 
     session: Session = db_session.create_session()
     try:
-        print('a', name)
         session.add(Color(name))
-        print('b', name)
         session.commit()
-        print('2', name)
         return name
     except:
         return None
@@ -54,17 +48,13 @@ def add(name: str):
 
 
 def add_if_not_present(name: str) -> Optional[str]:
-    print('one', name)
     if not is_present(name):
-        print('two', name)
         return add(name)
 
-    print('three', name)
     return name.lower().strip().title()
 
 
 def get_id_from_name(name: str) -> Optional[int]:
-    print('5555555555555555', name)
     name = name.lower().strip().title()
 
     session: Session = db_session.create_session()
