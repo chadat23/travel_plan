@@ -22,6 +22,18 @@ body {
     font-size: 8pt;
 }
 
+.gar-green {
+    background-color: #00D200;
+}
+
+.gar-amber {
+    background-color: #FFBF00;
+}
+
+.gar-red {
+    background-color: #FF6464;
+}
+
 ::-webkit-calendar-picker-indicator {
     margin: 0px;
 }

@@ -1,65 +1,102 @@
-// $(document).ready(function() {
-//     $('input[name="supervision0"]').val("5");
-//     });
-//     // console.log('hello')
+var gar_amber = 36;
+var gar_red = 61;
 
-//     // var i = 0;
-//     // while($("[name='supervision" + i.toString() + "'")) {
-//     //     console.log("[name='supervision" + i.toString() + "'")
-//     //     $("[name='supervision" + i.toString() + "'").val("5");
-//     //     i = i + 1;
-//     // }
-// });
+function int0(x) {
+    var parsed = parseInt(x);
+    if (isNaN(parsed)) { return 0 }
+    return parsed;
+  }
 
+function gar_math() {
+    var i = 0;
+    var j = 0;
+    var grand_total = 0;
+    
+    while($("[name='supervision" + i.toString() + "']").length) {
+        var supervision = $("[name='supervision" + i.toString() + "']").val();
+        var planning = $("[name='planning" + i.toString() + "']").val();
+        var contingency = $("[name='contingency" + i.toString() + "']").val();
+        var comms = $("[name='comms" + i.toString() + "']").val();
+        var teamselection = $("[name='teamselection" + i.toString() + "']").val();
+        var fitness = $("[name='fitness" + i.toString() + "']").val();
+        var env = $("[name='env" + i.toString() + "']").val();
+        var complexity = $("[name='complexity" + i.toString() + "']").val();
 
-count = 0;
-inputs1 = '<div>Is this working ' + count.toString() + '</div>';
-names = ['traveler_name', 'callsign', 'packcolor'];
+        var total = int0(supervision) + int0(planning) + int0(contingency) + int0(comms) + int0(teamselection) + int0(fitness) + int0(env) + int0(complexity);
+        if (total > 0) {
+            $("[name='total" + i.toString() + "']").val(total);
 
-function line(count) {
-    return '<div class="row">'
-           + '<input type="text" name="p' + count + names[0] + '" placeholder="Name" class="col-xl-4" value=""/> '
-           + '<input type="text" name="p' + count + names[1] + '" placeholder="Call Sign" class="col-xl-4" value=""/> '
-           +' <input type="text" name="p' + count + names[2] + '" placeholder="Pack Color" class="col-xl-4" value=""/> '
-           // +' <input type="text" name="nusers" value="' + count + '" disabled style="visibility: hidden"/>'
-           +'</div>'
-}
+            $("[name='total" + i.toString() + "']").removeClass('gar-green');
+            $("[name='total" + i.toString() + "']").removeClass('gar-amber');
+            $("[name='total" + i.toString() + "']").removeClass('gar-red');
 
-function get_values(count) {
-    values = {};
-    var i;
-    var j;
-    for (i = 0; i < count; i++) {
-        for (j = 0; j < names.length; j++){
-            n = 'planning' + i + names[j];
-            val = document.getElementsByName(n)[0].value;
-            console.log('val', val, n)
-            if (val === undefined) {
-                val = '';
-            }
-            values[n] = val;
-        }
+            if (total < gar_amber) {$("[name='total" + i.toString() + "']").addClass('gar-green');}
+            else if (total < gar_red) {$("[name='total" + i.toString() + "']").addClass('gar-amber');}
+            else {$("[name='total" + i.toString() + "']").addClass('gar-red');}
+
+            grand_total += total;
+            j += 1;
+        }        
+        
+        i += 1;
     }
+    if (grand_total > 0) {
+        avg = grand_total / j;
 
-    return values
-}
+        $("[name='garavg']").val(avg);
 
-function update_values(values) {
-    for (k in values) {
-        document.getElementsByName(k)[0].value = values[k]
+        $("[name='garavg']").removeClass('gar-green');
+        $("[name='garavg']").removeClass('gar-amber');
+        $("[name='garavg']").removeClass('gar-red');
+
+        if (avg < gar_amber) {$("[name='garavg']").addClass('gar-green');}
+        else if (avg < gar_red) {$("[name='garavg']").addClass('gar-amber');}
+        else {$("[name='garavg']").addClass('gar-red');}
     }
-}
-
-document.getElementById('add-traveler-btn').onclick = function () {
-    document.getElementsByName('ntravelers')[0].value = 0;
-
-    values = get_values(count);
-
-    document.getElementById('added-traveler').innerHTML += line(count);
-
-    update_values(values);
-
-    count += 1;
-
-    document.getElementsByName('ntravelers')[0].value = count;
 };
+
+
+
+$('[name^="supervision"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="planning"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="contingency"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="comms"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="teamselection"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="fitness"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="env"]').blur(function() {
+    gar_math();
+    });
+
+$('[name^="complexity"]').blur(function() {
+    gar_math();
+    });
+
+$('[name="mitigatedgar"]').blur(function() {
+    $("[name='mitigatedgar']").removeClass('gar-green')
+    $("[name='mitigatedgar']").removeClass('gar-amber')
+    $("[name='mitigatedgar']").removeClass('gar-red')
+
+    value = $("[name='mitigatedgar']").val()
+
+    if (value < gar_amber) {$("[name='mitigatedgar']").addClass('gar-green')}
+    else if (value < gar_red) {$("[name='mitigatedgar']").addClass('gar-amber')}
+    else {$("[name='mitigatedgar']").addClass('gar-red')}
+    });
