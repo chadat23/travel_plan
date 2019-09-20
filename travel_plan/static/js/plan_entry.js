@@ -1,3 +1,17 @@
+// $(document).ready(function() {
+//     $('input[name="supervision0"]').val("5");
+//     });
+//     // console.log('hello')
+
+//     // var i = 0;
+//     // while($("[name='supervision" + i.toString() + "'")) {
+//     //     console.log("[name='supervision" + i.toString() + "'")
+//     //     $("[name='supervision" + i.toString() + "'").val("5");
+//     //     i = i + 1;
+//     // }
+// });
+
+
 count = 0;
 inputs1 = '<div>Is this working ' + count.toString() + '</div>';
 names = ['traveler_name', 'callsign', 'packcolor'];
