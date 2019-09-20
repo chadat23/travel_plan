@@ -19,6 +19,7 @@ body {
 
 .date-input {
     padding: 2px;
+    font-size: 8pt;
 }
 
 ::-webkit-calendar-picker-indicator {
