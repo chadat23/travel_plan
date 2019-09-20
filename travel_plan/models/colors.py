@@ -8,7 +8,7 @@ class Color(SqlAlchemyBaseTravel):
 
     # id = sa.Column(sa.Integer, primary_key=True)
     id: str = sa.Column(sa.Integer, primary_key=True)
-    name: str = sa.Column(sa.String)
+    name: str = sa.Column(sa.String, nullable=False)
     
 
     def __init__(self, name: str):

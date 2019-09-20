@@ -20,7 +20,7 @@ class TravelDay(SqlAlchemyBaseTravel):
     starting_point = orm.relationship('Location', foreign_keys=[starting_point_id])
     ending_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     ending_point = orm.relationship('Location', foreign_keys=[ending_point_id])
-    route = sa.Column(sa.String, index=True, nullable=True)
+    route = sa.Column(sa.String, index=True)
     mode = sa.Column(sa.String, index=True)
 
     def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):

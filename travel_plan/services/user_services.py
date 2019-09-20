@@ -63,10 +63,10 @@ def get_user_from_email(email: str) -> Optional[User]:
 
 
 def create_user(name: str = '', email: str = '',
-                work_number: str = '', home_number: str = '', cell_number: str = '', active: bool = True,
+                work_number: str = '', home_number: str = '', cell_number: str = '', department: str = "Unknown", active: bool = True,
                 user: User = None) -> Optional[User]:
     if not user:
-        user = User(name, email, work_number, home_number, cell_number, active)
+        user = User(name, email, work_number, home_number, cell_number, department, active)
 
     session: Session = db_session.create_session()
 

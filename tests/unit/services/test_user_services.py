@@ -94,9 +94,10 @@ def test_user_services_create_user_success(db_session_w_info):
     work = '555-123-4567'
     home = '555-223-4567'
     cell = '555-323-4567'
+    department = "Wilderness"
     active = False
 
-    actual_user = user_services.create_user(name, email, work, home, cell, active)
+    actual_user = user_services.create_user(name, email, work, home, cell, department, active)
 
     assert isinstance(actual_user, User)
     assert actual_user.name == name

@@ -9,7 +9,8 @@ def test_location_services_get_all_success(db_session_w_info):
     locs = location_services.get_all()
 
     for loc in locs:
-        location = {'name': loc.name, 'latitude': loc.latitude, 'longitude': loc.longitude}
+        location = {'name': loc.name, 'latitude': loc.latitude, 'longitude': loc.longitude,
+                    'kind': loc.kind, 'is_in_park': loc.is_in_park, 'note': loc.note}
         assert location in locations
 
 

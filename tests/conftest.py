@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color
-from travel_plan.models.locations import Location
+from travel_plan.models.locations import Location, KindEnum
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.travel_file import TravelFile
 from travel_plan.models.travel_user_units import TravelUserUnit
@@ -14,31 +14,32 @@ from travel_plan.models.users import User
 import travel_plan.models.__all_models as all_models
 
 users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com',
-          'home_number': '555-123-1234', 'work_number': '555-123-2345', 'cell_number': '555-123-3456'},
+          'home_number': '555-123-1234', 'work_number': '555-123-2345', 'cell_number': '555-123-3456', 'department': 'Wilderness'},
          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com',
-          'home_number': '555-234-1234', 'work_number': '555-234-2345', 'cell_number': '555-234-3456'},
+          'home_number': '555-234-1234', 'work_number': '555-234-2345', 'cell_number': '555-234-3456', 'department': 'Wilderness'},
          {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com',
-          'home_number': '555-345-1234', 'work_number': '555-345-2345', 'cell_number': '555-345-3456'},
+          'home_number': '555-345-1234', 'work_number': '555-345-2345', 'cell_number': '555-345-3456', 'department': 'Wilderness'},
          {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com',
-          'home_number': '555-456-1234', 'work_number': '555-456-2345', 'cell_number': '555-456-3456'},
+          'home_number': '555-456-1234', 'work_number': '555-456-2345', 'cell_number': '555-456-3456', 'department': 'Wilderness'},
          {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com',
-          'home_number': '555-567-1234', 'work_number': '555-567-2345', 'cell_number': '555-567-3456'},
+          'home_number': '555-567-1234', 'work_number': '555-567-2345', 'cell_number': '555-567-3456', 'department': 'Wilderness'},
          ]
 
-locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803},
-             {'name': 'LYV', 'latitude': 37.733023, 'longitude': -119.514508},
-             {'name': 'May Lake HSC', 'latitude': 37.844617, 'longitude': -119.491018},
-             {'name': 'May Lake TH', 'latitude': 37.832687, 'longitude': -119.490761},
-             {'name': 'Ten Lakes Basin', 'latitude': 37.899158, 'longitude': -119.522609},
-             {'name': 'Ten Lakes TH', 'latitude': 37.852321, 'longitude': -119.575861},
-             {'name': 'Sunrise Lakes', 'latitude': 37.805904, 'longitude': -119.448250},
-             {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687},
+locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
+             {'name': 'LYV', 'latitude': 37.733023, 'longitude': -119.514508, 'kind': KindEnum.Campground, 'note': '', 'is_in_park': True},
+             {'name': 'May Lake HSC', 'latitude': 37.844617, 'longitude': -119.491018, 'kind': KindEnum.Campground, 'note': '', 'is_in_park': True},
+             {'name': 'May Lake TH', 'latitude': 37.832687, 'longitude': -119.490761, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
+             {'name': 'Ten Lakes Basin', 'latitude': 37.899158, 'longitude': -119.522609, 'kind': KindEnum.Basin, 'note': '', 'is_in_park': True},
+             {'name': 'Ten Lakes TH', 'latitude': 37.852321, 'longitude': -119.575861, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
+             {'name': 'Sunrise Lakes', 'latitude': 37.805904, 'longitude': -119.448250, 'kind': KindEnum.Area, 'note': '', 'is_in_park': True},
+             {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
              ]
 
-cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White', 'location': 'Yosemite Valley'},
-        {'plate': 'G13-587', 'make': 'Ford', 'model': 'F-150', 'color': 'White', 'location': 'Tuolumne'},
-        {'plate': 'G13-789', 'make': 'Honda', 'model': 'Element', 'color': 'Blue', 'location': 'El Portal'},
-        {'plate': 'G13-875', 'make': 'Nissan', 'model': 'Sentura', 'color': 'Silver', 'location': 'Yosemite Valley'}, ]
+cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White', 'location': 'Yosemite Valley', 'active': True},
+        {'plate': 'G13-587', 'make': 'Ford', 'model': 'F-150', 'color': 'White', 'location': 'Tuolumne', 'active': True},
+        {'plate': 'G13-789', 'make': 'Honda', 'model': 'Element', 'color': 'Blue', 'location': 'El Portal', 'active': True},
+        {'plate': 'G13-875', 'make': 'Nissan', 'model': 'Sentura', 'color': 'Silver', 'location': 'Yosemite Valley', 'active': True}, 
+        ]
 
 colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
 
@@ -136,13 +137,6 @@ def db_session_w_info(db_test_session: Session):
     [session.add(Location(**a)) for a in locations]
     [session.add(User(**u)) for u in users]
     [session.add(Color(n)) for n in colors]
-    # target = 'travel_plan.services.color_services.add_if_not_present'
-    # test_color = unittest.mock.patch(target, return_value='White')    
-    # m = unittest.mock.MagicMock()
-    # m.side_effect = [6, 6, 3, 1]
-    # target = 'travel_plan.services.color_services.get_id_from_name'
-    # test_color = unittest.mock.patch(target, return_value=m())
-    # with test_color:
     session.commit()
     [session.add(Car(**c)) for c in cars]
     session.commit()

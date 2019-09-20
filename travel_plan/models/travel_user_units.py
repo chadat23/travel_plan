@@ -18,9 +18,6 @@ class TravelUserUnit(SqlAlchemyBaseTravel):
 
     call_sign: str = sa.Column(sa.String)
 
-    # color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
-    # color = orm.relationship('Color', foreign_keys=[color_id])
-
     pack_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
     pack_color = orm.relationship('Color', foreign_keys=[pack_color_id])
     tent_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))

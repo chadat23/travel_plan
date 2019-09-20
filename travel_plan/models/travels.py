@@ -22,15 +22,15 @@ class Travel(SqlAlchemyBaseTravel):
     id = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
 
-    start_date: datetime = sa.Column(sa.Date, index=True, unique=False, nullable=False)
+    start_date: datetime = sa.Column(sa.Date, index=True)
     entry_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     entry_point: Location = orm.relationship('Location', foreign_keys=[entry_point_id])
-    end_date: datetime = sa.Column(sa.Date, index=True, unique=False, nullable=False)
+    end_date: datetime = sa.Column(sa.Date, index=True)
     exit_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
     exit_point: Location = orm.relationship('Location', foreign_keys=[exit_point_id])
 
-    tracked = sa.Column(sa.Boolean, index=False, unique=False, nullable=True)
-    plb = sa.Column(sa.String, index=False, unique=False, nullable=True)
+    tracked = sa.Column(sa.Boolean, index=False)
+    plb = sa.Column(sa.String, index=False)
 
     trip_leader_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
     trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])

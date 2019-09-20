@@ -1,10 +1,15 @@
 import datetime
+import enum
 
 import sqlalchemy as sa
 from sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.services import color_services
+
+class DepartmentEnum(enum.Enum):
+    Wilderness = 1
+    BnG = 2
 
 
 class Car(SqlAlchemyBaseTravel):
@@ -13,15 +18,16 @@ class Car(SqlAlchemyBaseTravel):
     id: str = sa.Column(sa.Integer, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
     plate: str = sa.Column(sa.String, unique=True, nullable=False)
-    make: str = sa.Column(sa.String, nullable=False)
-    model: str = sa.Column(sa.String, nullable=False)
+    make: str = sa.Column(sa.String)
+    model: str = sa.Column(sa.String)
     color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
     color = orm.relationship('Color', foreign_keys=[color_id])
-    location: str = sa.Column(sa.String, nullable=False)
-    active: bool = sa.Column(sa.Boolean, nullable=False)
+    location: str = sa.Column(sa.String)
+    active: bool = sa.Column(sa.Boolean)
+    department: str = sa.Column(sa.String)
 
-    def __init__(self, plate: str, make: str, model: str, color: str, 
-                 location: str = 'NA', active: bool = True):
+    def __init__(self, plate: str, make: str = None, model: str = None, color: str = None, 
+                 location: str = None, active: bool = None):
         self.plate = plate
         self.make = make
         self.model = model
