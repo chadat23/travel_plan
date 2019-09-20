@@ -1,6 +1,5 @@
 import datetime
-import flask_sqlalchemy as sa
-from flask_sqlalchemy import orm
+from travel_plan.app import db
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
@@ -8,11 +7,11 @@ from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 class TravelUserContact(SqlAlchemyBaseTravel):
     __tablename__ = 'travel_user_contacts'
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
+    id = db.Column(db.Integer, primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow, index=True)
 
-    travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
-    user_id: int = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
+    travel_id: int = db.Column(db.Integer, db.ForeignKey('travels.id'))
+    user_id: int = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, travel_id: int, contact_id: int):
         # self.travel = travel

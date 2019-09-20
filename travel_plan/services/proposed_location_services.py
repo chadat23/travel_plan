@@ -1,6 +1,6 @@
-from flask_sqlalchemy.orm import Session
+# from flask_sqlalchemy.orm import Session
 
-from travel_plan.models import db_session
+# from travel_plan.models import db_session
 from travel_plan.models.proposed_locations import ProposedLocation
 
 
@@ -23,8 +23,9 @@ def submit_location(name: str, latitude: str, longitude: str, note: str):
 
 
 def all_locations():
-    session: Session = db_session.create_session()
-    try:
-        return sorted(list(session.query(ProposedLocation)))
-    finally:
-        session.close()
+    pass
+    # session: Session = db_session.create_session()
+    # try:
+    #     return sorted(list(session.query(ProposedLocation)))
+    # finally:
+    #     session.close()

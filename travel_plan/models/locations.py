@@ -1,9 +1,9 @@
 import datetime
 import enum
 
-import flask_sqlalchemy as sa
+from travel_plan.app import db
 
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+# from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
 
 class KindEnum(enum.Enum):
@@ -18,18 +18,18 @@ class KindEnum(enum.Enum):
     Campground = 9
 
 
-class Location(SqlAlchemyBaseTravel):
+class Location(db.Model):
     __tablename__ = 'locations'
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow)
+    id = db.Column(db.Integer, primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    name: str = sa.Column(sa.String, index=True, unique=True)
-    latitude: float = sa.Column(sa.Float)
-    longitude: float = sa.Column(sa.Float)
-    kind: enum.Enum = sa.Column(sa.Enum(KindEnum))
-    is_in_park: bool = sa.Column(sa.Boolean, nullable=False)
-    note: str = sa.Column(sa.String)
+    name: str = db.Column(db.String, index=True, unique=True)
+    latitude: float = db.Column(db.Float)
+    longitude: float = db.Column(db.Float)
+    kind: enum.Enum = db.Column(db.Enum(KindEnum))
+    is_in_park: bool = db.Column(db.Boolean, nullable=False)
+    note: str = db.Column(db.String)
 
     def __lt__(self, other):
         return self.name < other.name

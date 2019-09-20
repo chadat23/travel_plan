@@ -1,4 +1,4 @@
-import flask_sqlalchemy as sa
+from travel_plan.app import db
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 
@@ -6,9 +6,9 @@ from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 class Color(SqlAlchemyBaseTravel):
     __tablename__ = 'colors'
 
-    # id = sa.Column(sa.Integer, primary_key=True)
-    id: str = sa.Column(sa.Integer, primary_key=True)
-    name: str = sa.Column(sa.String)
+    # id = db.Column(db.Integer, primary_key=True)
+    id: str = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String)
     
 
     def __init__(self, name: str):

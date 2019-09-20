@@ -1,8 +1,8 @@
 from typing import List, Optional
 
-from flask_sqlalchemy.orm import Session
+# from flask_sqlalchemy.orm import Session
 
-from travel_plan.models import db_session
+# from travel_plan.models import db_session
 from travel_plan.models.locations import Location, KindEnum
 
 

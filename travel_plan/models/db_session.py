@@ -29,7 +29,7 @@ def global_init(db_name: str):
         print("Connecting to Existing DB with {}".format(conn_str))
 
         engine = sa.create_engine(conn_str, echo=False)
-        __factory = orm.sessionmaker(bind=engine)
+        __factory =db.sessionmaker(bind=engine)
 
         # noinspection PyUnresolvedReferences
         import travel_plan.models.__all_models
@@ -48,9 +48,9 @@ def global_init(db_name: str):
 #
 #     engine = sa.create_engine(conn_str, echo=False)
 #     if factory == 'external':
-#         __factory_external = orm.sessionmaker(bind=engine)
+#         __factory_external =db.sessionmaker(bind=engine)
 #     elif factory == 'travel':
-#         __factory = orm.sessionmaker(bind=engine)
+#         __factory =db.sessionmaker(bind=engine)
 #
 #     # noinspection PyUnresolvedReferences
 #     import travel_plan.models.__all_models

@@ -1,31 +1,20 @@
 import os
 import sys
-
-import flask
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
-from travel_plan.models import db_session
-try:
-    import travel_plan.config as config
-except:
-    print('*'*10 + ' Did you create a config.py file from the config_example.py file? ' + '*'*10)
 
-# from travel_plan.nosql_models import mongo_setup
-
-app = flask.Flask(__name__)
-
+from travel_plan import app, db
 
 def main():
     configure()
-    # app.run()
     app.run(debug=True)
 
 
 def configure():
     print("Configuring Flask app:")
 
-    register_blueprints()
-    print("Registered blueprints")
+    # register_blueprints()
+    # print("Registered blueprints")
 
     setup_db()
     os.makedirs(config.PDF_FOLDER_PATH, exist_ok=True)
@@ -34,37 +23,21 @@ def configure():
 
 
 def setup_db():
-    db_path = config.DB_FOLDER_PATH
-    os.makedirs(db_path, exist_ok=True)
+    import travel_plan.models.__all_models
 
-    # db_existing = os.path.join(
-    #     os.path.dirname(__file__),
-    #     'db',
-    #     'existing.sqlite'
-    # )
-    # db_travel = os.path.join(
-    #     os.path.dirname(__file__),
-    #     'db',
-    #     'travel.sqlite'
-    # )
-
-    db_travel = os.path.join(db_path, config.DB_NAME)
-
-    # db_session.global_init(db_existing, db_travel)
-    # db_session.global_init("", db_travel)
-    db_session.global_init(db_travel)
+    models.db.create_all()
 
 
-def register_blueprints():
-    from travel_plan.views import index_views
-    from travel_plan.views import location_views
-    from travel_plan.views import map_views
-    from travel_plan.views import travel_views
+# def register_blueprints():
+#     from travel_plan.views import index_views
+#     from travel_plan.views import location_views
+#     from travel_plan.views import map_views
+#     from travel_plan.views import travel_views
 
-    app.register_blueprint(index_views.blueprint)
-    app.register_blueprint(location_views.blueprint)
-    app.register_blueprint(map_views.blueprint)
-    app.register_blueprint(travel_views.blueprint)
+#     app.register_blueprint(index_views.blueprint)
+#     app.register_blueprint(location_views.blueprint)
+#     app.register_blueprint(map_views.blueprint)
+#     app.register_blueprint(travel_views.blueprint)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Dict, Optional
 
-from flask_sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import joinedload
 
 from travel_plan.models.cars import Car
 from travel_plan.models.travel_user_units import TravelUserUnit
@@ -86,27 +86,27 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     )
 
     contacts = [_verify_contact(c) for c in contacts]
-    session: Session = db_session.create_session()
-    try:
-        session.add(travel)
-        for tu in traveler_units:
-            tu.travel = travel
-            session.add(tu)
-        for day in day_plans:
-            day.travel = travel
-            session.add(day)
-        session.commit()
-        for file in files:
-            # TODO: this could be better
-            if not travel_file_services.is_present(file.name):
-                file.travel = travel        
-                session.add(file)
-        for contact in contacts:
-            contact = session.query(User).filter(User.email == contact.email).first()
-            travel.contacts.append(contact)
-        session.commit()
-    finally:
-        session.close()
+    # session: Session = db_session.create_session()
+    # try:
+    #     session.add(travel)
+    #     for tu in traveler_units:
+    #         tu.travel = travel
+    #         session.add(tu)
+    #     for day in day_plans:
+    #         day.travel = travel
+    #         session.add(day)
+    #     session.commit()
+    #     for file in files:
+    #         # TODO: this could be better
+    #         if not travel_file_services.is_present(file.name):
+    #             file.travel = travel        
+    #             session.add(file)
+    #     for contact in contacts:
+    #         contact = session.query(User).filter(User.email == contact.email).first()
+    #         travel.contacts.append(contact)
+    #     session.commit()
+    # finally:
+    #     session.close()
 
     return travel.id
 
