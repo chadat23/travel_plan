@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from sqlalchemy.orm import Session, joinedload
+from flask_sqlalchemy.orm import Session, joinedload
 
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car

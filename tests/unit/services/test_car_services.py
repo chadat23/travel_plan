@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from flask_sqlalchemy.orm import Session
 
 
 def test_car_services_get_names(db_session_w_info):

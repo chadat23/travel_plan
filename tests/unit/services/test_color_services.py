@@ -1,6 +1,6 @@
 import unittest.mock
 
-from sqlalchemy.orm import Session
+from flask_sqlalchemy.orm import Session
 
 
 def test_color_services_get_names_success(db_session_w_info):

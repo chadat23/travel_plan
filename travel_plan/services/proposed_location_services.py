@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from flask_sqlalchemy.orm import Session
 
 from travel_plan.models import db_session
 from travel_plan.models.proposed_locations import ProposedLocation

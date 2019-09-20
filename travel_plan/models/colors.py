@@ -1,4 +1,4 @@
-import sqlalchemy as sa
+import flask_sqlalchemy as sa
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 

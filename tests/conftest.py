@@ -2,7 +2,8 @@ import os
 
 import pytest
 
-from sqlalchemy.orm import Session
+from flask_sqlalchemy
+from flask_sqlalchemy.orm import Session
 from travel_plan.models import db_session
 from travel_plan.models.cars import Car
 from travel_plan.models.colors import Color

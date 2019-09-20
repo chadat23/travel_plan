@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, DateTime, Float, String
+from flask_sqlalchemy import Column, DateTime, Float, String
 from travel_plan.models.modelbase import SqlAlchemyBaseExternal
 
 

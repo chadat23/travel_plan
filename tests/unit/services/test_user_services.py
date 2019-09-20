@@ -1,6 +1,6 @@
 import unittest.mock
 
-from sqlalchemy.orm import Session
+from flask_sqlalchemy.orm import Session
 
 
 def test_user_services_get_users_success(db_session_w_info):

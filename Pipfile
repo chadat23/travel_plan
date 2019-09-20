@@ -8,12 +8,12 @@ pytest = "*"
 v = {editable = true,version = "*"}
 
 [packages]
-sqlalchemy = "*"
 folium = "*"
 bs4 = "*"
 flask = "*"
 pillow = "*"
 fpdf2 = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

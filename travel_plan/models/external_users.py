@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Column, DateTime, Integer, String
+from flask_sqlalchemy import Column, DateTime, Integer, String
 
 from travel_plan.models.modelbase import SqlAlchemyBaseExternal
 

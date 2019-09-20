@@ -1,7 +1,8 @@
 import datetime
 
-import sqlalchemy as sa
-from sqlalchemy import orm
+import flask_sqlalchemy as sa
+from flask_
+sqlalchemy import orm
 
 from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.services import color_services

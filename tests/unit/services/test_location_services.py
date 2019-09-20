@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from flask_sqlalchemy.orm import Session
 
 
 def test_location_services_get_all_success(db_session_w_info):

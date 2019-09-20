@@ -1,8 +1,8 @@
 import datetime
 from typing import List
 
-import sqlalchemy as sa
-import sqlalchemy.orm as orm
+import flask_sqlalchemy as sa
+import flask_sqlalchemy.orm as orm
 
 from travel_plan.models.cars import Car
 from travel_plan.models.locations import Location
