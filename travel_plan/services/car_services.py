@@ -20,7 +20,8 @@ def get_names() -> List[str]:
 def get_id_from_plate(plate: str):
     try:
         return db.session.query(Car.id).filter(Car.plate == plate).first()[0]
-    except:
+    except Exception as e:
+        print(e)
         return None
 
 

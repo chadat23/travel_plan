@@ -1,18 +1,16 @@
 from flask import Response
 from werkzeug.wrappers.response import Response as werkzeug_response
 
-from tests.test_client import flask_app
+# from tests.test_client import flask_app
 
 import unittest.mock
 
 
-def test_travel_view_entry_post_success(db_session_w_info, form_data,
-                                        initialized_users, initialized_locations, initialized_cars,
-                                        initialized_colors):
+def test_travel_view_entry_post_success(app_w_db, form_data):
     from travel_plan.routes.travel_routes import entry_post
     from unittest.mock import Mock
 
-    request = flask_app.test_request_context(path='/travel/entry', data=form_data)
+    request = app_w_db.test_request_context(path='/travel/entry', data=form_data)
     target = 'travel_plan.infrastructure.file_util.generate_name'
     namer = unittest.mock.patch(target, return_value='name')
     target = 'travel_plan.infrastructure.file_util.save_files_with_name'
@@ -24,17 +22,16 @@ def test_travel_view_entry_post_success(db_session_w_info, form_data,
     target = 'travel_plan.services.travel_services.get_travel_by_id'
     get_travel = unittest.mock.patch(target, return_value=None)
     target = 'travel_plan.services.travel_services.create_plan'
-    with unittest.mock.patch(target, retun_value=1) as plan:
+    with unittest.mock.patch(target, retun_value=1) as create_plan:
         with namer, saver, pdf_stuff, emailer, get_travel, request:
+        # with request:
             resp: Response = entry_post()
 
     assert isinstance(resp, Response) or isinstance(resp, werkzeug_response)
-    plan.assert_called()
+    create_plan.assert_called()
 
 
-def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
-                                                 initialized_users, initialized_locations, initialized_cars,
-                                                 initialized_colors):
+def test_travel_view_entry_post_fails_validation(app_w_db, form_data):
     from datetime import datetime, timedelta
     from unittest.mock import Mock
 
@@ -46,7 +43,7 @@ def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
     form_data['enddate'] = start_date
     form_data['date2'] = start_date
 
-    request = flask_app.test_request_context(path='/travel/entry', data=form_data)
+    request = app_w_db.test_request_context(path='/travel/entry', data=form_data)
     target = 'travel_plan.services.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=None) as plan:
         with request:

@@ -1,10 +1,10 @@
-def test_travel_services_create_plan_success(db_session_w_travel_info):
+def test_travel_services_create_plan_success(app_w_empty_db, travels):
     import unittest.mock
     from unittest.mock import Mock
 
     from travel_plan.services import travel_services
 
-    expected_travels = db_session_w_travel_info
+    expected_travels = travels
     actual_travels = []
 
     m = Mock()

@@ -3,10 +3,8 @@ import unittest.mock
 from sqlalchemy.orm import Session
 
 
-def test_user_services_get_users_success(db_session_w_info):
+def test_user_services_get_users_success(app_w_db, users):
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     actual_users = user_services.get_users()
 
@@ -21,10 +19,8 @@ def test_user_services_get_users_success(db_session_w_info):
     assert len(actual_users) == len(users)
 
 
-def test_user_services_get_names_success(db_session_w_info):
+def test_user_services_get_names_success(app_w_db, users):
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     actual_names = user_services.get_names()
 
@@ -33,10 +29,8 @@ def test_user_services_get_names_success(db_session_w_info):
     assert actual_names == expected_names
 
 
-def test_user_services_get_id_from_name_success(db_session_w_info):
+def test_user_services_get_id_from_name_success(app_w_db, users):
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     number = 3
 
@@ -47,11 +41,9 @@ def test_user_services_get_id_from_name_success(db_session_w_info):
     assert actual_id == number + 1
 
 
-def test_user_services_get_user_from_name_success(db_session_w_info):
+def test_user_services_get_user_from_name_success(app_w_db, users):
     from travel_plan.models.users import User
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     number = 3
 
@@ -65,11 +57,9 @@ def test_user_services_get_user_from_name_success(db_session_w_info):
     assert actual_user.cell_number == expected_user['cell_number']
 
 
-def test_user_services_get_user_from_email_success(db_session_w_info):
+def test_user_services_get_user_from_email_success(app_w_db, users):
     from travel_plan.models.users import User
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     number = 3
 
@@ -83,11 +73,9 @@ def test_user_services_get_user_from_email_success(db_session_w_info):
     assert actual_user.cell_number == expected_user['cell_number']
 
 
-def test_user_services_create_user_success(db_session_w_info):
+def test_user_services_create_user_success(app_w_db, users):
     from travel_plan.models.users import User
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     name = 'Bob'
     email = 'bob@email.com'
@@ -106,11 +94,9 @@ def test_user_services_create_user_success(db_session_w_info):
     assert not actual_user.active
 
 
-def test_user_services_update_user_success(db_session_w_info):
+def test_user_services_update_user_success(app_w_db, users):
     from travel_plan.models.users import User
     from travel_plan.services import user_services
-
-    locations, users, colors, cars = db_session_w_info
 
     number = 2
     retreaved_user = user_services.get_user_from_name(users[number]['name'])

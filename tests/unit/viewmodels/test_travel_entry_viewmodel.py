@@ -1,12 +1,12 @@
 from flask import Response
 
-from tests.test_client import flask_app, client
+# from tests.test_client import flask_app, client
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
 import unittest.mock
 
 
-def test_travel_entry_vm_validate_end_before_start_success(form_data):
+def test_travel_entry_vm_validate_end_before_start_success(app_w_db, form_data):
     # WITH: valid form data
     from datetime import datetime, timedelta
 
@@ -24,7 +24,7 @@ def test_travel_entry_vm_validate_end_before_start_success(form_data):
     form_data['date2'] = start_date
 
     with get_location_names, get_users, get_color_names, get_car_names:
-        with flask_app.test_request_context(path='/travel/entry', data=form_data):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
             vm = TravelEntryViewModel()
 
     vm.validate()
@@ -33,7 +33,7 @@ def test_travel_entry_vm_validate_end_before_start_success(form_data):
     assert vm.error == "Your exit date can't be before your entry date."
 
 
-def test_travel_entry_vm_validate_star_first_day_mismatch_success(form_data):
+def test_travel_entry_vm_validate_star_first_day_mismatch_success(app_w_db, form_data):
     # WITH: valid form data
     from datetime import datetime, timedelta
 
@@ -49,7 +49,7 @@ def test_travel_entry_vm_validate_star_first_day_mismatch_success(form_data):
     form_data['date0'] = start_date
 
     with get_location_names, get_users, get_color_names, get_car_names:
-        with flask_app.test_request_context(path='/travel/entry', data=form_data):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
             vm = TravelEntryViewModel()
 
     vm.validate()
@@ -58,7 +58,7 @@ def test_travel_entry_vm_validate_star_first_day_mismatch_success(form_data):
     assert 'should start on your entry date.' in vm.error
 
 
-def test_travel_entry_vm_validate_end_last_day_mismatch_success(form_data):
+def test_travel_entry_vm_validate_end_last_day_mismatch_success(app_w_db, form_data):
     # WITH: valid form data
     from datetime import datetime, timedelta
 
@@ -74,7 +74,7 @@ def test_travel_entry_vm_validate_end_last_day_mismatch_success(form_data):
     form_data['date2'] = end_date
 
     with get_location_names, get_users, get_color_names, get_car_names:
-        with flask_app.test_request_context(path='/travel/entry', data=form_data):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
             vm = TravelEntryViewModel()
 
     vm.validate()
@@ -83,7 +83,7 @@ def test_travel_entry_vm_validate_end_last_day_mismatch_success(form_data):
     assert 'should end on your exit date.' in vm.error
 
 
-def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(form_data):
+def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(app_w_db, form_data):
     # WITH:
     get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
 
@@ -91,7 +91,7 @@ def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(fo
 
     # WHEN: the DB calls are mocked and then the vm is generated.
     with get_location_names, get_users, get_color_names, get_car_names:
-        with flask_app.test_request_context(path='/travel/entry', data=form_data):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
             vm = TravelEntryViewModel()
 
     vm.validate()
@@ -99,13 +99,13 @@ def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(fo
     assert 'Either you should' in vm.error
 
 
-def test_travel_entry_vm_entry_end_date_success(form_data):
+def test_travel_entry_vm_entry_end_date_success(app_w_db, form_data):
     # WITH: valid form data
     get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
 
     # WHEN: the DB calls are mocked and then the vm is generated.
     with get_location_names, get_users, get_color_names, get_car_names:
-        with flask_app.test_request_context(path='/travel/entry', data=form_data):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
             vm = TravelEntryViewModel()
 
     # THEN: all of the data in the form should be properly represented in the vm.

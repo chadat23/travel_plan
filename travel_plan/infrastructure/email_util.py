@@ -51,27 +51,20 @@ def _send_mail(recipients: List[str], files: List[str], subject: str, body: str)
     # Add the attachments to the message
     for file in attachments:
         try:
-            print(str(file))
             with open(file, 'rb') as fp:
-                print(6)
                 msg = MIMEBase('application', "octet-stream")
                 msg.set_payload(fp.read())
-            print(7)
             encoders.encode_base64(msg)
-            print(8)
             msg.add_header('Content-Disposition', 'attachment', filename=os.path.basename(file))
             outer.attach(msg)
         except:
             print("Unable to open one of the attachments. Error: ", sys.exc_info()[0])
             raise
-    print(9)
     composed = outer.as_string()
 
-    print(20)
     # Send the email
     try:
         with smtplib.SMTP('smtp.gmail.com', 587) as s:
-            print(21)
             s.ehlo()
             s.starttls()
             s.ehlo()

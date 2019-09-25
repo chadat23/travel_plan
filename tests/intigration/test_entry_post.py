@@ -3,22 +3,20 @@ import unittest.mock
 
 from flask import Response
 
-from tests.test_client import flask_app
 from travel_plan.services import travel_services
 
 
-def ntest_123(db_session_w_info, form_data, initialized_users, initialized_locations, initialized_cars,
+def ntest_123(app_w_db, form_data, initialized_users, initialized_locations, initialized_cars,
               initialized_colors):
     from travel_plan.routes.travel_routes import entry_post
 
-    with flask_app.test_request_context(path='/travel/entry', data=form_data):
+    with app_w_db.test_request_context(path='/travel/entry', data=form_data):
         resp: Response = entry_post()
 
     assert True
 
 
-def test_get_travel_by_id(db_session_w_info, form_data, initialized_users, initialized_locations, initialized_cars,
-                          initialized_colors):
+def test_get_travel_by_id(app_w_db, form_data):
     from travel_plan.routes.travel_routes import entry_post
 
     target = 'travel_plan.infrastructure.file_util.save_files_with_name'
@@ -31,7 +29,7 @@ def test_get_travel_by_id(db_session_w_info, form_data, initialized_users, initi
     # m.side_effect = [6, 6, 3, 1]
     target = 'travel_plan.services.color_services.get_id_from_name'
     test_color = unittest.mock.patch(target, return_value=3)
-    with flask_app.test_request_context(path='/travel/entry', data=form_data):
+    with app_w_db.test_request_context(path='/travel/entry', data=form_data):
         with saver, pdf_stuff, emailer:
             resp: Response = entry_post()
 

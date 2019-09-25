@@ -14,6 +14,7 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
+    app.app_context().push()  # Didn't seen this with the other version
     db.init_app(app)
 
     if app.config.get('PDF_FOLDER_PATH'):

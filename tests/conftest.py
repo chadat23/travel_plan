@@ -145,28 +145,31 @@ def app(tmp_path_factory):
 def app_w_empty_db(app):
     from travel_plan import db
 
+    # with app.app_context():
     db.create_all()
 
     yield app
 
+    # with app.app_context():
     db.session.close()
     db.drop_all()
 
 
 @pytest.fixture()
 def app_w_db(app_w_empty_db):
-    from travel_plan import db
-    from travel_plan.models.cars import Car
-    from travel_plan.models.colors import Color
-    from travel_plan.models.locations import Location
-    from travel_plan.models.users import User
+    with app_w_empty_db.app_context():
+        from travel_plan import db
+        from travel_plan.models.cars import Car
+        from travel_plan.models.colors import Color
+        from travel_plan.models.locations import Location
+        from travel_plan.models.users import User
 
-    [db.session.add(Color(c)) for c in _colors]
-    [db.session.add(Car(**c)) for c in _cars]
-    [db.session.add(Location(**loc)) for loc in _locations]
-    [db.session.add(User(**u)) for u in _users]
+        [db.session.add(Color(c)) for c in _colors]
+        [db.session.add(Car(**c)) for c in _cars]
+        [db.session.add(Location(**loc)) for loc in _locations]
+        [db.session.add(User(**u)) for u in _users]
 
-    db.session.commit()
+        db.session.commit()
 
     yield app_w_empty_db
 
