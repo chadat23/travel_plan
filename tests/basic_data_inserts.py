@@ -1,17 +1,17 @@
 import os
 import sys
 
+import conftest
+from travel_plan import create_app
+
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 data = os.path.join(folder, 'travel_plan')
 sys.path.insert(0, folder)
 sys.path.insert(0, data)
 
-import conftest
-from travel_plan import create_app
-
 
 def main():
-    app = create_app()
+    create_app()
 
     from travel_plan import db
     from travel_plan.models.cars import Car
@@ -19,7 +19,6 @@ def main():
     from travel_plan.models.locations import Location
     from travel_plan.models.users import User
 
-    # with app.app_context():
     for n in conftest._cars:
         db.session.add(Car(**n))
 
