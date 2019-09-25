@@ -1,7 +1,6 @@
 import datetime
 
 from travel_plan import db
-from travel_plan.models.travels import Travel
 from travel_plan.services import color_services, user_services
 
 

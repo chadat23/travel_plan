@@ -2,8 +2,8 @@ import os
 from typing import Tuple
 
 from travel_plan.infrastructure.pdf import PDF
-from travel_plan.models.travels import Travel
-from travel_plan.models.travel_user_units import TravelUserUnit
+from travel_plan.travel.travels import Travel
+from travel_plan.travel.travel_user_units import TravelUserUnit
 
 
 def make_and_save_pdf(travel: Travel, name: str, path: str):

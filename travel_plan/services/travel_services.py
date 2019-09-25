@@ -1,15 +1,15 @@
 from datetime import datetime
 from typing import List, Dict, Optional
 
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import joinedload
 
 from travel_plan import db
 from travel_plan.models.cars import Car
-from travel_plan.models.travel_user_units import TravelUserUnit
-from travel_plan.models.travel_days import TravelDay
-from travel_plan.models.travel_file import TravelFile
-from travel_plan.models.travels import Travel
-from travel_plan.models.users import User
+from travel_plan.travel.travel_user_units import TravelUserUnit
+from travel_plan.travel.travel_days import TravelDay
+from travel_plan.travel.travel_file import TravelFile
+from travel_plan.travel.travels import Travel
+from travel_plan.user.users import User
 from travel_plan.services import car_services, location_services, travel_file_services, user_services
 
 

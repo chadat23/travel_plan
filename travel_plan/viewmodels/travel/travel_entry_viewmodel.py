@@ -2,7 +2,7 @@ from typing import List
 
 import flask
 
-from travel_plan.models.users import User
+from travel_plan.user.users import User
 from travel_plan.services import user_services, location_services, color_services, car_services
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 

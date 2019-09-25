@@ -3,8 +3,8 @@ import datetime
 from travel_plan import db
 from travel_plan.models.cars import Car
 from travel_plan.models.locations import Location
-from travel_plan.models.travel_days import TravelDay
-from travel_plan.models.users import User
+from travel_plan.travel.travel_days import TravelDay
+from travel_plan.user.users import User
 
 contact_association_table = db.Table('travel_contact_association', db.metadata,
                                      db.Column('travels_id', db.Integer, db.ForeignKey('travels.id'), primary_key=True),

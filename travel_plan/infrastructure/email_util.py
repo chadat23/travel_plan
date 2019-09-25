@@ -9,7 +9,7 @@ import sys
 import smtplib
 from typing import List
 
-from travel_plan.models.travels import Travel
+from travel_plan.travel.travels import Travel
 
 
 def email_files(travel: Travel, files: List[str], path: str):

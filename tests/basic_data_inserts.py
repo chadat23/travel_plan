@@ -17,7 +17,7 @@ def main():
     from travel_plan.models.cars import Car
     from travel_plan.models.colors import Color
     from travel_plan.models.locations import Location
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
 
     for n in conftest._cars:
         db.session.add(Car(**n))

@@ -1,8 +1,3 @@
-import unittest.mock
-
-from sqlalchemy.orm import Session
-
-
 def test_user_services_get_users_success(app_w_db, users):
     from travel_plan.services import user_services
 
@@ -42,7 +37,7 @@ def test_user_services_get_id_from_name_success(app_w_db, users):
 
 
 def test_user_services_get_user_from_name_success(app_w_db, users):
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
     from travel_plan.services import user_services
 
     number = 3
@@ -58,7 +53,7 @@ def test_user_services_get_user_from_name_success(app_w_db, users):
 
 
 def test_user_services_get_user_from_email_success(app_w_db, users):
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
     from travel_plan.services import user_services
 
     number = 3
@@ -74,7 +69,7 @@ def test_user_services_get_user_from_email_success(app_w_db, users):
 
 
 def test_user_services_create_user_success(app_w_db, users):
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
     from travel_plan.services import user_services
 
     name = 'Bob'
@@ -95,7 +90,7 @@ def test_user_services_create_user_success(app_w_db, users):
 
 
 def test_user_services_update_user_success(app_w_db, users):
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
     from travel_plan.services import user_services
 
     number = 2

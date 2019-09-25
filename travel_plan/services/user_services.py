@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from travel_plan import db
-from travel_plan.models.users import User
+from travel_plan.user.users import User
 
 
 def get_users() -> List[User]:

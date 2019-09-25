@@ -1,7 +1,5 @@
 def test_users_equal_success():
-    from travel_plan.models.travel_file import TravelFile
-    from travel_plan.models.travel_user_units import TravelUserUnit
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
 
     name = 'Bob'
     email = 'bob@email.com'
@@ -18,9 +16,7 @@ def test_users_equal_success():
 
 
 def test_users_equal_fail_success():
-    from travel_plan.models.travel_file import TravelFile
-    from travel_plan.models.travel_user_units import TravelUserUnit
-    from travel_plan.models.users import User
+    from travel_plan.user.users import User
 
     name = 'Bob'
     email = 'bob@email.com'

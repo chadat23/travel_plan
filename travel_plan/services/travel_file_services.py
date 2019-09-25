@@ -1,9 +1,5 @@
-from typing import List, Optional
-
-from sqlalchemy.orm import Session
-
 from travel_plan import db
-from travel_plan.models.travel_file import TravelFile
+from travel_plan.travel.travel_file import TravelFile
 
 
 def is_present(name: str) -> bool:
