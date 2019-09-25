@@ -177,7 +177,7 @@ class TravelEntryViewModel(ViewModelBase):
                         self.error = "All fields must be filled in for each traveler and each accompanying GAR score."
                         return
 
-        if len(set([c['email'] for c in self.contacts])) != len(self.contacts):
+        if len(set([c['contact_email'] for c in self.contacts])) != len(self.contacts):
             self.error = "Duplicate responsible parties are not allowed. They all must be novel."
 
     def _validate_dates(self):
