@@ -120,6 +120,8 @@ def app(tmp_path_factory):
     db_path = str(tmpdir / 'test.sqlite')
     config.SQLALCHEMY_DATABASE_URI = 'sqlite:///' + db_path
 
+    config.DEFAULT_EMAIL_LIST = []
+
     app = create_app(config)
     app.config['TESTING'] = True
 
@@ -157,19 +159,19 @@ def app_w_empty_db(app):
 
 @pytest.fixture()
 def app_w_db(app_w_empty_db):
-    with app_w_empty_db.app_context():
-        from travel_plan import db
-        from travel_plan.models.cars import Car
-        from travel_plan.models.colors import Color
-        from travel_plan.models.locations import Location
-        from travel_plan.models.users import User
+    # with app_w_empty_db.app_context():
+    from travel_plan import db
+    from travel_plan.models.cars import Car
+    from travel_plan.models.colors import Color
+    from travel_plan.models.locations import Location
+    from travel_plan.models.users import User
 
-        [db.session.add(Color(c)) for c in _colors]
-        [db.session.add(Car(**c)) for c in _cars]
-        [db.session.add(Location(**loc)) for loc in _locations]
-        [db.session.add(User(**u)) for u in _users]
+    [db.session.add(Color(c)) for c in _colors]
+    [db.session.add(Car(**c)) for c in _cars]
+    [db.session.add(Location(**loc)) for loc in _locations]
+    [db.session.add(User(**u)) for u in _users]
 
-        db.session.commit()
+    db.session.commit()
 
     yield app_w_empty_db
 

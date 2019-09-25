@@ -82,7 +82,6 @@ def _make_subject(travel: Travel) -> str:
     print(subject)
     for traveler in travel.travelers:
         subject += traveler.call_sign + ', '
-        print(subject)
 
     return subject[:-2]
 

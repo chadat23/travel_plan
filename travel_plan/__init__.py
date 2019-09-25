@@ -22,16 +22,16 @@ def create_app(config_class=Config):
     if app.config.get('DB_FOLDER_PATH'):
         os.makedirs(app.config['DB_FOLDER_PATH'], exist_ok=True)
 
-    with app.app_context():
-        from travel_plan.models.cars import Car
-        from travel_plan.models.colors import Color
-        from travel_plan.models.locations import Location
-        from travel_plan.models.travel_days import TravelDay
-        from travel_plan.models.travel_file import TravelFile
-        from travel_plan.models.travel_user_units import TravelUserUnit
-        from travel_plan.models.travels import Travel
-        from travel_plan.models.users import User
-        db.create_all()
+    # with app.app_context():
+    from travel_plan.models.cars import Car
+    from travel_plan.models.colors import Color
+    from travel_plan.models.locations import Location
+    from travel_plan.models.travel_days import TravelDay
+    from travel_plan.models.travel_file import TravelFile
+    from travel_plan.models.travel_user_units import TravelUserUnit
+    from travel_plan.models.travels import Travel
+    from travel_plan.models.users import User
+    db.create_all()
 
     from travel_plan.routes import index_routes
     from travel_plan.routes import travel_routes

@@ -8,10 +8,6 @@ import os
 
 
 import tests.conftest as conftest
-# try:
-#     from travel_plan.config import Config
-# except:
-#     print('*'*10 + ' Did you create a config.py file from the config_example.py file? ' + '*'*10)
 from travel_plan import create_app
 
 
@@ -24,22 +20,22 @@ def main():
     from travel_plan.models.locations import Location
     from travel_plan.models.users import User
 
-    with app.app_context():
-        for n in conftest._cars:
-            db.session.add(Car(**n))
+    # with app.app_context():
+    for n in conftest._cars:
+        db.session.add(Car(**n))
 
-        for n in conftest._users:
-            db.session.add(User(**n))
+    for n in conftest._users:
+        db.session.add(User(**n))
 
-        for n in conftest._locations:
-            db.session.add(Location(**n))
+    for n in conftest._locations:
+        db.session.add(Location(**n))
 
-        for n in conftest._colors:
-            if not db.session.query(Color).filter(Color.name == n).all():
-                db.session.add(Color(n))
-                db.session.commit()
+    for n in conftest._colors:
+        if not db.session.query(Color).filter(Color.name == n).all():
+            db.session.add(Color(n))
+            db.session.commit()
 
-        db.session.commit()
+    db.session.commit()
 
 
 if __name__ == '__main__':
