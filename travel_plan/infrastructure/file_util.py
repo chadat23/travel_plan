@@ -1,10 +1,7 @@
-import datetime
 import os
 from typing import List
 
 from werkzeug.datastructures import FileStorage
-
-from travel_plan.models.travels import Travel
 
 
 def save_files_with_name(files: List[FileStorage], name: str, path: str):

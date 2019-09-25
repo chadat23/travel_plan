@@ -1,10 +1,11 @@
 from flask import Blueprint, current_app, redirect, url_for
 
 from travel_plan.infrastructure import file_util, pdf_util, email_util
-from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.travel_file import TravelFile
 from travel_plan.models.travel_user_units import TravelUserUnit
+from travel_plan.models.travels import Travel
+from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.models.users import User
 from travel_plan.services import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel

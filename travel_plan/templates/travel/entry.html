@@ -114,13 +114,13 @@
             </datalist>
             {% for d in day_plans %}
             <div class="row">
-                <input type="date" name="date{{ loop.index0 }}" title="Date:" class="col-xl-1 date-input"
+                <input type="date" name="date{{ loop.index0 }}" title="Date:" class="col-xl-2 date-input"
                        value="{{ d['date'] }}"/>
                 <input type="text" name="startingpoint{{ loop.index0 }}" placeholder="Starting Point:" class="col-xl-3"
                        value="{{ d['starting_point'] }}" list="locations"/>
                 <input type="text" name="endingpoint{{ loop.index0 }}" placeholder="Ending Point:" class="col-xl-3"
                        value="{{ d['ending_point'] }}" list="locations"/>
-                <input type="text" name="route{{ loop.index0 }}" placeholder="Route:" class="col-xl-4"
+                <input type="text" name="route{{ loop.index0 }}" placeholder="Route:" class="col-xl-3"
                        value="{{ d['route'] }}"/>
                 <input type="text" name="mode{{ loop.index0 }}" placeholder="Mode:" class="col-xl-1"
                        value="{{ d['mode'] }}" list="mode"/>

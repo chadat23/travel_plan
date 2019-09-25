@@ -3,7 +3,7 @@ from typing import List
 import flask
 
 from travel_plan.models.users import User
-from travel_plan.services import user_services, location_services, color_services
+from travel_plan.services import user_services, location_services, color_services, car_services
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 
 
@@ -99,8 +99,8 @@ class TravelEntryViewModel(ViewModelBase):
                 c['contact_cell'] = ''
             self.contacts.append(c)
 
-        # self.cars = car_services.get_names()
-        self.cars = ['one', 'two']
+        self.cars = car_services.get_names()
+        # self.cars = ['one', 'two']
         self.car_plate = self.request_dict.carplate
         self.car_make = self.request_dict.carmake
         self.car_model = self.request_dict.carmodel
