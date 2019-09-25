@@ -1,13 +1,12 @@
 import os
-# import sys
-#
-# folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-# data = os.path.join(folder, 'tests')
-# sys.path.insert(0, folder)
-# sys.path.insert(0, data)
+import sys
 
+folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+data = os.path.join(folder, 'travel_plan')
+sys.path.insert(0, folder)
+sys.path.insert(0, data)
 
-import tests.conftest as conftest
+import conftest
 from travel_plan import create_app
 
 
