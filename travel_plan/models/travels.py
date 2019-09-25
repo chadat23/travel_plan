@@ -1,85 +1,81 @@
 import datetime
-from typing import List
 
-import sqlalchemy as sa
-import sqlalchemy.orm as orm
-
+from travel_plan import db
 from travel_plan.models.cars import Car
 from travel_plan.models.locations import Location
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.users import User
 
-contact_association_table = sa.Table('travel_contact_association', SqlAlchemyBaseTravel.metadata,
-                                     sa.Column('travels_id', sa.Integer, sa.ForeignKey('travels.id'), primary_key=True),
-                                     sa.Column('contacts_id', sa.Integer, sa.ForeignKey('users.id'), primary_key=True)
+contact_association_table = db.Table('travel_contact_association', db.metadata,
+                                     db.Column('travels_id', db.Integer, db.ForeignKey('travels.id'), primary_key=True),
+                                     db.Column('contacts_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
                                      )
 
 
-class Travel(SqlAlchemyBaseTravel):
+class Travel(db.Model):
     __tablename__ = 'travels'
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
+    id = db.Column(db.Integer, primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow, index=True)
 
-    start_date: datetime = sa.Column(sa.Date, index=True)
-    entry_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    entry_point: Location = orm.relationship('Location', foreign_keys=[entry_point_id])
-    end_date: datetime = sa.Column(sa.Date, index=True)
-    exit_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    exit_point: Location = orm.relationship('Location', foreign_keys=[exit_point_id])
+    start_date: datetime = db.Column(db.Date, index=True)
+    entry_point_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    entry_point: Location = db.relationship('Location', foreign_keys=[entry_point_id])
+    end_date: datetime = db.Column(db.Date, index=True)
+    exit_point_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    exit_point: Location = db.relationship('Location', foreign_keys=[exit_point_id])
 
-    tracked = sa.Column(sa.Boolean, index=False)
-    plb = sa.Column(sa.String, index=False)
+    tracked = db.Column(db.Boolean, index=False)
+    plb = db.Column(db.String, index=False)
 
-    trip_leader_id = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
-    trip_leader = orm.relationship('User', foreign_keys=[trip_leader_id])
+    trip_leader_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    trip_leader = db.relationship('User', foreign_keys=[trip_leader_id])
 
-    travelers = orm.relationship('TravelUserUnit', backref='travel')
-    travel_days: TravelDay = orm.relationship('TravelDay', backref='travel')
+    travelers = db.relationship('TravelUserUnit', backref='travel')
+    travel_days: TravelDay = db.relationship('TravelDay', backref='travel')
 
-    car_id: int = sa.Column(sa.Integer, sa.ForeignKey('cars.id'))
-    car: Car = orm.relationship('Car', foreign_keys=[car_id])
-    car_location: str = sa.Column(sa.String)
+    car_id: int = db.Column(db.Integer, db.ForeignKey('cars.id'))
+    car: Car = db.relationship('Car', foreign_keys=[car_id])
+    car_location: str = db.Column(db.String)
 
-    bivy_gear = sa.Column(sa.Boolean)
-    compass = sa.Column(sa.Boolean)
-    first_aid_kit = sa.Column(sa.Boolean)
-    flagging = sa.Column(sa.Boolean)
-    flare = sa.Column(sa.Boolean)
-    flashlight = sa.Column(sa.Boolean)
-    gps = sa.Column(sa.Boolean)
-    head_lamp = sa.Column(sa.Boolean)
-    helmet = sa.Column(sa.Boolean)
-    ice_axe = sa.Column(sa.Boolean)
-    map = sa.Column(sa.Boolean)
-    matches = sa.Column(sa.Boolean)
-    probe_pole = sa.Column(sa.Boolean)
-    radio = sa.Column(sa.Boolean)
-    rope = sa.Column(sa.Boolean)
-    shovel = sa.Column(sa.Boolean)
-    signal_mirror = sa.Column(sa.Boolean)
-    space_blanket = sa.Column(sa.Boolean)
-    spare_battery = sa.Column(sa.Boolean)
-    tent = sa.Column(sa.Boolean)
-    whistle = sa.Column(sa.Boolean)
+    bivy_gear = db.Column(db.Boolean)
+    compass = db.Column(db.Boolean)
+    first_aid_kit = db.Column(db.Boolean)
+    flagging = db.Column(db.Boolean)
+    flare = db.Column(db.Boolean)
+    flashlight = db.Column(db.Boolean)
+    gps = db.Column(db.Boolean)
+    head_lamp = db.Column(db.Boolean)
+    helmet = db.Column(db.Boolean)
+    ice_axe = db.Column(db.Boolean)
+    map = db.Column(db.Boolean)
+    matches = db.Column(db.Boolean)
+    probe_pole = db.Column(db.Boolean)
+    radio = db.Column(db.Boolean)
+    rope = db.Column(db.Boolean)
+    shovel = db.Column(db.Boolean)
+    signal_mirror = db.Column(db.Boolean)
+    space_blanket = db.Column(db.Boolean)
+    spare_battery = db.Column(db.Boolean)
+    tent = db.Column(db.Boolean)
+    whistle = db.Column(db.Boolean)
 
-    days_of_food = sa.Column(sa.Float)
-    weapon = sa.Column(sa.String)
-    radio_monitor_time = sa.Column(sa.String)
-    off_trail_travel = sa.Column(sa.Boolean)
-    cell_number = sa.Column(sa.String)
-    satellite_number = sa.Column(sa.String)
+    days_of_food = db.Column(db.Float)
+    weapon = db.Column(db.String)
+    radio_monitor_time = db.Column(db.String)
+    off_trail_travel = db.Column(db.Boolean)
+    cell_number = db.Column(db.String)
+    satellite_number = db.Column(db.String)
 
-    contacts: User = orm.relationship('User', secondary=contact_association_table)
+    contacts: User = db.relationship('User', secondary=contact_association_table)
 
-    files: User = orm.relationship('TravelFile', backref='travel')
+    files: User = db.relationship('TravelFile', backref='travel')
 
-    gar_avg = sa.Column(sa.Float)
-    mitigated_gar = sa.Column(sa.Float)
-    gar_mitigations = sa.Column(sa.String)
+    gar_avg = db.Column(db.Float)
+    mitigated_gar = db.Column(db.Float)
+    gar_mitigations = db.Column(db.String)
 
-    notes = sa.Column(sa.String)
+    notes = db.Column(db.String)
 
     def __init__(self, start_date: datetime, entry_point_id: int, end_date: datetime, exit_point_id: int,
                  tracked: bool, plb: str, trip_leader_id: int, car_id: int, car_location: str,

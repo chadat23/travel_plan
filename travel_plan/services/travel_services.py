@@ -3,14 +3,14 @@ from typing import List, Dict, Optional
 
 from sqlalchemy.orm import Session, joinedload
 
+from travel_plan import db
 from travel_plan.models.cars import Car
 from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.models.travel_days import TravelDay
 from travel_plan.models.travel_file import TravelFile
-from travel_plan.services import car_services, location_services, travel_file_services, user_services
-from travel_plan.models import db_session
 from travel_plan.models.travels import Travel
 from travel_plan.models.users import User
+from travel_plan.services import car_services, location_services, travel_file_services, user_services
 
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str,
@@ -86,36 +86,29 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     )
 
     contacts = [_verify_contact(c) for c in contacts]
-    session: Session = db_session.create_session()
-    try:
-        session.add(travel)
-        for tu in traveler_units:
-            tu.travel = travel
-            session.add(tu)
-        for day in day_plans:
-            day.travel = travel
-            session.add(day)
-        session.commit()
-        for file in files:
-            # TODO: this could be better
-            if not travel_file_services.is_present(file.name):
-                file.travel = travel        
-                session.add(file)
-        for contact in contacts:
-            contact = session.query(User).filter(User.email == contact.email).first()
-            travel.contacts.append(contact)
-        session.commit()
-    finally:
-        session.close()
+    db.session.add(travel)
+    for tu in traveler_units:
+        tu.travel = travel
+        db.session.add(tu)
+    for day in day_plans:
+        day.travel = travel
+        db.session.add(day)
+    db.session.commit()
+    for file in files:
+        # TODO: this could be better
+        if not travel_file_services.is_present(file.name):
+            file.travel = travel
+            db.session.add(file)
+    for contact in contacts:
+        travel.contacts.append(contact)
+    db.session.commit()
 
     return travel.id
 
 
 def get_travel_by_id(travel_id: int) -> Optional[Travel]:
-    session: Session = db_session.create_session()
-
     try:
-        a = session.query(Travel).options(joinedload(Travel.entry_point)).\
+        a = db.session.query(Travel).options(joinedload(Travel.entry_point)).\
             options(joinedload(Travel.car).joinedload(Car.color)).\
             options(joinedload(Travel.travelers)).\
             options(joinedload(Travel.travelers).joinedload(TravelUserUnit.traveler)).\
@@ -133,8 +126,6 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
         return a
     except:
         return []
-    finally:
-        session.close()
 
 
 def _verify_contact(contact: User) -> User:
@@ -151,9 +142,7 @@ def _verify_contact(contact: User) -> User:
 
 
 def get_lat_long_frequencies() -> Dict[tuple, int]:
-    session: Session = db_session.create_session()
-
-    travels: List[Travel] = list(session.query(Travel))
+    travels: List[Travel] = list(db.session.query(Travel))
 
     location_name_frequencies = {}
 

@@ -9,7 +9,7 @@ import unittest.mock
 def test_travel_view_entry_post_success(db_session_w_info, form_data,
                                         initialized_users, initialized_locations, initialized_cars,
                                         initialized_colors):
-    from travel_plan.views.travel_views import entry_post
+    from travel_plan.routes.travel_routes import entry_post
     from unittest.mock import Mock
 
     request = flask_app.test_request_context(path='/travel/entry', data=form_data)
@@ -38,7 +38,7 @@ def test_travel_view_entry_post_fails_validation(db_session_w_info, form_data,
     from datetime import datetime, timedelta
     from unittest.mock import Mock
 
-    from travel_plan.views.travel_views import entry_post
+    from travel_plan.routes.travel_routes import entry_post
 
     start_date = datetime.strptime(form_data['startdate'], '%Y-%m-%d')
     start_date = start_date - timedelta(days=5)

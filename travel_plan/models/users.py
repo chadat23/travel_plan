@@ -1,30 +1,27 @@
 import datetime
 
-# from sqlalchemy import Column, DateTime, Integer, String, orm
-import sqlalchemy as sa
-from sqlalchemy import orm
-
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan import db
+# from travel_plan.models.travel_user_units import TravelUserUnit
 
 
-class User(SqlAlchemyBaseTravel):
+class User(db.Model):
     __tablename__ = 'users'
 
-    # TODO: lots (sa. and __init__)
-    id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
+    # TODO: lots (db. and __init__)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.now, index=True)
 
-    name = sa.Column(sa.String, nullable=False)
-    email = sa.Column(sa.String, index=True, unique=True, nullable=True)
-    department: str = sa.Column(sa.String)
+    name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, index=True, unique=True, nullable=True)
+    department: str = db.Column(db.String)
 
-    travels = orm.relationship('TravelUserUnit', backref='traveler')
+    travels = db.relationship('TravelUserUnit', backref='traveler')
 
-    home_number = sa.Column(sa.String)
-    work_number = sa.Column(sa.String)
-    cell_number = sa.Column(sa.String)
+    home_number = db.Column(db.String)
+    work_number = db.Column(db.String)
+    cell_number = db.Column(db.String)
 
-    active: bool = sa.Column(sa.Boolean, nullable=False)
+    active: bool = db.Column(db.Boolean, nullable=False)
 
     def __init__(self, name: str, email: str, work_number: str, home_number: str, cell_number: str,
                  department: str = 'Unknown', active: bool = True):

@@ -1,17 +1,21 @@
-"""
-This is an example of the actual config.py file
-and should be renamed to "config.py". Additionally, actual
-values should be placed in it.
-"""
+import os
 
-DB_FOLDER_PATH = "<absolute/path/to/db>"
 
-DB_NAME = "<db.name>"
+def _make_uri(prefix, folder, file_name):
+    path = os.path.join(folder, file_name)
 
-EMAIL_ADDRESS = "<email@address.example>"
+    return prefix + path
 
-EMAIL_PASSWORD = "<email_password>"
 
-PDF_FOLDER_PATH = "<absolute/path/to/files>"
+class Config:
+    EMAIL_ADDRESS = "<email@address.com>"
+    EMAIL_PASSWORD = "<password>"
+    DEFAULT_EMAIL_LIST = ["<default@email.1>", "d<efault@email.2>"]
 
-DEFAULT_EMAIL_LIST = ["<email0>", "<email1>"]
+    PDF_FOLDER_PATH = "<example/folder/path/to/file/save/location>"
+
+    SECRET_KEY = '<24? character security key>'
+    SQLALCHEMY_DB_PREFIX = '<sqlite:///>'
+    DB_FOLDER_PATH = "<example/folder/path/to/db/location>"
+    DB_FILE_NAME = "<site.db>"
+    SQLALCHEMY_DATABASE_URI = _make_uri(SQLALCHEMY_DB_PREFIX, DB_FOLDER_PATH, DB_FILE_NAME)

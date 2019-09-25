@@ -1,3 +1,5 @@
+from flask import current_app
+
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -7,17 +9,11 @@ import sys
 import smtplib
 from typing import List
 
-from travel_plan.config import DEFAULT_EMAIL_LIST
 from travel_plan.models.travels import Travel
-
-try:
-    from travel_plan.config import EMAIL_ADDRESS, EMAIL_PASSWORD
-except:
-    print('*' * 10 + ' Did you create a config.py file from the config_example.py file? ' + '*' * 10)
 
 
 def email_files(travel: Travel, files: List[str], path: str):
-    email_list = list(DEFAULT_EMAIL_LIST)
+    email_list = list(current_app.config['DEFAULT_EMAIL_LIST'])
     [email_list.append(e.traveler.email) for e in travel.travelers if hasattr(e.traveler, 'email')]
     [email_list.append(c.email) for c in travel.contacts if hasattr(c, 'email')]
 
@@ -37,19 +33,15 @@ def email_files(travel: Travel, files: List[str], path: str):
 def _send_mail(recipients: List[str], files: List[str], subject: str, body: str):
     COMMASPACE = ', '
 
-    sender = EMAIL_ADDRESS
-    gmail_password = EMAIL_PASSWORD
+    sender = current_app.config['EMAIL_ADDRESS']
+    gmail_password = current_app.config['EMAIL_PASSWORD']
     recipients = recipients
 
     # Create the enclosing (outer) message
-    print(1)
     outer = MIMEMultipart()
-    print(2)
     outer['Subject'] = subject
-    print(3)
     outer['To'] = COMMASPACE.join(recipients)
     outer['From'] = sender
-    print(4)
     outer.attach(MIMEText(body, 'plain'))
     outer.preamble = 'You will not see this in a MIME-aware mail reader.\n'
 

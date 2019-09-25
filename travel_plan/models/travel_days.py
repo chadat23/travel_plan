@@ -1,27 +1,24 @@
 from datetime import datetime
 
-import sqlalchemy as sa
-from sqlalchemy import orm
-
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan import db
 from travel_plan.services import location_services
 
 
-class TravelDay(SqlAlchemyBaseTravel):
+class TravelDay(db.Model):
     __tablename__ = 'travel_days'
     # TODO: needs work
-    id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.now, index=True)
+    id: int = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    created_date = db.Column(db.DateTime, default=datetime.now, index=True)
 
-    travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
+    travel_id: int = db.Column(db.Integer, db.ForeignKey('travels.id'))
 
-    date = sa.Column(sa.Date, nullable=False)
-    starting_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    starting_point = orm.relationship('Location', foreign_keys=[starting_point_id])
-    ending_point_id = sa.Column(sa.Integer, sa.ForeignKey('locations.id'))
-    ending_point = orm.relationship('Location', foreign_keys=[ending_point_id])
-    route = sa.Column(sa.String, index=True)
-    mode = sa.Column(sa.String, index=True)
+    date = db.Column(db.Date, nullable=False)
+    starting_point_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    starting_point = db.relationship('Location', foreign_keys=[starting_point_id])
+    ending_point_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    ending_point = db.relationship('Location', foreign_keys=[ending_point_id])
+    route = db.Column(db.String, index=True)
+    mode = db.Column(db.String, index=True)
 
     def __init__(self, date: str, starting_point: str, ending_point: str, route: str, mode: str):
         self.date = datetime.strptime(date, '%Y-%m-%d')

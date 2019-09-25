@@ -9,7 +9,7 @@ from travel_plan.services import travel_services
 
 def ntest_123(db_session_w_info, form_data, initialized_users, initialized_locations, initialized_cars,
               initialized_colors):
-    from travel_plan.views.travel_views import entry_post
+    from travel_plan.routes.travel_routes import entry_post
 
     with flask_app.test_request_context(path='/travel/entry', data=form_data):
         resp: Response = entry_post()
@@ -19,7 +19,7 @@ def ntest_123(db_session_w_info, form_data, initialized_users, initialized_locat
 
 def test_get_travel_by_id(db_session_w_info, form_data, initialized_users, initialized_locations, initialized_cars,
                           initialized_colors):
-    from travel_plan.views.travel_views import entry_post
+    from travel_plan.routes.travel_routes import entry_post
 
     target = 'travel_plan.infrastructure.file_util.save_files_with_name'
     saver = unittest.mock.patch(target, return_value=[])

@@ -1,6 +1,5 @@
-from flask import Blueprint, redirect
+from flask import Blueprint, current_app, redirect, url_for
 
-from travel_plan.config import PDF_FOLDER_PATH
 from travel_plan.infrastructure import file_util, pdf_util, email_util
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.models.travel_days import TravelDay
@@ -38,7 +37,8 @@ def entry_post():
 
     base_name = file_util.generate_name(vm.trip_leader_name, vm.start_date)
 
-    travel_files = [TravelFile(f) for f in file_util.save_files_with_name(vm.uploaded_files, base_name, PDF_FOLDER_PATH)]
+    travel_files = [TravelFile(f) for f in
+                    file_util.save_files_with_name(vm.uploaded_files, base_name, current_app.config['PDF_FOLDER_PATH'])]
     travel_files.append(TravelFile(base_name + '.pdf'))
 
     travel_id = travel_services.create_plan(vm.start_date, vm.entry_point, vm.end_date, vm.exit_point, vm.tracked,
@@ -75,12 +75,12 @@ def entry_post():
 
     travel = travel_services.get_travel_by_id(travel_id)
 
-    pdf_util.make_and_save_pdf(travel, base_name, PDF_FOLDER_PATH)
+    pdf_util.make_and_save_pdf(travel, base_name, current_app.config['PDF_FOLDER_PATH'])
 
-    email_util.email_files(travel, [f.name for f in travel_files], PDF_FOLDER_PATH)
+    email_util.email_files(travel, [f.name for f in travel_files], current_app.config['PDF_FOLDER_PATH'])
 
-    # return redirect(url_for('travel.email_sent'))
-    return redirect('/travel/email-sent')
+    return redirect(url_for('travel.email_sent'))
+    # return redirect('/travel/email-sent')
 
 
 @blueprint.route('/travel/email-sent')

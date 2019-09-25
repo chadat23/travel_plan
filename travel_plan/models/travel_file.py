@@ -1,18 +1,15 @@
 import datetime
 
-import sqlalchemy as sa
-from sqlalchemy import orm
-
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan import db
 
 
-class TravelFile(SqlAlchemyBaseTravel):
+class TravelFile(db.Model):
     __tablename__ = 'travel_files'
 
-    id: str = sa.Column(sa.Integer, primary_key=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.now)
-    name: str = sa.Column(sa.String, unique=True, nullable=False, index=True)
-    travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
+    id: str = db.Column(db.Integer, primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.now)
+    name: str = db.Column(db.String, unique=True, nullable=False, index=True)
+    travel_id: int = db.Column(db.Integer, db.ForeignKey('travels.id'))
 
     def __init__(self, name: str):
         self.name = name

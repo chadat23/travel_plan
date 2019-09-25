@@ -1,15 +1,13 @@
 import sqlalchemy as sa
 
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan import db
 
 
-class Color(SqlAlchemyBaseTravel):
+class Color(db.Model):
     __tablename__ = 'colors'
 
-    # id = sa.Column(sa.Integer, primary_key=True)
-    id: str = sa.Column(sa.Integer, primary_key=True)
-    name: str = sa.Column(sa.String, nullable=False)
-    
+    id: str = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String, nullable=False)
 
     def __init__(self, name: str):
         self.name = name.lower().strip().title()

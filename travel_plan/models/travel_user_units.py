@@ -1,39 +1,37 @@
 import datetime
-import sqlalchemy as sa
-from sqlalchemy import orm
 
-from travel_plan.models.modelbase import SqlAlchemyBaseTravel
+from travel_plan import db
 from travel_plan.models.travels import Travel
 from travel_plan.services import color_services, user_services
 
 
-class TravelUserUnit(SqlAlchemyBaseTravel):
+class TravelUserUnit(db.Model):
     __tablename__ = 'travel_user_units'
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    created_date = sa.Column(sa.DateTime, default=datetime.datetime.utcnow, index=True)
+    id = db.Column(db.Integer, primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow, index=True)
 
-    travel_id: int = sa.Column(sa.Integer, sa.ForeignKey('travels.id'))
-    user_id: int = sa.Column(sa.Integer, sa.ForeignKey('users.id'))
+    travel_id: int = db.Column(db.Integer, db.ForeignKey('travels.id'))
+    user_id: int = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    call_sign: str = sa.Column(sa.String)
+    call_sign: str = db.Column(db.String)
 
-    pack_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
-    pack_color = orm.relationship('Color', foreign_keys=[pack_color_id])
-    tent_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
-    tent_color = orm.relationship('Color', foreign_keys=[tent_color_id])
-    fly_color_id: str = sa.Column(sa.String, sa.ForeignKey('colors.id'))
-    fly_color = orm.relationship('Color', foreign_keys=[fly_color_id])
+    pack_color_id: int = db.Column(db.Integer, db.ForeignKey('colors.id'))
+    pack_color = db.relationship('Color', foreign_keys=[pack_color_id])
+    tent_color_id: int = db.Column(db.Integer, db.ForeignKey('colors.id'))
+    tent_color = db.relationship('Color', foreign_keys=[tent_color_id])
+    fly_color_id: int = db.Column(db.Integer, db.ForeignKey('colors.id'))
+    fly_color = db.relationship('Color', foreign_keys=[fly_color_id])
 
-    supervision: int = sa.Column(sa.Integer)
-    planning: int = sa.Column(sa.Integer)
-    contingency: int = sa.Column(sa.Integer)
-    comms: int = sa.Column(sa.Integer)
-    team_selection: int = sa.Column(sa.Integer)
-    fitness: int = sa.Column(sa.Integer)
-    env: int = sa.Column(sa.Integer)
-    complexity: int = sa.Column(sa.Integer)
-    total: int = sa.Column(sa.Integer)
+    supervision: int = db.Column(db.Integer)
+    planning: int = db.Column(db.Integer)
+    contingency: int = db.Column(db.Integer)
+    comms: int = db.Column(db.Integer)
+    team_selection: int = db.Column(db.Integer)
+    fitness: int = db.Column(db.Integer)
+    env: int = db.Column(db.Integer)
+    complexity: int = db.Column(db.Integer)
+    total: int = db.Column(db.Integer)
 
     def __init__(self, traveler_name: str, call_sign: str,
                  pack_color: str, tent_color: str, fly_color: str,
