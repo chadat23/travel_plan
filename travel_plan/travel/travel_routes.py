@@ -80,7 +80,7 @@ def entry_post():
     email_util.email_files(travel, [f.name for f in travel_files], current_app.config['PDF_FOLDER_PATH'])
 
     return redirect(url_for('travel.email_sent'))
-    # return redirect('/travel/email-sent')
+    # return redirect('travel/email_sent')
 
 
 @blueprint.route('/travel/email-sent')
