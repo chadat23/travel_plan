@@ -9,8 +9,8 @@ container_folder = os.path.abspath(os.path.join(
 ))
 sys.path.insert(0, container_folder)
 
-import travel_plan.app
-from travel_plan.app import app as flask_app
+import app
+from app import app as flask_app
 
 
 @pytest.fixture
@@ -20,10 +20,10 @@ def client():
 
     # noinspection PyBroadException,PyUnusedLocal
     try:
-        travel_plan.app.register_blueprints()
+        app.register_blueprints()
     except Exception as x:
         print(x)
 
-    travel_plan.app.setup_db()
+    app.setup_db()
 
     yield client

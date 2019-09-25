@@ -32,9 +32,9 @@ def create_app(config_class=Config):
         from travel_plan.models.users import User
         db.create_all()
 
-    from travel_plan.routes import home_routes
+    from travel_plan.routes import index_routes
     from travel_plan.routes import travel_routes
-    app.register_blueprint(home_routes.blueprint)
+    app.register_blueprint(index_routes.blueprint)
     app.register_blueprint(travel_routes.blueprint)
 
     return app
