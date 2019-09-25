@@ -1,10 +1,10 @@
 from typing import List, Optional
 
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import joinedload
 
 from travel_plan import db
-from travel_plan.models.cars import Car
-from travel_plan.services import color_services
+from travel_plan.car.cars import Car
+from travel_plan.color import color_services
 
 
 def get_names() -> List[str]:

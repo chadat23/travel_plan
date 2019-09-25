@@ -4,13 +4,16 @@ from typing import List, Dict, Optional
 from sqlalchemy.orm import joinedload
 
 from travel_plan import db
-from travel_plan.models.cars import Car
+from travel_plan.car.cars import Car
 from travel_plan.travel.travel_user_units import TravelUserUnit
 from travel_plan.travel.travel_days import TravelDay
 from travel_plan.travel.travel_file import TravelFile
 from travel_plan.travel.travels import Travel
 from travel_plan.user.users import User
-from travel_plan.services import car_services, location_services, travel_file_services, user_services
+from travel_plan.travel import travel_file_services
+from travel_plan.user import user_services
+from travel_plan.location import location_services
+from travel_plan.car import car_services
 
 
 def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: str,

@@ -1,11 +1,9 @@
 import datetime
 import enum
 
-import sqlalchemy as sa
-from sqlalchemy import orm
-
 from travel_plan import db
-from travel_plan.services import color_services
+from travel_plan.color import color_services
+
 
 class DepartmentEnum(enum.Enum):
     Wilderness = 1

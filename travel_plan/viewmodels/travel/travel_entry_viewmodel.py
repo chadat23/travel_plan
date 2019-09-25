@@ -3,7 +3,10 @@ from typing import List
 import flask
 
 from travel_plan.user.users import User
-from travel_plan.services import user_services, location_services, color_services, car_services
+from travel_plan.user import user_services
+from travel_plan.location import location_services
+from travel_plan.color import color_services
+from travel_plan.car import car_services
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
 
 

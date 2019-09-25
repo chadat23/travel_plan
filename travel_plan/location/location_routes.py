@@ -1,8 +1,7 @@
-import flask
 from flask import Blueprint, url_for, redirect
 
 from travel_plan.infrastructure.view_modifiers import response
-from travel_plan.services import location_services, proposed_location_services
+from travel_plan.location import location_services, proposed_location_services
 from travel_plan.viewmodels.location.assess_locations_viewmodel import AssessLocationsViewModel
 from travel_plan.viewmodels.location.propose_location_viewmodel import ProposeLocationViewModel
 

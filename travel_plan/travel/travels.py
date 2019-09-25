@@ -1,8 +1,8 @@
 import datetime
 
 from travel_plan import db
-from travel_plan.models.cars import Car
-from travel_plan.models.locations import Location
+from travel_plan.car.cars import Car
+from travel_plan.location.locations import Location
 from travel_plan.travel.travel_days import TravelDay
 from travel_plan.user.users import User
 

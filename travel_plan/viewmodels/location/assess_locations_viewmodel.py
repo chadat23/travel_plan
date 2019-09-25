@@ -1,12 +1,10 @@
 from typing import List
 
-from flask import url_for
-
-from travel_plan.services import location_services, proposed_location_services
-from travel_plan.models.locations import Location
-from travel_plan.models.proposed_locations import StatusEnum
+from travel_plan.location import location_services, proposed_location_services
+from travel_plan.location.locations import Location
+from travel_plan.location.proposed_locations import StatusEnum
 from travel_plan.viewmodels.shared.viewmodelbase import ViewModelBase
-from travel_plan.routes import view_routes as vutil
+from travel_plan.map import map_utils as vutil
 
 
 class AssessLocationsViewModel(ViewModelBase):

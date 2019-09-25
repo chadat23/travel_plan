@@ -7,7 +7,7 @@ import unittest.mock
 
 
 def test_travel_view_entry_post_success(app_w_db, form_data):
-    from travel_plan.routes.travel_routes import entry_post
+    from travel_plan.travel.travel_routes import entry_post
     from unittest.mock import Mock
 
     request = app_w_db.test_request_context(path='/travel/entry', data=form_data)
@@ -19,9 +19,9 @@ def test_travel_view_entry_post_success(app_w_db, form_data):
     pdf_stuff = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.infrastructure.email_util.email_files'
     emailer = unittest.mock.patch(target, return_value=[])
-    target = 'travel_plan.services.travel_services.get_travel_by_id'
+    target = 'travel_plan.travel.travel_services.get_travel_by_id'
     get_travel = unittest.mock.patch(target, return_value=None)
-    target = 'travel_plan.services.travel_services.create_plan'
+    target = 'travel_plan.travel.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=1) as create_plan:
         with namer, saver, pdf_stuff, emailer, get_travel, request:
         # with request:
@@ -35,7 +35,7 @@ def test_travel_view_entry_post_fails_validation(app_w_db, form_data):
     from datetime import datetime, timedelta
     from unittest.mock import Mock
 
-    from travel_plan.routes.travel_routes import entry_post
+    from travel_plan.travel.travel_routes import entry_post
 
     start_date = datetime.strptime(form_data['startdate'], '%Y-%m-%d')
     start_date = start_date - timedelta(days=5)
@@ -44,7 +44,7 @@ def test_travel_view_entry_post_fails_validation(app_w_db, form_data):
     form_data['date2'] = start_date
 
     request = app_w_db.test_request_context(path='/travel/entry', data=form_data)
-    target = 'travel_plan.services.travel_services.create_plan'
+    target = 'travel_plan.travel.travel_services.create_plan'
     with unittest.mock.patch(target, retun_value=None) as plan:
         with request:
             resp: Response = entry_post()

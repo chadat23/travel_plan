@@ -23,15 +23,15 @@ def create_app(config_class=Config):
         os.makedirs(app.config['DB_FOLDER_PATH'], exist_ok=True)
 
     # with app.app_context():
-    from travel_plan.models.cars import Car
-    from travel_plan.models.colors import Color
-    from travel_plan.models.locations import Location
+    from travel_plan.car.cars import Car
+    from travel_plan.color.colors import Color
+    from travel_plan.location.locations import Location
     from travel_plan.travel.travel_days import TravelDay
     from travel_plan.user.users import User
     db.create_all()
 
-    from travel_plan.routes import index_routes
-    from travel_plan.routes import travel_routes
+    from travel_plan.index import index_routes
+    from travel_plan.travel import travel_routes
     app.register_blueprint(index_routes.blueprint)
     app.register_blueprint(travel_routes.blueprint)
 

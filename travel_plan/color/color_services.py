@@ -1,9 +1,7 @@
 from typing import List, Optional
 
-from sqlalchemy.orm import Session
-
 from travel_plan import db
-from travel_plan.models.colors import Color
+from travel_plan.color.colors import Color
 
 
 def get_names() -> List[str]:

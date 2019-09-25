@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from travel_plan import db
-from travel_plan.services import location_services
+from travel_plan.location import location_services
 
 
 class TravelDay(db.Model):

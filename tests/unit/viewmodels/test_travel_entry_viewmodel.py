@@ -224,13 +224,13 @@ def test_travel_entry_vm_entry_end_date_success(app_w_db, form_data):
 
 
 def _with_locaiton_names_users_color_names_car_names():
-    target = 'travel_plan.services.location_services.get_names'
+    target = 'travel_plan.location.location_services.get_names'
     get_location_names = unittest.mock.patch(target, return_value=None)
-    target = 'travel_plan.services.user_services.get_users'
+    target = 'travel_plan.user.user_services.get_users'
     get_users = unittest.mock.patch(target, return_value=None)
-    target = 'travel_plan.services.color_services.get_names'
+    target = 'travel_plan.color.color_services.get_names'
     get_color_names = unittest.mock.patch(target, return_value=None)
-    target = 'travel_plan.services.car_services.get_names'
+    target = 'travel_plan.car.car_services.get_names'
     get_car_names = unittest.mock.patch(target, return_value=None)
 
     return get_location_names, get_users, get_color_names, get_car_names

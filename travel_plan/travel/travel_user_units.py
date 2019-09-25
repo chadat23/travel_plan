@@ -1,7 +1,8 @@
 import datetime
 
 from travel_plan import db
-from travel_plan.services import color_services, user_services
+from travel_plan.user import user_services
+from travel_plan.color import color_services
 
 
 class TravelUserUnit(db.Model):

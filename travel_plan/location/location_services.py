@@ -1,9 +1,7 @@
 from typing import List, Optional
 
-from sqlalchemy.orm import Session
-
 from travel_plan import db
-from travel_plan.models.locations import Location, KindEnum
+from travel_plan.location.locations import Location, KindEnum
 
 
 def get_all() -> List[Location]:

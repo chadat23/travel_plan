@@ -1,5 +1,5 @@
 def test_user_services_get_users_success(app_w_db, users):
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     actual_users = user_services.get_users()
 
@@ -15,7 +15,7 @@ def test_user_services_get_users_success(app_w_db, users):
 
 
 def test_user_services_get_names_success(app_w_db, users):
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     actual_names = user_services.get_names()
 
@@ -25,7 +25,7 @@ def test_user_services_get_names_success(app_w_db, users):
 
 
 def test_user_services_get_id_from_name_success(app_w_db, users):
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     number = 3
 
@@ -38,7 +38,7 @@ def test_user_services_get_id_from_name_success(app_w_db, users):
 
 def test_user_services_get_user_from_name_success(app_w_db, users):
     from travel_plan.user.users import User
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     number = 3
 
@@ -54,7 +54,7 @@ def test_user_services_get_user_from_name_success(app_w_db, users):
 
 def test_user_services_get_user_from_email_success(app_w_db, users):
     from travel_plan.user.users import User
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     number = 3
 
@@ -70,7 +70,7 @@ def test_user_services_get_user_from_email_success(app_w_db, users):
 
 def test_user_services_create_user_success(app_w_db, users):
     from travel_plan.user.users import User
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     name = 'Bob'
     email = 'bob@email.com'
@@ -91,7 +91,7 @@ def test_user_services_create_user_success(app_w_db, users):
 
 def test_user_services_update_user_success(app_w_db, users):
     from travel_plan.user.users import User
-    from travel_plan.services import user_services
+    from travel_plan.user import user_services
 
     number = 2
     retreaved_user = user_services.get_user_from_name(users[number]['name'])

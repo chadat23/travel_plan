@@ -6,7 +6,7 @@ from travel_plan.travel.travel_file import TravelFile
 from travel_plan.travel.travel_user_units import TravelUserUnit
 from travel_plan.infrastructure.view_modifiers import response
 from travel_plan.user.users import User
-from travel_plan.services import travel_services
+from travel_plan.travel import travel_services
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
 blueprint = Blueprint('travel', __name__, template_folder='templates')

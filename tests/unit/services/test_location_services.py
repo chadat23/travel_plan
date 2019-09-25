@@ -1,8 +1,5 @@
-from sqlalchemy.orm import Session
-
-
 def test_location_services_get_all_success(app_w_db, locations):
-    from travel_plan.services import location_services
+    from travel_plan.location import location_services
 
     locs = location_services.get_all()
 
@@ -13,7 +10,7 @@ def test_location_services_get_all_success(app_w_db, locations):
 
 
 def test_location_services_get_names_success(app_w_db, locations):
-    from travel_plan.services import location_services
+    from travel_plan.location import location_services
 
     actual_locacitons = location_services.get_names()
 
@@ -23,7 +20,7 @@ def test_location_services_get_names_success(app_w_db, locations):
 
 
 def test_location_services_get_id_from_name_success(app_w_db, locations):
-    from travel_plan.services import location_services
+    from travel_plan.location import location_services
 
     actual_locaction = location_services.get_id_from_name(locations[1]['name'])
 
@@ -33,8 +30,8 @@ def test_location_services_get_id_from_name_success(app_w_db, locations):
 
 
 def test_location_services_add_location_returns_location(app_w_empty_db, locations):
-    from travel_plan.models.locations import Location
-    from travel_plan.services.location_services import add_location
+    from travel_plan.location.locations import Location
+    from travel_plan.location.location_services import add_location
 
     name = "LYV"
     latitude = 37.733023
@@ -49,8 +46,8 @@ def test_location_services_add_location_returns_location(app_w_empty_db, locatio
 
 
 def test_location_services_get_location_from_name_success(app_w_db, locations):
-    from travel_plan.models.locations import Location
-    from travel_plan.services import location_services
+    from travel_plan.location.locations import Location
+    from travel_plan.location import location_services
 
     for location in locations:
         loc = location_services.get_location_from_name(location['name'])

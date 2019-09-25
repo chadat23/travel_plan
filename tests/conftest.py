@@ -4,7 +4,7 @@ import os
 import pytest
 
 from travel_plan import create_app
-from travel_plan.models.locations import KindEnum
+from travel_plan.location.locations import KindEnum
 
 _form_data = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
               'enddate': '2019-06-20', 'exitpoint': 'May Lake TH',
@@ -161,9 +161,9 @@ def app_w_empty_db(app):
 def app_w_db(app_w_empty_db):
     # with app_w_empty_db.app_context():
     from travel_plan import db
-    from travel_plan.models.cars import Car
-    from travel_plan.models.colors import Color
-    from travel_plan.models.locations import Location
+    from travel_plan.car.cars import Car
+    from travel_plan.color.colors import Color
+    from travel_plan.location.locations import Location
     from travel_plan.user.users import User
 
     [db.session.add(Color(c)) for c in _colors]
@@ -241,14 +241,14 @@ def initialized_users(users):
 
 @pytest.fixture()
 def initialized_locations(locations):
-    from travel_plan.models.locations import Location
+    from travel_plan.location.locations import Location
 
     yield [Location(**a) for a in locations]
 
 
 @pytest.fixture()
 def initialized_colors(colors):
-    from travel_plan.models.colors import Color
+    from travel_plan.color.colors import Color
 
     yield [Color(c) for c in colors]
 
@@ -257,7 +257,7 @@ def initialized_colors(colors):
 def initialized_cars(cars):
     import unittest.mock
 
-    from travel_plan.models.cars import Car
+    from travel_plan.car.cars import Car
 
     target = 'travel_plan.services.color_services.add_if_not_present'
     # m = unittest.mock.MagicMock()

@@ -14,9 +14,9 @@ def main():
     create_app()
 
     from travel_plan import db
-    from travel_plan.models.cars import Car
-    from travel_plan.models.colors import Color
-    from travel_plan.models.locations import Location
+    from travel_plan.car.cars import Car
+    from travel_plan.color.colors import Color
+    from travel_plan.location.locations import Location
     from travel_plan.user.users import User
 
     for n in conftest._cars:
