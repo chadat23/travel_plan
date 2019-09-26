@@ -2,6 +2,7 @@ import datetime
 
 from travel_plan import db
 # from travel_plan.models.travel_user_units import TravelUserUnit
+from travel_plan.department.departments import Department
 
 
 class User(db.Model):
@@ -13,7 +14,8 @@ class User(db.Model):
 
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, index=True, unique=True, nullable=True)
-    department: str = db.Column(db.String)
+    department_id: int = db.Column(db.String, db.ForeignKey('departments.id'))
+    department: Department = db.relationship('Department', foreign_keys=[department_id])
 
     travels = db.relationship('TravelUserUnit', backref='traveler')
 
@@ -31,7 +33,7 @@ class User(db.Model):
         self.home_number = home_number
         self.cell_number = cell_number
         self.active = active
-        self.department = department
+        self.department_id = department
 
     def __lt__(self, other):
         return self.name < other.name

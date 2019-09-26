@@ -37,35 +37,51 @@ _form_data = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
               'contacthome0': '555-465-4566', 'contactcell0': '555-789-7899',
               'contactemail1': 'ilovedogs@address.net', 'contactwork1': '555-123-1230',
               'contacthome1': '555-465-4560', 'contactcell1': '555-789-7890',
-              'garavg': '3.84', 'mitigatedgar': '2.5', 'garmitigations': 'Be careful!\nTake chances!', 'notes': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat nam at lectus urna duis convallis convallis. Eget mi proin sed libero enim. Sem integer vitae justo eget. Et netus et malesuada fames ac turpis egestas maecenas. Arcu vitae elementum curabitur vitae nunc sed. Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Id porta nibh venenatis cras sed. At varius vel pharetra vel turpis nunc. Id donec ultrices tincidunt arcu non. Nullam non nisi est sit amet. Elementum curabitur vitae nunc sed. Sodales ut etiam sit amet nisl purus in mollis nunc.",
+              'garavg': '3.84', 'mitigatedgar': '2.5', 'garmitigations': 'Be careful!\nTake chances!',
+              'notes': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat nam at lectus urna duis convallis convallis. Eget mi proin sed libero enim. Sem integer vitae justo eget. Et netus et malesuada fames ac turpis egestas maecenas. Arcu vitae elementum curabitur vitae nunc sed. Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Id porta nibh venenatis cras sed. At varius vel pharetra vel turpis nunc. Id donec ultrices tincidunt arcu non. Nullam non nisi est sit amet. Elementum curabitur vitae nunc sed. Sodales ut etiam sit amet nisl purus in mollis nunc.",
               }
 
-_users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com',
-          'home_number': '555-123-1234', 'work_number': '555-123-2345', 'cell_number': '555-123-3456', 'department': 'Wilderness'},
-          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com',
-          'home_number': '555-234-1234', 'work_number': '555-234-2345', 'cell_number': '555-234-3456', 'department': 'Wilderness'},
-          {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com',
-          'home_number': '555-345-1234', 'work_number': '555-345-2345', 'cell_number': '555-345-3456', 'department': 'Wilderness'},
-          {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com',
-          'home_number': '555-456-1234', 'work_number': '555-456-2345', 'cell_number': '555-456-3456', 'department': 'Wilderness'},
-          {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com',
-          'home_number': '555-567-1234', 'work_number': '555-567-2345', 'cell_number': '555-567-3456', 'department': 'Wilderness'},
+_departments = [{'name': 'Wilderness'}]
+
+_users = [{'name': 'Dow, Jane', 'email': 'chad.derosier+a@gmail.com', 'home_number': '555-123-1234',
+           'work_number': '555-123-2345', 'cell_number': '555-123-3456', 'department': 'Wilderness'},
+          {'name': 'Dow, John', 'email': 'chad.derosier+b@gmail.com', 'home_number': '555-234-1234',
+           'work_number': '555-234-2345', 'cell_number': '555-234-3456', 'department': 'Wilderness'},
+          {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com', 'home_number': '555-345-1234',
+           'work_number': '555-345-2345', 'cell_number': '555-345-3456', 'department': 'Wilderness'},
+          {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com', 'home_number': '555-456-1234',
+           'work_number': '555-456-2345', 'cell_number': '555-456-3456', 'department': 'Wilderness'},
+          {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com', 'home_number': '555-567-1234',
+           'work_number': '555-567-2345', 'cell_number': '555-567-3456', 'department': 'Wilderness'},
           ]
 
-_locations = [{'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
-              {'name': 'LYV', 'latitude': 37.733023, 'longitude': -119.514508, 'kind': KindEnum.Campground, 'note': '', 'is_in_park': True},
-              {'name': 'May Lake HSC', 'latitude': 37.844617, 'longitude': -119.491018, 'kind': KindEnum.Campground, 'note': '', 'is_in_park': True},
-              {'name': 'May Lake TH', 'latitude': 37.832687, 'longitude': -119.490761, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
-              {'name': 'Ten Lakes Basin', 'latitude': 37.899158, 'longitude': -119.522609, 'kind': KindEnum.Basin, 'note': '', 'is_in_park': True},
-              {'name': 'Ten Lakes TH', 'latitude': 37.852321, 'longitude': -119.575861, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
-              {'name': 'Sunrise Lakes', 'latitude': 37.805904, 'longitude': -119.448250, 'kind': KindEnum.Area, 'note': '', 'is_in_park': True},
-              {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687, 'kind': KindEnum.Trail_Head, 'note': '', 'is_in_park': True},
-              ]
+_locations = [
+    {'name': 'Happy Isles TH', 'latitude': 37.732555, 'longitude': -119.557803, 'kind': KindEnum.Trail_Head, 'note': '',
+     'is_in_park': True},
+    {'name': 'LYV', 'latitude': 37.733023, 'longitude': -119.514508, 'kind': KindEnum.Campground, 'note': '',
+     'is_in_park': True},
+    {'name': 'May Lake HSC', 'latitude': 37.844617, 'longitude': -119.491018, 'kind': KindEnum.Campground, 'note': '',
+     'is_in_park': True},
+    {'name': 'May Lake TH', 'latitude': 37.832687, 'longitude': -119.490761, 'kind': KindEnum.Trail_Head, 'note': '',
+     'is_in_park': True},
+    {'name': 'Ten Lakes Basin', 'latitude': 37.899158, 'longitude': -119.522609, 'kind': KindEnum.Basin, 'note': '',
+     'is_in_park': True},
+    {'name': 'Ten Lakes TH', 'latitude': 37.852321, 'longitude': -119.575861, 'kind': KindEnum.Trail_Head, 'note': '',
+     'is_in_park': True},
+    {'name': 'Sunrise Lakes', 'latitude': 37.805904, 'longitude': -119.448250, 'kind': KindEnum.Area, 'note': '',
+     'is_in_park': True},
+    {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687, 'kind': KindEnum.Trail_Head,
+     'note': '', 'is_in_park': True},
+    ]
 
-_cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White', 'location': 'Yosemite Valley', 'active': True},
-         {'plate': 'G13-587', 'make': 'Ford', 'model': 'F-150', 'color': 'White', 'location': 'Tuolumne', 'active': True},
-         {'plate': 'G13-789', 'make': 'Honda', 'model': 'Element', 'color': 'Blue', 'location': 'El Portal', 'active': True},
-         {'plate': 'G13-875', 'make': 'Nissan', 'model': 'Sentura', 'color': 'Silver', 'location': 'Yosemite Valley', 'active': True},
+_cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White', 'location': 'Yosemite Valley',
+          'active': True, 'department': 'Wilderness'},
+         {'plate': 'G13-587', 'make': 'Ford', 'model': 'F-150', 'color': 'White', 'location': 'Tuolumne',
+          'active': True, 'department': 'Wilderness'},
+         {'plate': 'G13-789', 'make': 'Honda', 'model': 'Element', 'color': 'Blue', 'location': 'El Portal',
+          'active': True, 'department': 'Wilderness'},
+         {'plate': 'G13-875', 'make': 'Nissan', 'model': 'Sentura', 'color': 'Silver', 'location': 'Yosemite Valley',
+          'active': True, 'department': 'Wilderness'},
          ]
 
 _colors = ['Red', 'Green', 'Blue', 'Orange', 'Black', 'White']
@@ -128,19 +144,6 @@ def app(tmp_path_factory):
     yield app
 
     os.remove(db_path)
-    # flask_app = create_app(config)
-    #
-    # # Flask provides a way to test your application by exposing the Werkzeug test Client
-    # # and handling the context locals for you.
-    # testing_client = flask_app.test_client()
-    #
-    # # Establish an application context before running the tests.
-    # ctx = flask_app.app_context()
-    # ctx.push()
-    #
-    # yield testing_client  # this is where the testing happens!
-    #
-    # ctx.pop()
 
 
 @pytest.fixture()
@@ -163,9 +166,11 @@ def app_w_db(app_w_empty_db):
     from travel_plan import db
     from travel_plan.car.cars import Car
     from travel_plan.color.colors import Color
+    from travel_plan.department.departments import Department
     from travel_plan.location.locations import Location
     from travel_plan.user.users import User
 
+    [db.session.add(Department(**d)) for d in _departments]
     [db.session.add(Color(c)) for c in _colors]
     [db.session.add(Car(**c)) for c in _cars]
     [db.session.add(Location(**loc)) for loc in _locations]
@@ -189,6 +194,11 @@ def cars():
 @pytest.fixture()
 def colors():
     yield _colors
+
+
+@pytest.fixture()
+def departments():
+    yield _departments
 
 
 @pytest.fixture()

@@ -25,8 +25,10 @@ def create_app(config_class=Config):
     # with app.app_context():
     from travel_plan.car.cars import Car
     from travel_plan.color.colors import Color
+    from travel_plan.department.departments import Department
     from travel_plan.location.locations import Location
     from travel_plan.travel.travel_days import TravelDay
+    from travel_plan.travel.travels import Travel
     from travel_plan.user.users import User
     db.create_all()
 

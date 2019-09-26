@@ -1,13 +1,8 @@
 import datetime
-import enum
 
 from travel_plan import db
 from travel_plan.color import color_services
-
-
-class DepartmentEnum(enum.Enum):
-    Wilderness = 1
-    BnG = 2
+from travel_plan.department.departments import Department
 
 
 class Car(db.Model):
@@ -22,10 +17,11 @@ class Car(db.Model):
     color = db.relationship('Color', foreign_keys=[color_id])
     location: str = db.Column(db.String)
     active: bool = db.Column(db.Boolean)
-    department: str = db.Column(db.String)
+    department_id: int = db.Column(db.String, db.ForeignKey('departments.id'))
+    department = db.relationship('Department', foreign_keys=[department_id])
 
     def __init__(self, plate: str, make: str = None, model: str = None, color: str = None, 
-                 location: str = None, active: bool = None):
+                 location: str = None, active: bool = None, department: Department = None):
         self.plate = plate
         self.make = make
         self.model = model
