@@ -96,7 +96,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
     for day in day_plans:
         day.travel = travel
         db.session.add(day)
-    db.session.commit()
+    # db.session.commit()
     for file in files:
         # TODO: this could be better
         if not travel_file_services.is_present(file.name):

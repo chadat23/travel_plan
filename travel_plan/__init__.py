@@ -4,10 +4,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from travel_plan.config import Config
-# from travel_plan.infrastructure.view_modifiers import response
-# from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
-db: SQLAlchemy = SQLAlchemy()
+db: SQLAlchemy = SQLAlchemy(session_options={"autoflush": False})
 
 
 def create_app(config_class=Config):
@@ -29,6 +27,8 @@ def create_app(config_class=Config):
     from travel_plan.location.locations import Location
     from travel_plan.car.car_notes import Note
     from travel_plan.travel.travel_days import TravelDay
+    from travel_plan.travel.travel_file import TravelFile
+    from travel_plan.travel.travel_user_units import TravelUserUnit
     from travel_plan.travel.travels import Travel
     from travel_plan.user.users import User
     db.create_all()

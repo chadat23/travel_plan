@@ -16,8 +16,12 @@ def main():
     from travel_plan import db
     from travel_plan.car.cars import Car
     from travel_plan.color.colors import Color
+    from travel_plan.department.departments import Department
     from travel_plan.location.locations import Location
     from travel_plan.user.users import User
+
+    for n in conftest._departments:
+        db.session.add(Department(**n))
 
     for n in conftest._cars:
         db.session.add(Car(**n))

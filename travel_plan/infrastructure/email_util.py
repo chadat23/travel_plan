@@ -79,7 +79,6 @@ def _send_mail(recipients: List[str], files: List[str], subject: str, body: str)
 
 def _make_subject(travel: Travel) -> str:
     subject = 'Travel itinerary for : '
-    print(subject)
     for traveler in travel.travelers:
         subject += traveler.call_sign + ', '
 
