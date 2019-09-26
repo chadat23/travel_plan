@@ -27,6 +27,7 @@ def create_app(config_class=Config):
     from travel_plan.color.colors import Color
     from travel_plan.department.departments import Department
     from travel_plan.location.locations import Location
+    from travel_plan.car.car_notes import Note
     from travel_plan.travel.travel_days import TravelDay
     from travel_plan.travel.travels import Travel
     from travel_plan.user.users import User

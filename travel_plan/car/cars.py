@@ -2,6 +2,7 @@ import datetime
 
 from travel_plan import db
 from travel_plan.color import color_services
+from travel_plan.department import department_services
 from travel_plan.department.departments import Department
 
 
@@ -19,6 +20,7 @@ class Car(db.Model):
     active: bool = db.Column(db.Boolean)
     department_id: int = db.Column(db.String, db.ForeignKey('departments.id'))
     department = db.relationship('Department', foreign_keys=[department_id])
+    notes = db.relationship('Note', backref='car')
 
     def __init__(self, plate: str, make: str = None, model: str = None, color: str = None, 
                  location: str = None, active: bool = None, department: Department = None):
@@ -29,6 +31,7 @@ class Car(db.Model):
         self.color_id = color_services.get_id_from_name(color)
         self.location = location
         self.active = active
+        self.department_id = department_services.get_id_from_name(department)
 
     def __lt__(self, other):
         return str(self) < str(other)
