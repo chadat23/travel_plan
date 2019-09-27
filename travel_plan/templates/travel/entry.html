@@ -31,43 +31,51 @@
 
 <div class="container">
     <form action="/travel/entry" method="POST" enctype=multipart/form-data>
-        <div class="row entry-section">
-            <div class="row col-lg-5">
-                <datalist id="locations">
-                    {% for loc in locations %}
-                    <option>{{ loc }}</option>
-                    {% endfor %}
-                </datalist>
-                <div class="col-xl-2">Entry:</div>
-                <input type="date" name="startdate" title="Entry Date" class="col-xl-3 date-input"
-                       value="{{ start_date }}" required/>
-                <input type="text" name="entrypoint" placeholder="Entry Location" class="col-xl-7 text-input"
-                       value="{{ entry_point }}" list="locations" required/>
-            </div>
-            <div class="row col-lg-5">
-                <div class="col-xl-2">Exit:</div>
-                <input type="date" name="enddate" title="Exit Date" class="col-xl-3 date-input" value="{{ end_date }}"
-                       required/>
-                <input type="text" name="exitpoint" placeholder="Exit Location" class="col-xl-7"
-                       value="{{ exit_point }}" list="locations" required/>
-            </div>
-            <div class="row col-lg-2">
-                <div class="col-xl-7" title="Will you be tracked by dispatch?">
-                    <label class="radio-inline">
-                        <input type="radio" name="tracked" id="tracked1" value="yes" {% if tracked %}checked{% else %}{%
-                               endif %} required>
-                        Yes
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="tracked" id="tracked2" value="no" {% if not tracked %}checked{% else
-                               %}{% endif %} required>
-                        No
-                    </label>
+        <div class="entry-section">
+            <h5>
+                Trip Info
+            </h5>
+            <div class="row">
+                <div class="row col-lg-5">
+                    <datalist id="locations">
+                        {% for loc in locations %}
+                        <option>{{ loc }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <div class="col-xl-2">Entry:</div>
+                    <input type="date" name="startdate" title="Entry Date" class="col-xl-3 date-input"
+                            value="{{ start_date }}" required/>
+                    <input type="text" name="entrypoint" placeholder="Entry Location" class="col-xl-7 text-input"
+                            value="{{ entry_point }}" list="locations" required/>
                 </div>
-                <input type="text" name="plb" placeholder="PLB #" class="col-xl-5" value="{{ plb }}"/>
-            </div>
+                <div class="row col-lg-5">
+                    <div class="col-xl-2">Exit:</div>
+                    <input type="date" name="enddate" title="Exit Date" class="col-xl-3 date-input" value="{{ end_date }}"
+                            required/>
+                    <input type="text" name="exitpoint" placeholder="Exit Location" class="col-xl-7"
+                            value="{{ exit_point }}" list="locations" required/>
+                </div>
+                <div class="row col-lg-2">
+                    <div class="col-xl-7" title="Will you be tracked by dispatch?">
+                        <label class="radio-inline">
+                            <input type="radio" name="tracked" id="tracked1" value="yes" {% if tracked %}checked{% else %}{%
+                                    endif %} required>
+                            Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="tracked" id="tracked2" value="no" {% if not tracked %}checked{% else
+                                    %}{% endif %} required>
+                            No
+                        </label>
+                    </div>
+                    <input type="text" name="plb" placeholder="PLB #" class="col-xl-5" value="{{ plb }}"/>
+                </div>
+            </div>            
         </div>
         <div class="entry-section">
+            <h5>
+                Traveler Info
+            </h5>
             <div class="row">
                 <datalist id="users">
                     {% for user in users %}
@@ -107,6 +115,9 @@
         </div>
 
         <div class="entry-section">
+            <h5>
+                Day's Plans
+            </h5>
             <datalist id="mode">
                 <option>Foot</option>
                 <option>Stock</option>
@@ -129,6 +140,9 @@
         </div>
 
         <div class="entry-section">
+            <h5>
+                Car Info
+            </h5>
             <div class="row">
                 <datalist id="cars">
                     {% for car in cars %}
@@ -149,6 +163,9 @@
         </div>
 
         <div class="entry-section">
+            <h5>
+                Gear Info
+            </h5>
             <div class="row">
                 <div class="form-check col-sm-4 col-md-3 col-lg-2">
                         <input type="checkbox" name="bivygear" id="bivygear" {% if bivy_gear %}checked{% else %}{% endif %}>
@@ -269,6 +286,12 @@
         </div>
 
         <div class="entry-section">
+            <h5>
+                Responsible Party Selection
+            </h5>
+            <div class="note">
+                Note, if the RP's name and email is on file, their on-file email address will be used even if something else is entered below.
+            </div>
             <datalist id="emails">
                 {% for user in users %}
                 <option>{{ user.email }}</option>
@@ -276,26 +299,26 @@
             </datalist>
             {% for d in contacts %}
             <div class="row">
-                <input type="text" name="contactemail{{ loop.index0 }}" placeholder="Responsible Party {{ loop.index }}"
+                <input type="text" name="contactname{{ loop.index0 }}" placeholder="Responsible Party Name {{ loop.index }}"
+                       class="col-xl-3" value="{{ d['contact_email'] }}" list="users"/>
+                <input type="text" name="contactemail{{ loop.index0 }}" placeholder="Email"
                        class="col-xl-3" value="{{ d['contact_email'] }}" list="emails"/>
-                <input type="text" name="contactwork{{ loop.index0 }}" placeholder="Work Phone" class="col-xl-3"
+                <input type="text" name="contactwork{{ loop.index0 }}" placeholder="Work Phone" class="col-xl-2"
                        value="{{ d['contact_work'] }}"/>
-                <input type="text" name="contacthome{{ loop.index0 }}" placeholder="Home Phone" class="col-xl-3"
+                <input type="text" name="contacthome{{ loop.index0 }}" placeholder="Home Phone" class="col-xl-2"
                        value="{{ d['contact_home'] }}"/>
-                <input type="text" name="contactcell{{ loop.index0 }}" placeholder="Cell Phone" class="col-xl-3"
+                <input type="text" name="contactcell{{ loop.index0 }}" placeholder="Cell Phone" class="col-xl-2"
                        value="{{ d['contact_cell'] }}"/>
             </div>
             {% endfor %}
         </div>
 
         <div class="entry-section">
-            <div class="row">
-                <div class="col-xl-2">
-                    Risk Calculation
-                </div>
-                <div class="col-xl-10">
-                    1 = No Risk, 10 = Extreme Risk
-                </div>
+            <h5>
+                Risk Calculation
+            </h5>
+            <div class="note">
+                1 = No Risk, 10 = Extreme Risk
             </div>
             <div class="row set-height">
                 <div class="col-sm-1 risk-label">
