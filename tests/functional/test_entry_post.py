@@ -25,8 +25,6 @@ def test_get_travel_by_id(app_w_db, form_data):
     pdf_stuff = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.infrastructure.email_util.email_files'
     emailer = unittest.mock.patch(target, return_value=[])
-    # m = unittest.mock.MagicMock()
-    # m.side_effect = [6, 6, 3, 1]
     target = 'travel_plan.services.color_services.get_id_from_name'
     test_color = unittest.mock.patch(target, return_value=3)
     with app_w_db.test_request_context(path='/travel/entry', data=form_data):
@@ -55,3 +53,8 @@ def test_get_travel_by_id(app_w_db, form_data):
         assert d.ending_point.name == form_data['endingpoint' + str(i)]
         assert d.route == form_data['route' + str(i)]
         assert d.mode == form_data['mode' + str(i)]
+
+    for i, c in enumerate(travel.contacts):
+        assert c.name == form_data['contactname' + str(i)]
+        assert c.email == form_data['contactemail' + str(i)]
+        assert c.home_number == form_data['contacthome' + str(i)]

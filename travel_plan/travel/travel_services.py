@@ -88,7 +88,6 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                     notes=notes,
                     )
 
-    contacts = [_verify_contact(c) for c in contacts]
     db.session.add(travel)
     for tu in traveler_units:
         tu.travel = travel
@@ -101,6 +100,7 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
         if not travel_file_services.is_present(file.name):
             file.travel = travel
             db.session.add(file)
+    contacts = [_verify_contact(c) for c in contacts]
     for contact in contacts:
         travel.contacts.append(contact)
     db.session.commit()

@@ -34,10 +34,6 @@ body {
     background-color: #FF6464;
 }
 
-.note {
-    padding-left: 50px;
-}
-
 ::-webkit-calendar-picker-indicator {
     margin: 0px;
 }

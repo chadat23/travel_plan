@@ -112,9 +112,9 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                            {'date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH',
                             'route': 'More trail', 'mode': 'foot'},
                            ],
-             'contacts': [{'name': 'Coworker 1', 'email': 'chad.derosier+a@gmail.com', 'work_number': '555-1234',
+             'contacts': [{'name': 'Coworker 1', 'email': 'chad.derosier+f@gmail.com', 'work_number': '555-1234',
                            'home_number': '555-2345', 'cell_number': '555-3456'},
-                          {'name': 'Coworker 2', 'email': 'chad.derosier+b@gmail.com', 'work_number': '555-2234',
+                          {'name': 'Coworker 2', 'email': 'chad.derosier+g@gmail.com', 'work_number': '555-2234',
                            'home_number': '555-3345', 'cell_number': '555-4456'}
                           ],
              'files': [{'name': 'Dow_Jane_20190809.pdf'}, {'name': 'Dow_Jane_20190809_1.jpg'}]
