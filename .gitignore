@@ -91,6 +91,7 @@ env.bak/
 venv.bak/
 .idea/
 config.py
+settings.json
 
 # Spyder project settings
 .spyderproject
