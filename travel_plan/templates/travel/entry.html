@@ -64,7 +64,7 @@
                         No
                     </label>
                 </div>
-                <input type="text" name="plb" placeholder="PLB #" class="col-xl-5" value="{{ plb }}" required/>
+                <input type="text" name="plb" placeholder="PLB #" class="col-xl-5" value="{{ plb }}"/>
             </div>
         </div>
         <div class="entry-section">
@@ -82,13 +82,13 @@
                 <input type="text" name="travelername0" placeholder="Trip Leader" class="col-xl-4"
                        value="{{ travelers[0]['traveler_name'] }}" list="users" required/>
                 <input type="text" name="callsign0" placeholder="Call Sign" class="col-xl-2"
-                       value="{{ travelers[0]['call_sign'] }}" required/>
+                       value="{{ travelers[0]['call_sign'] }}"/>
                 <input type="text" name="packcolor0" placeholder="Pack Color" class="col-xl-2"
-                       value="{{ travelers[0]['pack_color'] }}" list="colors" required/>
+                       value="{{ travelers[0]['pack_color'] }}" list="colors"/>
                 <input type="text" name="tentcolor0" placeholder="Tent Color" class="col-xl-2"
-                       value="{{ travelers[0]['tent_color'] }}" list="colors" required/>
+                       value="{{ travelers[0]['tent_color'] }}" list="colors"/>
                 <input type="text" name="flycolor0" placeholder="Fly/Tarp Color" class="col-xl-2"
-                       value="{{ travelers[0]['fly_color'] }}" list="colors" required/>
+                       value="{{ travelers[0]['fly_color'] }}" list="colors"/>
             </div>
             {% for p in travelers[1:] %}
             <div class="row">
@@ -240,7 +240,7 @@
             </div>
 
             <input type="number" name="daysoffood" placeholder="Days Worth of Food" class="col-xl-6"
-                   value="{{ days_of_food }}" step="any"/>
+                   value="{{ days_of_food }}" step="any" required>
             <input type="text" name="weapon" placeholder="Weapon?" class="col-xl-6" value="{{ weapon }}"/>
             <input type="text" name="radiomonitortime" placeholder="Time You Monitor Radio" class="col-xl-6"
                    value="{{ radio_monitor_time }}"/>
@@ -346,14 +346,14 @@
             {% endfor %}
             <div class="row">
                 <span class="col-xl-1">Average of Totals</span>
-                <input type="text" name="garavg" class="col-sm-1" value="{{ gar_avg }}"/>
+                <input type="text" name="garavg" class="col-sm-1" value="{{ gar_avg }}" required/>
             </div>
             <div>
                 Discuss as a group how to manage and mitigate these risks and then the reasons.
             </div>
             <div class="row">
                 <span class="col-xl-1"></span>
-                <input type="number" name="mitigatedgar" value="{{ mitigated_gar }}" class="col-sm-1" step="any"/>
+                <input type="number" name="mitigatedgar" value="{{ mitigated_gar }}" class="col-sm-1" step="any" required/>
             </div>
             <div>
                 Hazards identified and mitigations taken: radio dead spots, river crossings, weather forecasts,
