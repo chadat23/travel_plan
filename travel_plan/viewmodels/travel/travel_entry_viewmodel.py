@@ -91,11 +91,13 @@ class TravelEntryViewModel(ViewModelBase):
         for i in range(2):
             c = {}
             if 'contactemail' + str(i) in request.form:
+                c['contact_name'] = request.form['contactname' + str(i)]
                 c['contact_email'] = request.form['contactemail' + str(i)]
                 c['contact_work'] = request.form['contactwork' + str(i)]
                 c['contact_home'] = request.form['contacthome' + str(i)]
                 c['contact_cell'] = request.form['contactcell' + str(i)]
             else:
+                c['contact_name'] = ''
                 c['contact_email'] = ''
                 c['contact_work'] = ''
                 c['contact_home'] = ''
@@ -103,7 +105,6 @@ class TravelEntryViewModel(ViewModelBase):
             self.contacts.append(c)
 
         self.cars = car_services.get_names()
-        # self.cars = ['one', 'two']
         self.car_plate = self.request_dict.carplate
         self.car_make = self.request_dict.carmake
         self.car_model = self.request_dict.carmodel

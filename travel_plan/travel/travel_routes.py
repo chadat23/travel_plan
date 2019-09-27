@@ -32,7 +32,7 @@ def entry_post():
 
     day_plans = [TravelDay(**pd) for pd in vm.day_plans if pd['date']]
 
-    emergency_contacts = [User(u['contact_email'].split('@')[0], u['contact_email'], u['contact_work'],
+    emergency_contacts = [User(u['contact_name'], u['contact_email'], u['contact_work'],
                                u['contact_home'], u['contact_cell']) for u in vm.contacts]
 
     base_name = file_util.generate_name(vm.trip_leader_name, vm.start_date)

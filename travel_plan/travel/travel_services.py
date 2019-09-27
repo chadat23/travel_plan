@@ -131,9 +131,8 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
 
 
 def _verify_contact(contact: User) -> User:
-    existing_contact = user_services.get_user_from_email(contact.email)
+    existing_contact = user_services.get_user_from_name(contact.name)
     if not existing_contact:
-        contact.name = contact.email.split('@')[0].replace('_', '')
         contact.active = False
         return user_services.create_user(user=contact)
     if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \

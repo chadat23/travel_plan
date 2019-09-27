@@ -290,7 +290,15 @@
                 Responsible Party Selection
             </h5>
             <div class="note">
-                Note, if the RP's name and email is on file, their on-file email address will be used even if something else is entered below.
+                Note:
+                    <ul>
+                        <li>
+                            If the RP's name and email is on file, their on-file email address will be used even if something else is entered below.
+                        </li>
+                        <li>
+                            If the name that you're entering isn't present, please enter it in the format "Muir, John" (since it'll be saved with other names, ideally it'll be in the same format as said other names). 
+                        </li>
+                    </ul>
             </div>
             <datalist id="emails">
                 {% for user in users %}
@@ -300,7 +308,7 @@
             {% for d in contacts %}
             <div class="row">
                 <input type="text" name="contactname{{ loop.index0 }}" placeholder="Responsible Party Name {{ loop.index }}"
-                       class="col-xl-3" value="{{ d['contact_email'] }}" list="users"/>
+                       class="col-xl-3" value="{{ d['contact_name'] }}" list="users"/>
                 <input type="text" name="contactemail{{ loop.index0 }}" placeholder="Email"
                        class="col-xl-3" value="{{ d['contact_email'] }}" list="emails"/>
                 <input type="text" name="contactwork{{ loop.index0 }}" placeholder="Work Phone" class="col-xl-2"
