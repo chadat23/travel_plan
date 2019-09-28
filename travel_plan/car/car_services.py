@@ -28,6 +28,7 @@ def get_id_from_plate(plate: str):
     Gets the id of a car with a given plate
     
     :param plate: the plate of a car
+    :type plate: str
     :returns: the id of a car with the given plate or none if no matching car was found
     '''
     try:
@@ -58,14 +59,20 @@ def create_car(plate: str, make: str = None, model: str = None, color: str = Non
     Government vehicles should presumably typically be set to active == True.
         
     :param plate: the car's license plate
+    :type plate: str
     :param make: the car's make
+    :type make: str
     :param model: the car's model
+    :type model: str
     :param color: the car's color
+    :type color: str
     :param location: the location where the car's typically left, ie. "The Valley", or "El Portal"
+    :type location: str
     :param active: whether or not the car is generally available. It'd be considered
     "available" if it's generally in rotaiton to be used by travelers. Government
     vehicles will generally be set to active = True. Personal vehicles will generally 
     be set to active = False.
+    :type active: bool
     :returns: the Car that was created
     '''
     
@@ -87,7 +94,9 @@ def get_car(id: int = 0, plate: str = '') -> Optional[Car]:
     This avoids needing a "get_car_by_id" and "get_car_by_plate" functions.
     
     :param id: the id of a Car object that's to be retrieved
+    :type id: int
     :param plate: the plate of a Car object that's to be retrieved
+    :type plate: str
     :returns: a Car object with the supplied id or plate, or None if no car is found.
     '''
     
