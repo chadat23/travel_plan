@@ -155,7 +155,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.gar_avg = self.request_dict.garavg
         self.mitigated_gar = self.request_dict.mitigatedgar
         self.gar_mitigations = self.request_dict.garmitigations
-
+        
         self.notes = self.request_dict.notes
 
     def validate(self):

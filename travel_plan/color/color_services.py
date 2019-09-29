@@ -4,10 +4,11 @@ from travel_plan import db
 from travel_plan.color.colors import Color
 
 
-def get_names() -> List[str]:
+def get_names() -> Optional[List[str]]:
     '''
+    Gets the names of all the available colors.
 
-    :return:
+    :return: a list of strings of the color names
     '''
 
     try:
@@ -17,16 +18,28 @@ def get_names() -> List[str]:
 
 
 def is_present(name: str) -> bool:
+    '''
+    Checks if a color is present in the database.
+
+    :param name: the name of the color to be checked
+    :type name: str
+    :return: True of the color is present, otherwise False
+    '''
     name = name.lower().strip().title()
 
     try:
         return db.session.query(Color).filter(Color.name == name).all() != []
     except Exception as e:
-        print('Exception: ', e)
         return None
 
 
-def add(name: str):
+def add(name: str) -> Optional[str]:
+    '''
+    Save the color name to the database.
+
+    :param name: the name of the color to be added to the database
+    :return: the color name as a str if it was successful, otherwise None
+    '''
     name = name.lower().strip().title()
     try:
         db.session.add(Color(name))
@@ -37,6 +50,15 @@ def add(name: str):
 
 
 def add_if_not_present(name: str) -> Optional[str]:
+    '''
+    Save the color to the db if it isn't present.
+
+    A convenience function combining is_present and add.
+
+    :param name: the name of the color to be checked and maybe added.
+    :return: the color name formatted to title format if apready 
+    present or added, or None if there was a problem
+    '''
     if not is_present(name):
         return add(name)
 
@@ -44,6 +66,12 @@ def add_if_not_present(name: str) -> Optional[str]:
 
 
 def get_id_from_name(name: str) -> Optional[int]:
+    '''
+    Get the id of the color with the supplied name.
+
+    :param name: a str of the color name
+    :return: int if successful, otherwise None
+    '''
     name = name.lower().strip().title()
 
     try:
