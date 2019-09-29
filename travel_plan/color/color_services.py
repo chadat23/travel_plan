@@ -5,10 +5,13 @@ from travel_plan.color.colors import Color
 
 
 def get_names() -> List[str]:
+    '''
+
+    :return:
+    '''
 
     try:
         return list(dict.fromkeys([n[0] for n in db.session.query(Color.name).order_by(Color.name).all()]))
-        # names = set([n[0] for n in session.query(Color.name).order_by(Color.name).all()])
     except:
         return []
 

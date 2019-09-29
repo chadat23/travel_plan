@@ -4,6 +4,10 @@ from travel_plan import db
 
 
 class Department(db.Model):
+    '''
+
+    '''
+
     __tablename__ = 'departments'
 
     id: int = db.Column(db.Integer, primary_key=True)
@@ -11,6 +15,10 @@ class Department(db.Model):
     name: str = db.Column(db.String, unique=True, nullable=False)
 
     def __init__(self, name: str):
+        '''
+
+        :param name:
+        '''
         self.name = name
 
     def __lt__(self, other):

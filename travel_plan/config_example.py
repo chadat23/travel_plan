@@ -8,8 +8,13 @@ def _make_uri(prefix, folder, file_name):
 
 
 class Config:
-    EMAIL_ADDRESS = "<email@address.com>"
-    EMAIL_PASSWORD = "<password>"
+    MAIL_SERVER = "<smtp.gmail.com>"
+    MAIL_PORT = mail_port
+    MAIL_USERNAME = "<email@address.com>"
+    MAIL_PASSWORD = "<password>"
+    MAIL_USE_TLS = True
+    # MAIL_USE_SSL = True
+
     DEFAULT_EMAIL_LIST = ["<default@email.1>", "d<efault@email.2>"]
 
     PDF_FOLDER_PATH = "<example/folder/path/to/file/save/location>"

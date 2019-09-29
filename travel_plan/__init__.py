@@ -1,11 +1,13 @@
 import os
 
 from flask import Flask
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 
 from travel_plan.config import Config
 
 db: SQLAlchemy = SQLAlchemy(session_options={"autoflush": False})
+mail = Mail()
 
 
 def create_app(config_class=Config):
@@ -13,7 +15,9 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     app.app_context().push()  # Didn't seen this with the other version
+
     db.init_app(app)
+    mail.init_app(app)
 
     if app.config.get('PDF_FOLDER_PATH'):
         os.makedirs(app.config['PDF_FOLDER_PATH'], exist_ok=True)
