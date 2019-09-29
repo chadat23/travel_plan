@@ -1,9 +1,9 @@
 from flask import Response
 from werkzeug.wrappers.response import Response as werkzeug_response
 
-# from tests.test_client import flask_app
-
 import unittest.mock
+
+from travel_plan.travel.travels import Travel
 
 
 def test_travel_view_entry_post_success(app_w_db, form_data):
@@ -20,11 +20,13 @@ def test_travel_view_entry_post_success(app_w_db, form_data):
     target = 'travel_plan.infrastructure.email_util.email_travel'
     emailer = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.travel.travel_services.get_travel_by_id'
-    get_travel = unittest.mock.patch(target, return_value=None)
-    target = 'travel_plan.travel.travel_services.create_plan'
-    with unittest.mock.patch(target, retun_value=1) as create_plan:
-        with namer, saver, pdf_stuff, emailer, get_travel, request:
-        # with request:
+    get_travel = unittest.mock.patch(target, return_value=Travel(*range(40)))
+    target = 'travel_plan.travel.travels.Travel.get_contact_list'
+    get_contacts = unittest.mock.patch(target, return_value=[])
+    target1 = 'travel_plan.travel.travel_services.create_plan'
+    target2 = 'travel_plan.travel.travels.Travel'
+    with unittest.mock.patch(target1, return_value=1) as create_plan:
+        with namer, saver, pdf_stuff, emailer, get_travel, request, get_contacts:
             resp: Response = entry_post()
 
     assert isinstance(resp, Response) or isinstance(resp, werkzeug_response)

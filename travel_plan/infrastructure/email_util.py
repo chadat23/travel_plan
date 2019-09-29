@@ -8,11 +8,7 @@ from travel_plan import mail
 from travel_plan.travel.travels import Travel
 
 
-def email_travel(travel: Travel, files: List[str], path: str):
-    
-    email_list = list(current_app.config['DEFAULT_EMAIL_LIST'])
-    [email_list.append(e.traveler.email) for e in travel.travelers]
-    [email_list.append(c.email) for c in travel.contacts]
+def email_travel(email_list: str, files: List[str], path: str):
 
     subject = _make_subject(travel)
     body = _make_body(travel)

@@ -155,3 +155,10 @@ class Travel(db.Model):
 
     def __repr__(self):
         return f'{self.start_date} - {self.entry_point}, {self.entry_point} - {self.exit_point}'
+
+    def get_contact_list(self):
+        email_list = []
+        [email_list.append(e.traveler.email) for e in self.travelers]
+        [email_list.append(c.email) for c in self.contacts]
+
+        return email_list

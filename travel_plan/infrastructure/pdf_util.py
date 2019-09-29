@@ -124,7 +124,7 @@ def _generate_pdf(travel: Travel) -> PDF:
     pdf.add_cell(w2, 'Ice Axe', 'V', False, 0, 0, 'L')
     pdf.add_cell(w1, 'X' if travel.signal_mirror else '', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
     pdf.add_cell(w2, 'Signal Mirror', 'V', False, 0, 0, 'L')
-    pdf.add_cell(30, 'X' if travel.off_trail_travel else '', 'V', False, 1, 0, 'C')
+    pdf.add_cell(30, 'Yes' if travel.off_trail_travel else 'No', 'V', False, 1, 0, 'C')
     pdf.add_cell(30, travel.cell_number, 'V', False, 1, 0, 'C')
     pdf.add_cell(30, travel.satellite_number, 'V', False, 1, 1, 'C')
     pdf.add_cell(w1, 'X' if travel.flagging else '', 'V', False, 1, 0, 'L', font_size=eq_ft_sz)
