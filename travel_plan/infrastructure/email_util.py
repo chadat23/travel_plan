@@ -1,4 +1,3 @@
-import ntpath
 import os
 from typing import List
 
@@ -19,7 +18,8 @@ def email_files(travel: Travel, files: List[str], path: str):
 
     try:
         _send_mail(email_list, [os.path.join(path, file) for file in files], subject, body)
-    except:
+    except Exception as e:
+        print(e)
         # delete_file(file)
         pass
 
@@ -34,8 +34,8 @@ def _send_mail(recipients: List[str], files: List[str], subject: str, body: str)
                   body=body)
     for file in files:
         with current_app.open_resource(file) as fp:
-            name = ntpath.basename(file)[-1]
-            msg.attach(filename=name, data=fp.read())
+            name = os.path.basename(file)
+            msg.attach(name, 'text/plain', fp.read())
     mail.send(msg)
     print('Email Sent')
 

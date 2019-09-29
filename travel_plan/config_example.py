@@ -8,12 +8,12 @@ def _make_uri(prefix, folder, file_name):
 
 
 class Config:
-    MAIL_SERVER = "<smtp.gmail.com>"
-    MAIL_PORT = mail_port
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 465
     MAIL_USERNAME = "<email@address.com>"
     MAIL_PASSWORD = "<password>"
-    MAIL_USE_TLS = True
-    # MAIL_USE_SSL = True
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
 
     DEFAULT_EMAIL_LIST = ["<default@email.1>", "d<efault@email.2>"]
 

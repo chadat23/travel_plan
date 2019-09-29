@@ -163,6 +163,8 @@ class TravelEntryViewModel(ViewModelBase):
 
         self._validate_fields()
 
+        self._validate_contacts()
+
     def _validate_fields(self):
         # if it's reported that there'll be off trail travel then there should be uploaded files
         if self.uploaded_files:
@@ -181,9 +183,6 @@ class TravelEntryViewModel(ViewModelBase):
                         self.error = "All fields must be filled in for each traveler and each accompanying GAR score."
                         return
 
-        if len(set([c['contact_email'] for c in self.contacts])) != len(self.contacts):
-            self.error = "Duplicate responsible parties are not allowed. They all must be novel."
-
     def _validate_dates(self):
         if self.end_date < self.start_date:
             self.error = "Your exit date can't be before your entry date."
@@ -198,3 +197,7 @@ class TravelEntryViewModel(ViewModelBase):
                     self.error = "Your days' plans should end on your exit date. " \
                                  "The two dates don't match. You have days that are unaccounted for."
                 break
+
+    def _validate_contacts(self):
+        if len(set([c['contact_name'] for c in self.contacts])) != len(self.contacts):
+            self.error = "Duplicate responsible parties are not allowed. They all must be novel."
