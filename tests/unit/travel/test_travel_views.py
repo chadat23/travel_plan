@@ -17,7 +17,7 @@ def test_travel_view_entry_post_success(app_w_db, form_data):
     saver = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.infrastructure.pdf_util.make_and_save_pdf'
     pdf_stuff = unittest.mock.patch(target, return_value=[])
-    target = 'travel_plan.infrastructure.email_util.email_files'
+    target = 'travel_plan.infrastructure.email_util.email_travel'
     emailer = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.travel.travel_services.get_travel_by_id'
     get_travel = unittest.mock.patch(target, return_value=None)

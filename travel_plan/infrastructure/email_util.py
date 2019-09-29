@@ -8,10 +8,11 @@ from travel_plan import mail
 from travel_plan.travel.travels import Travel
 
 
-def email_files(travel: Travel, files: List[str], path: str):
+def email_travel(travel: Travel, files: List[str], path: str):
+    
     email_list = list(current_app.config['DEFAULT_EMAIL_LIST'])
-    [email_list.append(e.traveler.email) for e in travel.travelers if hasattr(e.traveler, 'email')]
-    [email_list.append(c.email) for c in travel.contacts if hasattr(c, 'email')]
+    [email_list.append(e.traveler.email) for e in travel.travelers]
+    [email_list.append(c.email) for c in travel.contacts]
 
     subject = _make_subject(travel)
     body = _make_body(travel)
@@ -19,12 +20,7 @@ def email_files(travel: Travel, files: List[str], path: str):
     try:
         _send_mail(email_list, [os.path.join(path, file) for file in files], subject, body)
     except Exception as e:
-        print(e)
-        # delete_file(file)
         pass
-
-# def delete_file(file: str):
-#     shutil.rmtree(os.path.abspath(os.path.join(file, os.pardir)))
 
 
 def _send_mail(recipients: List[str], files: List[str], subject: str, body: str):

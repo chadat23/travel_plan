@@ -23,7 +23,7 @@ def test_get_travel_by_id(app_w_db, form_data):
     saver = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.infrastructure.pdf_util.make_and_save_pdf'
     pdf_stuff = unittest.mock.patch(target, return_value=[])
-    target = 'travel_plan.infrastructure.email_util.email_files'
+    target = 'travel_plan.infrastructure.email_util.email_travel'
     emailer = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.services.color_services.get_id_from_name'
     test_color = unittest.mock.patch(target, return_value=3)
