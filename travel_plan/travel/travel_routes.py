@@ -77,8 +77,7 @@ def entry_post():
 
     pdf_util.make_and_save_pdf(travel, base_name, current_app.config['PDF_FOLDER_PATH'])
 
-    contact_list = travel.get_contact_list() + current_app.config['DEFAULT_EMAIL_LIST']
-    email_util.email_travel(contact_list, [f.name for f in travel_files], current_app.config['PDF_FOLDER_PATH'])
+    email_util.email_travel(travel, [f.name for f in travel_files], current_app.config['PDF_FOLDER_PATH'])
 
     return redirect(url_for('travel.email_sent'))
 
