@@ -3,6 +3,7 @@ import datetime
 from travel_plan import db
 # from travel_plan.models.travel_user_units import TravelUserUnit
 from travel_plan.department.departments import Department
+from travel_plan.department import department_services
 
 
 class User(db.Model):
@@ -25,15 +26,17 @@ class User(db.Model):
 
     active: bool = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name: str, email: str, work_number: str, home_number: str, cell_number: str,
-                 department: str = 'Unknown', active: bool = True):
+    def __init__(self, name: str, email: str, 
+                 work_number: str = None, home_number: str = None, cell_number: str = None,
+                 department: str = None, active: bool = None):
         self.name = name
         self.email = email
         self.work_number = work_number
         self.home_number = home_number
         self.cell_number = cell_number
         self.active = active
-        self.department_id = department
+        department_id = department_services.get_id_from_name(department)
+        self.department_id = department_id
 
     def __lt__(self, other):
         return self.name < other.name

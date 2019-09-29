@@ -44,15 +44,15 @@ _form_data = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
 _departments = [{'name': 'Wilderness'}]
 
 _users = [{'name': 'Doe, Jane', 'email': 'chad.derosier+a@gmail.com', 'home_number': '555-123-1234',
-           'work_number': '555-123-2345', 'cell_number': '555-123-3456', 'department': 'Wilderness'},
+           'work_number': '555-123-2345', 'cell_number': '555-123-3456', 'department': 'Wilderness', 'active': True},
           {'name': 'Doe, John', 'email': 'chad.derosier+b@gmail.com', 'home_number': '555-234-1234',
-           'work_number': '555-234-2345', 'cell_number': '555-234-3456', 'department': 'Wilderness'},
+           'work_number': '555-234-2345', 'cell_number': '555-234-3456', 'department': 'Wilderness', 'active': True},
           {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com', 'home_number': '555-345-1234',
-           'work_number': '555-345-2345', 'cell_number': '555-345-3456', 'department': 'Wilderness'},
+           'work_number': '555-345-2345', 'cell_number': '555-345-3456', 'department': 'Wilderness', 'active': True},
           {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com', 'home_number': '555-456-1234',
-           'work_number': '555-456-2345', 'cell_number': '555-456-3456', 'department': 'Wilderness'},
+           'work_number': '555-456-2345', 'cell_number': '555-456-3456', 'department': 'Wilderness', 'active': True},
           {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com', 'home_number': '555-567-1234',
-           'work_number': '555-567-2345', 'cell_number': '555-567-3456', 'department': 'Wilderness'},
+           'work_number': '555-567-2345', 'cell_number': '555-567-3456', 'department': 'Wilderness', 'active': True},
           ]
 
 _locations = [
@@ -90,7 +90,7 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                         'end_date': '2019-08-11', 'exit_point': 'Ten Lakes TH',
                         'tracked': True, 'plb': 'abc123', 'trip_leader_name': 'Rabbit, Roger',
                         'car_plate': 'G12-123', 'car_make': 'Ford', 'car_model': 'Vroom Queen', 'car_color': 'Red',
-                        'car_locaton': 'May Lake TH',
+                        'car_location': 'May Lake TH',
                         'bivy_gear': 'on', 'compass': 'on', 'first_aid_kit': 'on', 'flagging': 'on', 'flare': 'on',
                         'flashlight': 'on',
                         'gps': 'on', 'head_lamp': 'on', 'helmet': 'on', 'ice_axe': 'on', 'map': 'on', 'matches': 'on',
@@ -117,7 +117,7 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                           {'name': 'Coworker 2', 'email': 'chad.derosier+g@gmail.com', 'work_number': '555-2234',
                            'home_number': '555-3345', 'cell_number': '555-4456'}
                           ],
-             'files': [{'name': 'Dow_Jane_20190809.pdf'}, {'name': 'Dow_Jane_20190809_1.jpg'}]
+             'files': [{'name': 'Doe_Jane_20190809.pdf'}, {'name': 'Doe_Jane_20190809_1.jpg'}]
              },
             ]
 
@@ -215,6 +215,32 @@ def travels(app_w_db):
 def users():
     yield _users
 
+@pytest.fixture()
+def travel_object(app_w_db):
+    from travel_plan.travel.travel_services import create_plan, get_travel_by_id
+
+    _travel = _make_travels()[0]
+    t = _travel['travel']
+    traveler_units = _travel['traveler_units']
+    day_plans = _travel['day_plans']
+    contacts = _travel['contacts']
+    files = _travel['files']
+
+    id = create_plan(t['start_date'], t['entry_point'], t['end_date'], t['exit_point'],
+                     t['tracked'], t['plb'], t['trip_leader_name'], traveler_units, day_plans, 
+                     t['car_plate'], t['car_make'], t['car_model'], t['car_color'], t['car_location'],
+                     t['bivy_gear']=='on', t['compass']=='on', t['first_aid_kit']=='on', t['flagging']=='on', t['flare']=='on',
+                     t['flashlight']=='on', t['gps']=='on', t['head_lamp']=='on', t['helmet']=='on', t['ice_axe']=='on', t['map']=='on',
+                     t['matches']=='on', t['probe_pole']=='on', t['radio']=='on', t['rope']=='on', t['shovel']=='on', t['signal_mirror']=='on',
+                     t['space_blanket']=='on', t['spare_battery']=='on', t['tent']=='on', t['whistle']=='on',
+                     t['days_of_food'], t['weapon'], t['radio_monitor_time'], t['off_trail_travel'],
+                     t['cell_number'], t['satellite_number'], contacts,
+                     t['gar_avg'], t['mitigated_gar'], t['gar_mitigations'], t['notes'], files)
+
+    travel = get_travel_by_id(id)
+
+    yield travel
+
 
 def _make_travels():
     '''
@@ -224,17 +250,19 @@ def _make_travels():
     This gets around an issue with import order stuff.
     :return:
     '''
-    if isinstance(_travels[0]['traveler_units'][0], list):
-        for t in _travels:
-            from travel_plan.travel.travel_user_units import TravelUserUnit
-            t['traveler_units'] = [TravelUserUnit(*u) for u in t['traveler_units']]
-            from travel_plan.travel.travel_days import TravelDay
-            t['day_plans'] = [TravelDay(**d) for d in t['day_plans']]
-            from travel_plan.user.users import User
-            t['contacts'] = [User(**u) for u in t['contacts']]
-            from travel_plan.travel.travel_file import TravelFile
-            t['files'] = [TravelFile(**f) for f in t['files']]
-    return _travels
+
+    from travel_plan.travel.travel_user_units import TravelUserUnit
+    from travel_plan.travel.travel_days import TravelDay
+    from travel_plan.user.users import User
+    from travel_plan.travel.travel_file import TravelFile
+
+    travel = copy.deepcopy(_travels)
+    for t in travel:
+        t['traveler_units'] = [TravelUserUnit(*u) for u in t['traveler_units']]
+        t['day_plans'] = [TravelDay(**d) for d in t['day_plans']]
+        t['contacts'] = [User(**u) for u in t['contacts']]
+        t['files'] = [TravelFile(**f) for f in t['files']]
+    return travel
 
 
 @pytest.fixture()

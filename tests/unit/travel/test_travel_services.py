@@ -25,7 +25,7 @@ def test_travel_services_create_plan_success(app_w_empty_db, travels):
                                             p['tracked'], p['plb'], p['trip_leader_name'],
                                             travel['traveler_units'], travel['day_plans'],
                                             p['car_plate'], p['car_make'], p['car_model'], p['car_color'],
-                                            p['car_locaton'],
+                                            p['car_location'],
                                             p['bivy_gear'] == 'on',
                                             p['compass'] == 'on',
                                             p['first_aid_kit'] == 'on',

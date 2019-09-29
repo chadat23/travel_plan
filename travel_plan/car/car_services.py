@@ -19,7 +19,6 @@ def get_names() -> List[str]:
         cars = db.session.query(Car).options(joinedload(Car.color)).all()
         return [c.name for c in cars]
     except Exception as e:
-        print('excepton', e)
         return []
 
 
@@ -34,7 +33,6 @@ def get_id_from_plate(plate: str):
     try:
         return db.session.query(Car.id).filter(Car.plate == plate).first()[0]
     except Exception as e:
-        print(e)
         return None
 
 

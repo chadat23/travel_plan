@@ -41,7 +41,7 @@ def get_user_from_email(email: str) -> Optional[User]:
 
 
 def create_user(name: str = '', email: str = '',
-                work_number: str = '', home_number: str = '', cell_number: str = '', department: str = "Unknown", active: bool = True,
+                work_number: str = None, home_number: str = None, cell_number: str = None, department: str = None, active: bool = None,
                 user: User = None) -> Optional[User]:
     if not user:
         user = User(name, email, work_number, home_number, cell_number, department, active)
@@ -50,7 +50,7 @@ def create_user(name: str = '', email: str = '',
         db.session.add(user)
         db.session.commit()
         return user
-    except:
+    except Exception as e:
         return None
 
 

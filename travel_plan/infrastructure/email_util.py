@@ -29,8 +29,10 @@ def email_travel(travel: Travel, files: List[str], path: str):
 
     try:
         _send_mail(contact_list, [os.path.join(path, file) for file in files], subject, body)
+        return True
     except Exception as e:
-        pass
+        print('Exception', e)
+        return False
 
 
 def _send_mail(contact_list: List[str], files: List[str], subject: str, body: str):
@@ -49,7 +51,7 @@ def _send_mail(contact_list: List[str], files: List[str], subject: str, body: st
 
     msg = Message(subject=subject,
                   sender=current_app.config['MAIL_USERNAME'],
-                  recipients=email_list,
+                  recipients=contact_list,
                   body=body)
     for file in files:
         with current_app.open_resource(file) as fp:
@@ -105,7 +107,7 @@ def _make_contact_list(travel: Travel) -> List[str]:
     '''
     
     email_list = list(current_app.config['DEFAULT_EMAIL_LIST'])
-    [email_list.append(e.traveler.email) for e in self.travelers]
-    [email_list.append(c.email) for c in self.contacts]
+    [email_list.append(e.traveler.email) for e in travel.travelers]
+    [email_list.append(c.email) for c in travel.contacts]
 
     return email_list

@@ -180,7 +180,6 @@ class TravelEntryViewModel(ViewModelBase):
             if t['traveler_name']:
                 for k, v in t.items():
                     if 'color' not in k and not v:
-                        print(str(k), str(v))
                         self.error = "All fields must be filled in for each traveler and each accompanying GAR score."
                         return
 
