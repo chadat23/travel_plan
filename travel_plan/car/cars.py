@@ -31,7 +31,7 @@ class Car(db.Model):
         self.color_id = color_services.get_id_from_name(color)
         self.location = location
         self.active = active
-        self.department_id = department_services.get_id_from_name(department)
+        self.department_id = department_services.get_id_from_name(department) if department else None
 
     def __lt__(self, other):
         return str(self) < str(other)
