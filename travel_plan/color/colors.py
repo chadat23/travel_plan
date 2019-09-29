@@ -7,8 +7,8 @@ class Color(db.Model):
     '''
     An object respresenting an items color.
 
-    :prop id: the database key
-    :prop name: the name of the color
+    :param id: the database key
+    :param name: the name of the color
     '''
 
     __tablename__ = 'colors'
@@ -23,7 +23,7 @@ class Color(db.Model):
         All colors are to have "title" capitalization.
         (This Is An Example Of Title Capitalization)
 
-        :prop name: the name of the color
+        :param name: the name of the color
         :type name: str
         '''
         self.name = name.lower().strip().title()
