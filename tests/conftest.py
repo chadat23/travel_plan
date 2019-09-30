@@ -98,7 +98,7 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                         'space_blanket': 'on', 'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
                         'days_of_food': '3.5', 'weapon': 'None', 'radio_monitor_time': '800-2000',
                         'off_trail_travel': False, 'cell_number': '555-132-4567', 'satellite_number': '555-987-6543',
-                        'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': 'be careful?', 'notes': 'Nope!',
+                        'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat nam at lectus urna duis convallis convallis. Eget mi proin sed libero enim. Sem integer vitae justo eget. Et netus et malesuada fames ac turpis egestas maecenas. Arcu vitae elementum curabitur vitae nunc sed. Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Id porta nibh venenatis cras sed. At varius vel pharetra vel turpis nunc. Id donec ultrices tincidunt arcu non. Nullam non nisi est sit amet. Elementum curabitur vitae nunc sed. Sodales ut etiam sit amet nisl purus in mollis nunc.', 'notes': 'Nope!',
                         'files': ['travel_file.pdf', 'travel_file_1.jpg']
                         },
              'traveler_units': [['Doe, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8, 36],

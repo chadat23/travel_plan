@@ -7,14 +7,35 @@ from travel_plan.travel.travel_user_units import TravelUserUnit
 
 
 def make_and_save_pdf(travel: Travel, name: str, path: str):
+    """
+    Generates and saves a PDF based on a travel object.
+
+    :param travel: the travel object to be modeled as a PDF
+    :type travel: Travel
+    :param name: the name that's to be used when saving the file
+    :type name: str
+    :param path: the folder location where the file's to be saved
+    :type path: str
+    :return: None
+    """
     pdf = _generate_pdf(travel)
     _save_file(pdf, name, path)
 
 
 def _save_file(pdf: PDF, name: str, path: str) -> str:
+    """
+    Saves a PDF file.
+
+    :param pdf: the pdf file to be saved
+    :type pdf: PDF
+    :param name: the name that's to be used when saving the file
+    :type name: str
+    :param path: the folder location where the file's to be saved
+    :type path: str
+    :return: str
+    """
+
     name += '.pdf'
-    # pdf.output(name)
-    # save_path = tempfile.mkdtemp()
     working_directory = os.getcwd()
     try:
         os.chdir(path)
@@ -24,6 +45,14 @@ def _save_file(pdf: PDF, name: str, path: str) -> str:
 
 
 def _generate_pdf(travel: Travel) -> PDF:
+    """
+    Creates a pdf file.
+
+    :param travel: the travel plan that the pdf's to be based on
+    :type travel: Travel
+    :return: PDF
+    """
+
     pdf = PDF(orientation='P', unit='mm', format='A4')
     pdf.add_page()
 
@@ -43,6 +72,7 @@ def _generate_pdf(travel: Travel) -> PDF:
 
     pdf.cell(10, 2, '', ln=1)
 
+    # find the trip leader TravelUserUnit that's the trip leader and separate it from the other travelers
     for unit in travel.travelers:
         if unit.traveler.email == travel.trip_leader.email:
             leader_unit = unit
@@ -229,6 +259,14 @@ def _generate_pdf(travel: Travel) -> PDF:
 
 
 def _write_traveler(pdf: PDF, unit):
+    """
+    Wright a portion of a TravelUserUnit to the PDF
+
+    :param pdf: the PDF that's to be written to
+    :type pdf: PDF
+    :param unit: the TravelUserUnit to be written
+    :return: None
+    """
     pdf.add_cell(49, unit.traveler.name, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.call_sign, 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.pack_color.name, 'V', False, 1, 0, 'L')
@@ -236,14 +274,46 @@ def _write_traveler(pdf: PDF, unit):
     pdf.add_cell(35, unit.fly_color.name, 'V', False, 1, 1, 'L')
 
 
-def _label(pdf: PDF, label, x, y, dx, h):
-    pdf.set_xy(x + dx * 15 - 7, y + h - 3)
+def _label(pdf: PDF, label: str, x: int, y: int, ix: int, h: int):
+    """
+    Creates a label for the GAR info.
+
+    :param pdf: the pdf that's to be written to
+    :type pdf: PDF
+    :param label: the text that's to be written into the label
+    :type label: str
+    :param x: the x location of the label that's to be written
+    :type x: int
+    :param y: the y locaiton of the label that's to be written
+    :type y: int
+    :param ix: the index of the particular label in the array of labels
+    :type ix: int
+    :param h: the height of the label to be made
+    :type h: int
+    :return: None
+    """
+
+    pdf.set_xy(x + ix * 15 - 7, y + h - 3)
     pdf.rotate(75)
     pdf.cell(20, 20, label, 0, 0, 'L')
     pdf.rotate(0)
 
 
 def _write_gar(pdf: PDF, i: int, unit: TravelUserUnit, width: int):
+    """
+    Writes the GAR info for one traveler.
+
+    :param pdf: the PDF to be written to
+    :type pdf: PDF
+    :param i: the index of the traveler
+    :type i: int
+    :param unit: the traveler unit that's to be written
+    :type unit: TravelUserUnit
+    :param width: the width of the cell to be written
+    :type width: int
+    :return: None
+    """
+
     pdf.add_cell(width, str(i), 'V', False, 1, 0, 'C')
     pdf.add_cell(width, str(unit.supervision), 'V', False, 1, 0, 'C')
     pdf.add_cell(width, str(unit.planning), 'V', False, 1, 0, 'C')
@@ -258,6 +328,16 @@ def _write_gar(pdf: PDF, i: int, unit: TravelUserUnit, width: int):
 
 
 def _set_gar_color(pdf, gar_score: int) -> Tuple[int, int, int]:
+    """
+    Set the background color in accordance to the GAR score.
+
+    :param pdf: the PDF that's to be written to
+    :type pdf: PDF
+    :param gar_score: the GAR score that's to be referenced
+    :type gar_score: int
+    :return: Tuple[int, int, int]
+    """
+
     if gar_score < 36:
         return pdf.green
     elif 35 < gar_score < 61:

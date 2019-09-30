@@ -7,9 +7,17 @@ from PIL import ImageFont
 class PDF(fpdf.FPDF):
     """
     A PDF, inherited from fpdf2 fpdf.FPDF
+
+    :param orientation: the orientation of the page
+    :type orientation: str
+    :param unit: the unit of measure of the page cells
+    :type unit: str
+    :param format: the size of the pages to be used
+    :type format: str
     """
 
     def __init__(self, orientation='P', unit='mm', format='A4'):
+
         super().__init__(orientation=orientation, unit=unit, format=format)
 
         # default height of a pdf cell
