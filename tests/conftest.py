@@ -243,13 +243,13 @@ def travel_object(app_w_db):
 
 
 def _make_travels():
-    '''
+    """
     convert a list of dicts to a list of TravelUserUnits
     and a list of dicts into a list of TravelDays
 
     This gets around an issue with import order stuff.
     :return:
-    '''
+    """
 
     from travel_plan.travel.travel_user_units import TravelUserUnit
     from travel_plan.travel.travel_days import TravelDay

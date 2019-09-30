@@ -9,7 +9,7 @@ from travel_plan.travel.travels import Travel
 
 
 def email_travel(travel: Travel, files: List[str], path: str):
-    '''
+    """
     Emails the travel plans and files to the email list.
 
     It's assumed that all of the files that are to be
@@ -21,7 +21,7 @@ def email_travel(travel: Travel, files: List[str], path: str):
     :type files: List[str]
     :param path: the path to the folder containing the files that are to be attached
     :type path: str
-    '''
+    """
 
     contact_list = _make_contact_list(travel)
     subject = _make_subject(travel)
@@ -36,7 +36,7 @@ def email_travel(travel: Travel, files: List[str], path: str):
 
 
 def _send_mail(contact_list: List[str], files: List[str], subject: str, body: str):
-    '''
+    """
     Helper function to consturct and send the email.
 
     :param email_list: a list of recipients' email addresses
@@ -47,7 +47,7 @@ def _send_mail(contact_list: List[str], files: List[str], subject: str, body: st
     :type subject: str
     :param body: the intended body of the email
     :type body: str
-    '''
+    """
 
     msg = Message(subject=subject,
                   sender=current_app.config['MAIL_USERNAME'],
@@ -62,13 +62,14 @@ def _send_mail(contact_list: List[str], files: List[str], subject: str, body: st
 
 
 def _make_subject(travel: Travel) -> str:
-    '''
+    """
     Helper function to make the email subject from the travel object
 
     :param travel: the travel object
     :type travel: Travel
     :return: a str of the email subject
-    '''
+    :rtype: str
+    """
 
     subject = 'Travel itinerary for : '
     for traveler in travel.travelers:
@@ -78,13 +79,14 @@ def _make_subject(travel: Travel) -> str:
 
 
 def _make_body(travel: Travel) -> str:
-    '''
+    """
     Helper function to make the email body from the travel object
 
     :param travel: the travel object
     :type travel: Travel
     :return: a str of the email body
-    '''
+    :rtype: str
+    """
     
     body = "Here's the travel itinerary for "
     for traveler in travel.travelers:
@@ -98,13 +100,14 @@ def _make_body(travel: Travel) -> str:
 
 
 def _make_contact_list(travel: Travel) -> List[str]:
-    '''
+    """
     Helper function to make the list email recipients from the travel object
 
     :param travel: the travel object
     :type travel: Travel
     :return: a List[str] of email recipients
-    '''
+    :rtype: List[str]
+    """
     
     email_list = list(current_app.config['DEFAULT_EMAIL_LIST'])
     [email_list.append(e.traveler.email) for e in travel.travelers]

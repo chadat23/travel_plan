@@ -4,7 +4,7 @@ from travel_plan import db
 
 
 class Department(db.Model):
-    '''
+    """
     An object representing a component of an orginization's structure.
 
     Typically used to represent which portion of an orginizaiton
@@ -17,7 +17,7 @@ class Department(db.Model):
     :type created_date: datetime
     :param name: the name of the department
     :type name: str
-    '''
+    """
 
     __tablename__ = 'departments'
 
@@ -26,12 +26,12 @@ class Department(db.Model):
     name: str = db.Column(db.String, unique=True, nullable=False)
 
     def __init__(self, name: str):
-        '''
+        """
         Initializes a Department object
 
         :param name: the name of the department
         :type name: str
-        '''
+        """
         self.name = name
 
     def __lt__(self, other):

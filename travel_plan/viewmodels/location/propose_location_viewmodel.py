@@ -37,7 +37,7 @@ class ProposeLocationViewModel(ViewModelBase):
 
         html = map_utils.parse_map_html(park_map)
 
-        # self.head: str = html.head + ''' <script src="{{ url_for('static', filename='css/map.css') }}"></script>'''
+        # self.head: str = html.head + """ <script src="{{ url_for('static', filename='css/map.css') }}"></script>"""
         self.head: str = html.head
         self.body: str = html.body
         self.scripts: str = html.scripts

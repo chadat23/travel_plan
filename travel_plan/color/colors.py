@@ -4,12 +4,12 @@ from travel_plan import db
 
 
 class Color(db.Model):
-    '''
+    """
     An object respresenting an items color.
 
     :param id: the database key
     :param name: the name of the color
-    '''
+    """
 
     __tablename__ = 'colors'
 
@@ -17,7 +17,7 @@ class Color(db.Model):
     name: str = db.Column(db.String, nullable=False)
 
     def __init__(self, name: str):
-        '''
+        """
         Initialize a color object.
 
         All colors are to have "title" capitalization.
@@ -25,7 +25,7 @@ class Color(db.Model):
 
         :param name: the name of the color
         :type name: str
-        '''
+        """
         self.name = name.lower().strip().title()
 
     def __lt__(self, other):
