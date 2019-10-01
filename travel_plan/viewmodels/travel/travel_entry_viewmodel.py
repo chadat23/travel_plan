@@ -143,14 +143,14 @@ class TravelEntryViewModel(ViewModelBase):
         self.cell_number = self.request_dict.cellnumber
         self.satellite_number = self.request_dict.satellitenumber
 
-        self.contact_email0 = self.request_dict.contactemail0
-        self.contact_work0 = self.request_dict.contactwork0
-        self.contact_home0 = self.request_dict.contacthome0
-        self.contact_cell0 = self.request_dict.contactcell0
-        self.contact_email1 = self.request_dict.contactemail1
-        self.contact_work1 = self.request_dict.contactwork1
-        self.contact_home1 = self.request_dict.contacthome1
-        self.contact_cell1 = self.request_dict.contactcell1
+        # self.contact_email0 = self.request_dict.contactemail0
+        # self.contact_work0 = self.request_dict.contactwork0
+        # self.contact_home0 = self.request_dict.contacthome0
+        # self.contact_cell0 = self.request_dict.contactcell0
+        # self.contact_email1 = self.request_dict.contactemail1
+        # self.contact_work1 = self.request_dict.contactwork1
+        # self.contact_home1 = self.request_dict.contacthome1
+        # self.contact_cell1 = self.request_dict.contactcell1
 
         self.gar_avg = self.request_dict.garavg
         self.mitigated_gar = self.request_dict.mitigatedgar

@@ -253,7 +253,7 @@ def form_data():
 
 
 @pytest.fixture()
-def form_data_w_nons():
+def form_data_w_nones():
     yield _form_data_w_nones.copy()
 
 

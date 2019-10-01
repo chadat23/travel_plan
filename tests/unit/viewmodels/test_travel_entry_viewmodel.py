@@ -96,12 +96,12 @@ def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(ap
     assert 'Either you should' in vm.error
 
 
-def test_travel_entry_vm_convert_empty_strings_to_none(app_w_db, form_data_w_nons):
+def test_travel_entry_vm_convert_empty_strings_to_none(app_w_db, form_data_w_nones):
     get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
 
     # WHEN: the DB calls are mocked and then the vm is generated.
     with get_location_names, get_users, get_color_names, get_car_names:
-        with app_w_db.test_request_context(path='/travel/entry', data=form_data_w_nons):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data_w_nones):
             vm = TravelEntryViewModel()
 
     assert vm.plb == ''
@@ -211,14 +211,9 @@ def test_travel_entry_vm_entry_end_date_success(app_w_db, form_data):
     assert vm.cell_number == form_data['cellnumber']
     assert vm.satellite_number == form_data['satellitenumber']
 
-    assert vm.contact_email0 == form_data['contactemail0']
-    assert vm.contact_work0 == form_data['contactwork0']
-    assert vm.contact_home0 == form_data['contacthome0']
-    assert vm.contact_cell0 == form_data['contactcell0']
-    assert vm.contact_email1 == form_data['contactemail1']
-    assert vm.contact_work1 == form_data['contactwork1']
-    assert vm.contact_home1 == form_data['contacthome1']
-    assert vm.contact_cell1 == form_data['contactcell1']
+    for i, c in enumerate(vm.contacts):
+        assert c['contact_name'] == form_data['contactname' + str(i)]
+        assert c['contact_email'] == form_data['contactemail' + str(i)]
 
     assert vm.gar_avg == form_data['garavg']
     assert vm.mitigated_gar == form_data['mitigatedgar']

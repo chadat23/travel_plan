@@ -280,11 +280,23 @@ def _write_traveler(pdf: PDF, unit):
     :param unit: the TravelUserUnit to be written
     :return: None
     """
-    pdf.add_cell(49, unit.traveler.name, 'V', False, 1, 0, 'L')
+    if unit.traveler:
+        pdf.add_cell(49, unit.traveler.name, 'V', False, 1, 0, 'L')
+    else:
+        pdf.add_cell(49, '', 'V', False, 1, 0, 'L')
     pdf.add_cell(35, unit.call_sign, 'V', False, 1, 0, 'L')
-    pdf.add_cell(35, unit.pack_color.name, 'V', False, 1, 0, 'L')
-    pdf.add_cell(35, unit.tent_color.name, 'V', False, 1, 0, 'L')
-    pdf.add_cell(35, unit.fly_color.name, 'V', False, 1, 1, 'L')
+    if unit.pack_color:
+        pdf.add_cell(35, unit.pack_color.name, 'V', False, 1, 0, 'L')
+    else:
+        pdf.add_cell(35, '', 'V', False, 1, 0, 'L')
+    if unit.tent_color:
+        pdf.add_cell(35, unit.tent_color.name, 'V', False, 1, 0, 'L')
+    else:
+        pdf.add_cell(35, '', 'V', False, 1, 0, 'L')
+    if unit.fly_color:
+        pdf.add_cell(35, unit.fly_color.name, 'V', False, 1, 1, 'L')
+    else:
+        pdf.add_cell(35, '', 'V', False, 1, 1, 'L')
 
 
 def _label(pdf: PDF, label: str, x: int, y: int, ix: int, h: int):
