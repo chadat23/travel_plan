@@ -73,8 +73,6 @@ def create_car(plate: str, make: str = None, model: str = None, color: str = Non
     :type active: bool
     :returns: the Car that was created
     """
-    
-    color = color_services.add_if_not_present(color)
 
     car = Car(plate, make, model, color, location, active)
 

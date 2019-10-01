@@ -53,3 +53,30 @@ def test_car_services_create_car(app_w_db, cars):
     assert car.color.name == color
     assert car.location == location
     assert not car.active
+
+
+def test_car_services_create_car_w_nones(app_w_db, cars):
+    import unittest.mock
+
+    from travel_plan.car.cars import Car
+    from travel_plan.car import car_services
+
+    # locations, users, colors, cars = db_session_w_info
+
+    plate = '123-321'
+
+    target = 'travel_plan.color.color_services.add_if_not_present'
+    test_color = unittest.mock.patch(target, return_value=None)
+    with test_color:
+        car = car_services.create_car(plate)
+
+    car = car_services.get_car(id=car.id)
+
+    assert car_services.get_id_from_plate(plate) == len(cars) + 1
+    assert isinstance(car, Car)
+    assert car.plate == plate
+    assert car.make == None
+    assert car.model == None
+    assert car.color == None
+    assert car.location == None
+    assert car.active == None

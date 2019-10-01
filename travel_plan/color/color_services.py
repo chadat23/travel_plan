@@ -27,9 +27,9 @@ def is_present(name: str) -> bool:
     :return: True of the color is present, otherwise False
     :rtype: bool or None
     """
-    name = name.lower().strip().title()
 
     try:
+        name = name.lower().strip().title()
         return db.session.query(Color).filter(Color.name == name).all() != []
     except Exception as e:
         return None
@@ -43,8 +43,9 @@ def add(name: str) -> Optional[str]:
     :return: the color name as a str if it was successful, otherwise None
     :rtype: Optional[str]
     """
-    name = name.lower().strip().title()
+
     try:
+        name = name.lower().strip().title()
         db.session.add(Color(name))
         db.session.commit()
         return name
@@ -63,6 +64,9 @@ def add_if_not_present(name: str) -> Optional[str]:
     present or added, or None if there was a problem
     :rtype: Optional[str]
     """
+    if not name:
+        return None
+
     if not is_present(name):
         return add(name)
 
@@ -77,9 +81,9 @@ def get_id_from_name(name: str) -> Optional[int]:
     :return: int if successful, otherwise None
     :rtype: Optional[int]
     """
-    name = name.lower().strip().title()
 
     try:
+        name = name.lower().strip().title()
         return db.session.query(Color.id).filter(Color.name == name).first()[0]
     except:
         return None
