@@ -154,8 +154,8 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
             ]
 
 _travels_w_nones = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH',
-                                'end_date': '2019-08-11', 'exit_point': 'Ten Lakes TH',
-                                'tracked': True, 'plb': None, 'trip_leader_name': 'Rabbit, Roger',
+                                'end_date': '2019-08-10', 'exit_point': 'Ten Lakes TH',
+                                'tracked': True, 'plb': None, 'trip_leader_name': 'Doe, Jane',
                                 'car_plate': None, 'car_make': None, 'car_model': None, 'car_color': None,
                                 'car_location': None,
                                 'bivy_gear': 'on', 'compass': 'on', 'first_aid_kit': 'on', 'flagging': 'on',
@@ -175,10 +175,8 @@ _travels_w_nones = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May 
                      'day_plans': [
                          {'date': '2019-08-09', 'starting_point': 'May Lake TH', 'ending_point': 'May Lake HSC',
                           'route': 'The trail', 'mode': 'foot'},
-                         {'date': '2019-08-10', 'starting_point': 'May Lake HSC', 'ending_point': 'Ten Lakes Basin',
+                         {'date': '2019-08-10', 'starting_point': 'May Lake HSC', 'ending_point': 'Ten Lakes TH',
                           'route': 'Still the trail', 'mode': 'foot'},
-                         {'date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH',
-                          'route': 'More trail', 'mode': 'foot'},
                          ],
                      'contacts': [{'name': 'Doe, Jane', 'email': None, 'work_number': None,
                                    'home_number': None, 'cell_number': None},
