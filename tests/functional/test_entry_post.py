@@ -82,14 +82,14 @@ def test_get_travel_by_id_w_nones(app_w_db, form_data_w_nones):
     assert travel.end_date == datetime.datetime.strptime(form_data_w_nones['enddate'], '%Y-%m-%d').date()
     assert travel.entry_point.name == form_data_w_nones['exitpoint']
     assert travel.tracked
-    assert travel.plb == form_data_w_nones['plb']
+    assert travel.plb == None
 
     for i, t in enumerate(travel.travelers):
         assert t.traveler.name == form_data_w_nones['travelername' + str(i)]
         assert t.call_sign == form_data_w_nones['callsign' + str(i)]
-        assert t.pack_color.name == form_data_w_nones['packcolor' + str(i)]
-        assert t.tent_color.name == form_data_w_nones['tentcolor' + str(i)].lower().title()
-        assert t.fly_color.name == form_data_w_nones['flycolor' + str(i)]
+        assert t.pack_color == None
+        assert t.tent_color == None
+        assert t.fly_color == None
 
     for i, d in enumerate(travel.travel_days):
         assert d.date == datetime.datetime.strptime(form_data_w_nones['date' + str(i)], '%Y-%m-%d').date()
@@ -100,5 +100,3 @@ def test_get_travel_by_id_w_nones(app_w_db, form_data_w_nones):
 
     for i, c in enumerate(travel.contacts):
         assert c.name == form_data_w_nones['contactname' + str(i)]
-        assert c.email == form_data_w_nones['contactemail' + str(i)]
-        assert c.home_number == form_data_w_nones['contacthome' + str(i)]
