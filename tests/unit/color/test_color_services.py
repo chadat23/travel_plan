@@ -21,6 +21,12 @@ def test_color_services_is_present_not_success(app_w_db, colors):
     assert not color_services.is_present('Nope')
 
 
+def test_color_services_is_present_w_none(app_w_db, colors):
+    from travel_plan.color import color_services
+
+    assert not color_services.is_present(None)
+
+
 def test_color_services_add_success(app_w_db, colors):
     from travel_plan.color import color_services
 
@@ -51,3 +57,9 @@ def test_color_services_add_if_not_present_not_success(app_w_db, colors):
     color = colors[0]
 
     assert color_services.add_if_not_present(color.lower()) == color
+
+
+def test_color_services_add_if_not_present_w_none(app_w_db, colors):
+    from travel_plan.color import color_services
+
+    assert color_services.add_if_not_present(None) == None
