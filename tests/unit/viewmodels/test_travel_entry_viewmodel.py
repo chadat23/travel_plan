@@ -1,6 +1,3 @@
-from flask import Response
-
-# from tests.test_client import flask_app, client
 from travel_plan.viewmodels.travel.travel_entry_viewmodel import TravelEntryViewModel
 
 import unittest.mock
@@ -97,6 +94,23 @@ def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(ap
     vm.validate()
 
     assert 'Either you should' in vm.error
+
+
+def test_travel_entry_vm_convert_empty_strings_to_none(app_w_db, form_data):
+    get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
+
+    form_data['plb'] = ''
+
+    # WHEN: the DB calls are mocked and then the vm is generated.
+    with get_location_names, get_users, get_color_names, get_car_names:
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
+            vm = TravelEntryViewModel()
+
+    assert vm.plb == ''
+
+    vm.convert_empty_strings_to_none()
+
+    assert vm.plb == None
 
 
 def test_travel_entry_vm_entry_end_date_success(app_w_db, form_data):
@@ -207,15 +221,6 @@ def test_travel_entry_vm_entry_end_date_success(app_w_db, form_data):
     assert vm.contact_work1 == form_data['contactwork1']
     assert vm.contact_home1 == form_data['contacthome1']
     assert vm.contact_cell1 == form_data['contactcell1']
-
-    # assert vm.s_avg == form_data['savg']
-    # assert vm.p_avg == form_data['pavg']
-    # assert vm.cr_avg == form_data['cravg']
-    # assert vm.c_avg == form_data['cavg']
-    # assert vm.ts_avg == form_data['tsavg']
-    # assert vm.tf_avg == form_data['tfavg']
-    # assert vm.e_avg == form_data['eavg']
-    # assert vm.ic_avg == form_data['icavg']
 
     assert vm.gar_avg == form_data['garavg']
     assert vm.mitigated_gar == form_data['mitigatedgar']

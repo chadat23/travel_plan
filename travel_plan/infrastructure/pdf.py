@@ -61,6 +61,9 @@ class PDF(fpdf.FPDF):
         :type height: int
         """
 
+        if not txt:
+            txt = ''
+
         if not height:
             height = self.height
 

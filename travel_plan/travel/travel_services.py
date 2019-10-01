@@ -48,9 +48,12 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 gar_avg: float, mitigated_gar: float, gar_mitigations: str,
                 notes: str, files: List[TravelFile]
                 ) -> int:
-    car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
-    if not car_id:
-        car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False).id
+    if car_plate:
+        car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
+        if not car_id:
+            car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False).id
+    else:
+        car_id = None
 
     entry_point_id = location_services.get_id_from_name(entry_point)
     exit_point_id = location_services.get_id_from_name(exit_point)

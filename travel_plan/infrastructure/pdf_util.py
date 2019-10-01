@@ -114,11 +114,18 @@ def _generate_pdf(travel: Travel) -> PDF:
     pdf.add_cell(40, 'Color:', 'L', False, 1, 0, 'C')
     pdf.add_cell(35, 'Location:', 'L', False, 1, 1, 'C')
 
-    pdf.add_cell(22, travel.car.plate, 'V', False, 1, 0, 'L')
-    pdf.add_cell(46, travel.car.make, 'V', False, 1, 0, 'L')
-    pdf.add_cell(46, travel.car.model, 'V', False, 1, 0, 'L')
-    pdf.add_cell(40, travel.car.color.name, 'V', False, 1, 0, 'L')
-    pdf.add_cell(35, travel.car_location, 'V', False, 1, 1, 'L')
+    if travel.car:
+        pdf.add_cell(22, travel.car.plate, 'V', False, 1, 0, 'L')
+        pdf.add_cell(46, travel.car.make, 'V', False, 1, 0, 'L')
+        pdf.add_cell(46, travel.car.model, 'V', False, 1, 0, 'L')
+        pdf.add_cell(40, travel.car.color.name, 'V', False, 1, 0, 'L')
+        pdf.add_cell(35, travel.car_location, 'V', False, 1, 1, 'L')
+    else:
+        pdf.add_cell(22, '', 'V', False, 1, 0, 'L')
+        pdf.add_cell(46, '', 'V', False, 1, 0, 'L')
+        pdf.add_cell(46, '', 'V', False, 1, 0, 'L')
+        pdf.add_cell(40, '', 'V', False, 1, 0, 'L')
+        pdf.add_cell(35, '', 'V', False, 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
     y = pdf.get_y()
@@ -252,8 +259,14 @@ def _generate_pdf(travel: Travel) -> PDF:
 
     pdf.add_cell(95, 'Mitigations Taken', 'L', False, 1, 0, 'C', 1)
     pdf.add_cell(94, 'Additional Notes', 'L', False, 1, 1, 'C', 1)
-    pdf.multi_cell(95, 4, travel.gar_mitigations, 1, 'L', 0)
-    pdf.multi_cell(94, 4, travel.notes, 1, 'L', 0)
+    if travel.gar_mitigations:
+        pdf.multi_cell(95, 4, travel.gar_mitigations, 1, 'L', 0)
+    else:
+        pdf.multi_cell(95, 4, '', 1, 'L', 0)
+    if travel.notes:
+        pdf.multi_cell(94, 4, travel.notes, 1, 'L', 0)
+    else:
+        pdf.multi_cell(94, 4, '', 1, 'L', 0)
 
     return pdf
 

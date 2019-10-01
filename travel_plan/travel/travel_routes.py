@@ -28,6 +28,8 @@ def entry_post():
     if vm.error:
         return vm.to_dict()
 
+    vm.convert_empty_strings_to_none()
+
     travel_user_units = [TravelUserUnit(**t) for t in vm.travelers if t['traveler_name']]
 
     day_plans = [TravelDay(**pd) for pd in vm.day_plans if pd['date']]
