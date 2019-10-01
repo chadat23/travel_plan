@@ -96,14 +96,12 @@ def test_travel_entry_vm_validate_only_only_off_trail_travel_selected_success(ap
     assert 'Either you should' in vm.error
 
 
-def test_travel_entry_vm_convert_empty_strings_to_none(app_w_db, form_data):
+def test_travel_entry_vm_convert_empty_strings_to_none(app_w_db, form_data_w_nons):
     get_location_names, get_users, get_color_names, get_car_names = _with_locaiton_names_users_color_names_car_names()
-
-    form_data['plb'] = ''
 
     # WHEN: the DB calls are mocked and then the vm is generated.
     with get_location_names, get_users, get_color_names, get_car_names:
-        with app_w_db.test_request_context(path='/travel/entry', data=form_data):
+        with app_w_db.test_request_context(path='/travel/entry', data=form_data_w_nons):
             vm = TravelEntryViewModel()
 
     assert vm.plb == ''

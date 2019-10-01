@@ -33,13 +33,43 @@ _form_data = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
               'sparebattery': 'on', 'tent': 'on', 'whistle': 'on',
               'daysoffood': '3.5', 'weapon': 'None', 'radiomonitortime': '800-2000', 'offtrailtravel': 'no',
               'cellnumber': '555-132-4567', 'satellitenumber': '555-987-6543',
-              'contactname0': 'McCallister, Kevin', 'contactemail0': 'ilovecats@address.com', 'contactwork0': '555-123-1231',
-              'contactname1': 'Powell, Harry', 'contacthome0': '555-465-4566', 'contactcell0': '555-789-7899',
-              'contactemail1': 'ilovedogs@address.net', 'contactwork1': '555-123-1230',
-              'contacthome1': '555-465-4560', 'contactcell1': '555-789-7890',
+              'contactname0': 'McCallister, Kevin', 'contactemail0': 'ilovecats@address.com',
+              'contactwork0': '555-123-1231', 'contacthome0': '555-465-4566', 'contactcell0': '555-789-7899',
+              'contactname1': 'Powell, Harry', 'contactemail1': 'ilovedogs@address.net',
+              'contactwork1': '555-123-1230', 'contacthome1': '555-465-4560', 'contactcell1': '555-789-7890',
               'garavg': '3.84', 'mitigatedgar': '2.5', 'garmitigations': 'Be careful!\nTake chances!',
               'notes': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat nam at lectus urna duis convallis convallis. Eget mi proin sed libero enim. Sem integer vitae justo eget. Et netus et malesuada fames ac turpis egestas maecenas. Arcu vitae elementum curabitur vitae nunc sed. Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Id porta nibh venenatis cras sed. At varius vel pharetra vel turpis nunc. Id donec ultrices tincidunt arcu non. Nullam non nisi est sit amet. Elementum curabitur vitae nunc sed. Sodales ut etiam sit amet nisl purus in mollis nunc.",
               }
+
+_form_data_w_nones = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
+                      'enddate': '2019-06-20', 'exitpoint': 'May Lake TH',
+                      'tracked': 'yes', 'plb': '',
+                      'travelername0': 'Vader, Darth', 'callsign0': '', 'packcolor0': '', 'tentcolor0': '',
+                      'flycolor0': '',
+                      'supervision0': '1', 'planning0': '3', 'contingency0': '2', 'comms0': '4', 'teamselection0': '1',
+                      'fitness0': '4', 'env0': '1', 'complexity0': '3', 'total0': '19',
+                      'date0': '2019-06-18', 'startingpoint0': 'May Lake TH', 'endingpoint0': 'May Lake HSC',
+                      'route0': 'The trail', 'mode0': 'Foot',
+                      'date1': '2019-06-19', 'startingpoint1': 'May Lake HSC', 'endingpoint1': 'Ten Lakes Basin',
+                      'route1': 'Still the trail', 'mode1': 'Foot',
+                      'date2': '2019-06-20', 'startingpoint2': 'Ten Lakes Basin', 'endingpoint2': 'May Lake TH',
+                      'route2': 'More of the trail', 'mode2': 'Foot',
+                      'carplate': '', 'carmake': '', 'carmodel': '', 'carcolor': '', 'carlocation': 'May Lake TH',
+                      'bivygear': 'on', 'compass': 'on', 'firstaidkit': 'on', 'flagging': 'on', 'flare': 'on',
+                      'flashlight': 'on',
+                      'gps': 'on', 'headlamp': 'on', 'helmet': 'on', 'iceaxe': 'on', 'map': 'on', 'matches': 'on',
+                      'probepole': 'on', 'radio': 'on', 'rope': 'on', 'shovel': 'on', 'signalmirror': 'on',
+                      'spaceblanket': 'on',
+                      'sparebattery': 'on', 'tent': 'on', 'whistle': 'on',
+                      'daysoffood': '3.5', 'weapon': '', 'radiomonitortime': '', 'offtrailtravel': 'no',
+                      'cellnumber': '', 'satellitenumber': '',
+                      'contactname0': 'Doe, Jane', 'contactemail0': '',
+                      'contactwork0': '', 'contacthome0': '', 'contactcell0': '',
+                      'contactname1': '', 'contactemail1': '',
+                      'contactwork1': '', 'contacthome1': '', 'contactcell1': '',
+                      'garavg': '3.84', 'mitigatedgar': '2.5', 'garmitigations': '',
+                      'notes': '',
+                      }
 
 _departments = [{'name': 'Wilderness'}]
 
@@ -72,7 +102,7 @@ _locations = [
      'is_in_park': True},
     {'name': 'Sunrise Lakes TH', 'latitude': 37.826962, 'longitude': -119.468687, 'kind': KindEnum.Trail_Head,
      'note': '', 'is_in_park': True},
-    ]
+]
 
 _cars = [{'plate': 'G12-123', 'make': 'Ford', 'model': 'C-Max', 'color': 'White', 'location': 'Yosemite Valley',
           'active': True, 'department': 'Wilderness'},
@@ -98,7 +128,9 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                         'space_blanket': 'on', 'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
                         'days_of_food': '3.5', 'weapon': 'None', 'radio_monitor_time': '800-2000',
                         'off_trail_travel': False, 'cell_number': '555-132-4567', 'satellite_number': '555-987-6543',
-                        'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat nam at lectus urna duis convallis convallis. Eget mi proin sed libero enim. Sem integer vitae justo eget. Et netus et malesuada fames ac turpis egestas maecenas. Arcu vitae elementum curabitur vitae nunc sed. Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Id porta nibh venenatis cras sed. At varius vel pharetra vel turpis nunc. Id donec ultrices tincidunt arcu non. Nullam non nisi est sit amet. Elementum curabitur vitae nunc sed. Sodales ut etiam sit amet nisl purus in mollis nunc.', 'notes': 'Nope!',
+                        'gar_avg': '18.5', 'mitigated_gar': '15',
+                        'gar_mitigations': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Erat nam at lectus urna duis convallis convallis. Eget mi proin sed libero enim. Sem integer vitae justo eget. Et netus et malesuada fames ac turpis egestas maecenas. Arcu vitae elementum curabitur vitae nunc sed. Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Id porta nibh venenatis cras sed. At varius vel pharetra vel turpis nunc. Id donec ultrices tincidunt arcu non. Nullam non nisi est sit amet. Elementum curabitur vitae nunc sed. Sodales ut etiam sit amet nisl purus in mollis nunc.',
+                        'notes': 'Nope!',
                         'files': ['travel_file.pdf', 'travel_file_1.jpg']
                         },
              'traveler_units': [['Doe, Jane', 'Wild 2', 'Red', 'Green', 'Green', 1, 2, 3, 4, 5, 6, 7, 8, 36],
@@ -120,6 +152,40 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
              'files': [{'name': 'Doe_Jane_20190809.pdf'}, {'name': 'Doe_Jane_20190809_1.jpg'}]
              },
             ]
+
+_travels_w_nones = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH',
+                                'end_date': '2019-08-11', 'exit_point': 'Ten Lakes TH',
+                                'tracked': True, 'plb': None, 'trip_leader_name': 'Rabbit, Roger',
+                                'car_plate': None, 'car_make': None, 'car_model': None, 'car_color': None,
+                                'car_location': None,
+                                'bivy_gear': 'on', 'compass': 'on', 'first_aid_kit': 'on', 'flagging': 'on',
+                                'flare': 'on',
+                                'flashlight': 'on',
+                                'gps': 'on', 'head_lamp': 'on', 'helmet': 'on', 'ice_axe': 'on', 'map': 'on',
+                                'matches': 'on',
+                                'probe_pole': 'on', 'radio': 'on', 'rope': 'on', 'shovel': 'on', 'signal_mirror': 'on',
+                                'space_blanket': 'on', 'spare_battery': 'on', 'tent': 'on', 'whistle': 'on',
+                                'days_of_food': '3.5', 'weapon': None, 'radio_monitor_time': None,
+                                'off_trail_travel': False, 'cell_number': None, 'satellite_number': None,
+                                'gar_avg': '18.5', 'mitigated_gar': '15', 'gar_mitigations': None, 'notes': None,
+                                'files': None
+                                },
+                     'traveler_units': [['Doe, Jane', None, None, None, None, 1, 2, 3, 4, 5, 6, 7, 8, 36],
+                                        ],
+                     'day_plans': [
+                         {'date': '2019-08-09', 'starting_point': 'May Lake TH', 'ending_point': 'May Lake HSC',
+                          'route': 'The trail', 'mode': 'foot'},
+                         {'date': '2019-08-10', 'starting_point': 'May Lake HSC', 'ending_point': 'Ten Lakes Basin',
+                          'route': 'Still the trail', 'mode': 'foot'},
+                         {'date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH',
+                          'route': 'More trail', 'mode': 'foot'},
+                         ],
+                     'contacts': [{'name': 'Doe, Jane', 'email': None, 'work_number': None,
+                                   'home_number': None, 'cell_number': None},
+                                  ],
+                     'files': []
+                     },
+                    ]
 
 
 @pytest.fixture(scope='session')
@@ -187,6 +253,11 @@ def form_data():
 
 
 @pytest.fixture()
+def form_data_w_nons():
+    yield _form_data_w_nones.copy()
+
+
+@pytest.fixture()
 def cars():
     yield _cars
 
@@ -208,18 +279,24 @@ def locations():
 
 @pytest.fixture()
 def travels(app_w_db):
-    yield _make_travels()
+    yield _make_travels(_travels)
+
+
+@pytest.fixture()
+def travels_w_nones(app_w_db):
+    yield _make_travels(_travels_w_nones)
 
 
 @pytest.fixture()
 def users():
     yield _users
 
+
 @pytest.fixture()
 def travel_object(app_w_db):
     from travel_plan.travel.travel_services import create_plan, get_travel_by_id
 
-    _travel = _make_travels()[0]
+    _travel = _make_travels(_travels)[0]
     t = _travel['travel']
     traveler_units = _travel['traveler_units']
     day_plans = _travel['day_plans']
@@ -227,12 +304,15 @@ def travel_object(app_w_db):
     files = _travel['files']
 
     id = create_plan(t['start_date'], t['entry_point'], t['end_date'], t['exit_point'],
-                     t['tracked'], t['plb'], t['trip_leader_name'], traveler_units, day_plans, 
+                     t['tracked'], t['plb'], t['trip_leader_name'], traveler_units, day_plans,
                      t['car_plate'], t['car_make'], t['car_model'], t['car_color'], t['car_location'],
-                     t['bivy_gear']=='on', t['compass']=='on', t['first_aid_kit']=='on', t['flagging']=='on', t['flare']=='on',
-                     t['flashlight']=='on', t['gps']=='on', t['head_lamp']=='on', t['helmet']=='on', t['ice_axe']=='on', t['map']=='on',
-                     t['matches']=='on', t['probe_pole']=='on', t['radio']=='on', t['rope']=='on', t['shovel']=='on', t['signal_mirror']=='on',
-                     t['space_blanket']=='on', t['spare_battery']=='on', t['tent']=='on', t['whistle']=='on',
+                     t['bivy_gear'] == 'on', t['compass'] == 'on', t['first_aid_kit'] == 'on', t['flagging'] == 'on',
+                     t['flare'] == 'on',
+                     t['flashlight'] == 'on', t['gps'] == 'on', t['head_lamp'] == 'on', t['helmet'] == 'on',
+                     t['ice_axe'] == 'on', t['map'] == 'on',
+                     t['matches'] == 'on', t['probe_pole'] == 'on', t['radio'] == 'on', t['rope'] == 'on',
+                     t['shovel'] == 'on', t['signal_mirror'] == 'on',
+                     t['space_blanket'] == 'on', t['spare_battery'] == 'on', t['tent'] == 'on', t['whistle'] == 'on',
                      t['days_of_food'], t['weapon'], t['radio_monitor_time'], t['off_trail_travel'],
                      t['cell_number'], t['satellite_number'], contacts,
                      t['gar_avg'], t['mitigated_gar'], t['gar_mitigations'], t['notes'], files)
@@ -242,7 +322,37 @@ def travel_object(app_w_db):
     yield travel
 
 
-def _make_travels():
+@pytest.fixture()
+def travel_object_w_nones(app_w_db):
+    from travel_plan.travel.travel_services import create_plan, get_travel_by_id
+
+    _travel = _make_travels(_travels_w_nones)[0]
+    t = _travel['travel']
+    traveler_units = _travel['traveler_units']
+    day_plans = _travel['day_plans']
+    contacts = _travel['contacts']
+    files = _travel['files']
+
+    id = create_plan(t['start_date'], t['entry_point'], t['end_date'], t['exit_point'],
+                     t['tracked'], t['plb'], t['trip_leader_name'], traveler_units, day_plans,
+                     t['car_plate'], t['car_make'], t['car_model'], t['car_color'], t['car_location'],
+                     t['bivy_gear'] == 'on', t['compass'] == 'on', t['first_aid_kit'] == 'on', t['flagging'] == 'on',
+                     t['flare'] == 'on',
+                     t['flashlight'] == 'on', t['gps'] == 'on', t['head_lamp'] == 'on', t['helmet'] == 'on',
+                     t['ice_axe'] == 'on', t['map'] == 'on',
+                     t['matches'] == 'on', t['probe_pole'] == 'on', t['radio'] == 'on', t['rope'] == 'on',
+                     t['shovel'] == 'on', t['signal_mirror'] == 'on',
+                     t['space_blanket'] == 'on', t['spare_battery'] == 'on', t['tent'] == 'on', t['whistle'] == 'on',
+                     t['days_of_food'], t['weapon'], t['radio_monitor_time'], t['off_trail_travel'],
+                     t['cell_number'], t['satellite_number'], contacts,
+                     t['gar_avg'], t['mitigated_gar'], t['gar_mitigations'], t['notes'], files)
+
+    travel = get_travel_by_id(id)
+
+    yield travel
+
+
+def _make_travels(_travels):
     """
     convert a list of dicts to a list of TravelUserUnits
     and a list of dicts into a list of TravelDays

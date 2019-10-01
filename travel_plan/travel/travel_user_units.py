@@ -42,12 +42,15 @@ class TravelUserUnit(db.Model):
 
         self.call_sign = call_sign
 
-        pack_color = color_services.add_if_not_present(pack_color)
-        self.pack_color_id = color_services.get_id_from_name(pack_color)
-        tent_color = color_services.add_if_not_present(tent_color)
-        self.tent_color_id = color_services.get_id_from_name(tent_color)
-        fly_color = color_services.add_if_not_present(fly_color)
-        self.fly_color_id = color_services.get_id_from_name(fly_color)
+        if pack_color:
+            pack_color = color_services.add_if_not_present(pack_color)
+            self.pack_color_id = color_services.get_id_from_name(pack_color)
+        if tent_color:
+            tent_color = color_services.add_if_not_present(tent_color)
+            self.tent_color_id = color_services.get_id_from_name(tent_color)
+        if fly_color:
+            fly_color = color_services.add_if_not_present(fly_color)
+            self.fly_color_id = color_services.get_id_from_name(fly_color)
 
         self.supervision = supervision
         self.planning = planning

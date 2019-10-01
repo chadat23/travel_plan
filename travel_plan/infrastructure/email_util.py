@@ -73,7 +73,10 @@ def _make_subject(travel: Travel) -> str:
 
     subject = 'Travel itinerary for : '
     for traveler in travel.travelers:
-        subject += traveler.call_sign + ', '
+        if traveler.call_sign:
+            subject += traveler.call_sign + ', '
+        else:
+            subject += traveler.traveler.name + ', '
 
     return subject[:-2]
 
@@ -90,7 +93,10 @@ def _make_body(travel: Travel) -> str:
     
     body = "Here's the travel itinerary for "
     for traveler in travel.travelers:
-        body += f"{traveler.traveler.name} ({traveler.call_sign}), "
+        if traveler.call_sign:
+            body += f"{traveler.traveler.name} ({traveler.call_sign}), "
+        else:
+            body += f"{traveler.traveler.name}, "
 
     body = body[:-2] + '.'
 
