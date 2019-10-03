@@ -12,7 +12,8 @@ def make_and_save_pdf(travel: Travel, name: str, path: str):
 
     :param travel: the travel object to be modeled as a PDF
     :type travel: Travel
-    :param name: the name that's to be used when saving the file
+    :param name: the name that's to be used when saving the file.
+    The file extension, ".pdf" does not need to be included.
     :type name: str
     :param path: the folder location where the file's to be saved
     :type path: str
@@ -34,8 +35,8 @@ def _save_file(pdf: PDF, name: str, path: str) -> str:
     :type path: str
     :return: str
     """
-
-    name += '.pdf'
+    if name[:-4] != '.pdf':
+        name += '.pdf'
     working_directory = os.getcwd()
     try:
         os.chdir(path)
@@ -72,6 +73,12 @@ def _generate_pdf(travel: Travel) -> PDF:
 
     pdf.cell(10, 2, '', ln=1)
 
+    pdf.add_cell(49, 'Name:', 'L', 1, 0, 'C')
+    pdf.add_cell(35, 'Radio Call Sign:', 'L', 1, 0, 'C')
+    pdf.add_cell(35, 'Pack Color:', 'L', 1, 0, 'C')
+    pdf.add_cell(35, 'Tent Color:', 'L', 1, 0, 'C')
+    pdf.add_cell(35, 'Fly/Tarp Color:', 'L', 1, 1, 'C')
+
     # find the trip leader TravelUserUnit that's the trip leader and separate it from the other travelers
     for unit in travel.travelers:
         if unit.traveler.email == travel.trip_leader.email:
@@ -79,15 +86,7 @@ def _generate_pdf(travel: Travel) -> PDF:
             other_units = list(travel.travelers)
             other_units.remove(leader_unit)
             break
-
-    pdf.add_cell(49, 'Name:', 'L', 1, 0, 'C')
-    pdf.add_cell(35, 'Radio Call Sign:', 'L', 1, 0, 'C')
-    pdf.add_cell(35, 'Pack Color:', 'L', 1, 0, 'C')
-    pdf.add_cell(35, 'Tent Color:', 'L', 1, 0, 'C')
-    pdf.add_cell(35, 'Fly/Tarp Color:', 'L', 1, 1, 'C')
-
     _write_traveler(pdf, leader_unit)
-
     for unit in other_units:
         _write_traveler(pdf, unit)
 
@@ -115,79 +114,87 @@ def _generate_pdf(travel: Travel) -> PDF:
     pdf.add_cell(35, 'Location:', 'L', 1, 1, 'C')
 
     if travel.car:
-        pdf.add_cell(22, travel.car.plate, 'V', 1, 0, 'L')
-        pdf.add_cell(46, travel.car.make, 'V', 1, 0, 'L')
-        pdf.add_cell(46, travel.car.model, 'V', 1, 0, 'L')
-        pdf.add_cell(40, travel.car.color.name, 'V', 1, 0, 'L')
-        pdf.add_cell(35, travel.car_location, 'V', 1, 1, 'L')
+        plate = travel.car.plate
+        make = travel.car.make
+        model = travel.car.model
+        if travel.car.color:
+            color = travel.car.color.name
+        else:
+            color = ''
+        location = travel.car_location        
     else:
-        pdf.add_cell(22, '', 'V', 1, 0, 'L')
-        pdf.add_cell(46, '', 'V', 1, 0, 'L')
-        pdf.add_cell(46, '', 'V', 1, 0, 'L')
-        pdf.add_cell(40, '', 'V', 1, 0, 'L')
-        pdf.add_cell(35, '', 'V', 1, 1, 'L')
+        plate = ''
+        make = ''
+        model = ''
+        color = ''
+        location = ''
+    pdf.add_cell(22, travel.car.plate, 'V', 1, 0, 'L')
+    pdf.add_cell(46, travel.car.make, 'V', 1, 0, 'L')
+    pdf.add_cell(46, travel.car.model, 'V', 1, 0, 'L')
+    pdf.add_cell(40, travel.car.color.name, 'V', 1, 0, 'L')
+    pdf.add_cell(35, travel.car_location, 'V', 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
     y = pdf.get_y()
 
-    eq_ft_sz = 8
-    w1 = 7
-    w2 = 26
+    equip_font_size = 8
+    width1 = 7
+    width2 = 26
     pdf.add_cell(99, 'Equipment:', 'L', 1, 0, 'C')
     pdf.add_cell(30, 'Weapon:', 'L', 1, 0, 'C')
     pdf.add_cell(30, 'Days Worth of Food:', 'L', 1, 0, 'C')
     pdf.add_cell(30, 'Time You Monitor Radio:', 'L', 1, 1, 'C', font_size=7)
-    pdf.add_cell(w1, 'X' if travel.bivy_gear else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Bivy Gear', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.head_lamp else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Head Lamp', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.rope else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Rope', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.bivy_gear else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Bivy Gear', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.head_lamp else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Head Lamp', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.rope else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Rope', 'V', 0, 0, 'L')
     pdf.add_cell(30, travel.weapon, 'V', 1, 0, 'C')
     pdf.add_cell(30, str(travel.days_of_food), 'V', 1, 0, 'C')
     pdf.add_cell(30, travel.radio_monitor_time, 'V', 1, 1, 'C')
-    pdf.add_cell(w1, 'X' if travel.compass else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Compas', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.helmet else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Helmet', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.shovel else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Shovel', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.compass else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Compas', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.helmet else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Helmet', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.shovel else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Shovel', 'V', 0, 0, 'L')
     pdf.add_cell(30, 'Off-Trail Map Included?:', 'L', 1, 0, 'C', font_size=7)
     pdf.add_cell(30, 'Cell Phone #:', 'L', 1, 0, 'C')
     pdf.add_cell(30, 'Satellite Phone #:', 'L', 1, 1, 'C', font_size=9)
-    pdf.add_cell(w1, 'X' if travel.first_aid_kit else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'First Aid Kit', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.ice_axe else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Ice Axe', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.signal_mirror else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Signal Mirror', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.first_aid_kit else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'First Aid Kit', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.ice_axe else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Ice Axe', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.signal_mirror else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Signal Mirror', 'V', 0, 0, 'L')
     pdf.add_cell(30, 'Yes' if travel.off_trail_travel else 'No', 'V', 1, 0, 'C')
     pdf.add_cell(30, travel.cell_number, 'V', 1, 0, 'C')
     pdf.add_cell(30, travel.satellite_number, 'V', 1, 1, 'C')
-    pdf.add_cell(w1, 'X' if travel.flagging else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Flagging', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.map else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Map', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.space_blanket else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Space Blanket', 'V', 0, 1, 'L')
-    pdf.add_cell(w1, 'X' if travel.flare else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Flare', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.matches else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Matches', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.spare_battery else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Spare Battery', 'V', 0, 1, 'L')
-    pdf.add_cell(w1, 'X' if travel.flashlight else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Flashlight', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.probe_pole else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Probe Pole', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.tent else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Tent', 'V', 0, 1, 'L')
-    pdf.add_cell(w1, 'X' if travel.gps else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'GPS', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.radio else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Radio', 'V', 0, 0, 'L')
-    pdf.add_cell(w1, 'X' if travel.whistle else '', 'V', 1, 0, 'L', font_size=eq_ft_sz)
-    pdf.add_cell(w2, 'Whistle', 'V', 0, 1, 'L')
+    pdf.add_cell(width1, 'X' if travel.flagging else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Flagging', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.map else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Map', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.space_blanket else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Space Blanket', 'V', 0, 1, 'L')
+    pdf.add_cell(width1, 'X' if travel.flare else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Flare', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.matches else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Matches', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.spare_battery else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Spare Battery', 'V', 0, 1, 'L')
+    pdf.add_cell(width1, 'X' if travel.flashlight else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Flashlight', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.probe_pole else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Probe Pole', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.tent else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Tent', 'V', 0, 1, 'L')
+    pdf.add_cell(width1, 'X' if travel.gps else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'GPS', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.radio else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Radio', 'V', 0, 0, 'L')
+    pdf.add_cell(width1, 'X' if travel.whistle else '', 'V', 1, 0, 'L', font_size=equip_font_size)
+    pdf.add_cell(width2, 'Whistle', 'V', 0, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
 
@@ -206,6 +213,8 @@ def _generate_pdf(travel: Travel) -> PDF:
 
     pdf.cell(10, 2, '', ln=1)
 
+    # This draws the boxes that the GAR labels will be put in.
+    # Without this, boxes are draws at the same angle as the labels.
     x = pdf.get_x()
     y = pdf.get_y()
     gar_width = 15
@@ -264,15 +273,11 @@ def _generate_pdf(travel: Travel) -> PDF:
     else:
         mitigations = ''
     pdf.multi_cell(95, 4, mitigations, 1, 'L', 0)
-    # else:
-    #     pdf.multi_cell(95, 4, '', 1, 'L', 0)
     if travel.notes:
         notes = travel.notes
     else:
         notes = ''
     pdf.multi_cell(94, 4, notes, 1, 'L', 0)
-    # else:
-    #     pdf.multi_cell(94, 4, '', 1, 'L', 0)
 
     return pdf
 
@@ -290,7 +295,10 @@ def _write_traveler(pdf: PDF, unit):
         pdf.add_cell(49, unit.traveler.name, 'V', 1, 0, 'L')
     else:
         pdf.add_cell(49, '', 'V', 1, 0, 'L')
-    pdf.add_cell(35, unit.call_sign, 'V', 1, 0, 'L')
+    if unit.call_sign:
+        pdf.add_cell(35, unit.call_sign, 'V', 1, 0, 'L')
+    else:
+        pdf.add_cell(35, '', 'V', 1, 0, 'L')
     if unit.pack_color:
         pdf.add_cell(35, unit.pack_color.name, 'V', 1, 0, 'L')
     else:
