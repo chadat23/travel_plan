@@ -30,6 +30,32 @@ location_association_table = sa.Table('location_alias_association', db.Model.met
 
 
 class Location(db.Model):
+    '''
+    An object representing a named location.
+
+    Since some geographic locations have multiple names, or are 
+    sufficiently close to be all but geographically
+    indistinguishable, multiple Locations may refer to the same
+    geogrphic location. Aliasses are used to track and account
+    for this.
+
+    :param name: the name of the location
+    :type name: str
+    :param latitude: the latitude of the location
+    :type name: float
+    :param longitude: the longitude of the location
+    :type name: float
+    :param kind: what the location is: lake, river, peak, 
+    trailhead, campground, etc.
+    :type kind: KindEnum
+    :param note: Any notes deemed relevant for the location.
+    :type note: str
+    :param is_in_park: whether or not the location is in the park
+    True for yes, False for no
+    :type is_in_park: bool
+    :param aliases: other Locations that go by the same name
+    :type aliases: int
+    '''
     __tablename__ = 'locations'
 
     id = db.Column(db.Integer, primary_key=True)
