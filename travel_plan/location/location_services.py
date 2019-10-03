@@ -42,18 +42,46 @@ def get_id_from_name(name: str) -> int:
         return []
 
 
-def add_location(name: str, latitude: float, longitude: float, kind: KindEnum = KindEnum.Other,
-                 note: str = "", is_in_park: bool = True) -> Optional[Location]:
+def add_location(name: str, latitude: float = None, longitude: float = None, kind: KindEnum = None,
+                 note: str = None, is_in_park: bool = None) -> Optional[Location]:
     '''
     Creates a location with the supplied properties and saves it.
+
+    :param name: the name of the location
+    :type name: str
+    :param latitude: the latitude of the location
+    :type name: float
+    :param longitude: the longitude of the location
+    :type name: float
+    :param kind: what the location is: lake, river, peak, 
+    trailhead, campground, etc.
+    :type kind: KindEnum
+    :param note: Any notes deemed relevant for the location.
+    :type note: str
+    :param is_in_park: whether or not the location is in the park
+    True for yes, False for no
+    :type is_in_park: bool
+    :return: the location if it was created, None if for whatever
+    reason it wasn't
+    :rtype: Optional[Location]
     '''
 
-    location = Location(name, latitude, longitude, kind, note, is_in_park)
-    db.session.add(location)
-    db.session.commit()
-
-    return location
+    try:
+        location = Location(name, latitude, longitude, kind, note, is_in_park)
+        db.session.add(location)
+        db.session.commit()
+        return location
+    except:
+        return None
 
 
 def get_location_from_name(name: str) -> Optional[Location]:
+    '''
+    Gets the Location who's name matches the supplied name.
+
+    :param name: the name of the Location that's to be retrieved
+    :type name: str
+    :return: the location with the matching name
+    :rtype: Location if one's found, otherwise None
+    '''
     return db.session.query(Location).filter(Location.name == name).first()

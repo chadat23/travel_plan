@@ -128,11 +128,11 @@ def _generate_pdf(travel: Travel) -> PDF:
         model = ''
         color = ''
         location = ''
-    pdf.add_cell(22, travel.car.plate, 'V', 1, 0, 'L')
-    pdf.add_cell(46, travel.car.make, 'V', 1, 0, 'L')
-    pdf.add_cell(46, travel.car.model, 'V', 1, 0, 'L')
-    pdf.add_cell(40, travel.car.color.name, 'V', 1, 0, 'L')
-    pdf.add_cell(35, travel.car_location, 'V', 1, 1, 'L')
+    pdf.add_cell(22, plate, 'V', 1, 0, 'L')
+    pdf.add_cell(46, make, 'V', 1, 0, 'L')
+    pdf.add_cell(46, model, 'V', 1, 0, 'L')
+    pdf.add_cell(40, color, 'V', 1, 0, 'L')
+    pdf.add_cell(35, location, 'V', 1, 1, 'L')
 
     pdf.cell(10, 2, '', ln=1)
     y = pdf.get_y()
