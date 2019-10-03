@@ -7,7 +7,6 @@ from PIL import ImageFont
 class PDF(fpdf.FPDF):
     """
     A PDF, inherited from fpdf2 fpdf.FPDF
-
     :param orientation: the orientation of the page
     :type orientation: str
     :param unit: the unit of measure of the page cells
@@ -29,14 +28,12 @@ class PDF(fpdf.FPDF):
         self.amber = (255, 191, 0)
         self.red = (255, 100, 100)
 
-    def add_cell(self, w: int, txt: str = '', roll: str = 'V', wrap: bool = False,
+    def add_cell(self, w: int, txt: str = '', roll: str = 'V', 
                  border: int = 0, ln: int = 0, align: str = '', fill: int = 0, link: str = '',
                  font_size: int = None, height: int = 0):
         """
         Fits and formats the text to the cell that it's supposed to fit into.
-
         View fpdf2's cell method for additional info on how to use various parameters.
-
         :param w: width of the cell in mm.
         :type w: int
         :param txt: the string that is to be put in the cell
@@ -67,47 +64,19 @@ class PDF(fpdf.FPDF):
         if not height:
             height = self.height
 
+        if font_size:
+            _font_size = font_size
+
         if roll.strip().lower() == 'l':
-            _font_size = 8
             _font_style = 'B'
             self.set_fill_color(*self.gray)
             fill = 1
-        elif roll.strip().lower() == 'v':
-            _font_size = 5
+            if not font_size:
+                _font_size = 8
+        elif roll.strip().lower() == 'v':            
             _font_style = ''
-
-            if wrap:
-                final_message = ''
-                n_lines = 0
-                broken = False                
-                for size in range(10, 1, -1):
-                    words = txt.split(' ')
-                    font = ImageFont.truetype('arial.ttf', size)                    
-                    passed_words = 0
-                    for_ran = False
-                    for i in range(2, len(words)):
-                        chunk = ' '.join(words[passed_words:i])
-                        dims = font.getsize(chunk)
-                        if dims[0]/75*25.4 < w - 2:      
-                            pass
-                        else:
-                            n_lines += 1
-                            chunk = ' '.join(words[passed_words:i - 1])
-                            final_message += chunk + ' \n'
-                            passed_words = i - 1
-                        for_ran = True
-                    if not for_ran:
-                        final_message = txt
-                        dims = font.getsize(txt)
-
-                    if dims[1]/75*25.4 > height:
-                        pass
-                    else:
-                        self.multi_cell()
-                        _font_size = size
-                        txt = final_message
-                        break
-            else:
+            if not font_size:
+                _font_size = 5
                 for size in range(10, 5, -1):
                     font = ImageFont.truetype('arial.ttf', size)
                     width = font.getsize(txt)[0]/75*25.4
@@ -115,9 +84,9 @@ class PDF(fpdf.FPDF):
                         _font_size = size
                         break
 
-        if font_size:
-            _font_size = font_size
+        
 
         self.set_font('Arial', _font_style, size=_font_size)
 
         self.cell(w, height, txt, border, ln, align, fill, link)
+        
