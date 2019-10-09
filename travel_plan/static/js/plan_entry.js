@@ -100,3 +100,57 @@ $('[name="mitigatedgar"]').blur(function() {
     else if (value < gar_red) {$("[name='mitigatedgar']").addClass('gar-amber')}
     else {$("[name='mitigatedgar']").addClass('gar-red')}
     });
+
+function autofill_contact_info(index) {
+    $.getJSON($SCRIPT_ROOT + '/traveler/get-responsible-party-info', {
+        name: $('[name="contactname' + index + '"]').val()
+    }, function(data) {
+        $('[name="contactemail' + index + '"]').val(data.email);
+        $('[name="contactwork' + index + '"]').val(data.work_number);
+        $('[name="contacthome' + index + '"]').val(data.home_number);
+        $('[name="contactcell' + index + '"]').val(data.cell_number);
+    });
+    return false;
+    }
+
+$('[name="contactname0"]').blur(function() {
+    autofill_contact_info('0')
+    });  
+
+
+$('[name="contactname1"]').blur(function() {
+    autofill_contact_info('1')
+    });
+
+
+$('[name="carplate"]').blur(function() {
+    $.getJSON($SCRIPT_ROOT + '/vehicle/get-vehicle-info', {
+        plate: $('[name="carplate"]').val()
+    }, function(data) {
+        console.log('going')
+        $('[name="carplate"]').val(data.plate);
+        $('[name="carmake"]').val(data.make);
+        $('[name="carmodel"]').val(data.model);
+        $('[name="carcolor"]').val(data.color);
+    });
+    return false;
+    });
+
+function autofill_travelerunit_info(index) {
+    $.getJSON($SCRIPT_ROOT + '/travel/get-travelunit-info', {
+        name: $('[name="travelername' + index + '"]').val()
+    }, function(data) {
+        $('[name="callsign' + index + '"]').val(data.callsign);
+        $('[name="packcolor' + index + '"]').val(data.work_number);
+        $('[name="tentcolor' + index + '"]').val(data.home_number);
+        $('[name="flycolor' + index + '"]').val(data.cell_number);
+    });
+    return false;
+    }
+
+$('[name="travelername0"]').blur(function() {
+    autofill_contact_info('0')
+    });
+
+
+

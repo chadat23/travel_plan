@@ -133,15 +133,23 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
         return []
 
 
+def get_latest_travelunit_by_name(name: str) -> Optional[TravelUserUnit]:
+    try:
+        a = db.session.query(Travel.travelers).filter(Travel.travelers.name==name)
+        return a
+    except Exception as a:
+        print(a)
+
+
 def _verify_contact(contact: User) -> User:
     existing_contact = user_services.get_user_from_name(contact.name)
     if not existing_contact:
         contact.active = False
         return user_services.create_user(user=contact)
-    # if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \
-    #         existing_contact.cell_number != contact.cell_number:
-    #     return user_services.update_user(existing_contact.id, existing_contact.active, work_number=contact.work_number,
-    #                                      home_number=contact.home_number, cell_number=contact.cell_number)
+    if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \
+            existing_contact.cell_number != contact.cell_number:
+        return user_services.update_user(existing_contact.id, existing_contact.active, work_number=contact.work_number,
+                                         home_number=contact.home_number, cell_number=contact.cell_number)
     return existing_contact
 
 

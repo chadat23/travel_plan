@@ -2,6 +2,7 @@ import datetime
 
 from travel_plan import db
 from travel_plan.user import user_services
+from travel_plan.user.users import User
 from travel_plan.color import color_services
 
 
@@ -13,6 +14,7 @@ class TravelUserUnit(db.Model):
 
     travel_id: int = db.Column(db.Integer, db.ForeignKey('travels.id'))
     user_id: int = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user: User = db.relationship('User', foreign_keys=[user_id])
 
     call_sign: str = db.Column(db.String)
 

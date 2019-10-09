@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, redirect, url_for
+from flask import Blueprint, current_app, jsonify, redirect, request, url_for
 
 from travel_plan.infrastructure import file_util, pdf_util, email_util
 from travel_plan.travel.travel_days import TravelDay
@@ -102,3 +102,13 @@ def add_traveler():
 @response(template_file='travel/search.html')
 def search():
     return {}
+
+
+@blueprint.route('/travel/get-travelunit-info', methods=['GET'])
+def get_responsible_party_info():
+    print('starting')
+    name = request.args.get('name', None, type=str)
+    travelunit = travel_services.get_latest_travelunit_by_name(name)
+    print(user)
+    return jsonify(name=user.name, email=user.email, 
+                   home_number=user.home_number, work_number=user.work_number, cell_number=user.cell_number)

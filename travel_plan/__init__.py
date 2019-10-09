@@ -37,9 +37,13 @@ def create_app(config_class=Config):
     from travel_plan.user.users import User
     db.create_all()
 
+    from travel_plan.car import car_routes
     from travel_plan.index import index_routes
     from travel_plan.travel import travel_routes
+    from travel_plan.user import user_routes
+    app.register_blueprint(car_routes.blueprint)
     app.register_blueprint(index_routes.blueprint)
     app.register_blueprint(travel_routes.blueprint)
+    app.register_blueprint(user_routes.blueprint)
 
     return app

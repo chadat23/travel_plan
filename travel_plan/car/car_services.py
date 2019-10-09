@@ -28,10 +28,24 @@ def get_id_from_plate(plate: str):
     
     :param plate: the plate of a car
     :type plate: str
-    :returns: the id of a car with the given plate or none if no matching car was found
+    :returns: the id of a car with the given plate or None if no matching car was found
     """
     try:
         return db.session.query(Car.id).filter(Car.plate == plate).first()[0]
+    except Exception as e:
+        return None
+
+
+def get_car_from_plate(plate: str):
+    """
+    Gets the car with a given plate
+    
+    :param plate: the plate of a car
+    :type plate: str
+    :returns: the car with the given plate or None if no matching car was found
+    """
+    try:
+        return db.session.query(Car).filter(Car.plate == plate).first()
     except Exception as e:
         return None
 

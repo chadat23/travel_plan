@@ -420,4 +420,7 @@
 
 {% block additional_js %}
 <script src="{{ url_for('static', filename='js/plan_entry.js') }}"></script>
+<script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
 {% endblock %}
