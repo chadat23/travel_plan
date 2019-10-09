@@ -138,10 +138,10 @@ def _verify_contact(contact: User) -> User:
     if not existing_contact:
         contact.active = False
         return user_services.create_user(user=contact)
-    if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \
-            existing_contact.cell_number != contact.cell_number:
-        return user_services.update_user(existing_contact.id, existing_contact.active, work_number=contact.work_number,
-                                         home_number=contact.home_number, cell_number=contact.cell_number)
+    # if existing_contact.work_number != contact.work_number or existing_contact.home_number != contact.home_number or \
+    #         existing_contact.cell_number != contact.cell_number:
+    #     return user_services.update_user(existing_contact.id, existing_contact.active, work_number=contact.work_number,
+    #                                      home_number=contact.home_number, cell_number=contact.cell_number)
     return existing_contact
 
 

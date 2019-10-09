@@ -33,7 +33,9 @@ class PDF(fpdf.FPDF):
                  font_size: int = None, height: int = 0):
         """
         Fits and formats the text to the cell that it's supposed to fit into.
+
         View fpdf2's cell method for additional info on how to use various parameters.
+        
         :param w: width of the cell in mm.
         :type w: int
         :param txt: the string that is to be put in the cell
@@ -83,8 +85,6 @@ class PDF(fpdf.FPDF):
                     if width < w - 2:
                         _font_size = size
                         break
-
-        
 
         self.set_font('Arial', _font_style, size=_font_size)
 
