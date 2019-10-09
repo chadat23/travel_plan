@@ -110,6 +110,8 @@ def test_user_services_update_user_success(app_w_db, users):
     assert isinstance(actual_user, User)
     assert actual_user.name == name
     assert actual_user.email == email
+    assert actual_user.work_number == work
+    assert actual_user.home_number == home
     assert actual_user.cell_number == cell
     assert not actual_user.active
 
@@ -118,5 +120,7 @@ def test_user_services_update_user_success(app_w_db, users):
     assert isinstance(actual_user, User)
     assert actual_user.name == name
     assert actual_user.email == email
+    assert actual_user.work_number == work
+    assert actual_user.home_number == home
     assert actual_user.cell_number == cell
     assert not actual_user.active
