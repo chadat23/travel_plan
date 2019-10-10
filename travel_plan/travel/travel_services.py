@@ -135,10 +135,13 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
 
 def get_latest_travelunit_by_name(name: str) -> Optional[TravelUserUnit]:
     try:
-        a = db.session.query(Travel.travelers).filter(Travel.travelers.name==name)
-        return a
-    except Exception as a:
-        print(a)
+        return db.session.query(TravelUserUnit).join(User).filter(User.name==name).order_by(TravelUserUnit.created_date.desc()).first()
+        # TODO: get this working so it's the most recent travel no the most recent traveluserunit
+        # a = db.session.query(Travel).join(TravelUserUnit).join(User).filter(User.name==name).order_by(TravelUserUnit.created_date.desc()).first()
+        # print('a', a)
+        # return(a)
+    except Exception as e:
+        print('error', e)
 
 
 def _verify_contact(contact: User) -> User:

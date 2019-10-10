@@ -140,16 +140,28 @@ function autofill_travelerunit_info(index) {
     $.getJSON($SCRIPT_ROOT + '/travel/get-travelunit-info', {
         name: $('[name="travelername' + index + '"]').val()
     }, function(data) {
-        $('[name="callsign' + index + '"]').val(data.callsign);
-        $('[name="packcolor' + index + '"]').val(data.work_number);
-        $('[name="tentcolor' + index + '"]').val(data.home_number);
-        $('[name="flycolor' + index + '"]').val(data.cell_number);
+        $('[name="callsign' + index + '"]').val(data.call_sign);
+        $('[name="packcolor' + index + '"]').val(data.pack_color);
+        $('[name="tentcolor' + index + '"]').val(data.tent_color);
+        $('[name="flycolor' + index + '"]').val(data.fly_color);
     });
     return false;
     }
 
 $('[name="travelername0"]').blur(function() {
-    autofill_contact_info('0')
+    autofill_travelerunit_info('0')
+    });
+
+$('[name="travelername1"]').blur(function() {
+    autofill_travelerunit_info('1')
+    });
+
+$('[name="travelername2"]').blur(function() {
+    autofill_travelerunit_info('2')
+    });
+
+$('[name="travelername3"]').blur(function() {
+    autofill_travelerunit_info('3')
     });
 
 

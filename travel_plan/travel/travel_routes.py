@@ -109,6 +109,21 @@ def get_responsible_party_info():
     print('starting')
     name = request.args.get('name', None, type=str)
     travelunit = travel_services.get_latest_travelunit_by_name(name)
-    print(user)
-    return jsonify(name=user.name, email=user.email, 
-                   home_number=user.home_number, work_number=user.work_number, cell_number=user.cell_number)
+    if travelunit.call_sign:
+        call_sign = travelunit.call_sign
+    else:
+        call_sign = ''
+    if travelunit.pack_color:
+        pack_color = travelunit.pack_color.name
+    else:
+        pack_color = ''
+    if travelunit.tent_color:
+        tent_color = travelunit.tent_color.name
+    else:
+        tent_color = ''
+    if travelunit.fly_color:
+        fly_color = travelunit.fly_color.name
+    else:
+        fly_color = ''
+    print('stuff', call_sign, pack_color, tent_color, fly_color)
+    return jsonify(call_sign=call_sign, pack_color=pack_color, tent_color=tent_color, fly_color=fly_color)
