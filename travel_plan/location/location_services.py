@@ -27,7 +27,7 @@ def get_names() -> List[str]:
         return []
 
 
-def get_id_from_name(name: str) -> int:
+def get_id_by_name(name: str) -> int:
     '''
     Gets the id of a location who's name is supplied.
 
@@ -75,7 +75,7 @@ def add_location(name: str, latitude: float = None, longitude: float = None, kin
         return None
 
 
-def get_location_from_name(name: str) -> Optional[Location]:
+def get_location_by_name(name: str) -> Optional[Location]:
     '''
     Gets the Location who's name matches the supplied name.
 

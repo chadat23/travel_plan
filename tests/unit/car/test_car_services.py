@@ -7,11 +7,11 @@ def test_car_services_get_names(app_w_db, cars):
         assert c['plate'] in n
 
 
-def test_car_services_get_id_from_plate(app_w_db, cars):
+def test_car_services_get_id_by_plate(app_w_db, cars):
     from travel_plan.car import car_services
 
     for i, car in enumerate(cars):
-        id = car_services.get_id_from_plate(car['plate'])
+        id = car_services.get_id_by_plate(car['plate'])
         assert id == i + 1
 
 
@@ -45,7 +45,7 @@ def test_car_services_create_car(app_w_db, cars):
 
     car = car_services.get_car(id=car.id)
 
-    assert car_services.get_id_from_plate(plate) == len(cars) + 1
+    assert car_services.get_id_by_plate(plate) == len(cars) + 1
     assert isinstance(car, Car)
     assert car.plate == plate
     assert car.make == make
@@ -72,7 +72,7 @@ def test_car_services_create_car_w_nones(app_w_db, cars):
 
     car = car_services.get_car(id=car.id)
 
-    assert car_services.get_id_from_plate(plate) == len(cars) + 1
+    assert car_services.get_id_by_plate(plate) == len(cars) + 1
     assert isinstance(car, Car)
     assert car.plate == plate
     assert car.make == None

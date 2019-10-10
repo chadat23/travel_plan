@@ -41,7 +41,7 @@ class TravelUserUnit(db.Model):
                  team_selection: int, fitness: int, env: int, complexity: int,
                  total: int):
 
-        self.traveler = user_services.get_user_from_name(traveler_name)
+        self.traveler = user_services.get_user_by_name(traveler_name)
         if not self.traveler:
             self.traveler = user_services.create_user(traveler_name, active=False)
 
@@ -49,13 +49,13 @@ class TravelUserUnit(db.Model):
 
         if pack_color:
             pack_color = color_services.add_if_not_present(pack_color)
-            self.pack_color_id = color_services.get_id_from_name(pack_color)
+            self.pack_color_id = color_services.get_id_by_name(pack_color)
         if tent_color:
             tent_color = color_services.add_if_not_present(tent_color)
-            self.tent_color_id = color_services.get_id_from_name(tent_color)
+            self.tent_color_id = color_services.get_id_by_name(tent_color)
         if fly_color:
             fly_color = color_services.add_if_not_present(fly_color)
-            self.fly_color_id = color_services.get_id_from_name(fly_color)
+            self.fly_color_id = color_services.get_id_by_name(fly_color)
 
         self.supervision = supervision
         self.planning = planning

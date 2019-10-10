@@ -22,7 +22,7 @@ def get_names() -> List[str]:
         return []
 
 
-def get_id_from_plate(plate: str):
+def get_id_by_plate(plate: str):
     """
     Gets the id of a car with a given plate
     
@@ -36,7 +36,7 @@ def get_id_from_plate(plate: str):
         return None
 
 
-def get_car_from_plate(plate: str):
+def get_car_by_plate(plate: str):
     """
     Gets the car with a given plate
     

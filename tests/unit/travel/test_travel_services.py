@@ -9,12 +9,12 @@ def test_travel_services_create_plan_success(app_w_empty_db, travels):
 
     m = Mock()
     m.side_effect = [1, 2, 2, 3, 3, 1]
-    target = 'travel_plan.location.location_services.get_id_from_name'
+    target = 'travel_plan.location.location_services.get_id_by_name'
     get_location_id = unittest.mock.patch(target, return_value=m())
     m.side_effect = [1, 2, 2, 3, 3, 1]
-    target = 'travel_plan.car.car_services.get_id_from_plate'
+    target = 'travel_plan.car.car_services.get_id_by_plate'
     get_car_id = unittest.mock.patch(target, return_value=m())
-    target = 'travel_plan.user.user_services.get_id_from_name'
+    target = 'travel_plan.user.user_services.get_id_by_name'
     get_user_id = unittest.mock.patch(target, return_value=1)
 
     with get_location_id, get_car_id, get_user_id:
@@ -71,12 +71,12 @@ def test_travel_services_create_plan_success_w_nones(app_w_empty_db, travels_w_n
 
     m = Mock()
     m.side_effect = [1, 2, 2, 3, 3, 1]
-    target = 'travel_plan.location.location_services.get_id_from_name'
+    target = 'travel_plan.location.location_services.get_id_by_name'
     get_location_id = unittest.mock.patch(target, return_value=m())
     m.side_effect = [1, 2, 2, 3, 3, 1]
-    target = 'travel_plan.car.car_services.get_id_from_plate'
+    target = 'travel_plan.car.car_services.get_id_by_plate'
     get_car_id = unittest.mock.patch(target, return_value=m())
-    target = 'travel_plan.user.user_services.get_id_from_name'
+    target = 'travel_plan.user.user_services.get_id_by_name'
     get_user_id = unittest.mock.patch(target, return_value=1)
 
     with get_location_id, get_car_id, get_user_id:

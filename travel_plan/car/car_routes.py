@@ -9,7 +9,7 @@ blueprint = Blueprint('car', __name__, template_folder='templates')
 def get_responsible_party_info():
     plate = request.args.get('plate', None, type=str)
     plate = plate.split(' ')[0]
-    car = car_services.get_car_from_plate(plate)
+    car = car_services.get_car_by_plate(plate)
     if car:
         if car.color:
             color = car.color.name

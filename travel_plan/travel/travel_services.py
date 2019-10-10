@@ -49,15 +49,15 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
                 notes: str, files: List[TravelFile]
                 ) -> int:
     if car_plate:
-        car_id = car_services.get_id_from_plate(car_plate.split(' ')[0])
+        car_id = car_services.get_id_by_plate(car_plate.split(' ')[0])
         if not car_id:
             car_id = car_services.create_car(car_plate, car_make, car_model, car_color, car_location, False).id
     else:
         car_id = None
 
-    entry_point_id = location_services.get_id_from_name(entry_point)
-    exit_point_id = location_services.get_id_from_name(exit_point)
-    trip_leader_id = user_services.get_id_from_name(trip_leader_name)
+    entry_point_id = location_services.get_id_by_name(entry_point)
+    exit_point_id = location_services.get_id_by_name(exit_point)
+    trip_leader_id = user_services.get_id_by_name(trip_leader_name)
 
     travel = Travel(start_date=datetime.strptime(start_date, '%Y-%m-%d'), entry_point_id=entry_point_id,
                     end_date=datetime.strptime(end_date, '%Y-%m-%d'), exit_point_id=exit_point_id,
@@ -146,7 +146,7 @@ def get_latest_travelunit_by_name(name: str) -> Optional[TravelUserUnit]:
 
 
 def _verify_contact(contact: User) -> User:
-    existing_contact = user_services.get_user_from_name(contact.name)
+    existing_contact = user_services.get_user_by_name(contact.name)
     if not existing_contact:
         contact.active = False
         return user_services.create_user(user=contact)
