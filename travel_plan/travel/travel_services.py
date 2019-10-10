@@ -113,20 +113,20 @@ def create_plan(start_date: str, entry_point: str, end_date: str, exit_point: st
 
 def get_travel_by_id(travel_id: int) -> Optional[Travel]:
     try:
-        a = db.session.query(Travel).options(joinedload(Travel.entry_point)).\
-            options(joinedload(Travel.car).joinedload(Car.color)).\
-            options(joinedload(Travel.travelers)).\
-            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.traveler)).\
-            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.pack_color)).\
-            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.tent_color)).\
-            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.fly_color)).\
-            options(joinedload(Travel.trip_leader)).\
-            options(joinedload(Travel.entry_point)).\
-            options(joinedload(Travel.exit_point)).\
-            options(joinedload(Travel.travel_days).joinedload(TravelDay.starting_point)).\
-            options(joinedload(Travel.travel_days).joinedload(TravelDay.ending_point)).\
-            options(joinedload(Travel.contacts)).\
-            options(joinedload(Travel.files)).\
+        a = db.session.query(Travel).options(joinedload(Travel.entry_point)). \
+            options(joinedload(Travel.car).joinedload(Car.color)). \
+            options(joinedload(Travel.travelers)). \
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.user)). \
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.pack_color)). \
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.tent_color)). \
+            options(joinedload(Travel.travelers).joinedload(TravelUserUnit.fly_color)). \
+            options(joinedload(Travel.trip_leader)). \
+            options(joinedload(Travel.entry_point)). \
+            options(joinedload(Travel.exit_point)). \
+            options(joinedload(Travel.travel_days).joinedload(TravelDay.starting_point)). \
+            options(joinedload(Travel.travel_days).joinedload(TravelDay.ending_point)). \
+            options(joinedload(Travel.contacts)). \
+            options(joinedload(Travel.files)). \
             filter(Travel.id == travel_id).first()
         return a
     except:
@@ -135,7 +135,8 @@ def get_travel_by_id(travel_id: int) -> Optional[Travel]:
 
 def get_latest_travelunit_by_name(name: str) -> Optional[TravelUserUnit]:
     try:
-        return db.session.query(TravelUserUnit).join(User).filter(User.name==name).order_by(TravelUserUnit.created_date.desc()).first()
+        return db.session.query(TravelUserUnit).join(User).filter(User.name == name). \
+            order_by(TravelUserUnit.created_date.desc()).first()
         # TODO: get this working so it's the most recent travel no the most recent traveluserunit
         # a = db.session.query(Travel).join(TravelUserUnit).join(User).filter(User.name==name).order_by(TravelUserUnit.created_date.desc()).first()
         # print('a', a)
