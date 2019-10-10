@@ -7,7 +7,6 @@ blueprint = Blueprint('traveler', __name__, template_folder='templates')
 
 @blueprint.route('/traveler/get-responsible-party-info', methods=['GET'])
 def get_responsible_party_info():
-    print('starting')
     name = request.args.get('name', None, type=str)
     user = user_services.get_user_from_name(name)
     if user:

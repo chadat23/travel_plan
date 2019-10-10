@@ -106,7 +106,6 @@ def search():
 
 @blueprint.route('/travel/get-travelunit-info', methods=['GET'])
 def get_responsible_party_info():
-    print('starting')
     name = request.args.get('name', None, type=str)
     travelunit = travel_services.get_latest_travelunit_from_name(name)
     if travelunit.call_sign:

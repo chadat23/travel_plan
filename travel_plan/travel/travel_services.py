@@ -164,12 +164,12 @@ def get_lat_long_frequencies() -> Dict[tuple, int]:
     location_name_frequencies = {}
 
     for travel in travels:
-        location_name_frequencies = __add_location(travel.start0, location_name_frequencies)
-        location_name_frequencies = __add_location(travel.start1, location_name_frequencies)
-        location_name_frequencies = __add_location(travel.start2, location_name_frequencies)
-        location_name_frequencies = __add_location(travel.end0, location_name_frequencies)
-        location_name_frequencies = __add_location(travel.end1, location_name_frequencies)
-        location_name_frequencies = __add_location(travel.end2, location_name_frequencies)
+        location_name_frequencies = _add_location(travel.start0, location_name_frequencies)
+        location_name_frequencies = _add_location(travel.start1, location_name_frequencies)
+        location_name_frequencies = _add_location(travel.start2, location_name_frequencies)
+        location_name_frequencies = _add_location(travel.end0, location_name_frequencies)
+        location_name_frequencies = _add_location(travel.end1, location_name_frequencies)
+        location_name_frequencies = _add_location(travel.end2, location_name_frequencies)
 
     location_coord_frequencies = {}
     loc = {loc.name: loc for loc in location_services.get_all()}
@@ -181,7 +181,7 @@ def get_lat_long_frequencies() -> Dict[tuple, int]:
 
 
 # def __add_point(travel: Travel, points) -> Dict[str: List[float, float]]:
-def __add_location(point: str, points):
+def _add_location(point: str, points):
     if point in points:
         points[point] = points[point] + 1
         return points
