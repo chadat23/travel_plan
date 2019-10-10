@@ -177,11 +177,12 @@ class TravelEntryViewModel(ViewModelBase):
 
         # Validate that logical traveler/gar fields make sense
         for t in self.travelers:
-            if t['traveler_name']:
-                for k, v in t.items():
-                    if 'color' not in k and not v:
-                        self.error = "All fields must be filled in for each traveler and each accompanying GAR score."
-                        return
+            if not t['traveler_name']:
+                continue
+            for k, v in t.items():
+                if 'color' not in k and not v:
+                    self.error = "All fields must be filled in for each traveler and each accompanying GAR score."
+                    return
 
     def _validate_dates(self):
         if self.end_date < self.start_date:
@@ -201,3 +202,6 @@ class TravelEntryViewModel(ViewModelBase):
     def _validate_contacts(self):
         if len(set([c['contact_name'] for c in self.contacts])) != len(self.contacts):
             self.error = "Duplicate responsible parties are not allowed. They all must be novel."
+
+        if [c for c in self.contacts if not (c['contact_name'] and c['contact_email'])]:
+            self.error = "Each Responsible Party must have a name and email."
