@@ -52,20 +52,20 @@ def test_user_services_get_user_from_name_success(app_w_db, users):
     assert actual_user.cell_number == expected_user['cell_number']
 
 
-def test_user_services_get_user_from_email_success(app_w_db, users):
-    from travel_plan.user.users import User
-    from travel_plan.user import user_services
-
-    number = 3
-
-    expected_user = users[number]
-
-    actual_user = user_services.get_user_from_email(expected_user['email'])
-
-    assert isinstance(actual_user, User)
-    assert actual_user.name == expected_user['name']
-    assert actual_user.email == expected_user['email']
-    assert actual_user.cell_number == expected_user['cell_number']
+# def test_user_services_get_user_from_email_success(app_w_db, users):
+#     from travel_plan.user.users import User
+#     from travel_plan.user import user_services
+#
+#     number = 3
+#
+#     expected_user = users[number]
+#
+#     actual_user = user_services.get_user_from_email(expected_user['email'])
+#
+#     assert isinstance(actual_user, User)
+#     assert actual_user.name == expected_user['name']
+#     assert actual_user.email == expected_user['email']
+#     assert actual_user.cell_number == expected_user['cell_number']
 
 
 def test_user_services_create_user_success(app_w_db, users):

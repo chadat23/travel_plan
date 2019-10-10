@@ -33,15 +33,16 @@ def get_user_from_name(name: str) -> Optional[User]:
         return None
 
 
-def get_user_from_email(email: str) -> Optional[User]:
-    try:
-        return db.session.query(User).filter(User.email == email).first()
-    except:
-        return None
+# def get_user_from_email(email: str) -> Optional[User]:
+#     try:
+#         return db.session.query(User).filter(User.email == email).first()
+#     except:
+#         return None
 
 
-def create_user(name: str = '', email: str = '',
-                work_number: str = None, home_number: str = None, cell_number: str = None, department: str = None, active: bool = None,
+def create_user(name: str = '', email: str = None,
+                work_number: str = None, home_number: str = None, cell_number: str = None,
+                department: str = None, active: bool = None,
                 user: User = None) -> Optional[User]:
     if not user:
         user = User(name, email, work_number, home_number, cell_number, department, active)

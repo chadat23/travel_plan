@@ -81,7 +81,7 @@ def _generate_pdf(travel: Travel) -> PDF:
 
     # find the trip leader TravelUserUnit that's the trip leader and separate it from the other travelers
     for unit in travel.travelers:
-        if unit.traveler.email == travel.trip_leader.email:
+        if unit.traveler.name == travel.trip_leader.name:
             leader_unit = unit
             other_units = list(travel.travelers)
             other_units.remove(leader_unit)

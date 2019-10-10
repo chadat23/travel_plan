@@ -14,7 +14,7 @@ class User(db.Model):
     created_date = db.Column(db.DateTime, default=datetime.datetime.now, index=True)
 
     name = db.Column(db.String, nullable=False, unique=True)
-    email = db.Column(db.String, index=True, unique=True, nullable=True)
+    email = db.Column(db.String, unique=True)
     department_id: int = db.Column(db.String, db.ForeignKey('departments.id'))
     department: Department = db.relationship('Department', foreign_keys=[department_id])
 

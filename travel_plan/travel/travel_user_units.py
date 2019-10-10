@@ -40,7 +40,10 @@ class TravelUserUnit(db.Model):
                  supervision: int, planning: int, contingency: int, comms: int,
                  team_selection: int, fitness: int, env: int, complexity: int,
                  total: int):
+
         self.traveler = user_services.get_user_from_name(traveler_name)
+        if not self.traveler:
+            self.traveler = user_services.create_user(traveler_name, active=False)
 
         self.call_sign = call_sign
 

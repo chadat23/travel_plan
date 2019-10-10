@@ -90,7 +90,7 @@ class TravelEntryViewModel(ViewModelBase):
         self.contacts = []
         for i in range(2):
             c = {}
-            if 'contactemail' + str(i) in request.form:
+            if 'contactname' + str(i) in request.form:
                 c['contact_name'] = request.form['contactname' + str(i)]
                 c['contact_email'] = request.form['contactemail' + str(i)]
                 c['contact_work'] = request.form['contactwork' + str(i)]
