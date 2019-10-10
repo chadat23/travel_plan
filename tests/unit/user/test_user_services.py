@@ -24,19 +24,19 @@ def test_user_services_get_names_success(app_w_db, users):
     assert actual_names == expected_names
 
 
-def test_user_services_get_id_by_name_success(app_w_db, users):
+def test_user_services_get_id_from_name_success(app_w_db, users):
     from travel_plan.user import user_services
 
     number = 3
 
     expected_name = users[number]['name']
 
-    actual_id = user_services.get_id_by_name(expected_name)
+    actual_id = user_services.get_id_from_name(expected_name)
 
     assert actual_id == number + 1
 
 
-def test_user_services_get_user_by_name_success(app_w_db, users):
+def test_user_services_get_user_from_name_success(app_w_db, users):
     from travel_plan.user.users import User
     from travel_plan.user import user_services
 
@@ -44,7 +44,7 @@ def test_user_services_get_user_by_name_success(app_w_db, users):
 
     expected_user = users[number]
 
-    actual_user = user_services.get_user_by_name(expected_user['name'])
+    actual_user = user_services.get_user_from_name(expected_user['name'])
 
     assert isinstance(actual_user, User)
     assert actual_user.name == expected_user['name']
@@ -52,7 +52,7 @@ def test_user_services_get_user_by_name_success(app_w_db, users):
     assert actual_user.cell_number == expected_user['cell_number']
 
 
-# def test_user_services_get_user_by_email_success(app_w_db, users):
+# def test_user_services_get_user_from_email_success(app_w_db, users):
 #     from travel_plan.user.users import User
 #     from travel_plan.user import user_services
 #
@@ -60,7 +60,7 @@ def test_user_services_get_user_by_name_success(app_w_db, users):
 #
 #     expected_user = users[number]
 #
-#     actual_user = user_services.get_user_by_email(expected_user['email'])
+#     actual_user = user_services.get_user_from_email(expected_user['email'])
 #
 #     assert isinstance(actual_user, User)
 #     assert actual_user.name == expected_user['name']
@@ -94,7 +94,7 @@ def test_user_services_update_user_success(app_w_db, users):
     from travel_plan.user import user_services
 
     number = 2
-    retreaved_user = user_services.get_user_by_name(users[number]['name'])
+    retreaved_user = user_services.get_user_from_name(users[number]['name'])
 
     name = 'Bob'
     email = 'bob@email.com'
@@ -115,7 +115,7 @@ def test_user_services_update_user_success(app_w_db, users):
     assert actual_user.cell_number == cell
     assert not actual_user.active
 
-    actual_user = user_services.get_user_by_name(actual_user.name)
+    actual_user = user_services.get_user_from_name(actual_user.name)
 
     assert isinstance(actual_user, User)
     assert actual_user.name == name

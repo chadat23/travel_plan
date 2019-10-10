@@ -19,21 +19,21 @@ def get_names() -> List[str]:
         return []
 
 
-def get_id_by_name(name: str) -> Optional[int]:
+def get_id_from_name(name: str) -> Optional[int]:
     try:
         return db.session.query(User).filter(User.name == name).first().id
     except:
         return None
 
 
-def get_user_by_name(name: str) -> Optional[User]:
+def get_user_from_name(name: str) -> Optional[User]:
     try:
         return db.session.query(User).filter(User.name == name).first()
     except:
         return None
 
 
-# def get_user_by_email(email: str) -> Optional[User]:
+# def get_user_from_email(email: str) -> Optional[User]:
 #     try:
 #         return db.session.query(User).filter(User.email == email).first()
 #     except:

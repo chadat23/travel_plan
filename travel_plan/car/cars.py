@@ -28,10 +28,10 @@ class Car(db.Model):
         self.make = make
         self.model = model
         color = color_services.add_if_not_present(color)
-        self.color_id = color_services.get_id_by_name(color)
+        self.color_id = color_services.get_id_from_name(color)
         self.location = location
         self.active = active
-        self.department_id = department_services.get_id_by_name(department) if department else None
+        self.department_id = department_services.get_id_from_name(department) if department else None
 
     def __lt__(self, other):
         return str(self) < str(other)

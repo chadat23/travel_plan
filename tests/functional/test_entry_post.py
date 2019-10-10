@@ -6,7 +6,7 @@ from flask import Response
 from travel_plan.travel import travel_services
 
 
-def test_get_travel_by_id(app_w_db, form_data):
+def test_get_travel_from_id(app_w_db, form_data):
     from travel_plan.travel.travel_routes import entry_post
 
     target = 'travel_plan.infrastructure.file_util.save_files_with_name'
@@ -15,13 +15,13 @@ def test_get_travel_by_id(app_w_db, form_data):
     pdf_stuff = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.infrastructure.email_util.email_travel'
     emailer = unittest.mock.patch(target, return_value=[])
-    target = 'travel_plan.services.color_services.get_id_by_name'
+    target = 'travel_plan.services.color_services.get_id_from_name'
     test_color = unittest.mock.patch(target, return_value=3)
     with app_w_db.test_request_context(path='/travel/entry', data=form_data):
         with saver, pdf_stuff, emailer:
             resp: Response = entry_post()
 
-    travel = travel_services.get_travel_by_id(1)
+    travel = travel_services.get_travel_from_id(1)
 
     assert travel.start_date == datetime.datetime.strptime(form_data['startdate'], '%Y-%m-%d').date()
     assert travel.entry_point.name == form_data['entrypoint']
@@ -50,7 +50,7 @@ def test_get_travel_by_id(app_w_db, form_data):
         assert c.home_number == form_data['contacthome' + str(i)]
 
 
-def test_get_travel_by_id_w_nones(app_w_db, form_data_w_nones):
+def test_get_travel_from_id_w_nones(app_w_db, form_data_w_nones):
     from travel_plan.travel.travel_routes import entry_post
 
     target = 'travel_plan.infrastructure.file_util.save_files_with_name'
@@ -59,13 +59,13 @@ def test_get_travel_by_id_w_nones(app_w_db, form_data_w_nones):
     pdf_stuff = unittest.mock.patch(target, return_value=[])
     target = 'travel_plan.infrastructure.email_util.email_travel'
     emailer = unittest.mock.patch(target, return_value=[])
-    target = 'travel_plan.services.color_services.get_id_by_name'
+    target = 'travel_plan.services.color_services.get_id_from_name'
     test_color = unittest.mock.patch(target, return_value=3)
     with app_w_db.test_request_context(path='/travel/entry', data=form_data_w_nones):
         with saver, pdf_stuff, emailer:
             resp: Response = entry_post()
 
-    travel = travel_services.get_travel_by_id(1)
+    travel = travel_services.get_travel_from_id(1)
 
     assert travel.start_date == datetime.datetime.strptime(form_data_w_nones['startdate'], '%Y-%m-%d').date()
     assert travel.entry_point.name == form_data_w_nones['entrypoint']

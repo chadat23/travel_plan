@@ -292,7 +292,7 @@ def users():
 
 @pytest.fixture()
 def travel_object(app_w_db):
-    from travel_plan.travel.travel_services import create_plan, get_travel_by_id
+    from travel_plan.travel.travel_services import create_plan, get_travel_from_id
 
     _travel = _make_travels(_travels)[0]
     t = _travel['travel']
@@ -315,14 +315,14 @@ def travel_object(app_w_db):
                      t['cell_number'], t['satellite_number'], contacts,
                      t['gar_avg'], t['mitigated_gar'], t['gar_mitigations'], t['notes'], files)
 
-    travel = get_travel_by_id(id)
+    travel = get_travel_from_id(id)
 
     yield travel
 
 
 @pytest.fixture()
 def travel_object_w_nones(app_w_db):
-    from travel_plan.travel.travel_services import create_plan, get_travel_by_id
+    from travel_plan.travel.travel_services import create_plan, get_travel_from_id
 
     _travel = _make_travels(_travels_w_nones)[0]
     t = _travel['travel']
@@ -345,7 +345,7 @@ def travel_object_w_nones(app_w_db):
                      t['cell_number'], t['satellite_number'], contacts,
                      t['gar_avg'], t['mitigated_gar'], t['gar_mitigations'], t['notes'], files)
 
-    travel = get_travel_by_id(id)
+    travel = get_travel_from_id(id)
 
     yield travel
 

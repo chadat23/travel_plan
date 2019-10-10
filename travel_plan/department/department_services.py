@@ -4,7 +4,7 @@ from travel_plan import db
 from travel_plan.department.departments import Department
 
 
-def get_id_by_name(name: str) -> Optional[int]:
+def get_id_from_name(name: str) -> Optional[int]:
     """
     Get the id of the Department who's name matches the supplied name.
 

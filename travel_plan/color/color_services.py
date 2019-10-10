@@ -73,7 +73,7 @@ def add_if_not_present(name: str) -> Optional[str]:
     return name.lower().strip().title()
 
 
-def get_id_by_name(name: str) -> Optional[int]:
+def get_id_from_name(name: str) -> Optional[int]:
     """
     Get the id of the color with the supplied name.
 

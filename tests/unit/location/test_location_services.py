@@ -19,10 +19,10 @@ def test_location_services_get_names_success(app_w_db, locations):
     assert expected_locations == actual_locacitons
 
 
-def test_location_services_get_id_by_name_success(app_w_db, locations):
+def test_location_services_get_id_from_name_success(app_w_db, locations):
     from travel_plan.location import location_services
 
-    actual_locaction = location_services.get_id_by_name(locations[1]['name'])
+    actual_locaction = location_services.get_id_from_name(locations[1]['name'])
 
     expected_location = 2
 
@@ -45,12 +45,12 @@ def test_location_services_add_location_returns_location(app_w_empty_db, locatio
     assert longitude == location.longitude
 
 
-def test_location_services_get_location_by_name_success(app_w_db, locations):
+def test_location_services_get_location_from_name_success(app_w_db, locations):
     from travel_plan.location.locations import Location
     from travel_plan.location import location_services
 
     for location in locations:
-        loc = location_services.get_location_by_name(location['name'])
+        loc = location_services.get_location_from_name(location['name'])
         assert isinstance(loc, Location)
         assert loc.name == location['name']
         assert loc.latitude == location['latitude']

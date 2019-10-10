@@ -35,7 +35,7 @@ class User(db.Model):
         self.home_number = home_number
         self.cell_number = cell_number
         self.active = active
-        department_id = department_services.get_id_by_name(department)
+        department_id = department_services.get_id_from_name(department)
         self.department_id = department_id
 
     def __lt__(self, other):

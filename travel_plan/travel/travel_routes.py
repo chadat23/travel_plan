@@ -75,7 +75,7 @@ def entry_post():
                                             vm.notes, travel_files
                                             )
 
-    travel = travel_services.get_travel_by_id(travel_id)
+    travel = travel_services.get_travel_from_id(travel_id)
 
     pdf_util.make_and_save_pdf(travel, base_name, current_app.config['PDF_FOLDER_PATH'])
 
@@ -108,7 +108,7 @@ def search():
 def get_responsible_party_info():
     print('starting')
     name = request.args.get('name', None, type=str)
-    travelunit = travel_services.get_latest_travelunit_by_name(name)
+    travelunit = travel_services.get_latest_travelunit_from_name(name)
     if travelunit.call_sign:
         call_sign = travelunit.call_sign
     else:

@@ -22,7 +22,7 @@ def get_names() -> List[str]:
         return []
 
 
-def get_id_by_plate(plate: str):
+def get_id_from_plate(plate: str):
     """
     Gets the id of a car with a given plate
     
@@ -36,7 +36,7 @@ def get_id_by_plate(plate: str):
         return None
 
 
-def get_car_by_plate(plate: str):
+def get_car_from_plate(plate: str):
     """
     Gets the car with a given plate
     
@@ -101,7 +101,7 @@ def get_car(id: int = 0, plate: str = '') -> Optional[Car]:
     Gets a Car object given an id or plate.
     
     The intention is to provide the id OR the plate but not both.
-    This avoids needing a "get_car_by_id" and "get_car_by_plate" functions.
+    This avoids needing a "get_car_from_id" and "get_car_from_plate" functions.
     
     :param id: the id of a Car object that's to be retrieved
     :type id: int
