@@ -20,7 +20,7 @@ class Config:
     PDF_FOLDER_PATH = "<example/folder/path/to/file/save/location>"
 
     SECRET_KEY = '<24? character security key>'
-    SQLALCHEMY_DB_PREFIX = '<sqlite:///>'
+    SQLALCHEMY_DB_PREFIX = 'sqlite:///'
     DB_FOLDER_PATH = "<example/folder/path/to/db/location>"
-    DB_FILE_NAME = "<site.db>"
+    DB_FILE_NAME = "site.db"
     SQLALCHEMY_DATABASE_URI = _make_uri(SQLALCHEMY_DB_PREFIX, DB_FOLDER_PATH, DB_FILE_NAME)

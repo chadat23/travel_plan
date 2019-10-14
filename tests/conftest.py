@@ -73,15 +73,15 @@ _form_data_w_nones = {'startdate': '2019-06-18', 'entrypoint': 'May Lake TH',
 
 _departments = [{'name': 'Wilderness'}]
 
-_users = [{'name': 'Doe, Jane', 'email': 'chad.derosier+a@gmail.com', 'home_number': '555-123-1234',
+_users = [{'name': 'Doe, Jane', 'email': 'a@a.a', 'home_number': '555-123-1234',
            'work_number': '555-123-2345', 'cell_number': '555-123-3456', 'department': 'Wilderness', 'active': True},
-          {'name': 'Doe, John', 'email': 'chad.derosier+b@gmail.com', 'home_number': '555-234-1234',
+          {'name': 'Doe, John', 'email': 'b@b.b', 'home_number': '555-234-1234',
            'work_number': '555-234-2345', 'cell_number': '555-234-3456', 'department': 'Wilderness', 'active': True},
-          {'name': 'Vader, Darth', 'email': 'chad.derosier+c@gmail.com', 'home_number': '555-345-1234',
+          {'name': 'Vader, Darth', 'email': 'c@c.c', 'home_number': '555-345-1234',
            'work_number': '555-345-2345', 'cell_number': '555-345-3456', 'department': 'Wilderness', 'active': True},
-          {'name': 'Rabbit, Roger', 'email': 'chad.derosier+d@gmail.com', 'home_number': '555-456-1234',
+          {'name': 'Rabbit, Roger', 'email': 'd@d.d', 'home_number': '555-456-1234',
            'work_number': '555-456-2345', 'cell_number': '555-456-3456', 'department': 'Wilderness', 'active': True},
-          {'name': 'Balboa, Rocky', 'email': 'chad.derosier+e@gmail.com', 'home_number': '555-567-1234',
+          {'name': 'Balboa, Rocky', 'email': 'e@e.e', 'home_number': '555-567-1234',
            'work_number': '555-567-2345', 'cell_number': '555-567-3456', 'department': 'Wilderness', 'active': True},
           ]
 
@@ -144,9 +144,9 @@ _travels = [{'travel': {'start_date': '2019-08-09', 'entry_point': 'May Lake TH'
                            {'date': '2019-08-11', 'starting_point': 'Ten Lakes Basin', 'ending_point': 'May Lake TH',
                             'route': 'More trail', 'mode': 'foot'},
                            ],
-             'contacts': [{'name': 'Coworker 1', 'email': 'chad.derosier+f@gmail.com', 'work_number': '555-1234',
+             'contacts': [{'name': 'Coworker 1', 'email': 'f@f.f', 'work_number': '555-1234',
                            'home_number': '555-2345', 'cell_number': '555-3456'},
-                          {'name': 'Coworker 2', 'email': 'chad.derosier+g@gmail.com', 'work_number': '555-2234',
+                          {'name': 'Coworker 2', 'email': 'g@g.g', 'work_number': '555-2234',
                            'home_number': '555-3345', 'cell_number': '555-4456'}
                           ],
              'files': [{'name': 'Doe_Jane_20190809.pdf'}, {'name': 'Doe_Jane_20190809_1.jpg'}]

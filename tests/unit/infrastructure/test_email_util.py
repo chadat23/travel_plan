@@ -49,11 +49,11 @@ def test_email_util_make_contact_list(travel_object):
 
     result = email_util._make_contact_list(travel_object)
 
-    expected = ['chad.derosier+a@gmail.com',
-                'chad.derosier+c@gmail.com',
-                'chad.derosier+d@gmail.com',
-                'chad.derosier+f@gmail.com',
-                'chad.derosier+g@gmail.com']
+    expected = ['a@a.a',
+                'c@c.c',
+                'd@d.d',
+                'f@f.f',
+                'g@g.g']
 
     assert result == expected
 
@@ -63,7 +63,7 @@ def test_email_util_make_contact_list_w_nones(travel_object_w_nones):
 
     result = email_util._make_contact_list(travel_object_w_nones)
 
-    expected = ['chad.derosier+a@gmail.com', 'chad.derosier+a@gmail.com']
+    expected = ['a@a.a', 'a@a.a']
 
     assert result == expected
     
